@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Switcher from "@/app/components/Mode/Switcher";
 
 const links = [
   {
@@ -33,6 +34,7 @@ const Navbar = () => {
   return (
     <>
       <div className="bg-gray-800">
+        <Switcher />
         {links.map((link: any) => (
           <Link key={link.id} href={link.url}>
             {link.title}

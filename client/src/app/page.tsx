@@ -1,19 +1,13 @@
-"use client"
-import Image from 'next/image'
-import './globals.css'
-import {useState} from "react";
+"use client";
+import Image from "next/image";
+import "./globals.css";
+import { useState } from "react";
 import Switcher from "@/app/components/Mode/Switcher";
+
 export default function Home() {
-
-
   return (
     <main>
-        <div >
-<Switcher/>
-
-        </div>
-
-
+      <div>Home Page</div>
     </main>
-  )
+  );
 }
