@@ -1,3 +1,3 @@
 # restock
 
-Hey! Check [This](https://duckduckgo.com) Out.
+Hey! Check [This](https://restock-iota.vercel.app) Out.
