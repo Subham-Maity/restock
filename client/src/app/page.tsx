@@ -7,6 +7,7 @@ import Switcher from "@/app/components/Mode/Switcher";
 export default function Home() {
   return (
     <main>
+      <Switcher />
       <div>Home Page</div>
     </main>
   );
