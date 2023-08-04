@@ -426,7 +426,7 @@ export const HomeProductFilter = () => {
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95"
                 >
-                  <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md dark:bg-[#25293c] shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md dark:bg-[#25293c] shadow-xl dark:shadow-[#292045] shadow-[#f3f4f6] ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="py-1">
                       {sortOptions.map((option) => (
                         <Menu.Item key={option.name}>
@@ -499,7 +499,7 @@ export const HomeProductFilter = () => {
                       <>
                         <h3 className="-my-3 flow-root">
                           {/*Here it is*/}
-                          <Disclosure.Button className="flex w-full items-center justify-between py-3 text-sm text-black hover:text-gray-500 dark:text-white dark:hover:text-[#8669de]">
+                          <Disclosure.Button className="flex w-full items-center justify-between py-3 text-sm text-black hover:text-gray-500 dark:hover:bg-[#34384e] px-2 dark:text-white dark:hover:text-[#8669de]">
                             <span className="font-medium">
                               {section.name}
                             </span>
@@ -535,7 +535,7 @@ export const HomeProductFilter = () => {
                                 />
                                 <label
                                   htmlFor={`filter-${section.id}-${optionIdx}`}
-                                  className="ml-3 text-sm text-gray-600 dark:text-white dark:hover:text-[#8669de]"
+                                  className="ml-3 text-sm text-gray-600 dark:text-white dark:hover:text-[#8669de] "
                                 >
                                   {option.label}
                                 </label>
@@ -570,7 +570,7 @@ export const ProductList = () => {
             <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
               {products.map((product) => (
                 <a key={product.id} href={product.href} className="group">
-                  <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
+                  <div className="shadow-lg hover:dark:shadow-[#584592] aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
                     <img
                       src={product.imageSrc}
                       alt={product.imageAlt}
