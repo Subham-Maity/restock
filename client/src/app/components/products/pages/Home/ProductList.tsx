@@ -328,7 +328,7 @@ export const HomeProductFilter = () => {
                     >
                       {subCategories.map((category) => (
                         <li key={category.name}>
-                          <a href={category.href} className="block px-2 py-3">
+                          <a href={category.href} className="block px-2 py-3 dark:text-white">
                             {category.name}
                           </a>
                         </li>
@@ -339,13 +339,13 @@ export const HomeProductFilter = () => {
                       <Disclosure
                         as="div"
                         key={section.id}
-                        className="border-t border-gray-200 px-4 py-6"
+                        className="border-t border-gray-200 px-4 py-6 dark:dg-[#2f3349] dark:text-white"
                       >
                         {({ open }) => (
                           <>
                             <h3 className="-mx-2 -my-3 flow-root">
                               <Disclosure.Button className="flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500">
-                                <span className="font-medium text-gray-900">
+                                <span className="font-medium text-red-900">
                                   {section.name}
                                 </span>
                                 <span className="ml-6 flex items-center">
@@ -408,7 +408,7 @@ export const HomeProductFilter = () => {
             <div className="flex items-center">
               <Menu as="div" className="relative inline-block text-left">
                 <div>
-                  <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
+                  <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-white">
                     Sort
                     <ChevronDownIcon
                       className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
@@ -426,7 +426,7 @@ export const HomeProductFilter = () => {
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95"
                 >
-                  <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white dark:bg-[#2f3349] shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md dark:bg-[#25293c] shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="py-1">
                       {sortOptions.map((option) => (
                         <Menu.Item key={option.name}>
@@ -435,8 +435,8 @@ export const HomeProductFilter = () => {
                               href={option.href}
                               className={classNames(
                                 option.current
-                                  ? "font-medium text-gray-200"
-                                  : "text-gray-800",
+                                  ? "text-gray-800 dark:text-[#d9d8ff] dark:bg-[#25293c ] dark:hover:text-[#7f70ff] dark:hover:bg-[#343756]"
+                                  : "text-gray-800 dark:text-[#d9d8ff] dark:bg-[#25293c ] dark:hover:text-[#7f70ff] dark:hover:bg-[#343756]",
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm",
                               )}
@@ -476,7 +476,7 @@ export const HomeProductFilter = () => {
 
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
               {/* Filters */}
-              <form className="hidden lg:block">
+              <form className="hidden lg:block dark:bg-[#2f3349] rounded-2xl p-4">
                 <h3 className="sr-only">Categories</h3>
                 <ul
                   role="list"
@@ -484,7 +484,7 @@ export const HomeProductFilter = () => {
                 >
                   {subCategories.map((category) => (
                     <li key={category.name}>
-                      <a href={category.href}>{category.name}</a>
+                      <a href={category.href} className="dark:text-white">{category.name}</a>
                     </li>
                   ))}
                 </ul>
@@ -493,13 +493,14 @@ export const HomeProductFilter = () => {
                   <Disclosure
                     as="div"
                     key={section.id}
-                    className="border-b border-gray-200 py-6"
+                    className="border-b border-gray-200 py-6 dark:dg-[#2f3349] dark:text-white"
                   >
                     {({ open }) => (
                       <>
                         <h3 className="-my-3 flow-root">
-                          <Disclosure.Button className="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
-                            <span className="font-medium text-gray-900">
+                          {/*Here it is*/}
+                          <Disclosure.Button className="flex w-full items-center justify-between py-3 text-sm text-black hover:text-gray-500 dark:text-white dark:hover:text-[#8669de]">
+                            <span className="font-medium">
                               {section.name}
                             </span>
                             <span className="ml-6 flex items-center">
@@ -534,7 +535,7 @@ export const HomeProductFilter = () => {
                                 />
                                 <label
                                   htmlFor={`filter-${section.id}-${optionIdx}`}
-                                  className="ml-3 text-sm text-gray-600"
+                                  className="ml-3 text-sm text-gray-600 dark:text-white dark:hover:text-[#8669de]"
                                 >
                                   {option.label}
                                 </label>
