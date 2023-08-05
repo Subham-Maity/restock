@@ -2,8 +2,6 @@
 import React from "react";
 import { Fragment } from "react";
 
-import Switcher from "@/app/components/Mode/Switcher";
-
 import {
   Bars3Icon,
   BellIcon,
@@ -17,6 +15,7 @@ import { TbBrandSupabase } from "react-icons/tb";
 import { BsGpuCard } from "react-icons/bs";
 import Link from "next/link";
 import Image from "next/image";
+import Banner from "@/app/components/Navbar/Banner/Home/Banner";
 
 const user = {
   name: "Tom Cook",
@@ -74,10 +73,13 @@ function classNames(...classes: any[]) {
 const Navbar = () => {
   return (
     <div className="min-h-full">
-      <Disclosure as="nav" className="dark:bg-[#232333] bg-gray-800/30">
+      <Disclosure
+        as="nav"
+        className="dark:bg-[#232333] bg-gray-800/30 rounded-full"
+      >
         {({ open }) => (
           <>
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mt-4 mx-auto max-w-8xl px-4 sm:px-6 lg:px-12 py-2 sm:py-2 lg:py-2">
               <div className="flex h-16 items-center justify-between">
                 <div className="flex items-center">
                   <div className="flex space-x-2 mr-8">
@@ -251,14 +253,6 @@ const Navbar = () => {
           </>
         )}
       </Disclosure>
-
-      <header className="bg-white shadow">
-        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-            Video Hover <Switcher />
-          </h1>
-        </div>
-      </header>
     </div>
   );
 };

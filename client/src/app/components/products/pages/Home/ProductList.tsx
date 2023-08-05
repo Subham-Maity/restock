@@ -273,7 +273,7 @@ function classNames(...classes: any) {
 export const HomeProductFilter = () => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   return (
-    <div className="bg-gray-200 dark:bg-[#25293c]">
+    <div className="mt-4  ">
       <div>
         {/* Mobile filter dialog */}
         <Transition.Root show={mobileFiltersOpen} as={Fragment}>
@@ -342,7 +342,7 @@ export const HomeProductFilter = () => {
                       <Disclosure
                         as="div"
                         key={section.id}
-                        className="border-t border-gray-200 px-4 py-6 dark:dg-[#2f3349] dark:text-white "
+                        className="border-t border-gray-200 px-4 py-3 dark:dg-[#2f3349] dark:text-white "
                       >
                         {({ open }) => (
                           <>
@@ -403,7 +403,7 @@ export const HomeProductFilter = () => {
           </Dialog>
         </Transition.Root>
 
-        <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <main className=" mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
               New Arrivals
@@ -443,7 +443,7 @@ export const HomeProductFilter = () => {
                                   ? "dark:hover:bg-[#343756] hover:bg-[#f3f4f6] text-gray-800 dark:text-[#d9d8ff] dark:bg-[#25293c ] dark:hover:text-[#7f70ff] "
                                   : "dark:hover:bg-[#343756] hover:bg-[#f3f4f6] text-gray-800 dark:text-[#d9d8ff] dark:bg-[#25293c ] dark:hover:text-[#7f70ff] ",
                                 active ? "" : "",
-                                "block px-4 py-2 text-sm",
+                                "block px-4 py-2 text-sm"
                               )}
                             >
                               {option.name}
@@ -500,7 +500,7 @@ export const HomeProductFilter = () => {
                   <Disclosure
                     as="div"
                     key={section.id}
-                    className="border-b border-gray-200 py-6 dark:dg-[#2f3349] dark:text-white"
+                    className="border-b border-gray-200 py-3 dark:dg-[#2f3349] dark:text-white"
                   >
                     {({ open }) => (
                       <>
@@ -569,7 +569,7 @@ export const ProductList = () => {
     <div>
       <div>
         <div className="bg-gray-100 dark:bg-[#2f3349] rounded-2xl">
-          <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+          <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl  lg:px-8">
             <h2 className="sr-only">Products</h2>
 
             <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
