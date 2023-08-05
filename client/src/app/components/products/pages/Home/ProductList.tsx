@@ -437,8 +437,8 @@ export const HomeProductFilter = () => {
                               className={classNames(
                                   // Somthing is wrong here why we are using active?
                                 option.current
-                                  ? "dark:hover:bg-[#343756] text-gray-800 dark:text-[#d9d8ff] dark:bg-[#25293c ] dark:hover:text-[#7f70ff] "
-                                  : "dark:hover:bg-[#343756] text-gray-800 dark:text-[#d9d8ff] dark:bg-[#25293c ] dark:hover:text-[#7f70ff] ",
+                                  ? "dark:hover:bg-[#343756] hover:bg-[#f3f4f6] text-gray-800 dark:text-[#d9d8ff] dark:bg-[#25293c ] dark:hover:text-[#7f70ff] "
+                                  : "dark:hover:bg-[#343756] hover:bg-[#f3f4f6] text-gray-800 dark:text-[#d9d8ff] dark:bg-[#25293c ] dark:hover:text-[#7f70ff] ",
                                 active ? "" : "",
                                 "block px-4 py-2 text-sm",
                               )}
