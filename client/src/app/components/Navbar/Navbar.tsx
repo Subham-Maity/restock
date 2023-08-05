@@ -74,7 +74,7 @@ function classNames(...classes: any[]) {
 const Navbar = () => {
   return (
     <div className="min-h-full">
-      <Disclosure as="nav" className="dark:bg-[#232333] bg-gray-900/30">
+      <Disclosure as="nav" className="dark:bg-[#232333] bg-gray-800/30">
         {({ open }) => (
           <>
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -97,7 +97,7 @@ const Navbar = () => {
                           href={item.href}
                           className={classNames(
                             item.current
-                              ? "bg-gray-100 dark:bg-gray-900 text-white"
+                              ? "bg-gray-100 dark:bg-gray-500 text-white"
                               : "text-gray-300 dark:hover:bg-gray-700  hover:bg-gray-300",
                             "flex items-center rounded-2xl px-3 py-2 text-sm font-medium",
                           )}
@@ -116,7 +116,7 @@ const Navbar = () => {
                   <div className="ml-4 flex items-center md:ml-6">
                     <button
                       type="button"
-                      className="rounded-full bg-gray-800 p-1 text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                      className="rounded-full bg-gray-600 hover:bg-gray-400 p-1 text-white hover:text-black dark:bg-gray-700 dark:hover:text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                     >
                       <span className="sr-only">View notifications</span>
                       <ShoppingCartIcon
