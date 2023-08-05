@@ -273,7 +273,7 @@ function classNames(...classes: any) {
 export const HomeProductFilter = () => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   return (
-    <div className="bg-gray-100 dark:bg-[#25293c]">
+    <div className="bg-gray-200 dark:bg-[#25293c]">
       <div>
         {/* Mobile filter dialog */}
         <Transition.Root show={mobileFiltersOpen} as={Fragment}>
@@ -328,7 +328,10 @@ export const HomeProductFilter = () => {
                     >
                       {subCategories.map((category) => (
                         <li key={category.name}>
-                          <a href={category.href} className="block px-2 py-3 dark:text-white">
+                          <a
+                            href={category.href}
+                            className="block px-2 py-3 dark:text-white"
+                          >
                             {category.name}
                           </a>
                         </li>
@@ -435,7 +438,7 @@ export const HomeProductFilter = () => {
                             <a
                               href={option.href}
                               className={classNames(
-                                  // Somthing is wrong here why we are using active?
+                                // Somthing is wrong here why we are using active?
                                 option.current
                                   ? "dark:hover:bg-[#343756] hover:bg-[#f3f4f6] text-gray-800 dark:text-[#d9d8ff] dark:bg-[#25293c ] dark:hover:text-[#7f70ff] "
                                   : "dark:hover:bg-[#343756] hover:bg-[#f3f4f6] text-gray-800 dark:text-[#d9d8ff] dark:bg-[#25293c ] dark:hover:text-[#7f70ff] ",
@@ -478,7 +481,7 @@ export const HomeProductFilter = () => {
 
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
               {/* Filters */}
-              <form className="hidden lg:block dark:bg-[#2f3349] rounded-2xl p-4">
+              <form className="hidden lg:block bg-gray-100 dark:bg-[#2f3349] rounded-2xl p-4">
                 <h3 className="sr-only">Categories</h3>
                 <ul
                   role="list"
@@ -486,7 +489,9 @@ export const HomeProductFilter = () => {
                 >
                   {subCategories.map((category) => (
                     <li key={category.name}>
-                      <a href={category.href} className="dark:text-white">{category.name}</a>
+                      <a href={category.href} className="dark:text-white">
+                        {category.name}
+                      </a>
                     </li>
                   ))}
                 </ul>
@@ -502,9 +507,7 @@ export const HomeProductFilter = () => {
                         <h3 className="-my-3 flow-root">
                           {/*Here it is*/}
                           <Disclosure.Button className="flex w-full items-center justify-between py-3 text-sm text-black hover:text-gray-500 dark:hover:bg-[#34384e] px-2 dark:text-white dark:hover:text-[#8669de]">
-                            <span className="font-medium">
-                              {section.name}
-                            </span>
+                            <span className="font-medium">{section.name}</span>
                             <span className="ml-6 flex items-center">
                               {open ? (
                                 <MinusIcon
@@ -565,7 +568,7 @@ export const ProductList = () => {
   return (
     <div>
       <div>
-        <div className="bg-white dark:bg-[#2f3349] rounded-2xl">
+        <div className="bg-gray-100 dark:bg-[#2f3349] rounded-2xl">
           <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
             <h2 className="sr-only">Products</h2>
 
