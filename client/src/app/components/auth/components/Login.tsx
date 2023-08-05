@@ -1,6 +1,10 @@
+"use client";
 import React from "react";
+import { router } from "next/client";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
+  const router = useRouter();
   return (
     <div>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -77,12 +81,14 @@ const Login = () => {
 
           <p className="mt-10 text-center text-sm text-gray-500">
             Not a member?{" "}
-            <a
-              href="#"
+            <button
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+              onClick={() => {
+                router.push("/signup");
+              }}
             >
-              Start a 14 day free trial
-            </a>
+              Sign up now
+            </button>
           </p>
         </div>
       </div>
