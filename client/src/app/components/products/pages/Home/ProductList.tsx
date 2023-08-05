@@ -339,7 +339,7 @@ export const HomeProductFilter = () => {
                       <Disclosure
                         as="div"
                         key={section.id}
-                        className="border-t border-gray-200 px-4 py-6 dark:dg-[#2f3349] dark:text-white "
+                        className="border-t border-gray-200 px-4 py-3 dark:dg-[#2f3349] dark:text-white "
                       >
                         {({ open }) => (
                           <>
@@ -495,7 +495,7 @@ export const HomeProductFilter = () => {
                   <Disclosure
                     as="div"
                     key={section.id}
-                    className="border-b border-gray-200 py-6 dark:dg-[#2f3349] dark:text-white"
+                    className="border-b border-gray-200 py-3 dark:dg-[#2f3349] dark:text-white"
                   >
                     {({ open }) => (
                       <>
