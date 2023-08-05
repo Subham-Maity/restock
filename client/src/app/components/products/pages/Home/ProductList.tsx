@@ -427,7 +427,7 @@ export const HomeProductFilter = () => {
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95"
                 >
-                  <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md dark:bg-[#25293c] shadow-xl dark:shadow-[#292045] shadow-[#f3f4f6] ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md dark:bg-[#25293c] shadow-xl dark:shadow-[#292045] shadow-[#f3f4f6] ring-1 ring-black bg-white ring-opacity-5 focus:outline-none">
                     <div className="py-1">
                       {sortOptions.map((option) => (
                         <Menu.Item key={option.name}>
@@ -435,10 +435,11 @@ export const HomeProductFilter = () => {
                             <a
                               href={option.href}
                               className={classNames(
+                                  // Somthing is wrong here why we are using active?
                                 option.current
-                                  ? "text-gray-800 dark:text-[#d9d8ff] dark:bg-[#25293c ] dark:hover:text-[#7f70ff] dark:hover:bg-[#343756]"
-                                  : "text-gray-800 dark:text-[#d9d8ff] dark:bg-[#25293c ] dark:hover:text-[#7f70ff] dark:hover:bg-[#343756]",
-                                active ? "bg-gray-100" : "",
+                                  ? "dark:hover:bg-[#343756] text-gray-800 dark:text-[#d9d8ff] dark:bg-[#25293c ] dark:hover:text-[#7f70ff] "
+                                  : "dark:hover:bg-[#343756] text-gray-800 dark:text-[#d9d8ff] dark:bg-[#25293c ] dark:hover:text-[#7f70ff] ",
+                                active ? "" : "",
                                 "block px-4 py-2 text-sm",
                               )}
                             >
