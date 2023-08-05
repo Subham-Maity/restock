@@ -74,7 +74,7 @@ function classNames(...classes: any[]) {
 const Navbar = () => {
   return (
     <div className="min-h-full">
-      <Disclosure as="nav" className="dark:bg-[#232333] bg-gray-900/25">
+      <Disclosure as="nav" className="dark:bg-[#232333] bg-gray-900/30">
         {({ open }) => (
           <>
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -83,7 +83,7 @@ const Navbar = () => {
                   <div className="flex space-x-2 mr-8">
                     <Image
                       className="h-8 w-8"
-                      src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                      src="https://img.freepik.com/free-vector/modern-desktop-compute-concept-illustration_114360-12156.jpg"
                       alt="Your Company"
                       width={32}
                       height={32}
@@ -97,13 +97,13 @@ const Navbar = () => {
                           href={item.href}
                           className={classNames(
                             item.current
-                              ? "bg-gray-200 dark:bg-gray-900 text-white"
-                              : "text-gray-300 dark:hover:bg-gray-700  hover:bg-slate-700 hover:text-white",
+                              ? "bg-gray-100 dark:bg-gray-900 text-white"
+                              : "text-gray-300 dark:hover:bg-gray-700  hover:bg-gray-300",
                             "flex items-center rounded-2xl px-3 py-2 text-sm font-medium",
                           )}
                           aria-current={item.current ? "page" : undefined}
                         >
-                          <div className="dark:text-white flex space-x-1 text-black hover:text-white mr-2">
+                          <div className="dark:text-white flex space-x-1 text-black mr-2">
                             <span className="my-auto">{item.icon}</span>
                             <span>{item.name}</span>
                           </div>
@@ -116,7 +116,7 @@ const Navbar = () => {
                   <div className="ml-4 flex items-center md:ml-6">
                     <button
                       type="button"
-                      className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                      className="rounded-full bg-gray-800 p-1 text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                     >
                       <span className="sr-only">View notifications</span>
                       <ShoppingCartIcon
