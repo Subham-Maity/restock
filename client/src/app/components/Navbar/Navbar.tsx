@@ -16,6 +16,7 @@ import { BsGpuCard } from "react-icons/bs";
 import Link from "next/link";
 import Image from "next/image";
 import Banner from "@/app/components/Navbar/Banner/Home/Banner";
+import Switcher from "../Mode/Switcher";
 
 const user = {
   name: "Tom Cook",
@@ -163,10 +164,13 @@ const Navbar = () => {
                                   )}
                                 >
                                   {item.name}
+                                  
                                 </Link>
                               )}
+                              
                             </Menu.Item>
                           ))}
+                          <Switcher/>
                         </Menu.Items>
                       </Transition>
                     </Menu>
