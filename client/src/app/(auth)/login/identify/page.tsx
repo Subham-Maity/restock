@@ -1,28 +1,32 @@
 "use client";
 import React from "react";
 import { useRouter } from "next/navigation";
-import { useState } from 'react'
+import { useState } from "react";
+import Image from "next/image";
 
 const Page = () => {
-  const [email, setEmail] = useState('')
+  const [email, setEmail] = useState("");
 
-  const handleEmailChange = (event:any) => {
-    setEmail(event.target.value)
-  }
+  const handleEmailChange = (event: any) => {
+    setEmail(event.target.value);
+  };
 
-  const handleSubmit = (event:any) => {
-    event.preventDefault()}
-    
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+  };
+
   const router = useRouter();
   return (
     <div>
       <div>
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 md:w-[32rem] mx-3  md:mx-auto my-6 bg-gray-100 rounded-2xl dark:bg-slate-700">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-            <img
+            <Image
               className="mx-auto h-10 w-auto"
               src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
               alt="Your Company"
+              height={100}
+              width={100}
             />
             <h2 className="mt-10 text-center text-3xl font-bold leading-9 tracking-tight text-gray-900 dark:text-gray-200">
               Identify
@@ -33,7 +37,7 @@ const Page = () => {
             <form className="space-y-6" action="#" method="POST">
               <div>
                 <p className="mb-5  dark:text-gray-200">
-                  Enter the email address associated with your account and we'll
+                  Enter the email address associated with your account and well
                   send you a link to reset your password.
                 </p>
                 <label
