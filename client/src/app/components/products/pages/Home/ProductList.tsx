@@ -10,6 +10,7 @@ import {
   PlusIcon,
   Squares2X2Icon,
 } from "@heroicons/react/20/solid";
+import Image from "next/image";
 
 const products = [
   {
@@ -443,7 +444,7 @@ export const HomeProductFilter = () => {
                                   ? "dark:hover:bg-[#343756] hover:bg-[#f3f4f6] text-gray-800 dark:text-[#d9d8ff] dark:bg-[#25293c ] dark:hover:text-[#7f70ff] "
                                   : "dark:hover:bg-[#343756] hover:bg-[#f3f4f6] text-gray-800 dark:text-[#d9d8ff] dark:bg-[#25293c ] dark:hover:text-[#7f70ff] ",
                                 active ? "" : "",
-                                "block px-4 py-2 text-sm"
+                                "block px-4 py-2 text-sm",
                               )}
                             >
                               {option.name}
@@ -576,10 +577,12 @@ export const ProductList = () => {
               {products.map((product) => (
                 <a key={product.id} href={product.href} className="group">
                   <div className="shadow-lg hover:dark:shadow-[#584592] aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
-                    <img
+                    <Image
                       src={product.imageSrc}
                       alt={product.imageAlt}
                       className="h-full w-full object-cover object-center group-hover:opacity-75"
+                      width={300}
+                      height={300}
                     />
                   </div>
                   <h3 className="mt-4 text-sm dark:text-gray-200 text-gray-700">
