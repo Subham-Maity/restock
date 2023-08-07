@@ -3,6 +3,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const Page = () => {
   const [email, setEmail] = useState("");
@@ -37,7 +38,7 @@ const Page = () => {
             <form className="space-y-6" action="#" method="POST">
               <div>
                 <p className="mb-5  dark:text-gray-200">
-                  Enter the email address associated with your account and well
+                  Enter the email address associated with your account and we will
                   send you a link to reset your password.
                 </p>
                 <label
@@ -62,16 +63,16 @@ const Page = () => {
               </div>
 
               <div>
+                <Link href="/login/identify/thankyou">
                 <button
                   type="submit"
                   disabled={!email}
                   className="flex w-28 justify-center rounded-3xl bg-orange-600 active:bg-slate-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-400 mx-auto"
-                  onClick={() => {
-                    router.push(`/login/identify/thankyou`);
-                  }}
+                  
                 >
                   Continue
                 </button>
+                </Link>
               </div>
             </form>
 
