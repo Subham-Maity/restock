@@ -11,7 +11,7 @@ const Page = () => {
       <p>Please use the following link to reset your password: [link]</p>
       <br />
       <p>
-        If you have any comments or questions dont hesitate to reach us at
+        If you have any comments or questions do not hesitate to reach us at
         [email to customer portal support team] Please feel free to respond to
         this email. It was sent from a monitored email address, and we would
         love to hear from you.
