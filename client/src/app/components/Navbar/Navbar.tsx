@@ -76,7 +76,7 @@ const Navbar = () => {
     <div className="min-h-full">
       <Disclosure
         as="nav"
-        className="dark:bg-[#232333] bg-gray-800/30 rounded-full"
+        className="dark:bg-[#232333] bg-gray-800/30 mx-3 rounded-3xl md:rounded-3xl"
       >
         {({ open }) => (
           <>
