@@ -42,7 +42,7 @@ const navigation = [
   {
     id: 3,
     name: "PC Components",
-    href: "/parts",
+    href: "/pc-components",
     icon: <BsGpuCard />,
     current: false,
   },
