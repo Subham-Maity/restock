@@ -11,7 +11,6 @@ import {
   Squares2X2Icon,
 } from "@heroicons/react/20/solid";
 import Image from "next/image";
-import ReactParticles from './Particles';
 
 const products = [
   {
@@ -272,12 +271,11 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
-export const HomeProductFilter = () => {
+export const PcComponentFilter = () => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   return (
     <div className="mt-4  ">
       <div>
-        <ReactParticles/>
         {/* Mobile filter dialog */}
         <Transition.Root show={mobileFiltersOpen} as={Fragment}>
           <Dialog
@@ -557,7 +555,7 @@ export const HomeProductFilter = () => {
                 ))}
               </form>
               <div className="lg:col-span-3">
-                <ProductList></ProductList>
+                <PcComponentProductList></PcComponentProductList>
               </div>
             </div>
           </section>
@@ -567,7 +565,7 @@ export const HomeProductFilter = () => {
   );
 };
 
-export const ProductList = () => {
+export const PcComponentProductList = () => {
   return (
     <div>
       <div>
