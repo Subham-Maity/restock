@@ -3,6 +3,7 @@ import React from "react";
 import { router } from "next/client";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import styles from "./Login.module.css";
 
 const Login = () => {
   const router = useRouter();
@@ -75,10 +76,7 @@ const Login = () => {
             </div>
 
             <div>
-              <button
-                type="submit"
-                className="flex w-28 justify-center rounded-3xl bg-orange-600 active:bg-slate-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-400 mx-auto"
-              >
+              <button className={styles.button} type="submit">
                 Sign in
               </button>
             </div>

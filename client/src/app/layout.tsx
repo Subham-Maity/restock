@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en" className=" h-full">
       <ThemeProviders>
-        <body className={`${inter.className}bg-gray-300 dark:bg-slate-900`}>
+        <body className={`${inter.className}box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25) bg-gradient-to-r  from-zinc-200 via-neutral-300 to-slate-300 dark:from-zinc-900 dark:via-neutral-700 dark:to-slate-700`}>
           <div className="lg:mx-12">
             <Navbar />
             {children}

@@ -501,7 +501,7 @@ export const HomeProductFilter = () => {
                   <Disclosure
                     as="div"
                     key={section.id}
-                    className="border-b border-gray-200 py-3 dark:dg-[#2f3349] dark:text-white"
+                    className="border-b border-gray-200 py-3 dark:bg-[#2f3349] dark:text-white"
                   >
                     {({ open }) => (
                       <>

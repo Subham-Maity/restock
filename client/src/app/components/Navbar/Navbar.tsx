@@ -76,7 +76,7 @@ const Navbar = () => {
     <div className="min-h-full">
       <Disclosure
         as="nav"
-        className="dark:bg-[#232333] bg-gray-800/30 rounded-full"
+        className="bg-gradient-to-r from-zinc-400 via-neutral-400 to-slate-400 dark:from-zinc-700 dark:via-neutral-800 dark:to-slate-800 mx-3 rounded-full md:rounded-full"
       >
         {({ open }) => (
           <>
@@ -84,6 +84,7 @@ const Navbar = () => {
               <div className="flex h-16 items-center justify-between">
                 <div className="flex items-center">
                   <div className="flex space-x-2 mr-8">
+                    <Link href="/">
                     <Image
                       className="h-8 w-8"
                       src="https://img.freepik.com/free-vector/modern-desktop-compute-concept-illustration_114360-12156.jpg"
@@ -91,6 +92,7 @@ const Navbar = () => {
                       width={32}
                       height={32}
                     />
+                    </Link>
                   </div>
                   <div className="hidden md:block">
                     <div className="hidden md:flex items-center space-x-4">
