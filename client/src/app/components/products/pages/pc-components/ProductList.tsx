@@ -482,7 +482,7 @@ export const PcComponentFilter = () => {
 
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
               {/* Filters */}
-              <form className="hidden lg:block comp-layer p-4">
+              <form className="hidden lg:block product-card p-4">
                 <h3 className="sr-only">Categories</h3>
                 <ul
                   role="list"
@@ -569,7 +569,7 @@ export const PcComponentProductList = () => {
   return (
     <div>
       <div>
-        <div className="comp-layer">
+        <div className="product-card">
           <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl  lg:px-8">
             <h2 className="sr-only">Products</h2>
 
