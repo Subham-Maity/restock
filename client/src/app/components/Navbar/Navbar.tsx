@@ -76,7 +76,7 @@ const Navbar = () => {
     <div className="min-h-full">
       <Disclosure
         as="nav"
-        className="bg-gradient-to-r from-zinc-400 via-neutral-400 to-slate-400 dark:from-zinc-700 dark:via-neutral-800 dark:to-slate-800 mx-3 rounded-full md:rounded-full"
+        className="bg-gradient-to-r from-zinc-400 via-neutral-400 to-slate-400 dark:from-zinc-800 dark:via-neutral-900 dark:to-slate-800 mx-3 rounded-3xl md:rounded-full"
       >
         {({ open }) => (
           <>
@@ -94,7 +94,7 @@ const Navbar = () => {
                     />
                     </Link>
                   </div>
-                  <div className="hidden md:block">
+                  <div className="hidden lg:block">
                     <div className="hidden md:flex items-center space-x-4">
                       {navigation.map((item) => (
                         <Link
@@ -102,9 +102,9 @@ const Navbar = () => {
                           href={item.href}
                           className={classNames(
                             item.current
-                              ? "bg-gray-100 dark:bg-gray-500 text-white"
-                              : "text-gray-300 dark:hover:bg-gray-700  hover:bg-gray-300",
-                            "flex items-center rounded-2xl px-3 py-2 text-sm font-medium",
+                              ? "bg-gray-100 bg-opacity-90 md:rounded-full dark:bg-gray-500 dark:bg-opacity-70 text-white"
+                              : "text-gray-300 dark:hover:bg-gray-600 dark:bg-opacity-95 hover:bg-gray-300 hover:bg-opacity-95",
+                            "flex items-center rounded-full px-3 py-2 text-sm font-medium",
                           )}
                           aria-current={item.current ? "page" : undefined}
                         >
@@ -121,7 +121,7 @@ const Navbar = () => {
                   <div className="ml-4 flex items-center md:ml-6">
                     <button
                       type="button"
-                      className="rounded-full bg-gray-600 hover:bg-gray-400 p-1 text-white hover:text-black dark:bg-gray-700 dark:hover:text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                      className="rounded-full bg-gray-500 hover:bg-gray-600 p-1 text-white  dark:bg-gray-700 dark:hover:text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                     >
                       <span className="sr-only">View notifications</span>
                       <Link href={"/cart"}>
@@ -158,15 +158,15 @@ const Navbar = () => {
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95"
                       >
-                        <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <Menu.Items className="absolute right-0 z-10 mt-8 w-48 origin-top-right bg-slate-200 dark:bg-slate-800 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none rounded-2xl">
                           {userNavigation.map((item) => (
                             <Menu.Item key={item.name}>
                               {({ active }) => (
                                 <Link
                                   href={item.href}
                                   className={classNames(
-                                    active ? "bg-gray-100" : "",
-                                    "block px-4 py-2 text-sm text-gray-700",
+                                    active ? "bg-gray-400 dark:bg-gray-500" : "",
+                                    "block px-4 py-2 text-sm dark:text-gray-200 rounded-2xl",
                                   )}
                                 >
                                   {item.name}
@@ -174,7 +174,9 @@ const Navbar = () => {
                               )}
                             </Menu.Item>
                           ))}
+                          <div className="ml-4">
                           <Switcher />
+                          </div>
                         </Menu.Items>
                       </Transition>
                     </Menu>
@@ -182,7 +184,7 @@ const Navbar = () => {
                 </div>
                 <div className="-mr-2 flex md:hidden">
                   {/* Mobile menu button */}
-                  <Disclosure.Button className="inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                  <Disclosure.Button className="inline-flex items-center justify-center rounded-full bg-gray-200 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                     <span className="sr-only">Open main menu</span>
                     {open ? (
                       <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
@@ -204,9 +206,9 @@ const Navbar = () => {
                     href={item.href}
                     className={classNames(
                       item.current
-                        ? "bg-gray-900 text-white"
-                        : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                      "block rounded-md px-3 py-2 text-base font-medium",
+                        ? "bg-gray-50 bg-opacity-80  dark:bg-gray-400 dark:bg-opacity- text-black "
+                        : "text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-400 ",
+                      "block rounded-3xl px-3 py-2 text-base font-medium",
                     )}
                     aria-current={item.current ? "page" : undefined}
                   >
@@ -255,11 +257,12 @@ const Navbar = () => {
                       key={item.name}
                       as="a"
                       href={item.href}
-                      className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                      className="block rounded-md px-3 py-2 text-base font-medium text-gray-200 hover:bg-gray-700 hover:text-white"
                     >
                       {item.name}
                     </Disclosure.Button>
                   ))}
+                  <Switcher/>
                 </div>
               </div>
             </Disclosure.Panel>
