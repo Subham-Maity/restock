@@ -482,11 +482,11 @@ export const PcComponentFilter = () => {
 
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
               {/* Filters */}
-              <form className="hidden lg:block bg-gray-100 dark:bg-[#2f3349] rounded-2xl p-4">
+              <form className="hidden lg:block comp-layer p-4">
                 <h3 className="sr-only">Categories</h3>
                 <ul
                   role="list"
-                  className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900"
+                  className="space-y-4 border-b border-gray-200 pb-6 text-base font-medium text-gray-900"
                 >
                   {subCategories.map((category) => (
                     <li key={category.name}>
@@ -501,7 +501,7 @@ export const PcComponentFilter = () => {
                   <Disclosure
                     as="div"
                     key={section.id}
-                    className="border-b border-gray-200 py-3 dark:bg-[#2f3349] dark:text-white"
+                    className="border-b border-gray-200 py-3 dark:text-white"
                   >
                     {({ open }) => (
                       <>
@@ -569,7 +569,7 @@ export const PcComponentProductList = () => {
   return (
     <div>
       <div>
-        <div className="bg-gray-100 dark:bg-[#2f3349] rounded-2xl">
+        <div className="comp-layer">
           <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl  lg:px-8">
             <h2 className="sr-only">Products</h2>
 

@@ -9,7 +9,7 @@ const Login = () => {
   const router = useRouter();
   return (
     <div>
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 md:w-[32rem] mx-3  md:mx-auto my-6 bg-gray-100 rounded-2xl dark:bg-slate-700">
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 md:w-[32rem] mx-3  md:mx-auto my-6 bg-white bg-opacity-40 dark:bg-black/30 shadow-2xl rounded-2xl">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <Image
             className="mx-auto h-10 w-auto"
