@@ -11,7 +11,7 @@ import {
   Squares2X2Icon,
 } from "@heroicons/react/20/solid";
 import Image from "next/image";
-import ReactParticles from './Particles';
+import ReactParticles from "./Particles";
 
 const products = [
   {
@@ -277,7 +277,7 @@ export const HomeProductFilter = () => {
   return (
     <div className="mt-4  ">
       <div>
-        <ReactParticles/>
+        {/*<ReactParticles/>*/}
         {/* Mobile filter dialog */}
         <Transition.Root show={mobileFiltersOpen} as={Fragment}>
           <Dialog
