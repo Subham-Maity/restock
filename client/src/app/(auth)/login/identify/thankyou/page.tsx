@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 const Page = () => {
   const router = useRouter();
   return (
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 md:w-[72rem] mx-3  md:mx-auto my-6 bg-gray-100 rounded-3xl dark:bg-slate-700 text-md md:text-lg">
+    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 md:w-[72rem] mx-3 md:mx-auto my-6 default-card text-md md:text-lg">
       <h1 className="text-4xl">THANK YOU!</h1>
       <br />
       <p>Please use the following link to reset your password: [link]</p>
