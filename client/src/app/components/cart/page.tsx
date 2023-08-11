@@ -40,7 +40,7 @@ export default function Cart() {
   const router = useRouter();
   return (
     <>
-      <CartHover />
+      {/* <CartHover /> */}
       <div>
         <div className="py-4 mx-3 lg:mx-16 xl:mx-24 max-w-8xl px-4 sm:px-6 lg:px-8 my-6 default-card">
           <div className="border-t border-gray-800 dark:border-gray-200 px-4 py-6 sm:px-6">
@@ -165,7 +165,7 @@ const CartHover = () => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+            <div className="fixed inset-0 bg-black/70 transition-opacity" />
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-hidden">
