@@ -20,7 +20,7 @@ const Page = () => {
       <p className="mt-10 text-center text-sm text-gray-500">
         Return to{" "}
         <button
-          className="font-semibold leading-6 text-orange-600 dark:text-orange-600 hover:text-orange-400 dark:hover:text-orange-400"
+          className="font-semibold leading-6 text-indigo-600 dark:text-indigo-500 hover:text-indigo-500 dark:hover:text-indigo-400"
           onClick={() => {
             router.push("/login");
           }}
