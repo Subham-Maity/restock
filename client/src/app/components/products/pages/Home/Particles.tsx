@@ -54,7 +54,8 @@ const ReactParticles = () => {
                 },
                 detectRetina: true,
                 duration: 0,
-                fpsLimit: 120,
+                // here
+                fpsLimit: 15,
                 interactivity: {
                     detectsOn: "window",
                     events: {
@@ -92,7 +93,8 @@ const ReactParticles = () => {
                                     value: "#ff0000",
                                     animation: {
                                         enable: true,
-                                        speed: 400,
+					                    //here
+                                        speed: 10,
                                         sync: true
                                     }
                                 },
@@ -106,7 +108,7 @@ const ReactParticles = () => {
                                     outModes: {
                                         default: "destroy"
                                     },
-                                    speed: 2
+                                    speed: 1
                                 },
                                 size: {
                                     value: 5,
@@ -146,7 +148,8 @@ const ReactParticles = () => {
                         connect: {
                             distance: 80,
                             links: {
-                                opacity: 0.5
+                                //0.5
+                                opacity: 1
                             },
                             radius: 60
                         },
@@ -366,7 +369,8 @@ const ReactParticles = () => {
                     opacity: {
                         random: {
                             enable: true,
-                            minimumValue: 0.3
+                            //0.3
+                            minimumValue: 1
                         },
                         value: {
                             min: 0.3,
@@ -375,7 +379,8 @@ const ReactParticles = () => {
                         animation: {
                             count: 0,
                             enable: true,
-                            speed: 0.5,
+                            //here
+                            speed: 0.1,
                             decay: 0,
                             delay: 0,
                             sync: false,
