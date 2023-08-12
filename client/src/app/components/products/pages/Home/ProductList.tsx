@@ -277,7 +277,7 @@ export const HomeProductFilter = () => {
   return (
     <div className="mt-4  ">
       <div>
-        {/*<ReactParticles/>*/}
+        {/* <ReactParticles/> */}
         {/* Mobile filter dialog */}
         <Transition.Root show={mobileFiltersOpen} as={Fragment}>
           <Dialog
