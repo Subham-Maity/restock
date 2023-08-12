@@ -55,7 +55,8 @@ const ReactParticles = () => {
                 detectRetina: true,
                 duration: 0,
                 // here
-                fpsLimit: 15,
+                fpsLimit: 30
+                ,
                 interactivity: {
                     detectsOn: "window",
                     events: {
