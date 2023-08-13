@@ -3,7 +3,8 @@ import React from "react";
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { HiArrowLeft, HiArrowRight } from 'react-icons/hi';
+import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
+import { MdDeleteForever } from "react-icons/md";
 import { useRouter } from "next/navigation";
 
 import Link from "next/link";
@@ -48,7 +49,10 @@ export default function Cart() {
               Your Cart
             </h1>
             <div className="flow-root">
-              <ul role="list" className="-my-6 divide-y divide-gray-800 dark:divide-gray-200">
+              <ul
+                role="list"
+                className="-my-6 divide-y divide-gray-800 dark:divide-gray-200"
+              >
                 {products.map((item: any) => (
                   <li key={item.id} className="flex py-6">
                     <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-2xl border ">
@@ -75,10 +79,10 @@ export default function Cart() {
                       </div>
                       <div className="flex flex-1 items-end justify-between text-sm">
                         <div className="text-gray-500">
-                        <label
+                          <label
                             htmlFor="quantity"
-                            className="inline mr-5 text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
-                            
+                            className="inline mr-5 text-sm font-medium leading-6 text-gray-900 dark:text-gray-200"
+                          >
                             Qty
                           </label>
                           <select value={item.quantity}>
@@ -90,12 +94,13 @@ export default function Cart() {
                           </select>
                         </div>
 
-                        <div className="flex">
+                        <div className="flex item-center flex-row">
                           <button
                             type="button"
-                            className="font-medium text-orange-600 hover:text-orange-500"
+                            className="md:font-semibold text-sm md:text-base text-red-600 hover:text-red-500 flex items-center"
                           >
-                            Remove
+                            <MdDeleteForever/>
+                            Remove 
                           </button>
                         </div>
                       </div>
@@ -118,31 +123,36 @@ export default function Cart() {
             <p className="mt-0.5 text-sm text-gray-500">
               * Shipping and taxes calculated at checkout.
             </p>
-            </div>
-            <div>
-            <div className="mt-6 flex justify-center space-x-10">
-              <Link href=""
-              className="py-3 px-4 flex w-auto justify-center rounded-3xl bg-orange-600 active:bg-slate-600 text-base font-semibold leading-6 text-white shadow-sm hover:bg-orange-400">
-                <div className="flex items-center"
-                onClick={() => router.back()}>
-                <HiArrowLeft/>
-                Back to Browsing
-                </div>
-              </Link>
-              <Link
-                href="/checkout"
-                className="py-3 px-4 flex w-auto justify-center rounded-3xl bg-orange-600 active:bg-slate-600 text-base font-semibold leading-6 text-white shadow-sm hover:bg-orange-400"
+          </div>
+          <div>
+            <div className="mt-6 flex justify-between mx-8 md:mx-10 ">
+            <Link
+                href=""
+                className="relative inline-flex items-center justify-center sm:w-40 sm:ml-7 p-4 py-3 overflow-hidden font-medium text-indigo-500 transition duration-100 ease-out border-2 dark:border-indigo-500/30 rounded-3xl shadow-xl group"
               >
-                <div className="flex items-center">
-                
-                Continue Checkout
-                <HiArrowRight/>
-                </div>
+                <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white text-2xl duration-100 -translate-x-full bg-indigo-600 dark:bg-indigo-500 group-hover:translate-x-0 ease">
+                <FaArrowLeft />
+                </span>
+                <span className="absolute flex items-center justify-center w-full h-full text-indigo-500 dark:text-indigo-400 transition-all duration-300 transform group-hover:translate-x-full ease">
+                  Browse More
+                </span>
+                <span className="relative invisible">Button Text</span>
+              </Link>
+
+              <Link
+                href=""
+                className="relative inline-flex items-center justify-center sm:w-40 sm:ml-7 p-4 py-3 overflow-hidden font-medium text-indigo-500 transition duration-100 ease-out border-2 dark:border-indigo-500/30 rounded-3xl shadow-xl group"
+              >
+                <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white text-2xl duration-100 -translate-x-full bg-indigo-600 dark:bg-indigo-500 group-hover:translate-x-0 ease">
+                <FaArrowRight />
+                </span>
+                <span className="absolute flex items-center justify-center w-full h-full text-indigo-500 dark:text-indigo-400 transition-all duration-300 transform group-hover:translate-x-full ease">
+                  Checkout
+                </span>
+                <span className="relative invisible">Button Text</span>
               </Link>
             </div>
-            <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
-              
-            </div>
+            <div className="mt-6 flex justify-center text-center text-sm text-gray-500"></div>
           </div>
         </div>
       </div>

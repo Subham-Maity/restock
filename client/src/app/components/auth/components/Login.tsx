@@ -2,7 +2,8 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { FaArrowRight } from 'react-icons/fa';
+import Link from "next/link";
+import { FaArrowRight } from "react-icons/fa";
 
 const Login = () => {
   const router = useRouter();
@@ -76,17 +77,20 @@ const Login = () => {
               </div>
             </div>
 
-            <button    
-              className="relative inline-flex items-center justify-center sm:w-80 sm:ml-7 p-4 py-3 overflow-hidden font-medium text-indigo-500 transition duration-100 ease-out border-2 border-indigo-500/30 rounded-3xl shadow-lg group"
-            >
-              <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white text-xl duration-100 -translate-x-full bg-indigo-600 dark:bg-indigo-500 group-hover:translate-x-0 ease">
-              <FaArrowRight/>
-              </span>
-              <span className="absolute flex items-center justify-center w-full h-full text-indigo-500 dark:text-indigo-400 transition-all duration-300 transform group-hover:translate-x-full ease">
-                Log In
-              </span>
-              <span className="relative invisible">Button Text</span>
-            </button>
+            <div className="mt-6 sm:mx- items-center blur-[sm]">
+              <Link
+                href=""
+                className="relative inline-flex items-center justify-center sm:w-80 sm:ml-7 p-4 py-3 overflow-hidden font-medium text-indigo-500 transition duration-100 ease-out border-2 dark:border-indigo-500/30 rounded-2xl shadow-xl group"
+              >
+                <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white text-2xl duration-100 -translate-x-full bg-indigo-600 dark:bg-indigo-500 group-hover:translate-x-0 ease">
+                <FaArrowRight />
+                </span>
+                <span className="absolute flex items-center justify-center w-full h-full text-indigo-500 dark:text-indigo-400 transition-all duration-300 transform group-hover:translate-x-full ease">
+                  Log In
+                </span>
+                <span className="relative invisible">Button Text</span>
+              </Link>
+            </div>
           </form>
 
           <p className="mt-10 text-center text-sm text-gray-500">
