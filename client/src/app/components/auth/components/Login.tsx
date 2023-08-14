@@ -40,7 +40,7 @@ const Login = () => {
                   autoComplete="email"
                   placeholder="example@domain.com"
                   required
-                  className="block w-full rounded-3xl py-auto bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-2xl py-auto bg-white bg-opacity-30 dark:bg-stone-950/20 shadow-2xl  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-blue-500 focus:border-blue-800 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -72,7 +72,7 @@ const Login = () => {
                   autoComplete="current-password"
                   placeholder="12345@Password"
                   required
-                  className="block w-full rounded-3xl py-auto bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-2xl py-auto bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-blue-500 focus:border-blue-800 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
