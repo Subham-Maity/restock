@@ -28,11 +28,7 @@ const Banner = () => {
         <h1 className="text-3xl dark:text-gray-200 font-bold tracking-tight text-gray-900">
             <div className="bg-cover bg-center  h-auto text-white py-24 object-fill background-image: url(https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80)">
                 <div className="">
-                    {images.map((element, index) => {
-                      return (
-                        <Carousel key = {index} id={element.id} src = {element.src} alt={element.alt}/>
-                      )
-                    })}
+              <Carousel props={images}/>
                     <p className="font-bold text-sm uppercase">Services</p>
                     <p className="text-3xl font-bold">Multimedia products</p>
                     <p className="text-2xl mb-10 leading-none">Atractive designs for your brand</p>

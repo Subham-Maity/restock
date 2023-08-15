@@ -1,3 +1,4 @@
+import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Slider from "react-slick";
@@ -22,53 +23,49 @@ const settings = {
   initialSlide: 0,
   cssEase: "linear",
 };
-// Define a constant array of image data
 
 
-const Carousel:React.FC<Image> = ({id, src, alt, href}) => {
+const Carousel: React.FC<{ props: Image[] }> = ({ props }) => {
   const router = useRouter();
+
   return (
-    <div className="object-cover mx-auto rounded-2xl">
-      <div className="lg:mx-40">
-        <div className="flex items-center justify-center">
-          <div className="justify-center">
-            <div>
-              <div className="grid grid-cols-1 gap-4 max-w-full h-auto rounded-lg overflow-hidden mt-4">
-                <div style={{ overflow: "hidden", padding: "2px 30px 45px" }}>
-                  <Slider {...settings}>
-                    {src.map((image, index) => {
-                      return (
-                        <>
+      <div className="object-cover mx-auto rounded-2xl">
+        <div className="lg:mx-40">
+          <div className="flex items-center justify-center">
+            <div className="justify-center">
+              <div>
+                <div className="grid grid-cols-1 gap-4 max-w-full h-auto rounded-lg overflow-hidden mt-4">
+                  <div style={{ overflow: "hidden", padding: "2px 30px 45px" }}>
+                    <Slider {...settings}>
+                      {props.map((image) => (
                           <div
-                            key={image.id}
-                            className="flex items-center justify-center relative"
+                              key={image.id}
+                              className="flex items-center justify-center relative"
                           >
                             <Image
-                              className={`object-cover lg:min-h-full lg:min-w-full hover:scale-[1.05] hover:rounded-2xl rounded-2xl transiton-all ease-in-out duration-500`}
-                              onClick={() => {
-                                if (image.href != null) {
-                                  router.push(image.href);
-                                }
-                              }}
-                              src={image.src}
-                              alt={image.alt}
-                              width={500}
-                              height={500}
-                              layout="intrinsic"
-                              objectFit="cover"
+                                className={`object-cover lg:min-h-full lg:min-w-full hover:scale-[1.05] hover:rounded-2xl rounded-2xl transiton-all ease-in-out duration-500`}
+                                onClick={() => {
+                                  if (image.href != null) {
+                                    router.push(image.href);
+                                  }
+                                }}
+                                src={image.src}
+                                alt={image.alt}
+                                width={500}
+                                height={500}
+                                layout="intrinsic"
+                                objectFit="cover"
                             />
                           </div>
-                        </>
-                      );
-                    })}
-                  </Slider>
+                      ))}
+                    </Slider>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
