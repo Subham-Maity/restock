@@ -6,9 +6,14 @@ import { ImDribbble } from "react-icons/im";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
 import { FaTwitter, FaLinkedin, FaFacebook, FaGithub, FaAngellist, FaDribbble } from 'react-icons/fa';
 import {motion} from 'framer-motion';
-import { FaBlog, FaCalendar, FaQuestionCircle, FaBook, FaLifeRing } from 'react-icons/fa';
-import { FaInfoCircle, FaBriefcase, FaNewspaper, FaBullhorn, FaRegFileAlt, FaEnvelope } from 'react-icons/fa';
-import { FaEye, FaClipboardCheck, FaLightbulb, FaChalkboardTeacher, FaDollarSign, FaCodeBranch } from 'react-icons/fa';
+import { FaBlog, FaCalendar, FaBook, FaLifeRing } from 'react-icons/fa';
+import { FaBriefcase, FaNewspaper, FaBullhorn, FaRegFileAlt, FaEnvelope } from 'react-icons/fa';
+import { FaEye, FaLightbulb, FaChalkboardTeacher, FaDollarSign, FaCodeBranch } from 'react-icons/fa';
+import { FaInfoCircle, FaClipboardCheck, FaPhone, FaQuestionCircle, FaSitemap, FaBalanceScale } from 'react-icons/fa';
+import { FaCreditCard, FaMoneyBillWave, FaShippingFast, FaGlobe, FaClock } from 'react-icons/fa';
+import { FaShieldAlt, FaLock, FaUserSecret, FaExclamationTriangle, FaRecycle } from 'react-icons/fa';
+import { FaHandshake, FaTruck, FaStar, FaUsers, FaBoxes } from 'react-icons/fa';
+
 const Footer = () => {
   return (
     <div className="">
@@ -32,216 +37,182 @@ const Footer = () => {
           </div>
 
           <div className=" grid grid-cols-2 gap-24 border-t border-gray-300 pt-16 md:grid-cols-6 lg:grid-cols-7">
+
             <div className="text-center sm:text-left">
-              <p className="text-lg font-bold text-gray-900 dark:text-white">Product</p>
+              <p className="text-lg font-bold text-gray-900 dark:text-white">Get&#160;to Know Us</p>
               <ul className="mt-8 space-y-4 text-sm">
-                <li>
+                <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
+                  <FaInfoCircle className="text-indigo-700 dark:text-white text-xl mr-2" />
                   <Link className="text-indigo-700 group-hover:text-indigo-700 dark:text-white" href="/">
-                    <FaEye className="inline-block mr-2" />
-                    Overview
+                    About Banggood.in
                   </Link>
-                </li>
+                </motion.li>
 
-                <li>
+                <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
+                  <FaClipboardCheck className="text-indigo-700 dark:text-white text-xl mr-2" />
                   <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
-                    <FaClipboardCheck className="inline-block mr-2" />
-                    Features
+                    Guarantees & Return Policy
                   </Link>
-                </li>
+                </motion.li>
 
-                <li>
+                <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
+                  <FaPhone className="text-indigo-700 dark:text-white mr-2" />
                   <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
-                    <FaLightbulb className="inline-block mr-2" />
-                    Solutions
+                    Contact Us
                   </Link>
-                </li>
+                </motion.li>
 
-                <li>
+                <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
+                  <FaQuestionCircle className="text-indigo-700 dark:text-white mr-2" />
                   <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
-                    <FaChalkboardTeacher className="inline-block mr-2" />
-                    Tutorial
-                  </Link>
-                </li>
-
-                <li>
-                  <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
-                    <FaDollarSign className="inline-block mr-2" />
-                    Pricing
-                  </Link>
-                </li>
-
-                <li>
-                  <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
-                    <FaCodeBranch className="inline-block mr-2" />
-                    Releases
-                  </Link>
-                </li>
-              </ul>
-
-            </div>
-
-            <div className="text-center sm:text-left">
-              <p className="text-lg font-bold text-gray-900 dark:text-white">Company</p>
-              <ul className="mt-8 space-y-4 text-sm">
-                <li className="flex items-center ">
-                  <FaInfoCircle className="text-indigo-700 mr-2 dark:text-white" />
-                  <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
-                    About Us
-                  </Link>
-                </li>
-
-                <li className="flex items-center">
-                  <FaBriefcase className="text-indigo-700 mr-2 dark:text-white" />
-                  <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
-                    Careers
-                  </Link>
-                </li>
-
-                <li className="flex items-center">
-                  <FaNewspaper className="text-indigo-700 mr-2 dark:text-white" />
-                  <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
-                    Press
-                  </Link>
-                </li>
-
-                <li className="flex items-center">
-                  <FaBullhorn className="text-indigo-700 mr-2 dark:text-white" />
-                  <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
-                    News
-                  </Link>
-                </li>
-
-                <li className="flex items-center">
-                  <FaRegFileAlt className="text-indigo-700 mr-2 dark:text-white" />
-                  <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
-                    Media Kit
-                  </Link>
-                </li>
-
-                <li className="flex items-center">
-                  <FaEnvelope className="text-indigo-700 mr-2 dark:text-white" />
-                  <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
-                    Contact
-                  </Link>
-                </li>
-              </ul>
-
-            </div>
-
-            <div className="text-center sm:text-left">
-              <p className="text-lg font-bold text-gray-900 dark:text-white">Resources</p>
-
-              <ul className="mt-8 space-y-4 text-sm">
-                <li>
-                  <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
-                    <FaBlog className="inline-block mr-2" />
-                    Blog
-                  </Link>
-                </li>
-
-                <li>
-                  <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
-                    <FaNewspaper className="inline-block mr-2" />
-                    Newsletters
-                  </Link>
-                </li>
-
-                <li>
-                  <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
-                    <FaCalendar className="inline-block mr-2" />
-                    Events
-                  </Link>
-                </li>
-
-                <li>
-                  <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
-                    <FaQuestionCircle className="inline-block mr-2" />
                     Help Center
                   </Link>
-                </li>
+                </motion.li>
 
-                <li>
+                <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
+                  <FaSitemap className="text-indigo-700 dark:text-white mr-2" />
                   <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
-                    <FaBook className="inline-block mr-2" />
-                    Tutorials
+                    Site Map
                   </Link>
-                </li>
+                </motion.li>
 
-                <li>
+                <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
+                  <FaBalanceScale className="text-indigo-700 dark:text-white text-4xl mr-2" />
                   <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
-                    <FaLifeRing className="inline-block mr-2" />
-                    Support
+                    Intellectual Property Claims
                   </Link>
-                </li>
-              </ul>
+                </motion.li>
 
-            </div>
-
-            <div className="text-center sm:text-left">
-              <p className="text-lg font-bold text-gray-900 dark:text-white">Social</p>
-              <ul className="mt-8 space-y-4 text-sm">
-                <motion.li whileHover={{x: 10,
-                  y: 0,
-                  scale: 1,
-                  rotate: 0}}>
+                <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
+                  <FaTwitter className="text-indigo-700 dark:text-white text-l mr-2" />
                   <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
-                    <FaTwitter className="inline-block mr-2" />
                     Twitter
                   </Link>
                 </motion.li>
+              </ul>
+            </div>
 
-                <motion.li whileHover={{x: 10,
-                  y: 0,
-                  scale: 1,
-                  rotate: 0}}>
-                  <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
-                    <FaLinkedin className="inline-block mr-2" />
-                    LinkedIn
+            <div className="text-center sm:text-left">
+              <p className="text-lg font-bold text-gray-900 dark:text-white">Payment & Shipping</p>
+              <ul className="mt-8 space-y-4 text-sm">
+                <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
+                  <FaCreditCard className="text-indigo-700 dark:text-white text-xl mr-2" />
+                  <Link className="text-indigo-700 group-hover:text-indigo-700 dark:text-white" href="/">
+                    Payment Methods
                   </Link>
                 </motion.li>
 
-                <motion.li whileHover={{x: 10,
-                  y: 0,
-                  scale: 1,
-                  rotate: 0}}>
+                <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
+                  <FaMoneyBillWave className="text-indigo-700 dark:text-white text-xl mr-2" />
                   <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
-                    <FaFacebook className="inline-block mr-2" />
-                    Facebook
+                    BGpay Instruction
                   </Link>
                 </motion.li>
 
-                <motion.li whileHover={{x: 10,
-                  y: 0,
-                  scale: 1,
-                  rotate: 0}}>
+                <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
+                  <FaShippingFast className="text-indigo-700 dark:text-white text-xl mr-2" />
                   <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
-                    <FaGithub className="inline-block mr-2" />
-                    Github
+                    Shipping Guide
                   </Link>
                 </motion.li>
 
-                <motion.li whileHover={{x: 10,
-                  y: 0,
-                  scale: 1,
-                  rotate: 0}}>
+                <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
+                  <FaGlobe className="text-indigo-700 dark:text-white text-2xl mr-2" />
                   <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
-                    <FaAngellist className="inline-block mr-2" />
-                    AngelList
+                    Locations We Ship To
                   </Link>
                 </motion.li>
 
-                <motion.li whileHover={{x: 10,
-                  y: 0,
-                  scale: 1,
-                  rotate: 0}}>
+                <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
+                  <FaClock className="text-indigo-700 dark:text-white text-2xl mr-2" />
                   <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
-                    <FaDribbble className="inline-block mr-2" />
-                    Dribble
+                    Estimated Delivery Time
                   </Link>
                 </motion.li>
               </ul>
-
             </div>
+
+            <div className="text-center sm:text-left">
+              <p className="text-lg font-bold text-gray-900 dark:text-white">CONSUMER POLICY</p>
+              <ul className="mt-8 space-y-4 text-sm">
+                <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
+                  <FaClipboardCheck className="text-indigo-700 dark:text-white text-xl mr-2" />
+                  <Link className="text-indigo-700 group-hover:text-indigo-700 dark:text-white" href="/">
+                    Cancellation & Returns
+                  </Link>
+                </motion.li>
+
+                <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
+                  <FaShieldAlt className="text-indigo-700 dark:text-white text-l mr-2" />
+                  <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
+                    Terms Of Use
+                  </Link>
+                </motion.li>
+
+                <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
+                  <FaLock className="text-indigo-700 dark:text-white text-l mr-2" />
+                  <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
+                    Security
+                  </Link>
+                </motion.li>
+
+                <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
+                  <FaUserSecret className="text-indigo-700 dark:text-white text-l mr-2" />
+                  <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
+                    Privacy
+                  </Link>
+                </motion.li>
+
+                <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
+                  <FaExclamationTriangle className="text-indigo-700 dark:text-white text-2xl mr-2" />
+                  <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
+                    Grievance Redressal
+                  </Link>
+                </motion.li>
+
+                <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
+                  <FaRecycle className="text-indigo-700 dark:text-white text-2xl mr-2" />
+                  <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
+                    EPR Compliance
+                  </Link>
+                </motion.li>
+              </ul>
+            </div>
+
+            <div className="text-center sm:text-left">
+              <p className="text-lg font-bold text-gray-900 dark:text-white">Partnership Programs</p>
+              <ul className="mt-8 space-y-4 text-sm">
+                <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
+                  <FaHandshake className="text-indigo-700 dark:text-white text-xl mr-2" />
+                  <Link className="text-indigo-700 group-hover:text-indigo-700 dark:text-white" href="/">
+                    Drop shipping
+                  </Link>
+                </motion.li>
+
+                <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
+                  <FaTruck className="text-indigo-700 dark:text-white text-l mr-2" />
+                  <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
+                    Review Club
+                  </Link>
+                </motion.li>
+
+                <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
+                  <FaStar className="text-indigo-700 dark:text-white text-xl mr-2" />
+                  <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
+                    Affiliate Program
+                  </Link>
+                </motion.li>
+
+                <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
+                  <FaUsers className="text-indigo-700 dark:text-white text-xl mr-2" />
+                  <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
+                    Wholesale Program
+                  </Link>
+                </motion.li>
+              </ul>
+            </div>
+
+
             <div className="text-center sm:text-left">
               <p className="text-lg font-bold text-gray-900 dark:text-white">Social</p>
               <ul className="mt-8 space-y-4 text-sm">
