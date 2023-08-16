@@ -629,4 +629,5 @@ const ReactParticles = () => {
     );
 };
 
-export default ReactParticles;
+// @ts-ignore
+export default ReactParticles
