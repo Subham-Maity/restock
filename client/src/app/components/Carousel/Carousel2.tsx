@@ -3,25 +3,16 @@
 import CountUp, {useCountUp} from 'react-countup';
 import {useInView} from "framer-motion";
 import {useRef,useEffect,useState} from 'react';
-// const Interface={
-//     threshold:"number"
-// }
+
 function Carousel2() {
     // @ts-ignore
-    // const { ref, inView, entry }:Interface = useInView({
-    //     /* Optional options */
-    //     threshold: 0,
-    // });
-
-    // const {countUp,start,pauseResume,reset,update} = useCountUp({duration:200,end:1204});
-    const myRef= useRef();
+    const myRef= useRef<HTMLDivElement | null>(null);
     const [myElementIsVisible,setMyElementIsVisible] = useState();
-    // console.log('myElementisvisible',myElementIsVisible);
     useEffect(()=>{
-        // console.log('myRef',myRef.current)
+
         const observer = new IntersectionObserver((entries)=>{
             const entry = entries[0];
-            // console.log('entry',entry);
+
             // @ts-ignore
             setMyElementIsVisible(entry.isIntersecting)
         })
@@ -30,7 +21,6 @@ function Carousel2() {
     },[])
 
 
-    // @ts-ignore
     return (
         <>
             <div className="mb-32 mx-8">
