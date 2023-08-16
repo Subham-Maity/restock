@@ -132,7 +132,7 @@ const Navbar = () => {
                         />
                       </Link>
                     </button>
-                    <span className="inline-flex items-center mb-7 -ml-3 rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10 opacity-75">
+                    <span className="inline-flex items-center mb-7 -ml-3 rounded-xl font-bold bg-green-100 px-2 py-1 text-xs text-green-600 ring-1 ring-inset ring-red-600/10 opacity-75">
                       3
                     </span>
 

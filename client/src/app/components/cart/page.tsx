@@ -128,7 +128,7 @@ export default function Cart() {
             <div className="mt-6 flex justify-between mx-8 md:mx-10 ">
             <Link
                 href=""
-                className="relative inline-flex items-center justify-center sm:w-40 sm:ml-7 p-4 py-3 overflow-hidden font-medium text-indigo-500 transition duration-100 ease-out border-2 dark:border-indigo-500/30 rounded-3xl shadow-xl group"
+                className="relative inline-flex items-center justify-center sm:w-40 md:w-48 bg-indigo-400/5 sm:ml-7 p-4 py-3 overflow-hidden font-medium text-indigo-500 transition duration-100 ease-out border-2 dark:border-indigo-500/30 rounded-2xl shadow-xl group"
               >
                 <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white text-2xl duration-100 -translate-x-full bg-indigo-600 dark:bg-indigo-500 group-hover:translate-x-0 ease">
                 <FaArrowLeft />
@@ -141,7 +141,7 @@ export default function Cart() {
 
               <Link
                 href=""
-                className="relative inline-flex items-center justify-center sm:w-40 sm:ml-7 p-4 py-3 overflow-hidden font-medium text-indigo-500 transition duration-100 ease-out border-2 dark:border-indigo-500/30 rounded-3xl shadow-xl group"
+                className="relative inline-flex items-center justify-center sm:w-40 md:w-48 bg-indigo-400/5 sm:ml-7 p-4 py-3 overflow-hidden font-medium text-indigo-500 transition duration-100 ease-out border-2 dark:border-indigo-500/30 rounded-2xl shadow-xl group"
               >
                 <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white text-2xl duration-100 -translate-x-full bg-indigo-600 dark:bg-indigo-500 group-hover:translate-x-0 ease">
                 <FaArrowRight />

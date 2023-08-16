@@ -6,6 +6,7 @@ const nextConfig = {
       "images.unsplash.com",
       "raw.githubusercontent.com",
       "img.freepik.com",
+      "images.pexels.com",
     ],
   },
 };
