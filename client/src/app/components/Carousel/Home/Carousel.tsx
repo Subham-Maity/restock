@@ -42,7 +42,7 @@ const Carousel: React.FC<{ props: Image[] }> = ({ props }) => {
                         className="flex items-center justify-center relative"
                       >
                         <Image
-                          className={`mx-auto object-cover lg:min-h-full lg:min-w-full hover:scale-[1.05] hover:rounded-2xl rounded-2xl transiton-all ease-in-out duration-500`}
+                          className={`mx-auto object-cover lg:min-h-full lg:min-w-full hover:rounded-2xl rounded-2xl transiton-all ease-in-out duration-500`}
                           onClick={() => {
                             if (image.href != null) {
                               router.push(image.href);
