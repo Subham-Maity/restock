@@ -280,7 +280,7 @@ export const PcComponentFilter = () => {
                         </div>
                     </div>
 
-                    <section aria-labelledby="products-heading" className="pb-24 pt-6">
+                    <section aria-labelledby="products-heading" className="pb-12 pt-6">
                         <h2 id="products-heading" className="sr-only">
                             Products
                         </h2>
