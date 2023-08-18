@@ -54,4 +54,4 @@
 
 ## 2023-08-17
 
-- [x] Redux Implementation (Subham)
+- [x] Redux Implementation (Subham) - [#Changes](https://github.com/Subham-Maity/restock/commit/1ce18b9cba4624c71646f2ffc4163638713cc3b1)
