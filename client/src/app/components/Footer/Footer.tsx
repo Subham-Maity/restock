@@ -17,7 +17,7 @@ import { FaHandshake, FaTruck, FaStar, FaUsers, FaBoxes } from 'react-icons/fa';
 const Footer = () => {
   return (
     <div className="">
-      <footer className="bg-gradient-to-r from-zinc-400 via-neutral-400 to-slate-400 dark:from-zinc-800 dark:via-neutral-900 dark:to-slate-800 rounded-t-2xl">
+      <footer className="bg-gradient-to-r from-[#e5e5e7] via-neutral-[#e5e5e7] to-[#e5e5e7] dark:from-zinc-900 dark:via-neutral-1000 dark:to-slate-900 rounded-t-2xl">
         <div className=" mx-auto px-4 pb-6 pt-16 sm:px-6 lg:px-8">
           <div className="lg:flex lg:items-center lg:justify-between">
             <div className="flex justify-center text-gray-600 sm:justify-start">
@@ -36,20 +36,20 @@ const Footer = () => {
             </p>
           </div>
 
-          <div className=" grid grid-cols-2 gap-24 border-t border-gray-300 pt-16 md:grid-cols-6 lg:grid-cols-7">
+          <div className="p-4 grid grid-cols-2 gap-6 sm:gap-12 border-t border-gray-300 pt-16 md:grid-cols-6 lg:grid-cols-7">
 
-            <div className="text-center sm:text-left">
+            <div className="text-left">
               <p className="text-lg font-bold text-gray-900 dark:text-white">Get&#160;to Know Us</p>
               <ul className="mt-8 space-y-4 text-sm">
                 <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
-                  <FaInfoCircle className="text-indigo-700 dark:text-white text-xl mr-2" />
+                  <FaInfoCircle className="text-indigo-700 dark:text-white text-l mr-2" />
                   <Link className="text-indigo-700 group-hover:text-indigo-700 dark:text-white" href="/">
                     About Banggood.in
                   </Link>
                 </motion.li>
 
                 <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
-                  <FaClipboardCheck className="text-indigo-700 dark:text-white text-xl mr-2" />
+                  <FaClipboardCheck className="text-indigo-700 dark:text-white text-l mr-2" />
                   <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
                     Guarantees & Return Policy
                   </Link>
@@ -77,54 +77,48 @@ const Footer = () => {
                 </motion.li>
 
                 <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
-                  <FaBalanceScale className="text-indigo-700 dark:text-white text-4xl mr-2" />
+                  <FaBalanceScale className="text-indigo-700 dark:text-white text-2xl mr-2" />
                   <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
                     Intellectual Property Claims
                   </Link>
                 </motion.li>
 
-                <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
-                  <FaTwitter className="text-indigo-700 dark:text-white text-l mr-2" />
-                  <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
-                    Twitter
-                  </Link>
-                </motion.li>
               </ul>
             </div>
 
-            <div className="text-center sm:text-left">
+            <div className="text-left">
               <p className="text-lg font-bold text-gray-900 dark:text-white">Payment & Shipping</p>
               <ul className="mt-8 space-y-4 text-sm">
                 <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
-                  <FaCreditCard className="text-indigo-700 dark:text-white text-xl mr-2" />
+                  <FaCreditCard className="text-indigo-700 dark:text-white text-l mr-2" />
                   <Link className="text-indigo-700 group-hover:text-indigo-700 dark:text-white" href="/">
                     Payment Methods
                   </Link>
                 </motion.li>
 
                 <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
-                  <FaMoneyBillWave className="text-indigo-700 dark:text-white text-xl mr-2" />
+                  <FaMoneyBillWave className="text-indigo-700 dark:text-white text-l mr-2" />
                   <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
                     BGpay Instruction
                   </Link>
                 </motion.li>
 
                 <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
-                  <FaShippingFast className="text-indigo-700 dark:text-white text-xl mr-2" />
+                  <FaShippingFast className="text-indigo-700 dark:text-white text-l mr-2" />
                   <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
                     Shipping Guide
                   </Link>
                 </motion.li>
 
                 <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
-                  <FaGlobe className="text-indigo-700 dark:text-white text-2xl mr-2" />
+                  <FaGlobe className="text-indigo-700 dark:text-white text-l mr-2" />
                   <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
                     Locations We Ship To
                   </Link>
                 </motion.li>
 
                 <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
-                  <FaClock className="text-indigo-700 dark:text-white text-2xl mr-2" />
+                  <FaClock className="text-indigo-700 dark:text-white text-l mr-2" />
                   <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
                     Estimated Delivery Time
                   </Link>
@@ -132,11 +126,11 @@ const Footer = () => {
               </ul>
             </div>
 
-            <div className="text-center sm:text-left">
+            <div className="text-left">
               <p className="text-lg font-bold text-gray-900 dark:text-white">CONSUMER POLICY</p>
               <ul className="mt-8 space-y-4 text-sm">
                 <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
-                  <FaClipboardCheck className="text-indigo-700 dark:text-white text-xl mr-2" />
+                  <FaClipboardCheck className="text-indigo-700 dark:text-white text-l mr-2" />
                   <Link className="text-indigo-700 group-hover:text-indigo-700 dark:text-white" href="/">
                     Cancellation & Returns
                   </Link>
@@ -157,21 +151,21 @@ const Footer = () => {
                 </motion.li>
 
                 <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
-                  <FaUserSecret className="text-indigo-700 dark:text-white text-l mr-2" />
+                  <FaUserSecret className="text-indigo-700 dark:text-white  mr-2" />
                   <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
                     Privacy
                   </Link>
                 </motion.li>
 
                 <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
-                  <FaExclamationTriangle className="text-indigo-700 dark:text-white text-2xl mr-2" />
+                  <FaExclamationTriangle className="text-indigo-700 dark:text-white text-l mr-2" />
                   <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
                     Grievance Redressal
                   </Link>
                 </motion.li>
 
                 <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
-                  <FaRecycle className="text-indigo-700 dark:text-white text-2xl mr-2" />
+                  <FaRecycle className="text-indigo-700 dark:text-white text-xl mr-2" />
                   <Link className="text-indigo-700 transition hover:text-indigo-700/75 dark:text-white" href="/">
                     EPR Compliance
                   </Link>
@@ -179,7 +173,7 @@ const Footer = () => {
               </ul>
             </div>
 
-            <div className="text-center sm:text-left">
+            <div className="text-left">
               <p className="text-lg font-bold text-gray-900 dark:text-white">Partnership Programs</p>
               <ul className="mt-8 space-y-4 text-sm">
                 <motion.li whileHover={{ x: 10, y: 0, scale: 1, rotate: 0 }} className="flex items-center">
@@ -213,7 +207,7 @@ const Footer = () => {
             </div>
 
 
-            <div className="text-center sm:text-left">
+            <div className="text-left">
               <p className="text-lg font-bold text-gray-900 dark:text-white">Social</p>
               <ul className="mt-8 space-y-4 text-sm">
                 <motion.li whileHover={{x: 10,
@@ -279,7 +273,7 @@ const Footer = () => {
 
             </div>
 
-            <div className="text-center sm:text-left md:col-span-4 lg:col-span-2">
+            <div className="text-left md:col-span-4 lg:col-span-2">
               <motion.p className="text-lg font-bold text-gray-900 dark:text-white">Stay in touch</motion.p>
 
               <div className="mx-auto mt-8 max-w-md sm:ms-0">
