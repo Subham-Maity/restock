@@ -56,7 +56,7 @@ const navigation = [
   {
     id: 5,
     name: "Pre-Built PCs",
-    href: "/prebui<t",
+    href: "/prebuilt",
     icon: <PiComputerTowerFill />,
     current: false,
   },
@@ -76,26 +76,26 @@ const Navbar = () => {
     <div className="min-h-full">
       <Disclosure
         as="nav"
-        className="bg-gradient-to-r from-zinc-400 via-neutral-400 to-slate-400 dark:from-zinc-800 dark:via-neutral-900 dark:to-slate-800 mx-3 rounded-3xl md:rounded-full"
+        className="bg-gradient-to-r from-zinc-400 via-neutral-400 to-slate-400 dark:from-zinc-800 dark:via-neutral-900 dark:to-slate-800 mx-3 rounded-3xl xl:rounded-full"
       >
         {({ open }) => (
           <>
-            <div className="mt-4 mx-auto max-w-8xl px-4 sm:px-6 lg:px-12 py-2 sm:py-2 lg:py-2">
-              <div className="flex h-16 items-center justify-between">
+            <div className="mt-4 mx-auto max-w-8xl px-5 sm:px-6 xl:px-8 py-2 sm:py-2 lg:py-2">
+              <div className="flex h-16 items-center justify-between lg:justify-start">
                 <div className="flex items-center">
                   <div className="flex space-x-2 mr-8">
                     <Link href="/">
-                    <Image
-                      className="h-8 w-8"
-                      src="https://img.freepik.com/free-vector/modern-desktop-compute-concept-illustration_114360-12156.jpg"
-                      alt="Your Company"
-                      width={32}
-                      height={32}
-                    />
+                      <Image
+                        className="h-8 w-8"
+                        src="https://img.freepik.com/free-vector/modern-desktop-compute-concept-illustration_114360-12156.jpg"
+                        alt="Your Company"
+                        width={32}
+                        height={32}
+                      />
                     </Link>
                   </div>
-                  <div className="hidden md:block">
-                    <div className="hidden md:flex items-center space-x-4">
+                  <div className="hidden xl:block">
+                    <div className="flex items-center space-x-4">
                       {navigation.map((item) => (
                         <Link
                           key={item.name}
@@ -104,7 +104,7 @@ const Navbar = () => {
                             item.current
                               ? "bg-gray-100 bg-opacity-90 md:rounded-full dark:bg-gray-500 dark:bg-opacity-70 text-white"
                               : "text-gray-300 dark:hover:bg-gray-600 dark:bg-opacity-95 hover:bg-gray-300 hover:bg-opacity-95",
-                            "flex items-center rounded-full px-3 py-2 text-sm font-medium",
+                            "flex items-center rounded-full px-3 py-2 text-sm font-medium"
                           )}
                           aria-current={item.current ? "page" : undefined}
                         >
@@ -117,7 +117,7 @@ const Navbar = () => {
                     </div>
                   </div>
                 </div>
-                <div className="hidden md:block">
+                <div className="hidden lg:block ml-auto">
                   <div className="ml-4 flex items-center md:ml-6">
                     <button
                       type="button"
@@ -140,9 +140,9 @@ const Navbar = () => {
                     <Menu as="div" className="relative ml-3">
                       <div>
                         <Menu.Button className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                          <span className="sr-only">Open user menu</span>
+                          <span className="sr-only xl:hidden">Open user menu</span>
                           <Image
-                            className="h-8 w-8 rounded-full"
+                            className="h-8 w-8 rounded-full hidden xl:block"
                             src={user.imageUrl}
                             alt=""
                             width={32}
@@ -166,8 +166,10 @@ const Navbar = () => {
                                 <Link
                                   href={item.href}
                                   className={classNames(
-                                    active ? "bg-gray-400 dark:bg-gray-500" : "",
-                                    "block px-4 py-2 text-sm dark:text-gray-200 rounded-2xl",
+                                    active
+                                      ? "bg-gray-400 dark:bg-gray-500"
+                                      : "",
+                                    "block px-4 py-2 text-sm dark:text-gray-200 rounded-2xl"
                                   )}
                                 >
                                   {item.name}
@@ -176,15 +178,16 @@ const Navbar = () => {
                             </Menu.Item>
                           ))}
                           <div className="ml-4">
-                          <Switcher />
+                            <Switcher />
                           </div>
                         </Menu.Items>
                       </Transition>
                     </Menu>
                   </div>
                 </div>
-                <div className="-mr-2 flex md:hidden">
-                  {/* Mobile menu button */}
+
+                {/* Mobile menu button */}
+                <div className="flex xl:hidden ">
                   <Disclosure.Button className="inline-flex items-center justify-center rounded-full bg-gray-300 dark:bg-gray-600 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                     <span className="sr-only">Open main menu</span>
                     {open ? (
@@ -198,7 +201,7 @@ const Navbar = () => {
             </div>
 
             {/*Mobile View*/}
-            <Disclosure.Panel className="md:hidden">
+            <Disclosure.Panel className="xl:hidden">
               <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
                 {navigation.map((item) => (
                   <Disclosure.Button
@@ -209,7 +212,7 @@ const Navbar = () => {
                       item.current
                         ? "bg-gray-200 bg-opacity-80  dark:bg-gray-400 dark:bg-opacity- text-black "
                         : "text-gray-100 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-400 ",
-                      "block rounded-3xl px-3 py-2 text-base font-medium",
+                      "block rounded-3xl px-3 py-2 text-base font-medium"
                     )}
                     aria-current={item.current ? "page" : undefined}
                   >
@@ -217,8 +220,9 @@ const Navbar = () => {
                   </Disclosure.Button>
                 ))}
               </div>
+
               <div className="border-t border-gray-700 pb-3 pt-4">
-                <div className="flex items-center px-5">
+                <div className="flex items-center px-5 ">
                   <div className="flex-shrink-0">
                     <Image
                       className="h-10 w-10 rounded-full"
@@ -238,7 +242,7 @@ const Navbar = () => {
                   </div>
                   <button
                     type="button"
-                    className="ml-auto flex-shrink-0 rounded-full bg-gray-500 hover:bg-gray-600 p-1 text-white dark:bg-gray-700 dark:hover:text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                    className="ml-auto flex-shrink-0 rounded-full bg-gray-500 hover:bg-gray-600 p-1 text-white dark:bg-gray-700 dark:hover:text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 lg:hidden"
                   >
                     <span className="sr-only">View notifications</span>
                     <Link href={"/cart"}>
@@ -248,7 +252,7 @@ const Navbar = () => {
                       />
                     </Link>
                   </button>
-                  <span className="inline-flex items-center mb-7 -ml-3 rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10 opacity-75">
+                  <span className="inline-flex items-center mb-7 -ml-3 rounded-full bg-green-200 px-2 py-1 text-xs font-medium text-green-600 ring-1 ring-inset ring-green-600/10 opacity-75 lg:hidden">
                     3
                   </span>
                 </div>
@@ -263,9 +267,12 @@ const Navbar = () => {
                       {item.name}
                     </Disclosure.Button>
                   ))}
-                  <Switcher/>
+                  
                 </div>
+
+                
               </div>
+              <Switcher />
             </Disclosure.Panel>
           </>
         )}

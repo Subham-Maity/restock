@@ -77,7 +77,7 @@ const Login = () => {
               </div>
             </div>
 
-            <div className="mt-6 sm:mx- items-center blur-[sm]">
+            <div className="mt-6 items-center blur-[sm]">
               <Link
                 href=""
                 className="relative inline-flex items-center justify-center sm:w-full p-4 py-3 overflow-hidden font-medium text-indigo-500 transition duration-100 ease-out border-2 dark:border-indigo-500/30 rounded-2xl shadow-xl group"
@@ -86,9 +86,9 @@ const Login = () => {
                 <FaArrowRight />
                 </span>
                 <span className="absolute flex items-center justify-center w-full h-full text-indigo-500 dark:text-indigo-400 transition-all duration-300 transform group-hover:translate-x-full ease">
-                  Log In
+                  Log in
                 </span>
-                <span className="relative invisible">Button Text</span>
+                <span className="relative invisible">Log in</span>
               </Link>
             </div>
           </form>

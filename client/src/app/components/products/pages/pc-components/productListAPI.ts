@@ -1,7 +1,5 @@
-export function fetchAllProducts() {
-    return new Promise(async (resolve) => {
-        const response = await fetch("http://localhost:8080/products");
-        const data = await (response as Response).json();
-        resolve({data});
-    });
+export async function fetchAllProducts(): Promise<{ data: any }> {
+    const response: Response = await fetch("http://localhost:8080/products");
+    const data = await response.json()
+    return {data};
 }

@@ -34,28 +34,28 @@ function Carousel2() {
                                 className="text-indigo-700"> Facts</span></h1><p
                                 className="text-sm p-2 ml-2 lg:text-lg">Montage India is a store that provides you with
                                 the best footage of video and images.</p></div>
-                            <div ref={myRef} className="flex flex-wrap gap-4 justify-center items-center">
+                            <div ref={myRef} className="flex flex-wrap gap-2 md:gap-4 justify-center items-center">
                                 <div
-                                    className="flex flex-col items-center justify-center gap-4 lg:h-[200px] lg:w-[200px] bg-gray-300/25 border-gray-400/75 border-2 border-primaryButton rounded-xl hover:border-text hover:scale-[1.05] transiton-all ease-in-out duration-500 p-8 lg:p-2">
-                                    <span className="text-xl lg:text-4xl font-abril">
+                                    className="flex flex-col items-center justify-center gap-4 h-[100px] w-[110px] sm:h-[120px] sm:w-[160px] lg:h-[200px] lg:w-[200px] bg-gray-300/25 border-gray-400/75 border-2 border-primaryButton rounded-xl hover:border-text hover:scale-[1.05] transiton-all ease-in-out duration-500 py-5 px-3 lg:p-2">
+                                    <span className="text-base md:text-xl lg:text-4xl font-abril">
                                        + {myElementIsVisible?<CountUp end={1204}/>:<CountUp end={0}/>}
                                     </span><p
-                                    className="text-sm lg:text-sm">Total Items</p></div>
+                                    className="text-xs sm:text-sm lg:text-base">Total Items</p></div>
                                 <div
-                                    className="flex flex-col items-center justify-center gap-4 lg:h-[200px] lg:w-[200px] bg-gray-300/25 border-gray-400/75 border-2 border-primaryButton rounded-xl hover:border-text hover:scale-[1.05] transiton-all ease-in-out duration-500 p-8 lg:p-2">
-                                    <span className="text-xl lg:text-4xl font-abril">
+                                    className="flex flex-col items-center justify-center gap-4 h-[100px] w-[110px] sm:h-[120px] sm:w-[160px] lg:h-[200px] lg:w-[200px] bg-gray-300/25 border-gray-400/75 border-2 border-primaryButton rounded-xl hover:border-text hover:scale-[1.05] transiton-all ease-in-out duration-500 py-5 px-3 lg:p-2">
+                                    <span className="text-base md:text-xl lg:text-4xl font-abril">
                                         +{myElementIsVisible?<CountUp end={56785}/>:<CountUp end={0}/>}</span><p
-                                    className="text-sm lg:text-sm">Total Sales</p></div>
+                                    className="text-xs sm:text-sm lg:text-base">Total Sales</p></div>
                                 <div
-                                    className="flex flex-col items-center justify-center gap-4 lg:h-[200px] lg:w-[200px] bg-gray-300/25 border-gray-400/75 border-2 border-primaryButton rounded-xl hover:border-text hover:scale-[1.05] transiton-all ease-in-out duration-500 p-8 lg:p-2">
-                                    <span className="text-xl lg:text-4xl font-abril">
+                                    className="flex flex-col items-center justify-center gap-4 h-[100px] w-[110px] sm:h-[120px] sm:w-[160px] lg:h-[200px] lg:w-[200px] bg-gray-300/25 border-gray-400/75 border-2 border-primaryButton rounded-xl hover:border-text hover:scale-[1.05] transiton-all ease-in-out duration-500 py-5 px-3 lg:p-2">
+                                    <span className="text-base md:text-xl lg:text-4xl font-abril">
                                         +{myElementIsVisible?<CountUp end={6235}/>:<CountUp end={0}/>}</span><p
-                                    className="text-sm lg:text-sm">Total Users</p></div>
+                                    className="text-xs sm:text-sm lg:text-base">Total Users</p></div>
                                 <div
-                                    className="flex flex-col items-center justify-center gap-4 lg:h-[200px] lg:w-[200px] bg-gray-300/25 border-gray-400/75 border-2 border-primaryButton rounded-xl hover:border-text hover:scale-[1.05] transiton-all ease-in-out duration-500 p-8 lg:p-2">
-                                    <span className="text-xl lg:text-4xl font-abril">
+                                    className="flex flex-col items-center justify-center gap-4 h-[100px] w-[110px] sm:h-[120px] sm:w-[160px] lg:h-[200px] lg:w-[200px] bg-gray-300/25 border-gray-400/75 border-2 border-primaryButton rounded-xl hover:border-text hover:scale-[1.05] transiton-all ease-in-out duration-500 py-5 lg:p-2">
+                                    <span className="text-base md:text-xl lg:text-4xl font-abril">
                                         +{myElementIsVisible?<CountUp end={6235}/>:<CountUp end={0}/>}</span><p
-                                    className="text-sm lg:text-sm">Total Download</p></div>
+                                    className="text-xs sm:text-sm lg:text-base">Total Download</p></div>
                             </div>
                         </div>
                     </div>
