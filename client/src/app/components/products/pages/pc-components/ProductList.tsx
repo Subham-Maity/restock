@@ -24,6 +24,18 @@ const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
   { name: "Price: Low to High", sort: "price", order: "asc", current: false },
   { name: "Price: High to Low", sort: "price", order: "desc", current: false },
+  {
+    name: "Discount: High to Low",
+    sort: "discountPercentage",
+    order: "desc",
+    current: false,
+  },
+  {
+    name: "Discount: Low to High",
+    sort: "discountPercentage",
+    order: "asc",
+    current: false,
+  },
 ];
 const filters = [
   {
@@ -206,6 +218,12 @@ export const PcComponentFilter = () => {
 
     console.log(section.id, option.value);
   };
+  const handleSort = (e: any, option: any) => {
+    const newFilter = { ...filter, _sort: option.sort, _order: option.order };
+    setFilter(newFilter);
+    // @ts-ignore
+    dispatch(fetchProductsByFiltersAsync(newFilter));
+  };
   return (
     <div className="mt-4  ">
       <div>
@@ -355,7 +373,8 @@ export const PcComponentFilter = () => {
                         <Menu.Item key={option.name}>
                           {({ active }) => (
                             <Link
-                              href={"option.href"}
+                              href={`#`}
+                              onClick={(e) => handleSort(e, option)}
                               className={classNames(
                                 option.current
                                   ? "dark:hover:bg-[#343756] hover:bg-[#f3f4f6] text-gray-800 dark:text-[#d9d8ff] dark:bg-[#25293c ] dark:hover:text-[#7f70ff] "
