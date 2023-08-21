@@ -26,7 +26,6 @@ const settings = {
 
 const Carousel: React.FC<{ props: Image[] }> = ({ props }) => {
   const router = useRouter();
-
   return (
     <div className="object-cover rounded-2xl">
       <div className="lg:mx-20">
@@ -67,5 +66,4 @@ const Carousel: React.FC<{ props: Image[] }> = ({ props }) => {
     </div>
   );
 };
-
 export default Carousel;

@@ -18,7 +18,8 @@
 
 ## 2023-08-07
 
-- [x] Login: Forget Button (router) → Identify (Email Field + Button (Router)) → Thank You Message + Button (Router) → Main Page (Subhasish)
+- [x] Login: Forget Button (router) → Identify (Email Field + Button (Router)) → Thank You Message + Button (Router) →
+  Main Page (Subhasish)
 - [x] Background Animation (Suman)
 - [x] Cart Page Setup (Subham)
 
@@ -54,4 +55,9 @@
 
 ## 2023-08-17
 
-- [x] Redux Implementation (Subham)
+- [x] Redux Implementation (
+  Subham) - [#Changes](https://github.com/Subham-Maity/restock/commit/1ce18b9cba4624c71646f2ffc4163638713cc3b1)
+
+## 2023-08-20
+
+- [X] Redux Product Fetch (Subham) - [#Changes]()

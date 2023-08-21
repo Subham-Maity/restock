@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
@@ -9,211 +9,15 @@ import {
   MinusIcon,
   PlusIcon,
   Squares2X2Icon,
+  StarIcon,
 } from "@heroicons/react/20/solid";
 import Image from "next/image";
-
-const products = [
-  {
-    id: 1,
-    name: "Earthen Bottle",
-    href: "#",
-    price: "$48",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg",
-    imageAlt:
-      "Tall slender porcelain bottle with natural clay textured body and cork stopper.",
-  },
-  {
-    id: 2,
-    name: "Nomad Tumbler",
-    href: "#",
-    price: "$35",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg",
-    imageAlt:
-      "Olive drab green insulated bottle with flared screw lid and flat top.",
-  },
-  {
-    id: 3,
-    name: "Focus Paper Refill",
-    href: "#",
-    price: "$89",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-03.jpg",
-    imageAlt:
-      "Person using a pen to cross a task off a productivity paper card.",
-  },
-  {
-    id: 4,
-    name: "Machined Mechanical Pencil",
-    href: "#",
-    price: "$35",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-04.jpg",
-    imageAlt:
-      "Hand holding black machined steel mechanical pencil with brass tip and top.",
-  },
-  {
-    id: 5,
-    name: "Earthen Bottle",
-    href: "#",
-    price: "$48",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg",
-    imageAlt:
-      "Tall slender porcelain bottle with natural clay textured body and cork stopper.",
-  },
-  {
-    id: 6,
-    name: "Nomad Tumbler",
-    href: "#",
-    price: "$35",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg",
-    imageAlt:
-      "Olive drab green insulated bottle with flared screw lid and flat top.",
-  },
-  {
-    id: 7,
-    name: "Focus Paper Refill",
-    href: "#",
-    price: "$89",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-03.jpg",
-    imageAlt:
-      "Person using a pen to cross a task off a productivity paper card.",
-  },
-  {
-    id: 8,
-    name: "Machined Mechanical Pencil",
-    href: "#",
-    price: "$35",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-04.jpg",
-    imageAlt:
-      "Hand holding black machined steel mechanical pencil with brass tip and top.",
-  },
-  {
-    id: 9,
-    name: "Earthen Bottle",
-    href: "#",
-    price: "$48",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg",
-    imageAlt:
-      "Tall slender porcelain bottle with natural clay textured body and cork stopper.",
-  },
-  {
-    id: 11,
-    name: "Nomad Tumbler",
-    href: "#",
-    price: "$35",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg",
-    imageAlt:
-      "Olive drab green insulated bottle with flared screw lid and flat top.",
-  },
-  {
-    id: 12,
-    name: "Focus Paper Refill",
-    href: "#",
-    price: "$89",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-03.jpg",
-    imageAlt:
-      "Person using a pen to cross a task off a productivity paper card.",
-  },
-  {
-    id: 13,
-    name: "Machined Mechanical Pencil",
-    href: "#",
-    price: "$35",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-04.jpg",
-    imageAlt:
-      "Hand holding black machined steel mechanical pencil with brass tip and top.",
-  },
-  {
-    id: 14,
-    name: "Earthen Bottle",
-    href: "#",
-    price: "$48",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg",
-    imageAlt:
-      "Tall slender porcelain bottle with natural clay textured body and cork stopper.",
-  },
-  {
-    id: 15,
-    name: "Nomad Tumbler",
-    href: "#",
-    price: "$35",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg",
-    imageAlt:
-      "Olive drab green insulated bottle with flared screw lid and flat top.",
-  },
-  {
-    id: 16,
-    name: "Focus Paper Refill",
-    href: "#",
-    price: "$89",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-03.jpg",
-    imageAlt:
-      "Person using a pen to cross a task off a productivity paper card.",
-  },
-  {
-    id: 17,
-    name: "Machined Mechanical Pencil",
-    href: "#",
-    price: "$35",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-04.jpg",
-    imageAlt:
-      "Hand holding black machined steel mechanical pencil with brass tip and top.",
-  },
-  {
-    id: 18,
-    name: "Earthen Bottle",
-    href: "#",
-    price: "$48",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg",
-    imageAlt:
-      "Tall slender porcelain bottle with natural clay textured body and cork stopper.",
-  },
-  {
-    id: 19,
-    name: "Nomad Tumbler",
-    href: "#",
-    price: "$35",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg",
-    imageAlt:
-      "Olive drab green insulated bottle with flared screw lid and flat top.",
-  },
-  {
-    id: 20,
-    name: "Focus Paper Refill",
-    href: "#",
-    price: "$89",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-03.jpg",
-    imageAlt:
-      "Person using a pen to cross a task off a productivity paper card.",
-  },
-  {
-    id: 21,
-    name: "Machined Mechanical Pencil",
-    href: "#",
-    price: "$35",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-04.jpg",
-    imageAlt:
-      "Hand holding black machined steel mechanical pencil with brass tip and top.",
-  },
-];
+import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectAllProducts,
+  fetchAllProductsAsync,
+} from "@/app/components/products/pages/pc-components/productListSlice";
 
 const sortOptions = [
   { name: "Most Popular", href: "#", current: true },
@@ -329,12 +133,12 @@ export const PcComponentFilter = () => {
                     >
                       {subCategories.map((category) => (
                         <li key={category.name}>
-                          <a
+                          <Link
                             href={category.href}
                             className="block px-2 py-3 dark:text-white"
                           >
                             {category.name}
-                          </a>
+                          </Link>
                         </li>
                       ))}
                     </ul>
@@ -444,7 +248,7 @@ export const PcComponentFilter = () => {
                                   ? "dark:hover:bg-[#343756] hover:bg-[#f3f4f6] text-gray-800 dark:text-[#d9d8ff] dark:bg-[#25293c ] dark:hover:text-[#7f70ff] "
                                   : "dark:hover:bg-[#343756] hover:bg-[#f3f4f6] text-gray-800 dark:text-[#d9d8ff] dark:bg-[#25293c ] dark:hover:text-[#7f70ff] ",
                                 active ? "" : "",
-                                "block px-4 py-2 text-sm",
+                                "block px-4 py-2 text-sm"
                               )}
                             >
                               {option.name}
@@ -475,7 +279,7 @@ export const PcComponentFilter = () => {
             </div>
           </div>
 
-          <section aria-labelledby="products-heading" className="pb-24 pt-6">
+          <section aria-labelledby="products-heading" className="pb-12 pt-6">
             <h2 id="products-heading" className="sr-only">
               Products
             </h2>
@@ -490,9 +294,9 @@ export const PcComponentFilter = () => {
                 >
                   {subCategories.map((category) => (
                     <li key={category.name}>
-                      <a href={category.href} className="dark:text-white">
+                      <Link href={category.href} className="dark:text-white">
                         {category.name}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -566,6 +370,13 @@ export const PcComponentFilter = () => {
 };
 
 export const PcComponentProductList = () => {
+  const products = useSelector(selectAllProducts);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    // @ts-ignore
+    dispatch(fetchAllProductsAsync());
+  }, [dispatch]);
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   return (
     <div>
       <div>
@@ -574,24 +385,52 @@ export const PcComponentProductList = () => {
             <h2 className="sr-only">Products</h2>
 
             <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-              {products.map((product) => (
-                <a key={product.id} href={product.href} className="group">
-                  <div className="shadow-lg hover:dark:shadow-[#584592] aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
-                    <Image
-                      src={product.imageSrc}
-                      alt={product.imageAlt}
-                      className="h-full w-full object-cover object-center group-hover:opacity-75"
-                      width={300}
-                      height={300}
-                    />
+              {products.map((product: any) => (
+                <Link href="/" key={product.id}>
+                  <div className="group relative shadow-2xl  border dark:border-gray-400/25 sha rounded-lg p-2 ">
+                    <div className="min-h-60 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-60">
+                      <Image
+                        width={300}
+                        height={300}
+                        src={product.thumbnail}
+                        alt={product.title}
+                        className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+                      />
+                    </div>
+                    <div className="mt-4 flex justify-between">
+                      <div>
+                        <h3 className="text-sm dark:text-gray-200 text-gray-700">
+                          <a href={product.thumbnail}>
+                            <span
+                              aria-hidden="true"
+                              className="absolute inset-0"
+                            />
+                            {product.title}
+                          </a>
+                        </h3>
+                        <p className="mt-1 text-sm text-gray-500">
+                          <StarIcon className="w-6 h-6 inline"></StarIcon>
+                          <span className=" align-bottom">
+                            {product.rating}
+                          </span>
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-sm block font-medium text-gray-900">
+                          ₹
+                          {Math.round(
+                            product.price *
+                              (1 - product.discountPercentage / 100)
+                          )}
+                          /-
+                        </p>
+                        <p className="text-sm block line-through font-medium text-gray-400">
+                          ₹{product.price}/-
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                  <h3 className="mt-4 text-sm dark:text-gray-200 text-gray-700">
-                    {product.name}
-                  </h3>
-                  <p className="mt-1 text-lg dark:text-gray-200  font-medium text-gray-900">
-                    {product.price}
-                  </p>
-                </a>
+                </Link>
               ))}
             </div>
           </div>
