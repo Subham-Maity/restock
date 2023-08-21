@@ -387,8 +387,8 @@ export const PcComponentProductList = () => {
             <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
               {products.map((product: any) => (
                 <Link href="/" key={product.id}>
-                  <div className="group relative shadow-2xl  border dark:border-gray-400/25 sha rounded-lg p-2 ">
-                    <div className="min-h-60 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-60">
+                  <div className="group relative shadow-lg border-2 bg-white/30 dark:bg-black/20 border-gray-400/25 dark:border-gray-600/20 rounded-lg p-2 ">
+                    <div className="min-h-60 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-60">
                       <Image
                         width={300}
                         height={300}
@@ -399,14 +399,14 @@ export const PcComponentProductList = () => {
                     </div>
                     <div className="mt-4 flex justify-between">
                       <div>
-                        <h3 className="text-sm dark:text-gray-200 text-gray-700">
-                          <a href={product.thumbnail}>
+                        <h3 className="dark:text-gray-200 font-medium text-black/70">
+                          <Link href={product.thumbnail}>
                             <span
                               aria-hidden="true"
                               className="absolute inset-0"
                             />
                             {product.title}
-                          </a>
+                          </Link>
                         </h3>
                         <p className="mt-1 text-sm text-gray-500">
                           <StarIcon className="w-6 h-6 inline"></StarIcon>

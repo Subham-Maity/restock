@@ -73,14 +73,14 @@ function classNames(...classes: any[]) {
 
 const Navbar = () => {
   return (
-    <div className="min-h-full">
+    <div className="fixed top-0 left-0 right-0 z-50 backdrop-blur-3xl rounded-b-xl">
       <Disclosure
         as="nav"
-        className="bg-gradient-to-r from-zinc-400 via-neutral-400 to-slate-400 dark:from-zinc-800 dark:via-neutral-900 dark:to-slate-800 mx-3 rounded-3xl xl:rounded-full"
+        className="bg-black/10 dark:bg-black/70 "
       >
         {({ open }) => (
           <>
-            <div className="mt-4 mx-auto max-w-8xl px-5 sm:px-6 xl:px-8 py-2 sm:py-2 lg:py-2">
+            <div className="mx-auto max-w-8xl px-5 sm:px-6 xl:px-8 py-2 sm:py-2 lg:py-2">
               <div className="flex h-16 items-center justify-between lg:justify-start">
                 <div className="flex items-center">
                   <div className="flex space-x-2 mr-8">
