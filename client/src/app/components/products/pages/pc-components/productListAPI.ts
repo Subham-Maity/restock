@@ -11,6 +11,7 @@ export async function fetchAllProductsByFilter(
   filter: any,
 ): Promise<{ data: any }> {
   /*filter format = https://restock-api.onrender.com/products?category=laptops
+   *Sort -> https://restock-api.onrender.com/products?_sort=price&_order=desc
    * so,${key}=${filter[key]}
    * filter = "category":"laptops"
    * */
