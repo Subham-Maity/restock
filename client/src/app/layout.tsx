@@ -7,8 +7,8 @@ import React from "react";
 import Navbar from "@/app/components/Navbar/Navbar";
 import ThemeProviders from "@/app/ThemeProvider";
 import Footer from "@/app/components/Footer/Footer";
-import Carousel2 from "@/app/components/Carousel/Carousel2"
-import {ReduxProvider} from "@/lib/provider";
+import Carousel2 from "@/app/components/Carousel/Carousel2";
+import { ReduxProvider } from "@/lib/provider";
 import Pagination from "@/app/components/Pagination/Pagination";
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,22 +21,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className=" h-full">
-    <ReduxProvider>
-      <ThemeProviders>
-        <body
-          className={`${inter.className}box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25) bg-gradient-to-r from-zinc-300 via-neutral-300 to-slate-300 dark:from-zinc-700 dark:via-neutral-700 dark:to-slate-700`}
-        >
-          <div className="lg:mx-6 xl:mx-9 2xl:px-12">
-            <Navbar />
-            {children}
-            <Pagination/>
-          </div>
-          <Carousel2/>
-          <Footer />
-        </body>
-      </ThemeProviders>
-    </ReduxProvider>
+    <html lang="en" className="h-full">
+      <ReduxProvider>
+        <ThemeProviders>
+          <body
+            className={`${inter.className}box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25) bg-gradient-to-r from-zinc-300 via-neutral-300 to-slate-300 dark:from-zinc-700 dark:via-neutral-700 dark:to-slate-700`}
+          >
+            <div className="lg:mx-6 xl:mx-9 2xl:mx-12">
+              <Navbar />
+              <main className="mt-28">
+              {children}
+              </main>
+              <Pagination />
+            </div>
+            <Carousel2 />
+            <Footer />
+          </body>
+        </ThemeProviders>
+      </ReduxProvider>
     </html>
   );
 }
