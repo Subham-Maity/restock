@@ -1,10 +1,8 @@
-'use client'
-
 import React, { useCallback, useEffect, useState } from 'react'
 import useEmblaCarousel, { EmblaOptionsType } from 'embla-carousel-react'
 import { flushSync } from 'react-dom'
-// @ts-ignore
-import imageByIndex from './Carousel2/imageByIndex';
+import imageByIndex from './imageByIndex'
+import Autoplay from 'embla-carousel-autoplay'
 import Image from "next/image";
 
 const TWEEN_FACTOR = 1.2
@@ -16,7 +14,12 @@ type PropType = {
 
 const EmblaCarousel: React.FC<PropType> = (props) => {
     const { slides, options } = props
-    const [emblaRef, emblaApi] = useEmblaCarousel(options)
+    const autoplayOptions = {
+        delay: 3000
+    }
+    const plugins = [Autoplay(autoplayOptions)]
+    // @ts-ignore
+    const [emblaRef, emblaApi] = useEmblaCarousel(options, plugins)
     const [tweenValues, setTweenValues] = useState<number[]>([])
 
     const onScroll = useCallback(() => {
@@ -25,11 +28,11 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
         const engine = emblaApi.internalEngine()
         const scrollProgress = emblaApi.scrollProgress()
 
-        const styles = emblaApi.scrollSnapList().map((scrollSnap:any, index:any):number => {
+        const styles = emblaApi.scrollSnapList().map((scrollSnap, index) => {
             let diffToTarget = scrollSnap - scrollProgress
 
             if (engine.options.loop) {
-                engine.slideLooper.loopPoints.forEach((loopItem:any):void=> {
+                engine.slideLooper.loopPoints.forEach((loopItem) => {
                     const target = loopItem.target()
                     if (index === loopItem.index && target !== 0) {
                         const sign = Math.sign(target)
@@ -71,10 +74,9 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
                                     }}
                                 >
                                     <Image
-                                        className="embla__slide__img embla__parallax__img w-full object-fill"
+                                        className="embla__slide__img embla__parallax__img"
                                         src={imageByIndex(index)}
                                         alt="Your alt text"
-                                        width={1800}
                                     />
                                 </div>
                             </div>

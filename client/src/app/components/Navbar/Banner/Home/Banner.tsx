@@ -30,12 +30,12 @@
 import '../../../Carousel/Carousel2/base.css'
 import '../../../Carousel/Carousel2/sandbox.css'
 import '../../../Carousel/Carousel2/embla.css'
-import EmblaCarousel from '../../../Carousel/EmblaCarousel'
+import EmblaCarousel from '../../../Carousel/Carousel2/EmblaCarousel'
 import {EmblaOptionsType} from "embla-carousel-react";
 import React from "react";
 
 
-const OPTIONS: EmblaOptionsType = { inViewThreshold: 0, dragFree: true }
+const OPTIONS: EmblaOptionsType = { loop:true, inViewThreshold: 0, dragFree: true }
 const SLIDE_COUNT = 5
 const SLIDES = Array.from(Array(SLIDE_COUNT).keys())
 
