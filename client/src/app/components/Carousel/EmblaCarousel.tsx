@@ -74,7 +74,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
                                         className="embla__slide__img embla__parallax__img w-full object-fill"
                                         src={imageByIndex(index)}
                                         alt="Your alt text"
-                                        width={600}
+                                        width={1800}
                                     />
                                 </div>
                             </div>
