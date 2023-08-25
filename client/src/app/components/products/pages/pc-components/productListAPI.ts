@@ -10,6 +10,7 @@ export async function fetchAllProducts(): Promise<{ data: any }> {
 export async function fetchAllProductsByFilter(
   filter: any,
   sort: any,
+  pagination: any,
 ): Promise<{ data: any }> {
   /*filter format = https://restock-api.onrender.com/products?category=laptops
    *Sort -> https://restock-api.onrender.com/products?_sort=price&_order=desc
@@ -24,6 +25,11 @@ export async function fetchAllProductsByFilter(
   for (let key in sort) {
     //`&` can handle more than one product
     queryString += `${key}=${sort[key]}&`;
+  }
+
+  for (let key in pagination) {
+    //`&` can handle more than one product
+    queryString += `${key}=${pagination[key]}&`;
   }
   const response: Response = await fetch(
     "https://restock-api.onrender.com/products?" + queryString,
