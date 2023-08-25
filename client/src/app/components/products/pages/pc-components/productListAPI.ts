@@ -9,6 +9,7 @@ export async function fetchAllProducts(): Promise<{ data: any }> {
 //Todo: on server support multiple values
 export async function fetchAllProductsByFilter(
   filter: any,
+  sort: any,
 ): Promise<{ data: any }> {
   /*filter format = https://restock-api.onrender.com/products?category=laptops
    *Sort -> https://restock-api.onrender.com/products?_sort=price&_order=desc
@@ -19,6 +20,10 @@ export async function fetchAllProductsByFilter(
   for (let key in filter) {
     //`&` can handle more than one product
     queryString += `${key}=${filter[key]}&`; //it will return something like this : category=laptops&brand=Apple
+  }
+  for (let key in sort) {
+    //`&` can handle more than one product
+    queryString += `${key}=${sort[key]}&`;
   }
   const response: Response = await fetch(
     "https://restock-api.onrender.com/products?" + queryString,
