@@ -211,6 +211,10 @@ export const PcComponentProductList = () => {
   const [filter, setFilter] = useState({});
   const [sort, setSort] = useState({});
   const dispatch = useDispatch();
+  useEffect(()=>{
+    // @ts-ignore
+    dispatch(fetchAllProductsAsync());
+  },[dispatch])
   const products = useSelector(selectAllProducts);
   const handleFilter = (e: any, section: any, option: any) => {
     const newFilter = { ...filter, [section.id]: option.value };
