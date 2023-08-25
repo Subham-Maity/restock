@@ -33,10 +33,8 @@ export const fetchAllProductsAsync = createAsyncThunk(
 
 export const fetchProductsByFiltersAsync = createAsyncThunk(
   "product/fetchAllProductsByFilter",
-  //Todo: on server support multiple values
-  //@ts-ignore
-  async (filter, sort, pagination) => {
-    const response = await fetchAllProductsByFilter(filter, sort, pagination);
+  async (filter) => {
+    const response = await fetchAllProductsByFilter(filter);
     return response.data;
   },
 );
@@ -62,7 +60,6 @@ export const productSlice = createSlice({
       })
       .addCase(fetchProductsByFiltersAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        //@ts-ignore
         state.products = action.payload;
       });
   },

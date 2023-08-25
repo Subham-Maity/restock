@@ -21,31 +21,6 @@ import {
 } from "@/app/components/products/pages/pc-components/productListSlice";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 
-import { ITEMS_PER_PAGE } from "@/lib/redux/constants";
-
-const items = [
-  {
-    id: 1,
-    title: "Back End Developer",
-    department: "Engineering",
-    type: "Full-time",
-    location: "Remote",
-  },
-  {
-    id: 2,
-    title: "Front End Developer",
-    department: "Engineering",
-    type: "Full-time",
-    location: "Remote",
-  },
-  {
-    id: 3,
-    title: "User Interface Designer",
-    department: "Design",
-    type: "Full-time",
-    location: "Remote",
-  },
-];
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
   { name: "Price: Low to High", sort: "price", order: "asc", current: false },
@@ -234,6 +209,9 @@ function classNames(...classes: any) {
 
 export const PcComponentProductList = () => {
   const [filter, setFilter] = useState({});
+  const [sort, setSort] = useState({});
+  const dispatch = useDispatch();
+  const products = useSelector(selectAllProducts);
   const handleFilter = (e: any, section: any, option: any) => {
     const newFilter = { ...filter, [section.id]: option.value };
     setFilter(newFilter);
@@ -242,13 +220,13 @@ export const PcComponentProductList = () => {
 
     console.log(section.id, option.value);
   };
-
-  const products = useSelector(selectAllProducts);
-  const dispatch = useDispatch();
-  useEffect(() => {
+  const handleSort = (e: any, option: any) => {
+    const newFilter = { ...filter, _sort: option.sort, _order: option.order };
+    setFilter(newFilter);
     // @ts-ignore
-    dispatch(fetchAllProductsAsync());
-  }, [dispatch]);
+    dispatch(fetchProductsByFiltersAsync(newFilter));
+  };
+
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   return (
     <div>
@@ -291,7 +269,7 @@ export const PcComponentProductList = () => {
                       <Menu.Item key={option.name}>
                         {({ active }) => (
                           <p
-                            // onClick={(e) => handleSort(e, option)}
+                            onClick={(e) => handleSort(e, option)}
                             className={classNames(
                               option.current
                                 ? "cursor-pointer dark:hover:bg-[#343756] hover:bg-[#f3f4f6] text-gray-800 dark:text-[#d9d8ff] dark:bg-[#25293c ] dark:hover:text-[#7f70ff] "
