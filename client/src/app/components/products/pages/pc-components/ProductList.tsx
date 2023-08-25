@@ -211,19 +211,39 @@ export const PcComponentProductList = () => {
   const [filter, setFilter] = useState({});
   const [sort, setSort] = useState({});
   const dispatch = useDispatch();
-  useEffect(()=>{
+  useEffect(() => {
     // @ts-ignore
     dispatch(fetchAllProductsAsync());
-  },[dispatch])
+  }, [dispatch]);
   const products = useSelector(selectAllProducts);
   const handleFilter = (e: any, section: any, option: any) => {
-    const newFilter = { ...filter, [section.id]: option.value };
+    const newFilter = { ...filter };
+    if (e.target.checked) {
+      // @ts-ignore
+      if (newFilter[section.id]) {
+        // @ts-ignore
+        newFilter[section.id].push(option.value);
+      } else {
+        // @ts-ignore
+        newFilter[section.id] = [option.value];
+      }
+    } else {
+      // @ts-ignore
+      const index = newFilter[section.id].findIndex(
+        (x: any) => x === option.value,
+      );
+      // @ts-ignore
+      newFilter[section.id].splice(index, 1);
+    }
+    console.log(newFilter);
     setFilter(newFilter);
-    // @ts-ignore
-    dispatch(fetchProductsByFiltersAsync(newFilter));
-
-    console.log(section.id, option.value);
   };
+
+  useEffect(() => {
+    // @ts-ignore
+    dispatch(fetchProductsByFiltersAsync(filter, sort));
+  }, [dispatch, filter, sort]);
+
   const handleSort = (e: any, option: any) => {
     const newFilter = { ...filter, _sort: option.sort, _order: option.order };
     setFilter(newFilter);
