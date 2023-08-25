@@ -10,8 +10,8 @@ import Footer from "@/app/components/Footer/Footer";
 export default function Home() {
   return (
       <>
-  <div className="lg:mx-6 xl:mx-9 2xl:mx-12">
-    <main className="mt-28">
+  <div className="">
+    <main className="mt-20">
         <Navbar />
         <Banner />
         <PcComponentFilter />

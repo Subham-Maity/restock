@@ -256,14 +256,14 @@ export const PcComponentFilter = () => {
                 leaveFrom="translate-x-0"
                 leaveTo="translate-x-full"
               >
-                <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white dark:bg-[#2f3349] py-4 pb-12 shadow-xl">
+                <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white border-2 dark:bg-gradient-to-r dark:border-gray-800 dark:from-[#404043] dark:to-[#334053] rounded-lg">
                   <div className="mt-[4.5rem] flex items-center justify-between px-4">
                     <h2 className="text-lg font-medium text-gray-900 dark:text-white">
                       Filters
                     </h2>
                     <button
                       type="button"
-                      className="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-white p-2 text-gray-400 dark:bg-[#1c1f2d]"
+                      className="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-white p-2 text-gray-400 dark:bg-[#2a2a2b]"
                       onClick={() => setMobileFiltersOpen(false)}
                     >
                       <span className="sr-only">Close menu</span>
@@ -317,6 +317,9 @@ export const PcComponentFilter = () => {
                                       defaultValue={option.value}
                                       type="checkbox"
                                       defaultChecked={option.checked}
+                                      onChange={(e) =>
+                                          handleFilter(e, section, option)
+                                      }
                                       className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                     />
                                     <label
@@ -430,7 +433,7 @@ export const PcComponentFilter = () => {
                       <>
                         <h3 className="-my-3 flow-root">
                           {/*Here it is*/}
-                          <Disclosure.Button className="flex w-full items-center justify-between py-3 text-sm text-black hover:text-gray-500 dark:hover:bg-[#34384e] px-2 dark:text-white dark:hover:text-[#8669de]">
+                          <Disclosure.Button className="flex w-full items-center justify-between py-3 text-sm text-black hover:text-gray-500 dark:hover:bg-[#34384e]  px-2 dark:text-white dark:hover:text-[#8669de]">
                             <span className="font-medium">{section.name}</span>
                             <span className="ml-6 flex items-center">
                               {open ? (
