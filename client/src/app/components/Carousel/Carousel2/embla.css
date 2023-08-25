@@ -3,7 +3,8 @@
     --slide-size: 100%;
     /*height here*/
     --slide-height: 30rem;
-    padding: 1.6rem;
+    /*padding: 1.6rem;*/
+    object-fit: cover;
 }
 .embla__viewport {
     overflow: hidden;
