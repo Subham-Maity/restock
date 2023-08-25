@@ -21,6 +21,8 @@ import {
 } from "@/app/components/products/pages/pc-components/productListSlice";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 
+import { ITEMS_PER_PAGE } from "@/lib/redux/constants";
+
 const items = [
   {
     id: 1,
@@ -230,10 +232,8 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
-export const PcComponentFilter = () => {
-  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+export const PcComponentProductList = () => {
   const [filter, setFilter] = useState({});
-  const dispatch = useDispatch();
   const handleFilter = (e: any, section: any, option: any) => {
     const newFilter = { ...filter, [section.id]: option.value };
     setFilter(newFilter);
@@ -242,283 +242,7 @@ export const PcComponentFilter = () => {
 
     console.log(section.id, option.value);
   };
-  const handleSort = (e: any, option: any) => {
-    const newFilter = { ...filter, _sort: option.sort, _order: option.order };
-    setFilter(newFilter);
-    // @ts-ignore
-    dispatch(fetchProductsByFiltersAsync(newFilter));
-  };
-  return (
-    <div className="mt-4  ">
-      <div>
-        {/* Mobile filter dialog */}
-        <Transition.Root show={mobileFiltersOpen} as={Fragment}>
-          <Dialog
-            as="div"
-            className="relative z-40 lg:hidden"
-            onClose={setMobileFiltersOpen}
-          >
-            <Transition.Child
-              as={Fragment}
-              enter="transition-opacity ease-linear duration-300"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="transition-opacity ease-linear duration-300"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
-              <div className="fixed inset-0 bg-black bg-opacity-25" />
-            </Transition.Child>
 
-            <div className="fixed inset-0 z-40 flex">
-              <Transition.Child
-                as={Fragment}
-                enter="transition ease-in-out duration-300 transform"
-                enterFrom="translate-x-full"
-                enterTo="translate-x-0"
-                leave="transition ease-in-out duration-300 transform"
-                leaveFrom="translate-x-0"
-                leaveTo="translate-x-full"
-              >
-                <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white border-2 dark:bg-gradient-to-r dark:border-gray-800 dark:from-[#404043] dark:to-[#334053] rounded-lg">
-                  <div className="mt-[4.5rem] flex items-center justify-between px-4">
-                    <h2 className="text-lg font-medium text-gray-900 dark:text-white">
-                      Filters
-                    </h2>
-                    <button
-                      type="button"
-                      className="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-white p-2 text-gray-400 dark:bg-[#2a2a2b]"
-                      onClick={() => setMobileFiltersOpen(false)}
-                    >
-                      <span className="sr-only">Close menu</span>
-                      <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-                    </button>
-                  </div>
-
-                  {/* Filters */}
-                  <form className="mt-4 border-t border-gray-200">
-                    <h3 className="sr-only">Categories</h3>
-
-                    {filters.map((section) => (
-                      <Disclosure
-                        as="div"
-                        key={section.id}
-                        className="border-t border-gray-200 px-4 py-3 dark:dg-[#2f3349] dark:text-white "
-                      >
-                        {({ open }) => (
-                          <>
-                            <h3 className="-mx-2 -my-3 flow-root ">
-                              <Disclosure.Button className="flex w-full items-center justify-between px-2 py-3 hover:text-gray-500 dark:hover:bg-[#34384e] dark:hover:text-[#8669de]">
-                                {/*Mobile text*/}
-                                <span className="font-medium ">
-                                  {section.name}
-                                </span>
-                                <span className="ml-6 flex items-center">
-                                  {open ? (
-                                    <MinusIcon
-                                      className="h-5 w-5"
-                                      aria-hidden="true"
-                                    />
-                                  ) : (
-                                    <PlusIcon
-                                      className="h-5 w-5"
-                                      aria-hidden="true"
-                                    />
-                                  )}
-                                </span>
-                              </Disclosure.Button>
-                            </h3>
-                            <Disclosure.Panel className="pt-6">
-                              <div className="space-y-6">
-                                {section.options.map((option, optionIdx) => (
-                                  <div
-                                    key={option.value}
-                                    className="flex items-center"
-                                  >
-                                    <input
-                                      id={`filter-mobile-${section.id}-${optionIdx}`}
-                                      name={`${section.id}[]`}
-                                      defaultValue={option.value}
-                                      type="checkbox"
-                                      defaultChecked={option.checked}
-                                      onChange={(e) =>
-                                        handleFilter(e, section, option)
-                                      }
-                                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                    />
-                                    <label
-                                      htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
-                                      className="ml-3 min-w-0 flex-1 text-gray-500 dark:text-white dark:hover:text-[#8669de]"
-                                    >
-                                      {option.label}
-                                    </label>
-                                  </div>
-                                ))}
-                              </div>
-                            </Disclosure.Panel>
-                          </>
-                        )}
-                      </Disclosure>
-                    ))}
-                  </form>
-                </Dialog.Panel>
-              </Transition.Child>
-            </div>
-          </Dialog>
-        </Transition.Root>
-
-        <main className=" mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-baseline justify-between border-b border-gray-200 pb-6">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
-              New Arrivals
-            </h1>
-
-            <div className="flex items-center">
-              <Menu as="div" className="relative inline-block text-left">
-                <div>
-                  <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-white">
-                    Sort
-                    <ChevronDownIcon
-                      className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-                      aria-hidden="true"
-                    />
-                  </Menu.Button>
-                </div>
-
-                <Transition
-                  as={Fragment}
-                  enter="transition ease-out duration-100"
-                  enterFrom="transform opacity-0 scale-95"
-                  enterTo="transform opacity-100 scale-100"
-                  leave="transition ease-in duration-75"
-                  leaveFrom="transform opacity-100 scale-100"
-                  leaveTo="transform opacity-0 scale-95"
-                >
-                  <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md dark:bg-[#25293c] shadow-xl dark:shadow-[#292045] shadow-[#f3f4f6] ring-1 ring-black bg-white ring-opacity-5 focus:outline-none">
-                    <div className="py-1">
-                      {sortOptions.map((option) => (
-                        <Menu.Item key={option.name}>
-                          {({ active }) => (
-                            <p
-                              onClick={(e) => handleSort(e, option)}
-                              className={classNames(
-                                option.current
-                                  ? "cursor-pointer dark:hover:bg-[#343756] hover:bg-[#f3f4f6] text-gray-800 dark:text-[#d9d8ff] dark:bg-[#25293c ] dark:hover:text-[#7f70ff] "
-                                  : "cursor-pointer dark:hover:bg-[#343756] hover:bg-[#f3f4f6] text-gray-800 dark:text-[#d9d8ff] dark:bg-[#25293c ] dark:hover:text-[#7f70ff] ",
-                                active ? "" : "",
-                                "block px-4 py-2 text-sm",
-                              )}
-                            >
-                              {option.name}
-                            </p>
-                          )}
-                        </Menu.Item>
-                      ))}
-                    </div>
-                  </Menu.Items>
-                </Transition>
-              </Menu>
-
-              <button
-                type="button"
-                className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7"
-              >
-                <span className="sr-only">View grid</span>
-                <Squares2X2Icon className="h-5 w-5" aria-hidden="true" />
-              </button>
-              <button
-                type="button"
-                className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
-                onClick={() => setMobileFiltersOpen(true)}
-              >
-                <span className="sr-only">Filters</span>
-                <FunnelIcon className="h-5 w-5" aria-hidden="true" />
-              </button>
-            </div>
-          </div>
-
-          <section aria-labelledby="products-heading" className="pb-12 pt-6">
-            <h2 id="products-heading" className="sr-only">
-              Products
-            </h2>
-
-            <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
-              {/* Filters */}
-              <form className="hidden lg:block product-card p-4">
-                <h3 className="sr-only">Categories</h3>
-
-                {filters.map((section) => (
-                  <Disclosure
-                    as="div"
-                    key={section.id}
-                    className="border-b border-gray-200 py-3 dark:text-white"
-                  >
-                    {({ open }) => (
-                      <>
-                        <h3 className="-my-3 flow-root">
-                          {/*Here it is*/}
-                          <Disclosure.Button className="flex w-full items-center justify-between py-3 text-sm text-black hover:text-gray-500 dark:hover:bg-[#34384e]  px-2 dark:text-white dark:hover:text-[#8669de]">
-                            <span className="font-medium">{section.name}</span>
-                            <span className="ml-6 flex items-center">
-                              {open ? (
-                                <MinusIcon
-                                  className="h-5 w-5"
-                                  aria-hidden="true"
-                                />
-                              ) : (
-                                <PlusIcon
-                                  className="h-5 w-5"
-                                  aria-hidden="true"
-                                />
-                              )}
-                            </span>
-                          </Disclosure.Button>
-                        </h3>
-                        <Disclosure.Panel className="pt-6">
-                          <div className="space-y-4">
-                            {section.options.map((option, optionIdx) => (
-                              <div
-                                key={option.value}
-                                className="flex items-center"
-                              >
-                                <input
-                                  id={`filter-${section.id}-${optionIdx}`}
-                                  name={`${section.id}[]`}
-                                  defaultValue={option.value}
-                                  type="checkbox"
-                                  defaultChecked={option.checked}
-                                  onChange={(e) =>
-                                    handleFilter(e, section, option)
-                                  }
-                                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                />
-                                <label
-                                  htmlFor={`filter-${section.id}-${optionIdx}`}
-                                  className="ml-3 text-sm text-gray-600 dark:text-white dark:hover:text-[#8669de] "
-                                >
-                                  {option.label}
-                                </label>
-                              </div>
-                            ))}
-                          </div>
-                        </Disclosure.Panel>
-                      </>
-                    )}
-                  </Disclosure>
-                ))}
-              </form>
-              <div className="lg:col-span-3">
-                <PcComponentProductList></PcComponentProductList>
-              </div>
-            </div>
-          </section>
-        </main>
-      </div>
-    </div>
-  );
-};
-
-export const PcComponentProductList = () => {
   const products = useSelector(selectAllProducts);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -528,69 +252,289 @@ export const PcComponentProductList = () => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   return (
     <div>
-      <div>
-        <div className="product-card">
-          <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl  lg:px-8">
-            <h2 className="sr-only">Products</h2>
+      <MobileFilter
+        handleFilter={handleFilter}
+        mobileFiltersOpen={mobileFiltersOpen}
+        setMobileFiltersOpen={setMobileFiltersOpen}
+      ></MobileFilter>
 
-            <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-              {products.map((product: any) => (
-                <Link href="/" key={product.id}>
-                  <div className="group relative shadow-lg border-2 bg-white/30 dark:bg-black/20 border-gray-400/25 dark:border-gray-600/20 rounded-lg p-2 ">
-                    <div className="min-h-60 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-60">
-                      <Image
-                        width={300}
-                        height={300}
-                        src={product.thumbnail}
-                        alt={product.title}
-                        className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                      />
-                    </div>
-                    <div className="mt-4 flex justify-between">
-                      <div>
-                        <h3 className="dark:text-gray-200 font-medium text-black/70">
-                          <Link href={product.thumbnail}>
-                            <span
-                              aria-hidden="true"
-                              className="absolute inset-0"
-                            />
-                            {product.title}
-                          </Link>
-                        </h3>
-                        <p className="mt-1 text-sm text-gray-500">
-                          <StarIcon className="w-6 h-6 inline"></StarIcon>
-                          <span className=" align-bottom">
-                            {product.rating}
-                          </span>
-                        </p>
-                      </div>
-                      <div>
-                        <p className="text-sm block font-medium text-gray-900">
-                          ₹
-                          {Math.round(
-                            product.price *
-                              (1 - product.discountPercentage / 100),
-                          )}
-                          /-
-                        </p>
-                        <p className="text-sm block line-through font-medium text-gray-400">
-                          ₹{product.price}/-
-                        </p>
-                      </div>
-                    </div>
+      <main className=" mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
+        <div className="flex items-baseline justify-between border-b border-gray-200 pb-6">
+          <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
+            New Arrivals
+          </h1>
+
+          <div className="flex items-center">
+            <Menu as="div" className="relative inline-block text-left">
+              <div>
+                <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-white">
+                  Sort
+                  <ChevronDownIcon
+                    className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                    aria-hidden="true"
+                  />
+                </Menu.Button>
+              </div>
+
+              <Transition
+                as={Fragment}
+                enter="transition ease-out duration-100"
+                enterFrom="transform opacity-0 scale-95"
+                enterTo="transform opacity-100 scale-100"
+                leave="transition ease-in duration-75"
+                leaveFrom="transform opacity-100 scale-100"
+                leaveTo="transform opacity-0 scale-95"
+              >
+                <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md dark:bg-[#25293c] shadow-xl dark:shadow-[#292045] shadow-[#f3f4f6] ring-1 ring-black bg-white ring-opacity-5 focus:outline-none">
+                  <div className="py-1">
+                    {sortOptions.map((option) => (
+                      <Menu.Item key={option.name}>
+                        {({ active }) => (
+                          <p
+                            // onClick={(e) => handleSort(e, option)}
+                            className={classNames(
+                              option.current
+                                ? "cursor-pointer dark:hover:bg-[#343756] hover:bg-[#f3f4f6] text-gray-800 dark:text-[#d9d8ff] dark:bg-[#25293c ] dark:hover:text-[#7f70ff] "
+                                : "cursor-pointer dark:hover:bg-[#343756] hover:bg-[#f3f4f6] text-gray-800 dark:text-[#d9d8ff] dark:bg-[#25293c ] dark:hover:text-[#7f70ff] ",
+                              active ? "" : "",
+                              "block px-4 py-2 text-sm",
+                            )}
+                          >
+                            {option.name}
+                          </p>
+                        )}
+                      </Menu.Item>
+                    ))}
                   </div>
-                </Link>
-              ))}
-            </div>
-            <Pagination />
+                </Menu.Items>
+              </Transition>
+            </Menu>
+
+            <button
+              type="button"
+              className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7"
+            >
+              <span className="sr-only">View grid</span>
+              <Squares2X2Icon className="h-5 w-5" aria-hidden="true" />
+            </button>
+            <button
+              type="button"
+              className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
+              onClick={() => setMobileFiltersOpen(true)}
+            >
+              <span className="sr-only">Filters</span>
+              <FunnelIcon className="h-5 w-5" aria-hidden="true" />
+            </button>
           </div>
         </div>
-      </div>
+
+        <section aria-labelledby="products-heading" className="pb-12 pt-6">
+          <h2 id="products-heading" className="sr-only">
+            Products
+          </h2>
+
+          <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
+            <DesktopFilter handleFilter={handleFilter}></DesktopFilter>
+
+            <div className="lg:col-span-3">
+              <ProductGrid products={products}></ProductGrid>
+            </div>
+          </div>
+        </section>
+        <Pagination />
+      </main>
     </div>
   );
 };
 
-export default function Pagination() {
+export const MobileFilter = ({
+  mobileFiltersOpen,
+  setMobileFiltersOpen,
+  handleFilter,
+}: {
+  mobileFiltersOpen: any;
+  setMobileFiltersOpen: any;
+  handleFilter: any;
+}) => {
+  return (
+    <>
+      <Transition.Root show={mobileFiltersOpen} as={Fragment}>
+        <Dialog
+          as="div"
+          className="relative z-40 lg:hidden"
+          onClose={setMobileFiltersOpen}
+        >
+          <Transition.Child
+            as={Fragment}
+            enter="transition-opacity ease-linear duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="transition-opacity ease-linear duration-300"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 z-40 flex">
+            <Transition.Child
+              as={Fragment}
+              enter="transition ease-in-out duration-300 transform"
+              enterFrom="translate-x-full"
+              enterTo="translate-x-0"
+              leave="transition ease-in-out duration-300 transform"
+              leaveFrom="translate-x-0"
+              leaveTo="translate-x-full"
+            >
+              <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white border-2 dark:bg-gradient-to-r dark:border-gray-800 dark:from-[#404043] dark:to-[#334053] rounded-lg">
+                <div className="mt-[4.5rem] flex items-center justify-between px-4">
+                  <h2 className="text-lg font-medium text-gray-900 dark:text-white">
+                    Filters
+                  </h2>
+                  <button
+                    type="button"
+                    className="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-white p-2 text-gray-400 dark:bg-[#2a2a2b]"
+                    onClick={() => setMobileFiltersOpen(false)}
+                  >
+                    <span className="sr-only">Close menu</span>
+                    <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                  </button>
+                </div>
+
+                {/* Filters */}
+                <form className="mt-4 border-t border-gray-200">
+                  <h3 className="sr-only">Categories</h3>
+
+                  {filters.map((section) => (
+                    <Disclosure
+                      as="div"
+                      key={section.id}
+                      className="border-t border-gray-200 px-4 py-3 dark:dg-[#2f3349] dark:text-white "
+                    >
+                      {({ open }) => (
+                        <>
+                          <h3 className="-mx-2 -my-3 flow-root ">
+                            <Disclosure.Button className="flex w-full items-center justify-between px-2 py-3 hover:text-gray-500 dark:hover:bg-[#34384e] dark:hover:text-[#8669de]">
+                              {/*Mobile text*/}
+                              <span className="font-medium ">
+                                {section.name}
+                              </span>
+                              <span className="ml-6 flex items-center">
+                                {open ? (
+                                  <MinusIcon
+                                    className="h-5 w-5"
+                                    aria-hidden="true"
+                                  />
+                                ) : (
+                                  <PlusIcon
+                                    className="h-5 w-5"
+                                    aria-hidden="true"
+                                  />
+                                )}
+                              </span>
+                            </Disclosure.Button>
+                          </h3>
+                          <Disclosure.Panel className="pt-6">
+                            <div className="space-y-6">
+                              {section.options.map((option, optionIdx) => (
+                                <div
+                                  key={option.value}
+                                  className="flex items-center"
+                                >
+                                  <input
+                                    id={`filter-mobile-${section.id}-${optionIdx}`}
+                                    name={`${section.id}[]`}
+                                    defaultValue={option.value}
+                                    type="checkbox"
+                                    defaultChecked={option.checked}
+                                    onChange={(e) =>
+                                      handleFilter(e, section, option)
+                                    }
+                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                  />
+                                  <label
+                                    htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
+                                    className="ml-3 min-w-0 flex-1 text-gray-500 dark:text-white dark:hover:text-[#8669de]"
+                                  >
+                                    {option.label}
+                                  </label>
+                                </div>
+                              ))}
+                            </div>
+                          </Disclosure.Panel>
+                        </>
+                      )}
+                    </Disclosure>
+                  ))}
+                </form>
+              </Dialog.Panel>
+            </Transition.Child>
+          </div>
+        </Dialog>
+      </Transition.Root>
+    </>
+  );
+};
+export const DesktopFilter = ({ handleFilter }: { handleFilter: any }) => {
+  return (
+    <>
+      <form className="hidden lg:block product-card p-4">
+        <h3 className="sr-only">Categories</h3>
+
+        {filters.map((section) => (
+          <Disclosure
+            as="div"
+            key={section.id}
+            className="border-b border-gray-200 py-3 dark:text-white"
+          >
+            {({ open }) => (
+              <>
+                <h3 className="-my-3 flow-root">
+                  {/*Here it is*/}
+                  <Disclosure.Button className="flex w-full items-center justify-between py-3 text-sm text-black hover:text-gray-500 dark:hover:bg-[#34384e]  px-2 dark:text-white dark:hover:text-[#8669de]">
+                    <span className="font-medium">{section.name}</span>
+                    <span className="ml-6 flex items-center">
+                      {open ? (
+                        <MinusIcon className="h-5 w-5" aria-hidden="true" />
+                      ) : (
+                        <PlusIcon className="h-5 w-5" aria-hidden="true" />
+                      )}
+                    </span>
+                  </Disclosure.Button>
+                </h3>
+                <Disclosure.Panel className="pt-6">
+                  <div className="space-y-4">
+                    {section.options.map((option, optionIdx) => (
+                      <div key={option.value} className="flex items-center">
+                        <input
+                          id={`filter-${section.id}-${optionIdx}`}
+                          name={`${section.id}[]`}
+                          defaultValue={option.value}
+                          type="checkbox"
+                          defaultChecked={option.checked}
+                          onChange={(e) => handleFilter(e, section, option)}
+                          className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        />
+                        <label
+                          htmlFor={`filter-${section.id}-${optionIdx}`}
+                          className="ml-3 text-sm text-gray-600 dark:text-white dark:hover:text-[#8669de] "
+                        >
+                          {option.label}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </Disclosure.Panel>
+              </>
+            )}
+          </Disclosure>
+        ))}
+      </form>
+    </>
+  );
+};
+export const Pagination = () => {
+  useEffect(() => {}, []);
   return (
     <div className="flex items-center justify-between border-t border-gray-200  px-4 py-3 sm:px-6">
       <div className="flex flex-1 justify-between sm:hidden">
@@ -680,4 +624,63 @@ export default function Pagination() {
       </div>
     </div>
   );
-}
+};
+export const ProductGrid = ({ products }: { products: any }) => {
+  return (
+    <>
+      <div className="product-card">
+        <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl  lg:px-8">
+          <h2 className="sr-only">Products</h2>
+
+          <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+            {products.map((product: any) => (
+              <Link href="/" key={product.id}>
+                <div className="group relative shadow-lg border-2 bg-white/30 dark:bg-black/20 border-gray-400/25 dark:border-gray-600/20 rounded-lg p-2 ">
+                  <div className="min-h-60 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-60">
+                    <Image
+                      width={300}
+                      height={300}
+                      src={product.thumbnail}
+                      alt={product.title}
+                      className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+                    />
+                  </div>
+                  <div className="mt-4 flex justify-between">
+                    <div>
+                      <h3 className="dark:text-gray-200 font-medium text-black/70">
+                        <Link href={product.thumbnail}>
+                          <span
+                            aria-hidden="true"
+                            className="absolute inset-0"
+                          />
+                          {product.title}
+                        </Link>
+                      </h3>
+                      <p className="mt-1 text-sm text-gray-500">
+                        <StarIcon className="w-6 h-6 inline"></StarIcon>
+                        <span className=" align-bottom">{product.rating}</span>
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-sm block font-medium text-gray-900">
+                        ₹
+                        {Math.round(
+                          product.price *
+                            (1 - product.discountPercentage / 100),
+                        )}
+                        /-
+                      </p>
+                      <p className="text-sm block line-through font-medium text-gray-400">
+                        ₹{product.price}/-
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};

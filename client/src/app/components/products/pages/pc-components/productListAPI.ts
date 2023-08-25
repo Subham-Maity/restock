@@ -24,12 +24,11 @@ export async function fetchAllProductsByFilter(
   }
   for (let key in sort) {
     //`&` can handle more than one product
-    queryString += `${key}=${sort[key]}&`;
+    queryString += `${key}=${sort[key]}&`; //it will return something like this : category=laptops&brand=Apple
   }
-
   for (let key in pagination) {
     //`&` can handle more than one product
-    queryString += `${key}=${pagination[key]}&`;
+    queryString += `${key}=${pagination[key]}&`; //it will return something like this : category=laptops&brand=Apple
   }
   const response: Response = await fetch(
     "https://restock-api.onrender.com/products?" + queryString,
