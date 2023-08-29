@@ -53,3 +53,19 @@ export function fetchProductsByFilters(
     });
   });
 }
+
+export function fetchCategories(): Promise<{ data: any }> {
+  return new Promise(async (resolve) => {
+    const response = await fetch("https://restock-api.onrender.com/categories");
+    const data = await response.json();
+    resolve({ data });
+  });
+}
+
+export function fetchBrands(): Promise<{ data: any }> {
+  return new Promise(async (resolve) => {
+    const response = await fetch("https://restock-api.onrender.com/brands");
+    const data = await response.json();
+    resolve({ data });
+  });
+}
