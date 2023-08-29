@@ -25,6 +25,7 @@ import {
 } from "@/app/components/products/pages/pc-components/productListSlice";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import { AppDispatch } from "@/lib/redux/store";
+import { useGetProductByNameQuery } from "@/lib/redux/slice/api";
 
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
@@ -133,6 +134,8 @@ export const PcComponentProductList = () => {
   }, [dispatch]);
 
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const { data } = useGetProductByNameQuery("");
+  console.log(data);
   return (
     <div>
       <MobileFilter
