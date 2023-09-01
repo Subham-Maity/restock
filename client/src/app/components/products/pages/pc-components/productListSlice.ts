@@ -4,7 +4,7 @@ import {
   fetchProductsByFilters,
   fetchBrands,
   fetchCategories,
-
+  fetchProductById,
 } from "@/app/components/products/pages/pc-components/productListAPI";
 
 interface Filter {
@@ -44,15 +44,14 @@ export const fetchAllProductsAsync = createAsyncThunk(
   },
 );
 
-// export const fetchAllProductByIdAsync = createAsyncThunk(
-//   "product/fetchProductById",
-//   async (id) => {
-//     const response = await fetchProductById(id);
-//     // The value we return becomes the `fulfilled` action payload
-//     return response.data;
-//   },
-// );
-
+export const fetchAllProductByIdAsync = createAsyncThunk(
+  "product/fetchProductById",
+  async (id) => {
+    const response = await fetchProductById(id);
+    // The value we return becomes the `fulfilled` action payload
+    return response.data;
+  },
+);
 
 export const fetchProductsByFiltersAsync = createAsyncThunk(
   "product/fetchProductsByFilters",
@@ -138,7 +137,3 @@ export const selectBrands = (state: any) => state.product.brands;
 export const selectCategories = (state: any) => state.product.categories;
 
 export default productSlice.reducer;
-function fetchProductById() {
-  throw new Error("Function not implemented.");
-}
-
