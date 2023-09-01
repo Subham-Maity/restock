@@ -25,6 +25,7 @@ interface ProductState {
   totalItems: number;
   brands?: any[];
   categories?: any[];
+  selectedProduct?: any;
 }
 
 const initialState: ProductState = {
@@ -33,6 +34,7 @@ const initialState: ProductState = {
   totalItems: 0,
   brands: [],
   categories: [],
+  selectedProduct: null,
 };
 
 export const fetchAllProductsAsync = createAsyncThunk(
@@ -123,6 +125,13 @@ export const productSlice = createSlice({
       .addCase(fetchCategoriesAsync.fulfilled, (state, action) => {
         state.status = "idle";
         state.categories = action.payload;
+      })
+      .addCase(fetchAllProductByIdAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchAllProductByIdAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.selectedProduct = action.payload;
       });
   },
 });
@@ -135,5 +144,7 @@ export const selectTotalItems = (state: any) => state.product.totalItems;
 export const selectBrands = (state: any) => state.product.brands;
 
 export const selectCategories = (state: any) => state.product.categories;
+
+export const selectProductById = (state: any) => state.product.selectedProduct;
 
 export default productSlice.reducer;
