@@ -1,14 +1,9 @@
-interface Filter {
-  [key: string]: string[];
-}
-
-interface Sort {
-  [key: string]: string;
-}
-
-interface Pagination {
-  [key: string]: number;
-}
+import {
+  Filter,
+  Id,
+  Pagination,
+  Sort,
+} from "@/app/components/products/pages/pc-components/api.type";
 
 export function fetchAllProducts(): Promise<{ data: any }> {
   return new Promise(async (resolve) => {
@@ -18,7 +13,7 @@ export function fetchAllProducts(): Promise<{ data: any }> {
   });
 }
 
-export function fetchProductById(id: any): Promise<{ data: any }> {
+export function fetchProductById(id: Id): Promise<{ data: any }> {
   return new Promise(async (resolve) => {
     const response = await fetch(
       "https://restock-api.onrender.com/products/" + id,

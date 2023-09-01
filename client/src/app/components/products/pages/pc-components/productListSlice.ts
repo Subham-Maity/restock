@@ -6,18 +6,12 @@ import {
   fetchCategories,
   fetchProductById,
 } from "@/app/components/products/pages/pc-components/productListAPI";
-
-interface Filter {
-  [key: string]: string[];
-}
-
-interface Sort {
-  [key: string]: string;
-}
-
-interface Pagination {
-  [key: string]: number;
-}
+import {
+  Filter,
+  Id,
+  Pagination,
+  Sort,
+} from "@/app/components/products/pages/pc-components/api.type";
 
 interface ProductState {
   products: any[];
@@ -48,7 +42,7 @@ export const fetchAllProductsAsync = createAsyncThunk(
 
 export const fetchAllProductByIdAsync = createAsyncThunk(
   "product/fetchProductById",
-  async (id) => {
+  async (id: Id) => {
     const response = await fetchProductById(id);
     // The value we return becomes the `fulfilled` action payload
     return response.data;
