@@ -10,9 +10,17 @@ interface Pagination {
   [key: string]: number;
 }
 
+// export function fetchAllProducts(): Promise<{ data: any }> {
+//   return new Promise(async (resolve) => {
+//     const response = await fetch("https://restock-api.onrender.com/products");
+//     const data = await response.json();
+//     resolve({ data });
+//   });
+// }
+
 export function fetchAllProducts(): Promise<{ data: any }> {
   return new Promise(async (resolve) => {
-    const response = await fetch("https://restock-api.onrender.com/products");
+    const response = await fetch("https://restock-api.onrender.com/products/");
     const data = await response.json();
     resolve({ data });
   });
