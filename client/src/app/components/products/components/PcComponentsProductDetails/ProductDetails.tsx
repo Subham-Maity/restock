@@ -1,5 +1,5 @@
 "use client";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { RadioGroup } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,6 +9,8 @@ import {
   fetchAllProductByIdAsync,
   selectProductById,
 } from "@/app/components/products/pages/pc-components/productListSlice";
+import Image from "next/image";
+import Link from "next/link";
 
 const colors = [
   { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
@@ -62,12 +64,12 @@ export default function ProductDetails() {
                 product.breadcrumbs.map((breadcrumb: any) => (
                   <li key={breadcrumb.id}>
                     <div className="flex items-center">
-                      <a
+                      <Link
                         href={breadcrumb.href}
                         className="mr-2 text-sm font-medium text-gray-900"
                       >
                         {breadcrumb.name}
-                      </a>
+                      </Link>
                       <svg
                         width={16}
                         height={20}
@@ -82,13 +84,13 @@ export default function ProductDetails() {
                   </li>
                 ))}
               <li className="text-sm">
-                <a
+                <Link
                   href={product.href}
                   aria-current="page"
                   className="font-medium text-gray-500 hover:text-gray-600"
                 >
                   {product.title}
-                </a>
+                </Link>
               </li>
             </ol>
           </nav>
@@ -96,33 +98,41 @@ export default function ProductDetails() {
           {/* Image gallery */}
           <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
             <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
-              <img
+              <Image
                 src={product.images[0]}
                 alt={product.title}
                 className="h-full w-full object-cover object-center"
+                height={500}
+                width={500}
               />
             </div>
             <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
               <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-                <img
+                <Image
                   src={product.images[1]}
                   alt={product.title}
                   className="h-full w-full object-cover object-center"
+                  height={500}
+                  width={500}
                 />
               </div>
               <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-                <img
+                <Image
                   src={product.images[2]}
                   alt={product.title}
                   className="h-full w-full object-cover object-center"
+                  height={500}
+                  width={500}
                 />
               </div>
             </div>
             <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
-              <img
+              <Image
                 src={product.images[3]}
                 alt={product.title}
                 className="h-full w-full object-cover object-center"
+                height={500}
+                width={500}
               />
             </div>
           </div>
@@ -211,12 +221,12 @@ export default function ProductDetails() {
                 <div className="mt-10">
                   <div className="flex items-center justify-between">
                     <h3 className="text-sm font-medium text-gray-900">Size</h3>
-                    <a
+                    <Link
                       href="#"
                       className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
                     >
                       Size guide
-                    </a>
+                    </Link>
                   </div>
 
                   <RadioGroup
