@@ -11,7 +11,7 @@ import {
   Id,
   Pagination,
   Sort,
-} from "@/app/components/products/pages/pc-components/api.type";
+} from "@/app/components/products/pages/pc-components/productListAPI.type";
 
 interface ProductState {
   products: any[];
