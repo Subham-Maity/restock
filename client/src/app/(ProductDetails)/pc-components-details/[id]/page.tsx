@@ -1,18 +1,20 @@
-import Footer from '@/app/components/Footer/Footer'
-import Navbar from '@/app/components/Navbar/Navbar'
-import ProductDetails from '@/app/components/products/components/PcComponentsProductDetails/ProductDetails'
-import React from 'react'
+import Footer from "@/app/components/Footer/Footer";
+import Navbar from "@/app/components/Navbar/Navbar";
+import ProductDetails from "@/app/components/products/components/PcComponentsProductDetails/ProductDetails";
+import React from "react";
+import DummyProductDetails from "@/app/components/products/DummyProductDetails";
 
 const page = () => {
   return (
     <div>
-      <Navbar/>
+      <Navbar />
       <div className="mt-20">
-      <ProductDetails/>
+        {/*<ProductDetails/>*/}
+        <DummyProductDetails />
       </div>
-      <Footer/>
+      <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;
