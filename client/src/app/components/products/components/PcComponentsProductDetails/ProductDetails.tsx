@@ -65,7 +65,7 @@ export default function ProductDetails() {
                   <li key={breadcrumb.id}>
                     <div className="flex items-center">
                       <Link
-                        href={breadcrumb.href}
+                        href={"breadcrumb.href"}
                         className="mr-2 text-sm font-medium text-gray-900"
                       >
                         {breadcrumb.name}
@@ -85,7 +85,7 @@ export default function ProductDetails() {
                 ))}
               <li className="text-sm">
                 <Link
-                  href={product.href}
+                  href={"product.href"}
                   aria-current="page"
                   className="font-medium text-gray-500 hover:text-gray-600"
                 >
@@ -222,7 +222,7 @@ export default function ProductDetails() {
                   <div className="flex items-center justify-between">
                     <h3 className="text-sm font-medium text-gray-900">Size</h3>
                     <Link
-                      href="#"
+                      href="./"
                       className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
                     >
                       Size guide
