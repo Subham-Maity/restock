@@ -1,7 +1,6 @@
 "use client";
 
-import CountUp, { useCountUp } from "react-countup";
-import { useInView } from "framer-motion";
+import CountUp from "react-countup";
 import { useRef, useEffect, useState } from "react";
 
 function Carousel2() {
