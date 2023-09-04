@@ -4,10 +4,7 @@ import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 import React from "react";
-import Navbar from "@/app/components/Navbar/Navbar";
 import ThemeProviders from "@/app/ThemeProvider";
-import Footer from "@/app/components/Footer/Footer";
-import OurFacts from "@/app/components/siteStats/SiteStats";
 import { ReduxProvider } from "@/lib/provider";
 
 export const metadata: Metadata = {

@@ -4,7 +4,6 @@ import { Fragment } from "react";
 
 import {
   Bars3Icon,
-  BellIcon,
   XMarkIcon,
   ShoppingCartIcon,
 } from "@heroicons/react/24/outline";
@@ -15,7 +14,6 @@ import { TbBrandSupabase } from "react-icons/tb";
 import { BsGpuCard } from "react-icons/bs";
 import Link from "next/link";
 import Image from "next/image";
-import Banner from "@/app/components/Navbar/Banner/Home/Banner";
 import Switcher from "../Mode/Switcher";
 
 const user = {
@@ -73,8 +71,8 @@ function classNames(...classes: any[]) {
 
 const Navbar = () => {
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 backdrop-blur-3xl  ">
-      <Disclosure as="nav" className="bg-black/10 dark:bg-black/70 ">
+    <div className="fixed top-0 left-0 right-0 rounded-b-lg z-50 backdrop-blur-3xl">
+      <Disclosure as="nav" className="bg-white/70 dark:bg-black/70 rounded-b-xl">
         {({ open }) => (
           <>
             <div className="lg:mx-16 max-w-8xl px-5 sm:px-6 xl:px-8 py-2 sm:py-2 lg:py-2">
