@@ -20,9 +20,9 @@ function Carousel2() {
 
   return (
     <>
-      <div className="mb-32 mx-8">
+      <div className="lg:mx-16 max-w-8xl px-5 sm:px-6 xl:px-8 py-2 sm:py-2 lg:py-2 mt-4 mb-4 ">
         <div className="w-full">
-          <div className="bg-[#e5e5e7] dark:bg-[#353536] shadow-xl object-cover w-full rounded-2xl">
+          <div className="product-card mb-4 shadow-xl object-cover w-full rounded-2xl">
             <div className="mx-auto flex-col font-roboto font-bold w-full flex justify-evenly flex-wrap items-center gap-4 text-black dark:text-white py-6 lg:py-none lg:h-[500px]">
               <div className="lg:w-[70%] flex flex-col justify-center items-center gap-4">
                 <h1 className="text-5xl font-sacra ">

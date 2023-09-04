@@ -29,35 +29,35 @@ const navigation = [
     id: 1,
     name: "Deals of The Day",
     href: "/dod",
-    icon: <BiSolidOffer/>,
+    icon: <BiSolidOffer />,
     current: true,
   },
   {
     id: 2,
     name: "Brand Store",
     href: "/brand",
-    icon: <TbBrandSupabase/>,
+    icon: <TbBrandSupabase />,
     current: false,
   },
   {
     id: 3,
     name: "PC Components",
     href: "/pc-components",
-    icon: <BsGpuCard/>,
+    icon: <BsGpuCard />,
     current: false,
   },
   {
     id: 4,
     name: "PC Peripherals",
     href: "/peripherals",
-    icon: <BiSolidMouseAlt/>,
+    icon: <BiSolidMouseAlt />,
     current: false,
   },
   {
     id: 5,
     name: "Pre-Built PCs",
     href: "/prebuilt",
-    icon: <PiComputerTowerFill/>,
+    icon: <PiComputerTowerFill />,
     current: false,
   },
 ];
@@ -73,14 +73,11 @@ function classNames(...classes: any[]) {
 
 const Navbar = () => {
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 backdrop-blur-3xl rounded-b-xl">
-      <Disclosure
-        as="nav"
-        className="bg-black/10 dark:bg-black/70 "
-      >
+    <div className="fixed top-0 left-0 right-0 z-50 backdrop-blur-3xl  ">
+      <Disclosure as="nav" className="bg-black/10 dark:bg-black/70 ">
         {({ open }) => (
           <>
-            <div className="mx-auto max-w-8xl px-5 sm:px-6 xl:px-8 py-2 sm:py-2 lg:py-2">
+            <div className="lg:mx-16 max-w-8xl px-5 sm:px-6 xl:px-8 py-2 sm:py-2 lg:py-2">
               <div className="flex h-16 items-center justify-between lg:justify-start">
                 <div className="flex items-center">
                   <div className="flex space-x-2 mr-8">
@@ -102,9 +99,9 @@ const Navbar = () => {
                           href={item.href}
                           className={classNames(
                             item.current
-                              ? "bg-gray-100 bg-opacity-90 md:rounded-full dark:bg-gray-500 dark:bg-opacity-70 text-white"
+                              ? "bg-gray-100 bg-opacity-90 md:rounded-lg dark:bg-gray-500 dark:bg-opaity-70 text-white"
                               : "text-gray-300 dark:hover:bg-gray-600 dark:bg-opacity-95 hover:bg-gray-300 hover:bg-opacity-95",
-                            "flex items-center rounded-full px-3 py-2 text-sm font-medium"
+                            "flex items-center rounded-lg px-3 py-2 text-sm font-medium",
                           )}
                           aria-current={item.current ? "page" : undefined}
                         >
@@ -121,7 +118,7 @@ const Navbar = () => {
                   <div className="ml-4 flex items-center md:ml-6">
                     <button
                       type="button"
-                      className="rounded-full bg-gray-500 hover:bg-gray-600 p-1 text-white dark:bg-gray-700 
+                      className="rounded-full bg-gray-500 hover:bg-gray-600 p-1 text-white dark:bg-gray-700
                       dark:hover:text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                     >
                       <span className="sr-only">View notifications</span>
@@ -140,7 +137,9 @@ const Navbar = () => {
                     <Menu as="div" className="relative ml-3">
                       <div>
                         <Menu.Button className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                          <span className="sr-only xl:hidden">Open user menu</span>
+                          <span className="sr-only xl:hidden">
+                            Open user menu
+                          </span>
                           <Image
                             className="h-8 w-8 rounded-full hidden xl:block"
                             src={user.imageUrl}
@@ -169,7 +168,7 @@ const Navbar = () => {
                                     active
                                       ? "bg-gray-400 dark:bg-gray-500"
                                       : "",
-                                    "block px-4 py-2 text-sm dark:text-gray-200 rounded-2xl"
+                                    "block px-4 py-2 text-sm dark:text-gray-200 rounded-2xl",
                                   )}
                                 >
                                   {item.name}
@@ -201,7 +200,7 @@ const Navbar = () => {
             </div>
 
             {/*Mobile View*/}
-            <Disclosure.Panel className="xl:hidden">
+            <Disclosure.Panel className="xl:hidden rounded-b-2xl">
               <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
                 {navigation.map((item) => (
                   <Disclosure.Button
@@ -212,7 +211,7 @@ const Navbar = () => {
                       item.current
                         ? "bg-gray-200 bg-opacity-80  dark:bg-gray-400 dark:bg-opacity- text-black "
                         : "text-gray-100 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-400 ",
-                      "block rounded-3xl px-3 py-2 text-base font-medium"
+                      "block rounded-3xl px-3 py-2 text-base font-medium",
                     )}
                     aria-current={item.current ? "page" : undefined}
                   >
@@ -221,7 +220,7 @@ const Navbar = () => {
                 ))}
               </div>
 
-              <div className="border-t border-gray-700 pb-3 pt-4">
+              <div className="border-t border-gray-700 pb-3 pt-4 ">
                 <div className="flex items-center px-5 ">
                   <div className="flex-shrink-0">
                     <Image
@@ -267,10 +266,7 @@ const Navbar = () => {
                       {item.name}
                     </Disclosure.Button>
                   ))}
-                  
                 </div>
-
-                
               </div>
               <Switcher />
             </Disclosure.Panel>

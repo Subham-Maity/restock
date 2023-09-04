@@ -142,8 +142,8 @@ export const PcComponentProductList = () => {
         filters={filters}
       ></MobileFilter>
 
-      <main className=" mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
-        <div className="flex items-baseline justify-between border-b border-gray-200 pb-6">
+      <main className=" lg:mx-16 max-w-8xl px-5 sm:px-6 xl:px-8 py-2 sm:py-2 lg:py-2">
+        <div className="flex items-baseline justify-between border-b border-gray-200 pt-6 pb-6">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
             New Arrivals
           </h1>
@@ -217,13 +217,13 @@ export const PcComponentProductList = () => {
             Products
           </h2>
 
-          <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
+          <div className="flex gap-x-4">
             <DesktopFilter
               handleFilter={handleFilter}
               filters={filters}
             ></DesktopFilter>
 
-            <div className="lg:col-span-3">
+            <div className="">
               <ProductGrid products={products}></ProductGrid>
             </div>
           </div>
@@ -380,7 +380,7 @@ export const DesktopFilter = ({
 }) => {
   return (
     <>
-      <form className="hidden lg:block product-card p-4">
+      <form className="hidden lg:block product-card p-4 w-96">
         <h3 className="sr-only">Categories</h3>
 
         {filters.map((section: any) => (
@@ -517,10 +517,10 @@ export const ProductGrid = ({ products }: { products: any }) => {
   return (
     <>
       <div className="product-card">
-        <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl  lg:px-8">
+        <div className="mx-auto w-[350px] md:w-[900px] sm:w-full lg:w-full xl:w-full px-4 py-16 sm:px-6 sm:py-24  lg:px-8">
           <h2 className="sr-only">Products</h2>
 
-          <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xl:gap-x-2">
             {products.map((product: any) => (
               <Link
                 href={`/pc-components-details/${product.id}`}
