@@ -9,8 +9,8 @@ const page = () => {
     <div>
       <Navbar />
       <div className="mt-20">
-        <ProductDetails />
-        {/*<DummyProductDetails />*/}
+        {/* <ProductDetails /> */}
+        <DummyProductDetails />
       </div>
       <Footer />
     </div>
