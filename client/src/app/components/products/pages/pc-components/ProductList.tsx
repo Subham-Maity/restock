@@ -106,7 +106,7 @@ export const PcComponentProductList = () => {
     setFilter(newFilter);
   };
 
-  const handleSort = (e: any, option: any) => {
+  const handleSort = (option: any) => {
     const sort = { _sort: option.sort, _order: option.order };
     console.log({ sort });
     setSort(sort);
@@ -174,7 +174,7 @@ export const PcComponentProductList = () => {
                       <Menu.Item key={option.name}>
                         {({ active }) => (
                           <p
-                            onClick={(e) => handleSort(e, option)}
+                            onClick={() => handleSort(option)}
                             className={classNames(
                               option.current
                                 ? "cursor-pointer dark:hover:bg-[#343756] hover:bg-[#f3f4f6] text-gray-800 dark:text-[#d9d8ff] dark:bg-[#25293c ] dark:hover:text-[#7f70ff] "
@@ -435,20 +435,20 @@ export const DesktopFilter = ({
   );
 };
 
-function Pagination({ page, handlePage, totalItems, setPage }: any) {
+function Pagination({ page, handlePage, totalItems }: any) {
   const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
 
   return (
     <div className="flex items-center justify-between border-t border-gray-200  px-4 py-3 sm:px-6">
       <div className="flex flex-1 justify-between sm:hidden">
         <div
-          onClick={(e) => handlePage(page > 1 ? page - 1 : page)}
+          onClick={() => handlePage(page > 1 ? page - 1 : page)}
           className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
         >
           Previous
         </div>
         <div
-          onClick={(e) => handlePage(page < totalPages ? page + 1 : page)}
+          onClick={() => handlePage(page < totalPages ? page + 1 : page)}
           className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
         >
           Next
@@ -476,7 +476,7 @@ function Pagination({ page, handlePage, totalItems, setPage }: any) {
             aria-label="Pagination"
           >
             <div
-              onClick={(e) => handlePage(page > 1 ? page - 1 : page)}
+              onClick={() => handlePage(page > 1 ? page - 1 : page)}
               className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
             >
               <span className="sr-only">Previous</span>
@@ -486,7 +486,7 @@ function Pagination({ page, handlePage, totalItems, setPage }: any) {
             {Array.from({ length: totalPages }).map((el, index) => (
               <div
                 key={index}
-                onClick={(e) => handlePage(index + 1)}
+                onClick={() => handlePage(index + 1)}
                 aria-current="page"
                 className={`relative cursor-pointer z-10 inline-flex items-center ${
                   index + 1 === page
@@ -499,7 +499,7 @@ function Pagination({ page, handlePage, totalItems, setPage }: any) {
             ))}
 
             <div
-              onClick={(e) => handlePage(page < totalPages ? page + 1 : page)}
+              onClick={() => handlePage(page < totalPages ? page + 1 : page)}
               className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
             >
               <span className="sr-only">Next</span>
