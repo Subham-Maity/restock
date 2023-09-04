@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { RadioGroup } from "@headlessui/react";
+import Image from "next/image";
 
 const product = {
   name: "Basic Tee 6-Pack",
@@ -65,8 +66,13 @@ export default function Example() {
   const [selectedColor, setSelectedColor] = useState(product.colors[0]);
   const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
 
+  const [currentImage, setCurrentImage] = useState(product.images[0].src);
+  const handleMouseEnter = (src: any) => {
+    setCurrentImage(src);
+  };
+
   return (
-    <div className="bg-white">
+    <div className="lg:mx-16 max-w-8xl px-5 sm:px-6 xl:px-8 py-2 sm:py-2 lg:py-2">
       <div className="pt-6">
         <nav aria-label="Breadcrumb">
           <ol
@@ -108,31 +114,28 @@ export default function Example() {
         </nav>
 
         {/* Image gallery */}
-        <div className=" flex gap-3 ">
-          <div className="flex-col space-y-2">
-            <img
-              src={product.images[1].src}
-              alt={product.images[1].alt}
-              className="h-[90px] w-[90px] object-cover"
-            />
-
-            <img
-              src={product.images[2].src}
-              alt={product.images[2].alt}
-              className="h-[90px] w-[90px] object-cover "
-            />
-
-            <img
-              src={product.images[3].src}
-              alt={product.images[3].alt}
-              className="h-[90px] w-[90px] object-cover "
-            />
+        <div className="w-fit flex flex-col-reverse sm:flex-row lg:pl-28 py-4 sm:space-x-4 mb-10 justify-center lg:justify-start">
+          <div className="flex flex-row h-fit w-fit sm:flex-col product-previews mt-3 sm:mt-0 space-x-2 sm:space-x-0 md:space-y-2 p-2 border border-gray-400 rounded-xl">
+            {product.images.map((image, index) => (
+              <div
+                key={index}
+                className="preview-image flex"
+                // Add event handlers to change the current image on mouse enter and leave
+                onMouseEnter={() => handleMouseEnter(image.src)}
+              >
+                <Image
+                  src={image.src}
+                  width={100}
+                  height={100}
+                  alt={image.alt}
+                  className="rounded-md border hover:border-blue-400"
+                />
+              </div>
+            ))}
           </div>
-          <img
-            src={product.images[0].src}
-            alt={product.images[0].alt}
-            className="h-[450px] w-[450px] object-cover object-center"
-          />
+          <div className="h-fit">
+            <Image src={currentImage} width={400} height={400} alt="Product" className="rounded-lg flex"/>
+          </div>
         </div>
 
         {/* Product info */}
@@ -162,7 +165,7 @@ export default function Example() {
                         reviews.average > rating
                           ? "text-gray-900"
                           : "text-gray-200",
-                        "h-5 w-5 flex-shrink-0",
+                        "h-5 w-5 flex-shrink-0"
                       )}
                       aria-hidden="true"
                     />
@@ -201,7 +204,7 @@ export default function Example() {
                             color.selectedClass,
                             active && checked ? "ring ring-offset-1" : "",
                             !active && checked ? "ring-2" : "",
-                            "relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none",
+                            "relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none"
                           )
                         }
                       >
@@ -212,7 +215,7 @@ export default function Example() {
                           aria-hidden="true"
                           className={classNames(
                             color.class,
-                            "h-8 w-8 rounded-full border border-black border-opacity-10",
+                            "h-8 w-8 rounded-full border border-black border-opacity-10"
                           )}
                         />
                       </RadioGroup.Option>
@@ -253,7 +256,7 @@ export default function Example() {
                               ? "cursor-pointer bg-white text-gray-900 shadow-sm"
                               : "cursor-not-allowed bg-gray-50 text-gray-200",
                             active ? "ring-2 ring-indigo-500" : "",
-                            "group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6",
+                            "group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6"
                           )
                         }
                       >
@@ -269,7 +272,7 @@ export default function Example() {
                                   checked
                                     ? "border-indigo-500"
                                     : "border-transparent",
-                                  "pointer-events-none absolute -inset-px rounded-md",
+                                  "pointer-events-none absolute -inset-px rounded-md"
                                 )}
                                 aria-hidden="true"
                               />

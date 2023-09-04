@@ -9,7 +9,7 @@ const page = () => {
     <div>
       <Navbar />
       <div className="mt-20">
-        {/*<ProductDetails/>*/}
+        {/* <ProductDetails /> */}
         <DummyProductDetails />
       </div>
       <Footer />
