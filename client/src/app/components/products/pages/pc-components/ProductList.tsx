@@ -25,6 +25,7 @@ import {
 } from "@/app/components/products/pages/pc-components/productListSlice";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import { AppDispatch } from "@/lib/redux/store";
+import { ITEMS_PER_PAGE } from "@/lib/redux/constants";
 
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
@@ -54,8 +55,6 @@ interface SortOption {
 
   [key: string]: any;
 }
-
-const ITEMS_PER_PAGE = 10;
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
