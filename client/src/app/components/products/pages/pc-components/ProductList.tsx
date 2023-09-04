@@ -216,13 +216,13 @@ export const PcComponentProductList = () => {
             Products
           </h2>
 
-          <div className="flex gap-x-4">
+          <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
             <DesktopFilter
               handleFilter={handleFilter}
               filters={filters}
             ></DesktopFilter>
 
-            <div className="">
+            <div className="lg:col-span-4">
               <ProductGrid products={products}></ProductGrid>
             </div>
           </div>
@@ -379,7 +379,7 @@ export const DesktopFilter = ({
 }) => {
   return (
     <>
-      <form className="hidden lg:block product-card p-4 w-96">
+      <form className="hidden lg:block product-card p-8 w-2/3 ">
         <h3 className="sr-only">Categories</h3>
 
         {filters.map((section: any) => (
@@ -542,15 +542,15 @@ export const ProductGrid = ({ products }: { products: any }) => {
   return (
     <>
       <div className="product-card">
-        <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xl:gap-x-2">
+        <div className="grid grid-cols-2 p-8 gap-x-2 gap-y-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xl:gap-x-2 ">
           {products.map((product: any, index: number) => (
             <div
-              className="group relative shadow-lg border-2 bg-white/30 dark:bg-black/20 border-gray-400/25 dark:border-gray-600/20 rounded-lg p-2 "
+              className="group relative shadow-lg border-2 bg-white/30 dark:bg-black/20 border-gray-400/25 dark:border-gray-600/20 rounded-md p-2 "
               key={product.id}
               onMouseEnter={() => setHoveredProductIndex(index)}
               onMouseLeave={() => setHoveredProductIndex(null)}
             >
-              <div className="min-h-60 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-60">
+              <div className="min-h-60 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-60">
                 <div className="w-full h-full">
                   <Link
                     href={`/pc-components-details/${product.id}`}
@@ -563,7 +563,7 @@ export const ProductGrid = ({ products }: { products: any }) => {
                           infinite={true}
                           autoPlay={hoveredProductIndex === index}
                           autoPlaySpeed={1000}
-                          showDots={true}
+                          showDots={false}
                           arrows={false}
                           swipeable={true}
                           draggable={true}
