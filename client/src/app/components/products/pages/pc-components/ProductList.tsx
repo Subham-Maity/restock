@@ -557,13 +557,44 @@ export const ProductGrid = ({ products }: { products: any }) => {
                     key={product.id}
                   >
                     <div>
-                      <Image
-                        src={product.thumbnail}
-                        alt={product.title}
-                        className="w-full h-full object-cover object-center lg:h-full lg:w-full"
-                        height={300}
-                        width={300}
-                      />
+                      {hoveredProductIndex === index ? (
+                        <Carousel
+                          responsive={responsive}
+                          infinite={true}
+                          autoPlay={hoveredProductIndex === index}
+                          autoPlaySpeed={1000}
+                          showDots={true}
+                          arrows={false}
+                          swipeable={true}
+                          draggable={true}
+                        >
+                          {product.images.map(
+                            (image: string, imageIndex: number) => (
+                              <Link
+                                href={`/pc-components-details/${product.id}`}
+                                key={product.id}
+                              >
+                                <Image
+                                  key={imageIndex}
+                                  src={image}
+                                  alt={product.title}
+                                  className="w-full h-full object-cover object-center lg:h-[250px] lg:w-[350px]"
+                                  height={300}
+                                  width={300}
+                                />
+                              </Link>
+                            ),
+                          )}
+                        </Carousel>
+                      ) : (
+                        <Image
+                          src={product.thumbnail}
+                          alt={product.title}
+                          className="w-full h-full object-cover object-center lg:h-full lg:w-full"
+                          height={300}
+                          width={300}
+                        />
+                      )}
                     </div>
                   </Link>
                 </div>
@@ -593,30 +624,6 @@ export const ProductGrid = ({ products }: { products: any }) => {
                   </p>
                 </div>
               </div>
-              {/* Render the carousel only when hovering over the product */}
-              {hoveredProductIndex === index && (
-                <Carousel
-                  responsive={responsive}
-                  infinite={true}
-                  autoPlay={hoveredProductIndex === index}
-                  autoPlaySpeed={1000}
-                  showDots={true}
-                  arrows={false}
-                  swipeable={true}
-                  draggable={true}
-                >
-                  {product.images.map((image: string, imageIndex: number) => (
-                    <Image
-                      key={imageIndex}
-                      src={image}
-                      alt={product.title}
-                      className="w-full h-full object-cover object-center lg:h-full lg:w-full"
-                      height={300}
-                      width={300}
-                    />
-                  ))}
-                </Carousel>
-              )}
             </div>
           ))}
         </div>
