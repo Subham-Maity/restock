@@ -520,7 +520,30 @@ export const ProductGrid = ({ products }: { products: any }) => {
   const [hoveredProductIndex, setHoveredProductIndex] = useState<number | null>(
     null,
   );
+  const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
 
+  const handleMouseEnterWithDelay = (index: number) => {
+    setHoverTimeout(
+      setTimeout(() => {
+        setHoveredProductIndex(index);
+      }, 1000),
+    );
+  };
+
+  const handleMouseLeave = () => {
+    if (hoverTimeout !== null) {
+      clearTimeout(hoverTimeout);
+    }
+    setHoveredProductIndex(null);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (hoverTimeout !== null) {
+        clearTimeout(hoverTimeout);
+      }
+    };
+  }, [hoverTimeout]);
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
@@ -552,8 +575,8 @@ export const ProductGrid = ({ products }: { products: any }) => {
               <div
                 className="group relative shadow-lg border-2 bg-white/30 dark:bg-black/20 border-gray-400/25 dark:border-gray-600/20 rounded-md p-2 "
                 key={product.id}
-                onMouseEnter={() => setHoveredProductIndex(index)}
-                onMouseLeave={() => setHoveredProductIndex(null)}
+                onMouseEnter={() => handleMouseEnterWithDelay(index)}
+                onMouseLeave={handleMouseLeave}
               >
                 <div className="min-h-60 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-60">
                   <div className="w-full h-full">
