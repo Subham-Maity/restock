@@ -26,6 +26,8 @@ import {
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import { AppDispatch } from "@/lib/redux/store";
 import { ITEMS_PER_PAGE } from "@/lib/redux/constants";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
@@ -215,15 +217,17 @@ export const PcComponentProductList = () => {
           <h2 id="products-heading" className="sr-only">
             Products
           </h2>
-
-          <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
-            <DesktopFilter
-              handleFilter={handleFilter}
-              filters={filters}
-            ></DesktopFilter>
-
-            <div className="lg:col-span-4">
-              <ProductGrid products={products}></ProductGrid>
+          <div className="flex gap-2">
+            <div>
+              <DesktopFilter
+                handleFilter={handleFilter}
+                filters={filters}
+              ></DesktopFilter>
+            </div>
+            <div className="grid grid-cols-1 gap-x-1 gap-y-1 lg:grid-cols-4">
+              <div className="lg:col-span-4">
+                <ProductGrid products={products}></ProductGrid>
+              </div>
             </div>
           </div>
         </section>
@@ -379,7 +383,7 @@ export const DesktopFilter = ({
 }) => {
   return (
     <>
-      <form className="hidden lg:block product-card p-8 w-2/3 ">
+      <form className="hidden lg:block product-card p-8 lg:w-72">
         <h3 className="sr-only">Categories</h3>
 
         {filters.map((section: any) => (
@@ -512,9 +516,6 @@ function Pagination({ page, handlePage, totalItems }: any) {
   );
 }
 
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
-
 export const ProductGrid = ({ products }: { products: any }) => {
   const [hoveredProductIndex, setHoveredProductIndex] = useState<number | null>(
     null,
@@ -544,18 +545,18 @@ export const ProductGrid = ({ products }: { products: any }) => {
       <div className="product-card">
         <div className="grid grid-cols-2 p-8 gap-x-2 gap-y-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xl:gap-x-2 ">
           {products.map((product: any, index: number) => (
-            <div
-              className="group relative shadow-lg border-2 bg-white/30 dark:bg-black/20 border-gray-400/25 dark:border-gray-600/20 rounded-md p-2 "
+            <Link
+              href={`/pc-components-details/${product.id}`}
               key={product.id}
-              onMouseEnter={() => setHoveredProductIndex(index)}
-              onMouseLeave={() => setHoveredProductIndex(null)}
             >
-              <div className="min-h-60 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-60">
-                <div className="w-full h-full">
-                  <Link
-                    href={`/pc-components-details/${product.id}`}
-                    key={product.id}
-                  >
+              <div
+                className="group relative shadow-lg border-2 bg-white/30 dark:bg-black/20 border-gray-400/25 dark:border-gray-600/20 rounded-md p-2 "
+                key={product.id}
+                onMouseEnter={() => setHoveredProductIndex(index)}
+                onMouseLeave={() => setHoveredProductIndex(null)}
+              >
+                <div className="min-h-60 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-60">
+                  <div className="w-full h-full">
                     <div>
                       {hoveredProductIndex === index ? (
                         <Carousel
@@ -570,19 +571,17 @@ export const ProductGrid = ({ products }: { products: any }) => {
                         >
                           {product.images.map(
                             (image: string, imageIndex: number) => (
-                              <Link
-                                href={`/pc-components-details/${product.id}`}
-                                key={product.id}
-                              >
-                                <Image
-                                  key={imageIndex}
-                                  src={image}
-                                  alt={product.title}
-                                  className="w-full h-full object-cover object-center lg:h-[250px] lg:w-[350px]"
-                                  height={300}
-                                  width={300}
-                                />
-                              </Link>
+                              <Image
+                                key={imageIndex}
+                                src={image}
+                                alt={product.title}
+                                className="w-full h-full object-cover object-center lg:h-[250px] lg:w-[350px]"
+                                height={300}
+                                width={300}
+                                onClick={() => {
+                                  window.location.href = `/pc-components-details/${product.id}`;
+                                }}
+                              />
                             ),
                           )}
                         </Carousel>
@@ -593,38 +592,42 @@ export const ProductGrid = ({ products }: { products: any }) => {
                           className="w-full h-full object-cover object-center lg:h-full lg:w-full"
                           height={300}
                           width={300}
+                          onClick={() => {
+                            window.location.href = `/pc-components-details/${product.id}`;
+                          }}
                         />
                       )}
                     </div>
-                  </Link>
+                  </div>
+                </div>
+                <div className="mt-4 flex justify-between">
+                  <div>
+                    <h3 className="text-sm text-gray-700">
+                      <div>
+                        <span aria-hidden="true" className="absolute inset-0" />
+                        {product.title}
+                      </div>
+                    </h3>
+                    <p className="mt-1 text-sm text-gray-500">
+                      <StarIcon className="w-6 h-6 inline"></StarIcon>
+
+                      <span className=" align-bottom">{product.rating}</span>
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm block font-medium text-gray-900">
+                      $
+                      {Math.round(
+                        product.price * (1 - product.discountPercentage / 100),
+                      )}
+                    </p>
+                    <p className="text-sm block line-through font-medium text-gray-400">
+                      ${product.price}
+                    </p>
+                  </div>
                 </div>
               </div>
-              <div className="mt-4 flex justify-between">
-                <div>
-                  <h3 className="text-sm text-gray-700">
-                    <div>
-                      <span aria-hidden="true" className="absolute inset-0" />
-                      {product.title}
-                    </div>
-                  </h3>
-                  <p className="mt-1 text-sm text-gray-500">
-                    <StarIcon className="w-6 h-6 inline"></StarIcon>
-                    <span className=" align-bottom">{product.rating}</span>
-                  </p>
-                </div>
-                <div>
-                  <p className="text-sm block font-medium text-gray-900">
-                    $
-                    {Math.round(
-                      product.price * (1 - product.discountPercentage / 100),
-                    )}
-                  </p>
-                  <p className="text-sm block line-through font-medium text-gray-400">
-                    ${product.price}
-                  </p>
-                </div>
-              </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
