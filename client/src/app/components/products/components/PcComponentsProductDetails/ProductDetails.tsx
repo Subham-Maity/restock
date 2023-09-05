@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { RadioGroup } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "@/lib/redux/store";
 
 import { useParams } from "next/navigation";
 import {
@@ -40,21 +39,20 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
-interface Params {
-  id: string; // Assuming 'id' is a string in your URL parameters
-}
-
 export default function ProductDetails() {
   const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [selectedSize, setSelectedSize] = useState(sizes[2]);
   const product = useSelector(selectProductById);
-  const dispatch: AppDispatch = useDispatch();
-  const params: Params = useParams(); // Specify the type here
+  const dispatch = useDispatch();
+  const params = useParams();
 
   useEffect(() => {
+    // @ts-ignore
     dispatch(fetchAllProductByIdAsync(params.id));
+    if (product && product.images && product.images.length > 0) {
+      console.log("product", product.images[0]);
+    }
   }, [dispatch, params.id]);
-}
 
   return (
     <div className="bg-white">
@@ -102,44 +100,24 @@ export default function ProductDetails() {
 
           {/* Image gallery */}
           <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-            <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
-              <Image
-                src={product.images[0]}
-                alt={product.title}
-                className="h-full w-full object-cover object-center"
-                height={500}
-                width={500}
-              />
-            </div>
-            <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-              <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
+            {product.images.map((image: string, index: number) => (
+              <div
+                key={index}
+                className={`aspect-h-4 aspect-w-3 overflow-hidden rounded-lg ${
+                  index === 0
+                    ? "lg:block"
+                    : "hidden lg:grid lg:grid-cols-1 lg:gap-y-8"
+                }`}
+              >
                 <Image
-                  src={product.images[1]}
+                  src={image}
                   alt={product.title}
                   className="h-full w-full object-cover object-center"
                   height={500}
                   width={500}
                 />
               </div>
-              <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-                <Image
-                  src={product.images[2]}
-                  alt={product.title}
-                  className="h-full w-full object-cover object-center"
-                  height={500}
-                  width={500}
-                />
-              </div>
-            </div>
-            <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
-              <Image
-                src={product.images[3]}
-                alt={product.title}
-                className="h-full w-full object-cover object-center"
-                height={500}
-                width={500}
-              />
-            </div>
+            ))}
           </div>
 
           {/* Product info */}
