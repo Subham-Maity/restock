@@ -603,26 +603,44 @@ export const ProductGrid = ({ products }: { products: any }) => {
                 <div className="mt-4 flex justify-between">
                   <div>
                     <h3 className="text-sm text-gray-700">
-                      <div>
-                        <span aria-hidden="true" className="absolute inset-0" />
+                      <div className="text-gray-800 dark:text-gray-300">
+                        <span
+                          aria-hidden="true"
+                          className="absolute inset-0 "
+                        />
                         {product.title}
                       </div>
                     </h3>
-                    <p className="mt-1 text-sm text-gray-500">
-                      <StarIcon className="w-6 h-6 inline"></StarIcon>
-
-                      <span className=" align-bottom">{product.rating}</span>
-                    </p>
+                    <div className="mt-1 flex items-center">
+                      <div
+                        className={`w-12 h-5 flex items-center justify-center rounded-sm text-sm gap-0.5 ${
+                          product.rating >= 4.5
+                            ? "bg-green-500 dark:bg-green-600 text-sm"
+                            : product.rating >= 4
+                            ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
+                            : product.rating >= 3.5
+                            ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
+                            : product.rating >= 2
+                            ? "bg-orange-400 dark:bg-orange-600 text-sm"
+                            : "bg-red-500 dark:bg-red-600 text-sm"
+                        }`}
+                      >
+                        <span className="text-white text-sm">
+                          {product.rating.toFixed(1)}
+                        </span>
+                        <StarIcon className="w-3.5 text-sm text-gray-200" />
+                      </div>
+                    </div>
                   </div>
                   <div>
-                    <p className="text-sm block font-medium text-gray-900">
-                      $
+                    <p className="text-sm font-medium block dark:text-gray-100 text-neutral-900">
                       {Math.round(
                         product.price * (1 - product.discountPercentage / 100),
                       )}
+                      ₹
                     </p>
-                    <p className="text-sm block line-through font-medium text-gray-400">
-                      ${product.price}
+                    <p className="text-md block line-through font-medium text-gray-400">
+                      {product.price}₹
                     </p>
                   </div>
                 </div>
