@@ -224,8 +224,8 @@ export const PcComponentProductList = () => {
                 filters={filters}
               ></DesktopFilter>
             </div>
-            <div className="grid grid-cols-1 gap-x-1 gap-y-1 lg:grid-cols-4">
-              <div className="lg:col-span-4">
+            <div>
+              <div>
                 <ProductGrid products={products}></ProductGrid>
               </div>
             </div>
@@ -563,7 +563,7 @@ export const ProductGrid = ({ products }: { products: any }) => {
                           responsive={responsive}
                           infinite={true}
                           autoPlay={hoveredProductIndex === index}
-                          autoPlaySpeed={1000}
+                          autoPlaySpeed={1500}
                           showDots={false}
                           arrows={false}
                           swipeable={true}
