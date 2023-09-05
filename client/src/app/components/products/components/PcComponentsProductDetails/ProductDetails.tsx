@@ -46,9 +46,21 @@ export default function ProductDetails() {
   const dispatch = useDispatch();
   const params = useParams();
 
+  const [currentImage, setCurrentImage] = useState(
+    product && product.images && product.images.length > 0
+      ? product.images[0]
+      : "/",
+  );
+  const handleMouseEnter = (src: any) => {
+    setCurrentImage(src);
+  };
+
   useEffect(() => {
     // @ts-ignore
     dispatch(fetchAllProductByIdAsync(params.id));
+    // if (product && product.images && product.images.length > 0) {
+    //   console.log("product", product.images[0]);
+    // }
   }, [dispatch, params.id]);
 
   return (
@@ -97,42 +109,35 @@ export default function ProductDetails() {
 
           {/* Image gallery */}
           <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-            <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
-              <Image
-                src={product.images[0]}
-                alt={product.title}
-                className="h-full w-full object-cover object-center"
-                height={500}
-                width={500}
-              />
-            </div>
-            <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-              <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
+            {/*idk what this is for, but it's in the DummyProductDetails.tsx (🫡) isko uncomment kardo toh lyf jhingalala*/}
+            {/*<div className="flex flex-row h-fit w-fit sm:flex-col product-previews mt-3 sm:mt-0 space-x-2 sm:space-x-0 md:space-y-2 p-2 border border-gray-400 rounded-xl">*/}
+            {product.images.map((image: string, index: number) => (
+              <div
+                key={index}
+                className={`aspect-h-4 aspect-w-3 overflow-hidden rounded-lg ${
+                  index === 0
+                    ? "lg:block"
+                    : "hidden lg:grid lg:grid-cols-1 lg:gap-y-8"
+                }`}
+                onMouseEnter={() => handleMouseEnter(image)}
+              >
                 <Image
-                  src={product.images[1]}
+                  src={image}
                   alt={product.title}
-                  className="h-full w-full object-cover object-center"
+                  className="rounded-md border hover:border-blue-400"
                   height={500}
                   width={500}
                 />
               </div>
-              <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-                <Image
-                  src={product.images[2]}
-                  alt={product.title}
-                  className="h-full w-full object-cover object-center"
-                  height={500}
-                  width={500}
-                />
-              </div>
-            </div>
-            <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
+            ))}
+            {/*</div>*/}
+            <div className="h-fit">
               <Image
-                src={product.images[3]}
-                alt={product.title}
-                className="h-full w-full object-cover object-center"
-                height={500}
-                width={500}
+                src={currentImage}
+                width={400}
+                height={400}
+                alt="Product"
+                className="rounded-lg flex"
               />
             </div>
           </div>
