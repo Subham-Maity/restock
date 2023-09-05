@@ -46,12 +46,21 @@ export default function ProductDetails() {
   const dispatch = useDispatch();
   const params = useParams();
 
+  const [currentImage, setCurrentImage] = useState(
+    product && product.images && product.images.length > 0
+      ? product.images[0]
+      : "/",
+  );
+  const handleMouseEnter = (src: any) => {
+    setCurrentImage(src);
+  };
+
   useEffect(() => {
     // @ts-ignore
     dispatch(fetchAllProductByIdAsync(params.id));
-    if (product && product.images && product.images.length > 0) {
-      console.log("product", product.images[0]);
-    }
+    // if (product && product.images && product.images.length > 0) {
+    //   console.log("product", product.images[0]);
+    // }
   }, [dispatch, params.id]);
 
   return (
@@ -100,6 +109,8 @@ export default function ProductDetails() {
 
           {/* Image gallery */}
           <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+            {/*idk what this is for, but it's in the DummyProductDetails.tsx (🫡) isko uncomment kardo toh lyf jhingalala*/}
+            {/*<div className="flex flex-row h-fit w-fit sm:flex-col product-previews mt-3 sm:mt-0 space-x-2 sm:space-x-0 md:space-y-2 p-2 border border-gray-400 rounded-xl">*/}
             {product.images.map((image: string, index: number) => (
               <div
                 key={index}
@@ -108,16 +119,27 @@ export default function ProductDetails() {
                     ? "lg:block"
                     : "hidden lg:grid lg:grid-cols-1 lg:gap-y-8"
                 }`}
+                onMouseEnter={() => handleMouseEnter(image)}
               >
                 <Image
                   src={image}
                   alt={product.title}
-                  className="h-full w-full object-cover object-center"
+                  className="rounded-md border hover:border-blue-400"
                   height={500}
                   width={500}
                 />
               </div>
             ))}
+            {/*</div>*/}
+            <div className="h-fit">
+              <Image
+                src={currentImage}
+                width={400}
+                height={400}
+                alt="Product"
+                className="rounded-lg flex"
+              />
+            </div>
           </div>
 
           {/* Product info */}
