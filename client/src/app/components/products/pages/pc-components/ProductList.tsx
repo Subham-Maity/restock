@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
@@ -522,13 +522,13 @@ export const ProductGrid = ({ products }: { products: any }) => {
   );
   const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
 
-  const handleMouseEnterWithDelay = (index: number) => {
+  const handleMouseEnterWithDelay = useCallback((index: number) => {
     setHoverTimeout(
       setTimeout(() => {
         setHoveredProductIndex(index);
       }, 1000),
     );
-  };
+  }, []);
 
   const handleMouseLeave = () => {
     if (hoverTimeout !== null) {
