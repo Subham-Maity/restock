@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { RadioGroup } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "@/lib/redux/store";
 
 import { useParams } from "next/navigation";
 import {
@@ -39,17 +40,21 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
+interface Params {
+  id: string; // Assuming 'id' is a string in your URL parameters
+}
+
 export default function ProductDetails() {
   const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [selectedSize, setSelectedSize] = useState(sizes[2]);
   const product = useSelector(selectProductById);
-  const dispatch = useDispatch();
-  const params = useParams();
+  const dispatch: AppDispatch = useDispatch();
+  const params: Params = useParams(); // Specify the type here
 
   useEffect(() => {
-    // @ts-ignore
     dispatch(fetchAllProductByIdAsync(params.id));
   }, [dispatch, params.id]);
+}
 
   return (
     <div className="bg-white">

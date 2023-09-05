@@ -10,6 +10,7 @@ const page = () => {
       <Navbar />
       <div className="mt-20">
         <ProductDetails />
+        <DummyProductDetails />
       </div>
       <Footer />
     </div>
