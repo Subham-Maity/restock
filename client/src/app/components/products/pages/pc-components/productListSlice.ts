@@ -11,7 +11,7 @@ import {
   Id,
   Pagination,
   Sort,
-} from "@/app/components/products/pages/pc-components/productListAPI.type";
+} from "@/app/components/products/pages/pc-components/productList.type";
 
 interface ProductState {
   products: any[];
@@ -35,7 +35,6 @@ export const fetchAllProductsAsync = createAsyncThunk(
   "product/fetchAllProducts",
   async () => {
     const response = await fetchAllProducts();
-    // The value we return becomes the `fulfilled` action payload
     return response.data;
   },
 );
@@ -44,7 +43,6 @@ export const fetchAllProductByIdAsync = createAsyncThunk(
   "product/fetchProductById",
   async (id: Id) => {
     const response = await fetchProductById(id);
-    // The value we return becomes the `fulfilled` action payload
     return response.data;
   },
 );
@@ -61,7 +59,6 @@ export const fetchProductsByFiltersAsync = createAsyncThunk(
     pagination: Pagination;
   }) => {
     const response = await fetchProductsByFilters(filter, sort, pagination);
-    // The value we return becomes the `fulfilled` action payload
     return response.data;
   },
 );
@@ -70,7 +67,6 @@ export const fetchBrandsAsync = createAsyncThunk(
   "product/fetchBrands",
   async () => {
     const response = await fetchBrands();
-    // The value we return becomes the `fulfilled` action payload
     return response.data;
   },
 );
@@ -78,7 +74,6 @@ export const fetchCategoriesAsync = createAsyncThunk(
   "product/fetchCategories",
   async () => {
     const response = await fetchCategories();
-    // The value we return becomes the `fulfilled` action payload
     return response.data;
   },
 );
