@@ -16,5 +16,5 @@ export interface LoginInfo {
 export interface AuthState {
   loggedInUser: User | null;
   status: "idle" | "loading";
-  error: string | null;
+  error: any;
 }

@@ -21,7 +21,6 @@ const Signup = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<Inputs>();
   console.log(errors);
@@ -52,7 +51,6 @@ const Signup = () => {
                   password: data.password,
                 }),
               );
-              console.log(data);
             })}
           >
             <div>
