@@ -46,14 +46,15 @@ export default function ProductDetails() {
   const dispatch = useDispatch();
   const params = useParams();
 
-  const [currentImage, setCurrentImage] = useState(
-    product && product.images && product.images.length > 0
-      ? product.images[0]
-      : "/",
-  );
+  const [currentImage, setCurrentImage] = useState("/");
   const handleMouseEnter = (src: any) => {
     setCurrentImage(src);
   };
+
+  useEffect(() => {if (product && product.images && product.images.length > 0) {
+    setCurrentImage(product.images[0]);
+  }}, [product]); 
+  
 
   useEffect(() => {
     // @ts-ignore
@@ -63,6 +64,15 @@ export default function ProductDetails() {
     // }
   }, [dispatch, params.id]);
 
+  if (!product) {
+    return <div>Loading...</div>;
+  }
+  
+  // Add a check for empty product data and set currentImage to the first image if available.
+  if (!product.images || product.images.length === 0) {
+    return <div>No product images available.</div>;
+  }
+  
   return (
     <div className="bg-white">
       {product && (
@@ -109,8 +119,8 @@ export default function ProductDetails() {
 
           {/* Image gallery */}
           <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-            {/*idk what this is for, but it's in the DummyProductDetails.tsx (🫡) isko uncomment kardo toh lyf jhingalala*/}
-            {/*<div className="flex flex-row h-fit w-fit sm:flex-col product-previews mt-3 sm:mt-0 space-x-2 sm:space-x-0 md:space-y-2 p-2 border border-gray-400 rounded-xl">*/}
+            {/*idk what this is for, but it's in the DummyProductDetails.tsx (🫡) isko uncomment kardo toh lyf jhingalala✅*/}
+            <div className="flex flex-row sm:flex-col product-previews mt-3 sm:mt-0 space-x-2 sm:space-x-0 md:space-y-2 p-2 border border-gray-400 rounded-xl">
             {product.images.map((image: string, index: number) => (
               <div
                 key={index}
@@ -130,7 +140,7 @@ export default function ProductDetails() {
                 />
               </div>
             ))}
-            {/*</div>*/}
+            </div>
             <div className="h-fit">
               <Image
                 src={currentImage}
