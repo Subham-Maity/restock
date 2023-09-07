@@ -62,7 +62,7 @@ const navigation = [
 const userNavigation = [
   { name: "Your Profile", href: "#" },
   { name: "Settings", href: "#" },
-  { name: "Sign out", href: "#" },
+  { name: "Sign out", href: "/login" },
 ];
 
 function classNames(...classes: any[]) {
@@ -72,7 +72,10 @@ function classNames(...classes: any[]) {
 const Navbar = () => {
   return (
     <div className="fixed top-0 left-0 right-0 rounded-b-lg z-50 backdrop-blur-3xl">
-      <Disclosure as="nav" className="bg-white/70 dark:bg-black/70 rounded-b-xl">
+      <Disclosure
+        as="nav"
+        className="bg-white/70 dark:bg-black/70 rounded-b-xl"
+      >
         {({ open }) => (
           <>
             <div className="lg:mx-16 max-w-8xl px-5 sm:px-6 xl:px-8 py-2 sm:py-2 lg:py-2">

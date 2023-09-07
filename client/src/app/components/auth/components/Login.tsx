@@ -31,6 +31,8 @@ const Login = () => {
 
   return (
     <>
+      {/*Testing*/}
+      {/*{user && router.push("/cart")}*/}
       {user && router.push("/")}
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 md:w-[32rem] mx-3  md:mx-auto my-6 default-card">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
