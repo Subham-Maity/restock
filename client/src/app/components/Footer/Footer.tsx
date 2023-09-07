@@ -59,13 +59,16 @@ const Footer = () => {
         <div className=" mx-auto px-4 pb-6 pt-16 sm:px-6 lg:px-8">
           <div className="lg:flex lg:items-center lg:justify-between">
             <div className="flex justify-center text-gray-600 sm:justify-start">
-              <Image
-                className="mx-auto "
-                src="/Logoblack.png"
-                alt="Your Company"
-                width={250}
-                height={250}
-              />
+              {/*<Image*/}
+              {/*  className="mx-auto "*/}
+              {/*  src="/Logoblack.png"*/}
+              {/*  alt="Your Company"*/}
+              {/*  width={250}*/}
+              {/*  height={250}*/}
+              {/*/>*/}
+              <p className="font-bold text-2xl dark:text-gray-400 text-neutral-900">
+                Our Logo
+              </p>
             </div>
 
             <p className="mt-4 max-w-md text-center leading-relaxed text-gray-500 sm:text-left lg:mt-0">
@@ -455,14 +458,14 @@ const Footer = () => {
                       <label className="sr-only">Email</label>
 
                       <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  placeholder="Enter your email"
-                  required
-                  className="block w-full rounded-2xl h-11 bg-white bg-opacity-30 dark:bg-stone-950/20 shadow-2xl  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-blue-500 focus:border-blue-800 sm:text-sm sm:leading-6"
-                />
+                        id="email"
+                        name="email"
+                        type="email"
+                        autoComplete="email"
+                        placeholder="Enter your email"
+                        required
+                        className="block w-full rounded-2xl h-11 bg-white bg-opacity-30 dark:bg-stone-950/20 shadow-2xl  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-blue-500 focus:border-blue-800 sm:text-sm sm:leading-6"
+                      />
 
                       <button className="relative inline-flex items-center justify-center sm:w-full p-4 py-3 overflow-hidden font-medium text-indigo-500 transition duration-100 ease-out border-2 dark:border-indigo-500/30 rounded-2xl shadow-xl group">
                         <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white text-2xl duration-100 -translate-x-full bg-indigo-600 dark:bg-indigo-500 group-hover:translate-x-0 ease">

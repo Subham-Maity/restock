@@ -3,7 +3,7 @@ import {
   Id,
   Pagination,
   Sort,
-} from "@/app/components/products/pages/pc-components/productListAPI.type";
+} from "@/app/components/products/pages/pc-components/productList.type";
 
 export function fetchAllProducts(): Promise<{ data: any }> {
   return new Promise(async (resolve) => {
