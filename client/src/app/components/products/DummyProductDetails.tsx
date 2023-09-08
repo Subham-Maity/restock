@@ -114,33 +114,44 @@ export default function Example() {
         </nav>
 
         {/* Image gallery */}
-        <div className="w-fit flex flex-col-reverse sm:flex-row lg:pl-28 py-4 sm:space-x-4 mb-10 justify-center lg:justify-start">
-          <div className="flex flex-row h-fit w-fit sm:flex-col product-previews mt-3 sm:mt-0 space-x-2 sm:space-x-0 md:space-y-2 p-2 border border-gray-400 rounded-xl">
-            {product.images.map((image, index) => (
-              <div
-                key={index}
-                className="preview-image flex"
-                // Add event handlers to change the current image on mouse enter and leave
-                onMouseEnter={() => handleMouseEnter(image.src)}
-              >
-                <Image
-                  src={image.src}
-                  width={100}
-                  height={100}
-                  alt={image.alt}
-                  className="rounded-md border hover:border-blue-400"
-                />
-              </div>
-            ))}
+        <div className="flex">
+          <div className="w-fit flex flex-col-reverse sm:flex-row lg:pl-28 py-4 sm:space-x-4 mb-10 justify-center lg:justify-start lg:border-r lg:border-gray-200 lg:pr-8">
+            <div className="flex flex-row h-fit w-fit sm:flex-col product-previews mt-3 sm:mt-0 space-x-2 sm:space-x-0 md:space-y-2 p-2 border border-gray-400 rounded-xl">
+              {product.images.map((image, index) => (
+                <div
+                  key={index}
+                  className="preview-image flex"
+                  // Add event handlers to change the current image on mouse enter and leave
+                  onMouseEnter={() => handleMouseEnter(image.src)}
+                >
+                  <Image
+                    src={image.src}
+                    width={100}
+                    height={100}
+                    alt={image.alt}
+                    className="rounded-md border hover:border-blue-400"
+                  />
+                </div>
+              ))}
+            </div>
+            <div className="h-fit">
+              <Image
+                src={currentImage}
+                width={400}
+                height={400}
+                alt="Product"
+                className="rounded-lg flex"
+              />
+            </div>
           </div>
-          <div className="h-fit">
-            <Image src={currentImage} width={400} height={400} alt="Product" className="rounded-lg flex"/>
-          </div>
+          <h1 className="justify-start text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300 sm:text-3xl">
+            {product.name}
+          </h1>
         </div>
 
         {/* Product info */}
         <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
-          <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
+          <div className="lg:col-span-2 lg:border-r lg:border-gray-200">
             <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
               {product.name}
             </h1>
@@ -149,7 +160,7 @@ export default function Example() {
           {/* Options */}
           <div className="mt-4 lg:row-span-3 lg:mt-0">
             <h2 className="sr-only">Product information</h2>
-            <p className="text-3xl tracking-tight text-gray-900">
+            <p className="text-3xl tracking-tight text-gray-900 dark:text-gray-300">
               {product.price}
             </p>
 
@@ -184,7 +195,9 @@ export default function Example() {
             <form className="mt-10">
               {/* Colors */}
               <div>
-                <h3 className="text-sm font-medium text-gray-900">Color</h3>
+                <h3 className="text-sm font-medium text-gray-900 dark:text-gray-300">
+                  Color
+                </h3>
 
                 <RadioGroup
                   value={selectedColor}
@@ -280,22 +293,7 @@ export default function Example() {
                               <span
                                 aria-hidden="true"
                                 className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200"
-                              >
-                                <svg
-                                  className="absolute inset-0 h-full w-full stroke-2 text-gray-200"
-                                  viewBox="0 0 100 100"
-                                  preserveAspectRatio="none"
-                                  stroke="currentColor"
-                                >
-                                  <line
-                                    x1={0}
-                                    y1={100}
-                                    x2={100}
-                                    y2={0}
-                                    vectorEffect="non-scaling-stroke"
-                                  />
-                                </svg>
-                              </span>
+                              ></span>
                             )}
                           </>
                         )}
@@ -320,7 +318,9 @@ export default function Example() {
               <h3 className="sr-only">Description</h3>
 
               <div className="space-y-6">
-                <p className="text-base text-gray-900">{product.description}</p>
+                <p className="text-base text-gray-900 dark:text-gray-300">
+                  {product.description}
+                </p>
               </div>
             </div>
 
@@ -331,7 +331,9 @@ export default function Example() {
                 <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
                   {product.highlights.map((highlight) => (
                     <li key={highlight} className="text-gray-400">
-                      <span className="text-gray-600">{highlight}</span>
+                      <span className="text-gray-800 dark:text-gray-300">
+                        {highlight}
+                      </span>
                     </li>
                   ))}
                 </ul>
