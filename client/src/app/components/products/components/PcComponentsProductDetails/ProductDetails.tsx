@@ -115,7 +115,7 @@ export default function ProductDetails() {
           <div className="flex flex-col lg:flex-row">
             {/* Image gallery */}
             <div className="w-fit flex flex-col-reverse sm:flex-row  py-4 sm:space-x-4 mb-10 justify-center lg:justify-start lg:border-r lg:border-gray-400 lg:pr-8">
-              <div className="flex flex-row sm:flex-col product-previews mt-3 sm:mt-0 space-x-2 sm:space-x-0 md:space-y-2 p-2 border border-gray-400 rounded-xl touch-pan-y">
+              <div className="flex flex-row h-fit sm:flex-col product-previews mt-3 sm:mt-0 space-x-2 sm:space-x-0 md:space-y-2 p-2 border border-gray-400 rounded-xl touch-pan-y">
                 {product.images.map((image: string, index: number) => (
                   <div
                     key={index}
@@ -132,7 +132,7 @@ export default function ProductDetails() {
                   </div>
                 ))}
               </div>
-              <div className=" bg-gray-200 my-auto">
+              <div className=" border p-0.5  border-gray-400 rounded-lg my-auto">
                 <Image
                   src={currentImage}
                   width={500}
@@ -148,46 +148,45 @@ export default function ProductDetails() {
               </h1>
               {/* Ratings */}
               <div className="flex border-2 shadow-xl dark:border-black/20 border-gray-700/20 rounded-lg w-fit">
-              <div
-                className={`flex items-center justify-center w-14 h-6 rounded-md text-sm gap-0.5 font-semibold text-white ${
-                  product.rating.toFixed(1) >= 4
-                    ? "bg-green-600 dark:bg-green-600 "
-                    : product.rating >= 3.5
-                    ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
-                    : product.rating >= 2
-                    ? "bg-orange-400 dark:bg-orange-600 text-sm"
-                    : "bg-red-500 dark:bg-red-600 text-sm"
-                }`}
-              >
-                <p className="">{product.rating}</p>
-                
+                <div
+                  className={`flex items-center justify-center w-14 h-6 rounded-md text-sm gap-0.5 font-semibold text-white ${
+                    product.rating.toFixed(1) >= 4
+                      ? "bg-green-600 dark:bg-green-600 "
+                      : product.rating >= 3.5
+                      ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
+                      : product.rating >= 2
+                      ? "bg-orange-400 dark:bg-orange-600 text-sm"
+                      : "bg-red-500 dark:bg-red-600 text-sm"
+                  }`}
+                >
+                  <p className="">{product.rating}</p>
                 </div>
 
                 {/* Rating Star Count */}
                 <div className="flex items-center">
-                      {[1, 2, 3, 4, 5].map((rating) => (
-                        <StarIcon
-                          key={rating}
-                          className={classNames(
-                            product.rating.toFixed(1) > rating
-                              ? "text-gray-700 dark:text-white"
-                              : "text-gray-50 dark:text-gray-500",
-                            "h-5 w-5 flex-shrink-0",
-                          )}
-                          aria-hidden="true"
-                        />
-                      ))}
-                    </div>
-                    </div>
+                  {[1, 2, 3, 4, 5].map((rating) => (
+                    <StarIcon
+                      key={rating}
+                      className={classNames(
+                        product.rating.toFixed(1) > rating
+                          ? "text-gray-700 dark:text-white"
+                          : "text-gray-50 dark:text-gray-500",
+                        "h-5 w-5 flex-shrink-0",
+                      )}
+                      aria-hidden="true"
+                    />
+                  ))}
+                </div>
+              </div>
 
-                {/* Description */}
-              
+              {/* Description */}
+
               <div>
                 <div className="space-y-6">
                   <h3 className="sr-only text-2xl font-semibold">
                     Description
                   </h3>
-                  <p className="text-lg font- text-justify text-gray-900 dark:text-gray-300 lg:break-normal lg:mr-auto w-[38rem]">
+                  <p className="text-lg font-Comfortaa text-justify text-gray-900 dark:text-gray-300 lg:break-normal lg:mr-auto w-[38rem]">
                     {product.description}
                   </p>
                   <p className="text-3xl tracking-tight text-gray-900 dark:text-gray-300">
