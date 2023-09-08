@@ -10,7 +10,7 @@ const page = () => {
       <Navbar />
       <div className="mt-20">
         <ProductDetails />
-        <DummyProductDetails />
+        {/* <DummyProductDetails /> */}
       </div>
       <Footer />
     </div>

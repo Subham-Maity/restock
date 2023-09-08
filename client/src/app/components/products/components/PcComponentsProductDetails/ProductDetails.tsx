@@ -112,9 +112,9 @@ export default function ProductDetails() {
             </ol>
           </nav>
 
-          <div className="flex">
+          <div className="flex flex-col md:flex-row">
             {/* Image gallery */}
-            <div className="w-fit flex flex-col-reverse sm:flex-row lg:pl-28 py-4 sm:space-x-4 mb-10 justify-center lg:justify-start lg:border-r lg:border-gray-200 lg:pr-8">
+            <div className="w-fit flex flex-col-reverse sm:flex-row lg:pl-24 py-4 sm:space-x-4 mb-10 justify-center lg:justify-start lg:border-r lg:border-gray-200 lg:pr-8">
               <div className="flex flex-row h-fit w-fit sm:flex-col product-previews mt-3 sm:mt-0 space-x-2 sm:space-x-0 md:space-y-2 p-2 border border-gray-400 rounded-xl">
                 {product.images.map((image: string, index: number) => (
                   <div
@@ -132,7 +132,7 @@ export default function ProductDetails() {
                   </div>
                 ))}
               </div>
-              <div className="h-[400px] w-[400px bg-gray-200 my-auto">
+              <div className="h-[400px] w-[400px] bg-gray-200 my-auto">
                 <Image
                   src={currentImage}
                   width={400}
@@ -194,99 +194,6 @@ export default function ProductDetails() {
           </div>
 
           {/* Product info */}
-          <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
-            <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-              <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-                {product.title}
-              </h1>
-            </div>
-
-            {/* Options */}
-            <div className="mt-4 lg:row-span-3 lg:mt-0">
-              <h2 className="sr-only">Product information</h2>
-              <p className="text-3xl tracking-tight text-gray-900">
-                ₹{product.price}
-              </p>
-
-              {/* Reviews */}
-              <div className="mt-6">
-                <h3 className="sr-only">Reviews</h3>
-                <div className="flex items-center">
-                  <div className="flex items-center">
-                    {[0, 1, 2, 3, 4].map((rating) => (
-                      <StarIcon
-                        key={rating}
-                        className={classNames(
-                          product.rating > rating
-                            ? "text-gray-900"
-                            : "text-gray-200",
-                          "h-5 w-5 flex-shrink-0"
-                        )}
-                        aria-hidden="true"
-                      />
-                    ))}
-                  </div>
-                  <p className="sr-only">{product.rating} out of 5 stars</p>
-                </div>
-              </div>
-
-              <form className="mt-10">
-                {/* Colors */}
-
-                {/* Sizes */}
-
-                <button
-                  type="submit"
-                  className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                  Add to Cart
-                </button>
-              </form>
-            </div>
-
-            <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
-              {/* Description and details */}
-              <div>
-                <h3 className="sr-only">Description</h3>
-
-                <div className="space-y-6">
-                  <p className="text-base text-gray-900 dark:text-gray-300">
-                    {product.description}
-                  </p>
-                </div>
-              </div>
-
-              {/* <div className="mt-10">
-                <h3 className="text-sm font-medium text-gray-900 dark:text-gray-300">
-                  Highlights
-                </h3>
-
-                <div className="mt-4">
-                  <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
-                    {highlights.map((highlight) => (
-                      <li key={highlight} className="text-gray-400">
-                        <span className="text-gray-800 dark:text-gray-300">
-                          {highlight}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div> */}
-
-              <div className="mt-10">
-                <h2 className="text-sm font-medium text-gray-900 dark:text-gray-300">
-                  Details
-                </h2>
-
-                <div className="mt-4 space-y-6">
-                  <p className="text-sm text-gray-800 dark:text-gray-300">
-                    {product.description}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       )}
     </div>
