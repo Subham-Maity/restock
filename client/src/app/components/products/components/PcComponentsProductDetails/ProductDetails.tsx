@@ -112,10 +112,10 @@ export default function ProductDetails() {
             </ol>
           </nav>
 
-          <div className="flex flex-col md:flex-row">
+          <div className="flex flex-col lg:flex-row">
             {/* Image gallery */}
-            <div className="w-fit flex flex-col-reverse sm:flex-row lg:pl-24 py-4 sm:space-x-4 mb-10 justify-center lg:justify-start lg:border-r lg:border-gray-200 lg:pr-8">
-              <div className="flex flex-row h-fit w-fit sm:flex-col product-previews mt-3 sm:mt-0 space-x-2 sm:space-x-0 md:space-y-2 p-2 border border-gray-400 rounded-xl">
+            <div className="w-fit flex flex-col-reverse sm:flex-row  py-4 sm:space-x-4 mb-10 justify-center lg:justify-start lg:border-r lg:border-gray-400 lg:pr-8">
+              <div className="flex flex-row sm:flex-col product-previews mt-3 sm:mt-0 space-x-2 sm:space-x-0 md:space-y-2 p-2 border border-gray-400 rounded-xl touch-pan-y">
                 {product.images.map((image: string, index: number) => (
                   <div
                     key={index}
@@ -125,32 +125,33 @@ export default function ProductDetails() {
                     <Image
                       src={image}
                       alt={product.title}
-                      className="rounded-md border border-gray-400 hover:border-blue-400 "
+                      className="rounded-lg border border-gray-400 hover:border-blue-400 "
                       height={100}
                       width={100}
                     />
                   </div>
                 ))}
               </div>
-              <div className="h-[400px] w-[400px] bg-gray-200 my-auto">
+              <div className=" bg-gray-200 my-auto">
                 <Image
                   src={currentImage}
-                  width={400}
-                  height={400}
+                  width={500}
+                  height={500}
                   alt="Product"
-                  className="rounded-lg flex my-auto"
+                  className="rounded-lg my-auto h-[500px] w-[500px]"
                 />
               </div>
             </div>
-            <div className="pl-6 space-y-6">
+            <div className="px-6 space-y-6">
               <h1 className="justify-start text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300 sm:text-3xl">
                 {product.title}
               </h1>
               {/* Ratings */}
+              <div className="flex border-2 shadow-xl dark:border-black/20 border-gray-700/20 rounded-lg w-fit">
               <div
-                className={`flex items-center justify-center w-fit px-2 rounded-xl text-sm gap-0.5 ${
-                  product.rating >= 4
-                    ? "bg-green-500 dark:bg-green-600 "
+                className={`flex items-center justify-center w-14 h-6 rounded-md text-sm gap-0.5 font-semibold text-white ${
+                  product.rating.toFixed(1) >= 4
+                    ? "bg-green-600 dark:bg-green-600 "
                     : product.rating >= 3.5
                     ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
                     : product.rating >= 2
@@ -159,31 +160,50 @@ export default function ProductDetails() {
                 }`}
               >
                 <p className="">{product.rating}</p>
+                
+                </div>
+
+                {/* Rating Star Count */}
+                <div className="flex items-center">
+                      {[1, 2, 3, 4, 5].map((rating) => (
+                        <StarIcon
+                          key={rating}
+                          className={classNames(
+                            product.rating.toFixed(1) > rating
+                              ? "text-gray-700 dark:text-white"
+                              : "text-gray-50 dark:text-gray-500",
+                            "h-5 w-5 flex-shrink-0",
+                          )}
+                          aria-hidden="true"
+                        />
+                      ))}
+                    </div>
+                    </div>
 
                 {/* Description */}
-              </div>
+              
               <div>
                 <div className="space-y-6">
                   <h3 className="sr-only text-2xl font-semibold">
                     Description
                   </h3>
-                  <p className="text-base text-gray-900 dark:text-gray-300">
+                  <p className="text-lg font- text-justify text-gray-900 dark:text-gray-300 lg:break-normal lg:mr-auto w-[38rem]">
                     {product.description}
                   </p>
                   <p className="text-3xl tracking-tight text-gray-900 dark:text-gray-300">
                     ₹ {product.price} /-
                   </p>
 
-                  <div className="flex space-x-10 mt-10 justify-center">
+                  <div className="flex space-x-5 mt-10 justify-start">
                     <button
                       type="submit"
-                      className="addToCart w-40 flex items-center justify-center rounded-2xl border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      className="addToCart w-60 flex items-center justify-center rounded-xl border-2 border-indigo-600  px-8 py-3 text-base font-medium text-indigo-600 dark:text-white hover:bg-indigo-200 dark:hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2"
                     >
                       Add to Cart
                     </button>
                     <button
                       type="submit"
-                      className="buyNow w-40 flex items-center justify-center rounded-2xl border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      className="buyNow w-60 flex items-center justify-center rounded-xl border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     >
                       Buy Now
                     </button>
