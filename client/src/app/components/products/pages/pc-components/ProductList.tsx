@@ -143,7 +143,7 @@ export const PcComponentProductList = () => {
         filters={filters}
       ></MobileFilter>
 
-      <main className=" lg:mx-16 max-w-8xl px-5 sm:px-6 xl:px-8 py-2 sm:py-2 lg:py-2">
+      <main className=" lg:mx-16 max-w-8xl lg:px-5 sm:px-6 xl:px-8 py-2 sm:py-2 lg:py-2">
         <div className="flex items-baseline justify-between border-b border-gray-200 pt-6 pb-6">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
             New Arrivals
@@ -566,7 +566,7 @@ export const ProductGrid = ({ products }: { products: any }) => {
   return (
     <>
       <div className="product-card">
-        <div className="grid grid-cols-2 p-8 gap-x-2 gap-y-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xl:gap-x-2 ">
+        <div className="grid grid-cols-2 lg:p-8 gap-x-2 gap-y-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xl:gap-x-2 ">
           {products.map((product: any, index: number) => (
             <Link
               href={`/pc-components-details/${product.id}`}

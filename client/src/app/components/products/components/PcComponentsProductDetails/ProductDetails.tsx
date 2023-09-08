@@ -114,7 +114,7 @@ export default function ProductDetails() {
 
           <div className="flex flex-col lg:flex-row">
             {/* Image gallery */}
-            <div className="w-fit flex flex-col-reverse sm:flex-row  py-4 sm:space-x-4 mb-10 justify-center lg:justify-start lg:border-r lg:border-gray-400 lg:pr-8">
+            <div className="hidden w-fit lg:flex flex-col-reverse sm:flex-row  py-4 sm:space-x-4 mb-10 justify-center lg:justify-start lg:border-r lg:border-gray-400 lg:pr-8">
               <div className="flex flex-row h-fit sm:flex-col product-previews mt-3 sm:mt-0 space-x-2 sm:space-x-0 md:space-y-2 p-2 border border-gray-400 rounded-xl touch-pan-y">
                 {product.images.map((image: string, index: number) => (
                   <div
@@ -142,7 +142,36 @@ export default function ProductDetails() {
                 />
               </div>
             </div>
-            <div className="px-6 space-y-6">
+            {/*mobile*/}
+            <div className="lg:hidden flex  w-fit  flex-col-reverse sm:flex-row  py-4 sm:space-x-4 mb-10 justify-center lg:justify-start lg:border-r lg:border-gray-400 lg:pr-8">
+              <div className="flex flex-row h-fit sm:flex-col product-previews mt-3 sm:mt-0 space-x-2 sm:space-x-0 md:space-y-2 p-2 border border-gray-400 rounded-xl touch-pan-y">
+                {product.images.map((image: string, index: number) => (
+                  <div
+                    key={index}
+                    className="preview-image flex"
+                    onMouseEnter={() => handleMouseEnter(image)}
+                  >
+                    <Image
+                      src={image}
+                      alt={product.title}
+                      className="rounded-lg border border-gray-400 hover:border-blue-400 "
+                      height={100}
+                      width={100}
+                    />
+                  </div>
+                ))}
+              </div>
+              <div className=" border p-0.5  border-gray-400 rounded-lg my-auto">
+                <Image
+                  src={currentImage}
+                  width={500}
+                  height={500}
+                  alt="Product"
+                  className="rounded-lg my-auto h-[500px] w-[500px]"
+                />
+              </div>
+            </div>
+            <div className="lg:px-6 space-y-6">
               <h1 className="justify-start text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300 sm:text-3xl">
                 {product.title}
               </h1>
@@ -186,7 +215,7 @@ export default function ProductDetails() {
                   <h3 className="sr-only text-2xl font-semibold">
                     Description
                   </h3>
-                  <p className="text-lg font-Comfortaa text-justify text-gray-900 dark:text-gray-300 lg:break-normal lg:mr-auto w-[38rem]">
+                  <p className="text-lg font-Comfortaa text-justify text-gray-900 dark:text-gray-300 lg:break-normal lg:mr-auto lg:w-[38rem]">
                     {product.description}
                   </p>
                   <p className="text-3xl tracking-tight text-gray-900 dark:text-gray-300">
