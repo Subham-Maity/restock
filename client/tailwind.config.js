@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const { Pacifico } = require("next/font/google");
 module.exports = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -15,6 +16,10 @@ module.exports = {
       gridTemplateRows: {
         "[auto,auto,1fr]": "auto auto 1fr",
       },
+    },
+    fontFamily: {
+      Comfortaa: ["var(--font-comfortaa)"],
+      Pacifico: ["var(--font-pacifico)"],
     },
   },
   plugins: [
