@@ -5,9 +5,7 @@ import Protected from "@/app/components/auth/components/Protected";
 const Page = () => {
   return (
     <div>
-      <Protected>
-        <Cart />
-      </Protected>
+      <Cart />
     </div>
   );
 };
