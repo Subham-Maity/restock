@@ -1,12 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import {
-  Inter,
-  Comfortaa,
-  Roboto,
-  Roboto_Mono,
-  Pacifico,
-} from "next/font/google";
+import { Inter, Comfortaa, Pacifico } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 import React from "react";
