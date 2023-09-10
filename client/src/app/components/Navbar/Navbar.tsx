@@ -74,7 +74,7 @@ const Navbar = () => {
     <div className="fixed top-0 left-0 right-0 rounded-b-lg z-50 backdrop-blur-3xl">
       <Disclosure
         as="nav"
-        className="bg-white/70 dark:bg-black/70 rounded-b-xl"
+        className="bg-white/50 dark:bg-black/70 rounded-b-xl"
       >
         {({ open }) => (
           <>

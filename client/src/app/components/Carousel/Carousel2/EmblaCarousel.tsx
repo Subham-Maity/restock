@@ -57,31 +57,42 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
         emblaApi.on("reInit", onScroll);
     }, [emblaApi, onScroll]);
 
+    // @ts-ignore
     return (
-        <div className="embla">
-            <div className="embla__viewport h-full sm:h-full" ref={emblaRef}>
-                <div className="embla__container">
+        <div className="embla ">
+            <div className="embla__viewport " ref={emblaRef}>
+                <div className="embla__container h-36 md:h-96 lg:h-125 xl:h-150">
                     {slides.map((index) => (
                         <div className="embla__slide" key={index}>
-                            <div className="embla__slide__number">
+                            <div className="embla__slide__number ">
                                 <span>{index + 1}</span>
                             </div>
-                            <div className="embla__parallax">
+                            <div className="embla__parallax ">
                                 <div
-                                    className="embla__parallax__layer"
+                                    className="embla__parallax__layer "
                                     style={{
                                         ...(tweenValues.length && {
                                             transform: `translateX(${tweenValues[index]}%)`,
                                         }),
                                     }}
                                 >
+                                    {/*<img src="/1.jpg" alt={"hello"}/>*/}
                                     <Image
-                                        className="embla__slide__img embla__parallax__img object-fill h-24"
+                                        className="embla__slide__img embla__parallax__img "
                                         src={imageByIndex(index)}
                                         alt="Your alt text"
-                                        width={2000}
-                                        height={2000}
+                                        // src="/../../../../../public/BannerPoster/1.jpg"
+                                        // width={38880}
+                                        // height={488800}
+                                        fill
                                     />
+
+                                    {/*<div*/}
+                                    {/*    className=""*/}
+                                    {/*    style={{ backgroundImage:`url(${imageByIndex(index)})`}}*/}
+                                    {/*>*/}
+                                    {/*    hi*/}
+                                    {/*</div>*/}
                                 </div>
                             </div>
                         </div>

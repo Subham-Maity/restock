@@ -8,6 +8,12 @@ module.exports = {
   ],
   theme: {
     extend: {
+      height: {
+        '125': '30rem',
+        '150': '38rem',
+        '256': '64rem',
+        '512': '128rem',
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
