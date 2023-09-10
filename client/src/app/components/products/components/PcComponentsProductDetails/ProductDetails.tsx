@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
-import { RadioGroup } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { useParams } from "next/navigation";
@@ -12,34 +11,22 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { AppDispatch } from "@/lib/redux/store";
-
-const colors = [
-  { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
-  { name: "Gray", class: "bg-gray-200", selectedClass: "ring-gray-400" },
-  { name: "Black", class: "bg-gray-900", selectedClass: "ring-gray-900" },
-];
-const sizes = [
-  { name: "XXS", inStock: false },
-  { name: "XS", inStock: true },
-  { name: "S", inStock: true },
-  { name: "M", inStock: true },
-  { name: "L", inStock: true },
-  { name: "XL", inStock: true },
-  { name: "2XL", inStock: true },
-  { name: "3XL", inStock: true },
-];
+import { addToCartAsync } from "@/app/components/cart/cartSlice";
+import { selectLoggedInUser } from "@/app/components/auth/authSlice";
+import { User } from "@/app/components/auth/auth.type";
+import CartHover from "@/app/components/cart/CartHover";
+import { LineWave } from "react-loader-spinner";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function ProductDetails() {
-  const [selectedColor, setSelectedColor] = useState(colors[0]);
-  const [selectedSize, setSelectedSize] = useState(sizes[2]);
   const product = useSelector(selectProductById);
   const dispatch: AppDispatch = useDispatch();
   const params = useParams();
-
+  const user: User | null = useSelector(selectLoggedInUser);
+  const [isCartHoverVisible, setCartHoverVisible] = useState(false);
   const [currentImage, setCurrentImage] = useState("/");
   const handleMouseEnter = (src: any) => {
     setCurrentImage(src);
@@ -63,10 +50,35 @@ export default function ProductDetails() {
     return <div>Loading...</div>;
   }
 
-  // Add a check for empty product data and set currentImage to the first image if available.
   if (!product.images || product.images.length === 0) {
-    return <div>No product images available.</div>;
+    return (
+      <div className="flex flex-col items-center justify-center h-screen">
+        <LineWave
+          height="200"
+          width="200"
+          color="#4fa94d"
+          ariaLabel="line-wave"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+          firstLineColor=""
+          middleLineColor=""
+          lastLineColor=""
+        />
+      </div>
+    );
   }
+
+  const handleCart = (e: any) => {
+    e.preventDefault();
+    dispatch(addToCartAsync({ ...product, quantity: 1, user }))
+      .then(() => {
+        setCartHoverVisible(true); // Show the cart popup after a successful dispatch
+      })
+      .catch((error) => {
+        console.error("Error adding to cart:", error);
+      });
+  };
 
   return (
     <div className="lg:mx-16 max-w-8xl px-5 sm:px-6 xl:px-8 py-2 sm:py-2 lg:py-2">
@@ -226,8 +238,10 @@ export default function ProductDetails() {
                     <button
                       type="submit"
                       className="addToCart w-60 flex items-center justify-center rounded-xl border-2 border-indigo-600  px-8 py-3 text-base font-medium text-indigo-600 dark:text-white hover:bg-indigo-200 dark:hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2"
+                      onClick={handleCart}
                     >
                       Add to Cart
+                      {isCartHoverVisible && <CartHover />}
                     </button>
                     <button
                       type="submit"

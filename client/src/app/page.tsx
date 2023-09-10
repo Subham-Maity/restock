@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <>
       <div className="">
-        <main className="">
+        <main className="mt-20">
           <Navbar />
           <Banner />
           <PcComponentProductList />

@@ -15,6 +15,8 @@ import { BsGpuCard } from "react-icons/bs";
 import Link from "next/link";
 import Image from "next/image";
 import Switcher from "../Mode/Switcher";
+import { useSelector } from "react-redux";
+import { selectItems } from "@/app/components/cart/cartSlice";
 
 const user = {
   name: "Tom Cook",
@@ -70,6 +72,7 @@ function classNames(...classes: any[]) {
 }
 
 const Navbar = () => {
+  const items = useSelector(selectItems);
   return (
     <div className="fixed top-0 left-0 right-0 rounded-b-lg z-50 backdrop-blur-3xl">
       <Disclosure
@@ -119,7 +122,7 @@ const Navbar = () => {
                   <div className="ml-4 flex items-center md:ml-6">
                     <button
                       type="button"
-                      className="rounded-full bg-gray-500 hover:bg-gray-600 p-1 text-white dark:bg-gray-700
+                      className="rounded-xl bg-gray-500 hover:bg-gray-600 p-1.5 text-white dark:bg-gray-700
                       dark:hover:text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                     >
                       <span className="sr-only">View notifications</span>
@@ -130,9 +133,11 @@ const Navbar = () => {
                         />
                       </Link>
                     </button>
-                    <span className="inline-flex items-center mb-7 -ml-3 rounded-xl font-bold bg-green-100 px-2 py-1 text-xs text-green-600 ring-1 ring-inset ring-red-600/10 opacity-75">
-                      3
-                    </span>
+                    {items.length > 0 && (
+                      <span className="inline-flex items-center mb-7 -ml-3 rounded-xl font-bold bg-green-100 px-2 py-1 text-xs text-green-600 ring-1 ring-inset ring-red-600/10 opacity-75">
+                        {items.length}
+                      </span>
+                    )}
 
                     {/* Profile dropdown */}
                     <Menu as="div" className="relative ml-3">
@@ -150,6 +155,7 @@ const Navbar = () => {
                           />
                         </Menu.Button>
                       </div>
+
                       <Transition
                         as={Fragment}
                         enter="transition ease-out duration-100"
@@ -177,13 +183,13 @@ const Navbar = () => {
                               )}
                             </Menu.Item>
                           ))}
-                          <div className="ml-4">
-                            <Switcher />
-                          </div>
                         </Menu.Items>
                       </Transition>
                     </Menu>
                   </div>
+                </div>
+                <div className="mt-2 ml-4 lg:block hidden">
+                  <Switcher />
                 </div>
 
                 {/* Mobile menu button */}
@@ -242,7 +248,7 @@ const Navbar = () => {
                   </div>
                   <button
                     type="button"
-                    className="ml-auto flex-shrink-0 rounded-full bg-gray-500 hover:bg-gray-600 p-1 text-white dark:bg-gray-700 dark:hover:text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 lg:hidden"
+                    className="ml-auto flex-shrink-0 rounded-xl bg-gray-500 hover:bg-gray-600 p-1 text-white dark:bg-gray-700 dark:hover:text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 lg:hidden"
                   >
                     <span className="sr-only">View notifications</span>
                     <Link href={"/cart"}>
@@ -252,9 +258,11 @@ const Navbar = () => {
                       />
                     </Link>
                   </button>
-                  <span className="inline-flex items-center mb-7 -ml-3 rounded-full bg-green-200 px-2 py-1 text-xs font-medium text-green-600 ring-1 ring-inset ring-green-600/10 opacity-75 lg:hidden">
-                    3
-                  </span>
+                  {items.length > 0 && (
+                    <span className="inline-flex items-center mb-7 -ml-3 rounded-full bg-green-200 px-2 py-1 text-xs font-medium text-green-600 ring-1 ring-inset ring-green-600/10 opacity-75 lg:hidden">
+                      {items.length}
+                    </span>
+                  )}
                 </div>
                 <div className="mt-3 space-y-1 px-2">
                   {userNavigation.map((item) => (
@@ -268,8 +276,8 @@ const Navbar = () => {
                     </Disclosure.Button>
                   ))}
                 </div>
+                <Switcher />
               </div>
-              <Switcher />
             </Disclosure.Panel>
           </>
         )}
