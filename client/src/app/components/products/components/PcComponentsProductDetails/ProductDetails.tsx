@@ -16,6 +16,7 @@ import { selectLoggedInUser } from "@/app/components/auth/authSlice";
 import { User } from "@/app/components/auth/auth.type";
 import CartHover from "@/app/components/cart/CartHover";
 import { LineWave } from "react-loader-spinner";
+import ProductDetailsSkeleton from "./skeleton/ProductDetailsSkeleton";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -47,7 +48,7 @@ export default function ProductDetails() {
   }, [dispatch, params.id]);
 
   if (!product) {
-    return <div>Loading...</div>;
+    return <ProductDetailsSkeleton />;
   }
 
   if (!product.images || product.images.length === 0) {
@@ -212,7 +213,7 @@ export default function ProductDetails() {
                         product.rating.toFixed(1) > rating
                           ? "text-gray-700 dark:text-white"
                           : "text-gray-50 dark:text-gray-500",
-                        "h-5 w-5 flex-shrink-0",
+                        "h-5 w-5 flex-shrink-0"
                       )}
                       aria-hidden="true"
                     />
