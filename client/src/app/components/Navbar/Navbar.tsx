@@ -14,9 +14,10 @@ import { TbBrandSupabase } from "react-icons/tb";
 import { BsGpuCard } from "react-icons/bs";
 import Link from "next/link";
 import Image from "next/image";
-import Switcher from "../Mode/Switcher";
+import Switcher from "@/app/components/Mode/Switcher";
 import { useSelector } from "react-redux";
 import { selectItems } from "@/app/components/cart/cartSlice";
+
 
 const user = {
   name: "Tom Cook",
@@ -189,7 +190,7 @@ const Navbar = () => {
                   </div>
                 </div>
                 <div className="mt-2 ml-4 lg:block hidden">
-                  <Switcher />
+                  <Switcher/>
                 </div>
 
                 {/* Mobile menu button */}
@@ -216,9 +217,9 @@ const Navbar = () => {
                     href={item.href}
                     className={classNames(
                       item.current
-                        ? "bg-gray-200 bg-opacity-80  dark:bg-gray-400 dark:bg-opacity- text-black "
-                        : "text-gray-100 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-400 ",
-                      "block rounded-3xl px-3 py-2 text-base font-medium",
+                        ? "bg-gray-700 dark:bg-gray-400 text-gray-200 dark:text-black "
+                        : "text-gray-950 dark:text-gray-100 dark:hover:text-gray-950 hover:bg-gray-300 dark:hover:bg-gray-300 ",
+                      "block rounded-lg px-3 py-2 text-base font-medium",
                     )}
                     aria-current={item.current ? "page" : undefined}
                   >
@@ -239,10 +240,10 @@ const Navbar = () => {
                     />
                   </div>
                   <div className="ml-3">
-                    <div className="text-base font-medium leading-none text-white">
+                    <div className="text-base font-medium leading-none text-gray-800 dark:text-white">
                       {user.name}
                     </div>
-                    <div className="text-sm font-medium leading-none text-gray-400">
+                    <div className="text-sm font-light leading-none text-gray-950">
                       {user.email}
                     </div>
                   </div>
@@ -270,7 +271,7 @@ const Navbar = () => {
                       key={item.name}
                       as="a"
                       href={item.href}
-                      className="block rounded-md px-3 py-2 text-base font-medium text-gray-200 hover:bg-gray-700 hover:text-white"
+                      className="block rounded-md px-3 py-2 text-base font-medium text-gray-950 dark:text-gray-200 hover:bg-gray-700 hover:text-white"
                     >
                       {item.name}
                     </Disclosure.Button>
