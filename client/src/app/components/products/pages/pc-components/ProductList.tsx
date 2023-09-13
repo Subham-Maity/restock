@@ -383,7 +383,7 @@ export const DesktopFilter = ({
 }) => {
   return (
     <>
-      <form className="hidden lg:block product-card p-8 lg:w-72">
+      <form className="hidden xl:block product-card p-8 lg:w-72">
         <h3 className="sr-only">Categories</h3>
 
         {filters.map((section: any) => (
@@ -566,19 +566,19 @@ export const ProductGrid = ({ products }: { products: any }) => {
   return (
     <>
       <div className="product-card">
-        <div className="grid grid-cols-2 lg:p-8 gap-x-2 gap-y-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xl:gap-x-2 ">
+        <div className="grid grid-cols-2 lg:p-8 gap-x-2 gap-y-10 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 xl:gap-x-2 ">
           {products.map((product: any, index: number) => (
             <Link
               href={`/pc-components-details/${product.id}`}
               key={product.id}
             >
               <div
-                className="group relative shadow-lg border-2 bg-white/30 dark:bg-black/20 border-gray-400/25 dark:border-gray-600/20 rounded-md p-2 "
+                className="group relative lg:shadow-lg lg:border-2 lg:bg-white/30 lg:dark:bg-black/20 border-gray-400/25 dark:border-gray-600/20 rounded-lg p-2 "
                 key={product.id}
                 onMouseEnter={() => handleMouseEnterWithDelay(index)}
                 onMouseLeave={handleMouseLeave}
               >
-                <div className="min-h-60 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-60">
+                <div className=" aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
                   <div className="w-full h-full">
                     <div>
                       {hoveredProductIndex === index ? (
@@ -594,13 +594,11 @@ export const ProductGrid = ({ products }: { products: any }) => {
                         >
                           {product.images.map(
                             (image: string, imageIndex: number) => (
-                              <Image
+                              <img
                                 key={imageIndex}
                                 src={image}
                                 alt={product.title}
-                                className="w-full h-full object-cover object-center lg:h-[250px] lg:w-[350px]"
-                                height={300}
-                                width={300}
+                                className="w-full h-full object-fill object-center"
                                 onClick={() => {
                                   window.location.href = `/pc-components-details/${product.id}`;
                                 }}
@@ -612,9 +610,10 @@ export const ProductGrid = ({ products }: { products: any }) => {
                         <Image
                           src={product.thumbnail}
                           alt={product.title}
-                          className="w-full h-full object-cover object-center lg:h-full lg:w-full"
-                          height={300}
-                          width={300}
+                          className="w-full h-full object-fill object-center"
+                          fill
+                          // height={300}
+                          // width={300}
                           onClick={() => {
                             window.location.href = `/pc-components-details/${product.id}`;
                           }}
