@@ -2335,5 +2335,19 @@
       "id": 1
     }
   ],
-  "cart": []
+  "cart": [],
+  "banner":[
+    {
+      "href":"https://github.com/Subham-Maity/restock/blob/main/client/public/BannerPoster/1.jpg?raw=true"
+    },
+    {
+      "href":"https://github.com/Subham-Maity/restock/blob/main/client/public/BannerPoster/2.jpg?raw=true"
+    },
+    {
+      "href":"https://github.com/Subham-Maity/restock/blob/main/client/public/BannerPoster/3.jpg?raw=true"
+    },
+    {
+      "href":"https://github.com/Subham-Maity/restock/blob/main/client/public/BannerPoster/4.jpg?raw=true"
+    }
+  ]
 }

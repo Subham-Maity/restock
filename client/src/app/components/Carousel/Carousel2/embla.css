@@ -72,4 +72,5 @@
     max-width: none;
     width: calc(100% + (var(--slide-spacing) * 2));
     margin-left: calc(var(--slide-spacing) * -1);
+    object-fit: fill;
 }

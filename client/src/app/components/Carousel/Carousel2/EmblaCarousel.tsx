@@ -5,6 +5,13 @@ import imageByIndex from "./imageByIndex";
 import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 import { flushSync } from "react-dom";
+import { useSelector, useDispatch } from 'react-redux'
+import {set} from "@/app/components/Carousel/Carousel2/bannerSlice";
+import image1 from "../../../../../public/BannerPoster/1.jpg";
+
+let image="";
+
+
 
 const TWEEN_FACTOR = 1.2;
 
@@ -14,6 +21,7 @@ type PropType = {
 };
 
 const EmblaCarousel: React.FC<PropType> = (props) => {
+
   const { slides, options } = props;
   const autoplayOptions = {
     delay: 3000,
@@ -57,11 +65,17 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
     emblaApi.on("reInit", onScroll);
   }, [emblaApi, onScroll]);
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(set());
+  }, [dispatch]);
   // @ts-ignore
+  image = useSelector((state)=>state.banner.images);
   return (
     <div className="embla ">
       <div className="embla__viewport " ref={emblaRef}>
-        <div className="embla__container h-36 md:h-96 lg:h-125 xl:h-150">
+        <div className="embla__container  h-[180px] sm:h-[250px] md:h-[350px] lg:h-[550px]">
           {slides.map((index) => (
             <div className="embla__slide" key={index}>
               <div className="embla__slide__number ">
@@ -77,15 +91,16 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
                   }}
                 >
                   {/*<img src="/1.jpg" alt={"hello"}/>*/}
-                  <Image
-                    className="embla__slide__img embla__parallax__img "
-                    src={imageByIndex(index)}
-                    alt="Your alt text"
-                    // src="/../../../../../public/BannerPoster/1.jpg"
-                    // width={38880}
-                    // height={488800}
-                    fill
-                  />
+                  {/*<Image*/}
+                  {/*  className="embla__slide__img embla__parallax__img "*/}
+                  {/*  src={imageByIndex(index)}*/}
+                  {/*  alt="Your alt text"*/}
+                  {/*  // src="/../../../../../public/BannerPoster/1.jpg"*/}
+                  {/*  // width={38880}*/}
+                  {/*  // height={488800}*/}
+                  {/*  fill*/}
+                  {/*/>*/}
+                  <Image className="embla__slide__img embla__parallax__img" src={image[index]} alt={"Banner Images"} fill/>
 
                   {/*<div*/}
                   {/*    className=""*/}

@@ -7,7 +7,8 @@ const nextConfig = {
       "raw.githubusercontent.com",
       "img.freepik.com",
       "images.pexels.com",
-        "i.dummyjson.com"
+      "i.dummyjson.com",
+      "github.com"
     ],
   },
 };
