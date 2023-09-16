@@ -132,26 +132,24 @@ export default function ProductDetails() {
                 {product.images.map((image: string, index: number) => (
                   <div
                     key={index}
-                    className="preview-image flex h-[100px] w-[100px] mx-auto"
+                    className="preview-image flex w-fit mx-auto"
                     onMouseEnter={() => handleMouseEnter(image)}
                   >
-                    <Image
+                    <img
                       src={image}
-                      alt={product.title}
-                      className="rounded-lg border border-gray-400 hover:border-blue-400 "
-                      height={100}
-                      width={100}
+                      alt="{product.title}"
+                      className="rounded-lg border border-gray-400 hover:border-blue-400 h-[100px] w-[100px]"
                     />
                   </div>
                 ))}
               </div>
-              <div className="main-image h-fit lg:w-[400px] xl:w-[500px] my-auto">
+              <div className="main-image w-fit h-fit lg:w-[400px] xl:w-[500px] my-auto">
                 <Image
                   src={currentImage}
                   width={500}
                   height={500}
                   alt="Product"
-                  className="rounded-lg my-auto h-[400px] xl:h-[500px]"
+                  className="rounded-lg h-[400px] xl:h-[500px]"
                 />
               </div>
             </div>
