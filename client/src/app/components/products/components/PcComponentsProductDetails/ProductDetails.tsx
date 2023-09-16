@@ -145,7 +145,7 @@ export default function ProductDetails() {
                   </div>
                 ))}
               </div>
-              <div className="main-image h-fit lg:w-[400px] xl:w-[500px]">
+              <div className="main-image h-fit lg:w-[400px] xl:w-[500px] my-auto">
                 <Image
                   src={currentImage}
                   width={500}
