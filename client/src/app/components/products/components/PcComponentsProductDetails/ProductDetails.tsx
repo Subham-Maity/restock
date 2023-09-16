@@ -82,7 +82,7 @@ export default function ProductDetails() {
   };
 
   return (
-    <div className="lg:mx-16 max-w-8xl px-5 sm:px-6 xl:px-8 py-2 sm:py-2 lg:py-2">
+    <div className="mx-auto 2xl:mx-10 max-w-8xl px-5 sm:px-6 xl:px-8 py-2 sm:py-2 lg:py-2">
       {product && (
         <div className="pt-6">
           <nav aria-label="Breadcrumb">
@@ -127,12 +127,12 @@ export default function ProductDetails() {
 
           <div className="flex flex-col lg:flex-row">
             {/* Image gallery */}
-            <div className="hidden w-fit lg:flex flex-col-reverse sm:flex-row  py-4 sm:space-x-4 mb-10 justify-center lg:justify-start lg:border-r lg:border-gray-400 lg:pr-8">
-              <div className="flex flex-row h-fit sm:flex-col product-previews mt-3 sm:mt-0 space-x-2 sm:space-x-0 md:space-y-2 p-2 border border-gray-400 rounded-xl touch-pan-y">
+            <div className="w-fit flex flex-col-reverse lg:flex-row mx-auto py-4 sm:space-x-4 mb-10 justify-center lg:justify-start lg:border-r lg:border-gray-400 lg:pr-8">
+              <div className="flex flex-row lg:flex-col product-previews mt-3 lg:mt-0 space-x-2 lg:space-x-0 lg:space-y-2 p-2 border border-gray-400 rounded-xl h-fit w-fit mx-auto my-auto">
                 {product.images.map((image: string, index: number) => (
                   <div
                     key={index}
-                    className="preview-image flex"
+                    className="preview-image flex h-[100px] w-[100px] mx-auto"
                     onMouseEnter={() => handleMouseEnter(image)}
                   >
                     <Image
@@ -145,53 +145,25 @@ export default function ProductDetails() {
                   </div>
                 ))}
               </div>
-              <div className=" border p-0.5  border-gray-400 rounded-lg my-auto">
+              <div className="main-image h-fit lg:w-[400px] xl:w-[500px] my-auto">
                 <Image
                   src={currentImage}
                   width={500}
                   height={500}
                   alt="Product"
-                  className="rounded-lg my-auto h-[500px] w-[500px]"
+                  className="rounded-lg my-auto h-[400px] xl:h-[500px]"
                 />
               </div>
             </div>
-            {/*mobile*/}
-            <div className="lg:hidden flex  w-fit  flex-col-reverse sm:flex-row  py-4 sm:space-x-4 mb-10 justify-center lg:justify-start lg:border-r lg:border-gray-400 lg:pr-8">
-              <div className="flex flex-row h-fit sm:flex-col product-previews mt-3 sm:mt-0 space-x-2 sm:space-x-0 md:space-y-2 p-2 border border-gray-400 rounded-xl touch-pan-y">
-                {product.images.map((image: string, index: number) => (
-                  <div
-                    key={index}
-                    className="preview-image flex"
-                    onMouseEnter={() => handleMouseEnter(image)}
-                  >
-                    <Image
-                      src={image}
-                      alt={product.title}
-                      className="rounded-lg border border-gray-400 hover:border-blue-400 "
-                      height={100}
-                      width={100}
-                    />
-                  </div>
-                ))}
-              </div>
-              <div className=" border p-0.5  border-gray-400 rounded-lg my-auto">
-                <Image
-                  src={currentImage}
-                  width={500}
-                  height={500}
-                  alt="Product"
-                  className="rounded-lg my-auto h-[500px] w-[500px]"
-                />
-              </div>
-            </div>
-            <div className="lg:px-6 space-y-6">
+
+            <div className="lg:pl-6 md:space-y-6 w-full wrap">
               <h1 className="justify-start text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300 sm:text-3xl">
                 {product.title}
               </h1>
               {/* Ratings */}
               <div className="flex border-2 shadow-xl dark:border-black/20 border-gray-700/20 rounded-lg w-fit">
                 <div
-                  className={`flex items-center justify-center w-14 h-6 rounded-md text-sm gap-0.5 font-semibold text-white ${
+                  className={`flex items-center justify-center w-12 h-6 rounded-lg text-sm gap-0.5 font-semibold text-white ${
                     product.rating.toFixed(1) >= 4
                       ? "bg-green-600 dark:bg-green-600 "
                       : product.rating >= 3.5
@@ -224,29 +196,27 @@ export default function ProductDetails() {
               {/* Description */}
 
               <div>
-                <div className="space-y-6">
-                  <h3 className="sr-only text-2xl font-semibold">
-                    Description
-                  </h3>
-                  <p className="text-lg font-Comfortaa text-justify text-gray-900 dark:text-gray-300 lg:break-normal lg:mr-auto lg:w-[38rem]">
+                <div className="space-y-4">
+                  <p className="text-lg font-Comfortaa text-justify text-gray-900 dark:text-gray-300">
                     {product.description}
                   </p>
                   <p className="text-3xl tracking-tight text-gray-900 dark:text-gray-300">
                     ₹ {product.price} /-
                   </p>
 
-                  <div className="flex space-x-5 mt-10 justify-start">
+                  <div className="w-full lg:mx-0 lg:mr-auto lg:w-fit flex space-x-5 mt-0 lg:mt-10 justify-center lg:justify-start fixed bottom-0 left-0 right-0 h-16 lg:bg-transparent lg:dark:bg-transparent bg-gray-200 dark:bg-gray-800 p-2 rounded-xl backdrop-blur lg:relative">
                     <button
                       type="submit"
-                      className="addToCart w-60 flex items-center justify-center rounded-xl border-2 border-indigo-600  px-8 py-3 text-base font-medium text-indigo-600 dark:text-white hover:bg-indigo-200 dark:hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2"
+                      className="addToCart w-full lg:w-44 xl:w-52 flex items-center justify-center rounded-xl border-2 border-indigo-600  py-3 text-base font-medium text-indigo-600 dark:text-white hover:bg-indigo-200 dark:hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2"
                       onClick={handleCart}
                     >
                       Add to Cart
                       {isCartHoverVisible && <CartHover />}
                     </button>
+
                     <button
                       type="submit"
-                      className="buyNow w-60 flex items-center justify-center rounded-xl border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      className="buyNow w-full lg:w-44 xl:w-52 flex items-center justify-center rounded-xl border border-transparent bg-indigo-600 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     >
                       Buy Now
                     </button>
@@ -255,8 +225,6 @@ export default function ProductDetails() {
               </div>
             </div>
           </div>
-
-          {/* Product info */}
         </div>
       )}
     </div>
