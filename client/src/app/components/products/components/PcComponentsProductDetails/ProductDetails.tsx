@@ -127,7 +127,7 @@ export default function ProductDetails() {
 
           <div className="flex flex-col lg:flex-row">
             {/* Image gallery */}
-            <div className="w-fit flex flex-col-reverse lg:flex-row mx-auto py-4 sm:space-x-4 mb-10 justify-center lg:justify-start lg:border-r lg:border-gray-400 lg:pr-8">
+            <div className="w-fit flex flex-col-reverse lg:flex-row mx-auto py-4 sm:space-x-4 mb-10 justify-center lg:justify-start lg:border-r lg:border-gray-400 lg:pr-4 xl:pr-8">
               <div className="flex flex-row lg:flex-col product-previews mt-3 lg:mt-0 space-x-2 lg:space-x-0 lg:space-y-2 p-2 border border-gray-400 rounded-xl h-fit w-fit mx-auto my-auto">
                 {product.images.map((image: string, index: number) => (
                   <div
@@ -202,7 +202,7 @@ export default function ProductDetails() {
                     ₹ {product.price} /-
                   </p>
 
-                  <div className="w-full lg:mx-0 lg:mr-auto lg:w-fit flex space-x-5 mt-0 lg:mt-10 justify-center lg:justify-start fixed bottom-0 left-0 right-0 h-16 lg:bg-transparent lg:dark:bg-transparent bg-gray-200 dark:bg-gray-800 p-2 rounded-xl backdrop-blur lg:relative">
+                  <div className="w-full lg:mx-0 lg:mr-auto lg:w-fit flex space-x-5 mt-0 lg:mt-10 justify-center lg:justify-start fixed bottom-0 left-0 right-0 z-40 h-16 lg:bg-transparent lg:dark:bg-transparent bg-gray-200 dark:bg-gray-800 p-2 rounded-xl backdrop-blur lg:relative">
                     <button
                       type="submit"
                       className="addToCart w-full lg:w-44 xl:w-52 flex items-center justify-center rounded-xl border-2 border-indigo-600  py-3 text-base font-medium text-indigo-600 dark:text-white hover:bg-indigo-200 dark:hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2"

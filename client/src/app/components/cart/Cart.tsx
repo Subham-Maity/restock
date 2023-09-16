@@ -19,12 +19,12 @@ export default function Cart() {
   const dispatch: AppDispatch = useDispatch();
   const totalAmount = items.reduce(
     (amount: any, item: any) => item.price * item.quantity + amount,
-    0,
+    0
   );
 
   const totalItems = items.reduce(
     (total: any, item: any) => item.quantity + total,
-    0,
+    0
   );
 
   const handleQuantityChange = (e: any, item: any) => {
@@ -102,6 +102,7 @@ export default function Cart() {
                           <select
                             onChange={(e) => handleQuantityChange(e, item)}
                             value={item.quantity}
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                           >
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -132,7 +133,7 @@ export default function Cart() {
           <div className="border-t border-gray-800 dark:border-gray-200 px-4 py-6 sm:px-6">
             <div className="flex justify-between my-2 text-base font-medium text-gray-900 dark:text-gray-200">
               <p>Subtotal</p>
-              <p>${totalAmount}</p>
+              <p>₹{totalAmount}/-</p>
             </div>
             <div className="flex justify-between my-2 text-base font-medium text-gray-900 dark:text-gray-200">
               <p>Total Products in Your Cart</p>
