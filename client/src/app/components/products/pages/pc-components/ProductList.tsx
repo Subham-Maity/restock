@@ -566,7 +566,7 @@ export const ProductGrid = ({ products }: { products: any }) => {
   return (
     <>
       <div className="product-card">
-        <div className="grid grid-cols-2 lg:p-8 gap-x-2 gap-y-10 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 xl:gap-x-2 ">
+        <div className="grid grid-cols-2 lg:p-8 gap-x-2 gap-y-10 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 xl:gap-x-2">
           {products.map((product: any, index: number) => (
             <Link
               href={`/pc-components-details/${product.id}`}

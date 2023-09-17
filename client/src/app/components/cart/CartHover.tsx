@@ -16,18 +16,20 @@ import { useDispatch, useSelector } from "react-redux";
 const CartHover = () => {
   const [open, setOpen] = useState(true);
   const items: CartItem[] = useSelector(selectItems);
+  const [isUserClosed, setIsUserClosed] = useState(false);
 
   const dispatch: AppDispatch = useDispatch();
   const totalAmount = items.reduce(
     (amount: any, item: any) => item.price * item.quantity + amount,
-    0
+    0,
   );
 
-
   const handleQuantityChange = (e: any, item: any) => {
+    if (isUserClosed) return;
     dispatch(updateCartAsync({ ...item, quantity: +e.target.value }));
   };
   const handleRemove = (e: any, id: any) => {
+    if (isUserClosed) return;
     dispatch(deleteItemFromCartAsync(id));
   };
   return (
@@ -69,7 +71,10 @@ const CartHover = () => {
                             <button
                               type="button"
                               className="relative -m-2 p-2 text-gray-400 hover:text-gray-500"
-                              onClick={() => setOpen(false)}
+                              onClick={() => {
+                                setOpen(false);
+                                setIsUserClosed(true);
+                              }}
                             >
                               <span className="absolute -inset-0.5" />
                               <span className="sr-only">Close Panel</span>
@@ -159,8 +164,12 @@ const CartHover = () => {
 
                       <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                         <div className="flex justify-between text-base font-medium text-gray-900">
-                          <p className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-2">Subtotal</p>
-                          <p className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-2">₹{totalAmount}/-</p>
+                          <p className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-2">
+                            Subtotal
+                          </p>
+                          <p className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-2">
+                            ₹{totalAmount}/-
+                          </p>
                         </div>
                         <p className="mt-0.5 text-sm text-gray-500">
                           Shipping and taxes calculated at checkout.
