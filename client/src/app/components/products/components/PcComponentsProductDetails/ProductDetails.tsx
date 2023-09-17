@@ -72,7 +72,13 @@ export default function ProductDetails() {
 
   const handleCart = (e: any) => {
     e.preventDefault();
-    dispatch(addToCartAsync({ ...product, quantity: 1, user }))
+    const newItem = {
+      ...product,
+      quantity: 1,
+      user: user ? user.id : "anonymous",
+    };
+    delete newItem["id"];
+    dispatch(addToCartAsync(newItem))
       .then(() => {
         setCartHoverVisible(true); // Show the cart popup after a successful dispatch
       })
@@ -183,7 +189,7 @@ export default function ProductDetails() {
                         product.rating.toFixed(1) > rating
                           ? "text-gray-700 dark:text-white"
                           : "text-gray-50 dark:text-gray-500",
-                        "h-5 w-5 flex-shrink-0"
+                        "h-5 w-5 flex-shrink-0",
                       )}
                       aria-hidden="true"
                     />

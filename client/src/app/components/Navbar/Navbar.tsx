@@ -17,7 +17,8 @@ import Image from "next/image";
 import Switcher from "@/app/components/Mode/Switcher";
 import { useSelector } from "react-redux";
 import { selectItems } from "@/app/components/cart/cartSlice";
-
+import { router } from "next/client";
+import { useRouter } from "next/navigation";
 
 const user = {
   name: "Tom Cook",
@@ -73,6 +74,7 @@ function classNames(...classes: any[]) {
 }
 
 const Navbar = () => {
+  const router = useRouter();
   const items = useSelector(selectItems);
   return (
     <div className="fixed top-0 left-0 right-0 rounded-b-lg z-50 backdrop-blur-3xl">
@@ -190,7 +192,15 @@ const Navbar = () => {
                   </div>
                 </div>
                 <div className="mt-2 ml-4 lg:block hidden">
-                  <Switcher/>
+                  <Switcher />
+                  <button
+                    className="bg-white"
+                    onClick={() => {
+                      router.push("/checkout");
+                    }}
+                  >
+                    checkout
+                  </button>
                 </div>
 
                 {/* Mobile menu button */}
