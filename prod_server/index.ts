@@ -1,7 +1,7 @@
-import express, { Express, Request, Response } from "express";
+import express, { Application, Request, Response } from "express";
 const port = 8000;
 
-const server: Express = express();
+const server: Application = express();
 
 server.get("/", (req: Request, res: Response) => {
   res.json({ status: "Server On" });
