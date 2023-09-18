@@ -1,26 +1,25 @@
 "use client";
 import React, { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel, { EmblaOptionsType } from "embla-carousel-react";
-import imageByIndex from "./imageByIndex";
 import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 import { flushSync } from "react-dom";
 import { useSelector, useDispatch } from 'react-redux'
-import {set} from "@/app/components/Carousel/Carousel2/bannerSlice";
-import image1 from "../../../../../public/BannerPoster/1.jpg";
-
-let image="";
-
-
+import {fetchApiAsync} from '@/app/components/Carousel/Carousel2/bannerSlice'
 
 const TWEEN_FACTOR = 1.2;
-
 type PropType = {
   slides: number[];
   options?: EmblaOptionsType;
 };
 
 const EmblaCarousel: React.FC<PropType> = (props) => {
+  const dispatch = useDispatch();
+  const [slides_new,setSlides_new]=useState([0]);
+  let image=useSelector((state:any)=>state.banner.images);
+  // useEffect(()=>{
+  //   console.log("image",image);
+  // },[])
 
   const { slides, options } = props;
   const autoplayOptions = {
@@ -65,19 +64,23 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
     emblaApi.on("reInit", onScroll);
   }, [emblaApi, onScroll]);
 
-  const dispatch = useDispatch();
+  useEffect(()=>{
+    // @ts-ignore
+    dispatch(fetchApiAsync());
+  },[])
 
-  useEffect(() => {
-    dispatch(set());
-  }, [dispatch]);
-  // @ts-ignore
-  image = useSelector((state)=>state.banner.images);
+  useEffect(()=>{
+    setSlides_new(Array.from(Array(image.length).keys()));
+  },[image])
+
+
   return (
-    <div className="embla ">
-      <div className="embla__viewport " ref={emblaRef}>
-        <div className="embla__container  h-[180px] sm:h-[250px] md:h-[350px] lg:h-[550px]">
-          {slides.map((index) => (
-            <div className="embla__slide" key={index}>
+    <div className="embla rounded-2xl">
+      <div className="embla__viewport rounded-2xl" ref={emblaRef}>
+        <div className="embla__container  h-[180px] sm:h-[200px] md:h-[300px] lg:h-[400px] xl:h-[500px]">
+
+          {slides_new.map((index) => (
+            <div className="embla__slide " key={index}>
               <div className="embla__slide__number ">
                 <span>{index + 1}</span>
               </div>
@@ -90,24 +93,12 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
                     }),
                   }}
                 >
-                  {/*<img src="/1.jpg" alt={"hello"}/>*/}
-                  {/*<Image*/}
-                  {/*  className="embla__slide__img embla__parallax__img "*/}
-                  {/*  src={imageByIndex(index)}*/}
-                  {/*  alt="Your alt text"*/}
-                  {/*  // src="/../../../../../public/BannerPoster/1.jpg"*/}
-                  {/*  // width={38880}*/}
-                  {/*  // height={488800}*/}
-                  {/*  fill*/}
-                  {/*/>*/}
-                  <Image className="embla__slide__img embla__parallax__img" src={image[index]} alt={"Banner Images"} fill/>
+                  {/*{console.log("res",image)}*/}
+                  {/*{console.log("res",image[index].href)}*/}
+                  {/*{console.log("res",index)}*/}
+                  {/*{image=0}*/}
+                  <Image className=" embla__slide__img embla__parallax__img" src={image?image[index].href:"https://github.com/Subham-Maity/restock/blob/main/client/public/BannerPoster/5.jpg?raw=true"} alt={"Banner Images"} fill/>
 
-                  {/*<div*/}
-                  {/*    className=""*/}
-                  {/*    style={{ backgroundImage:`url(${imageByIndex(index)})`}}*/}
-                  {/*>*/}
-                  {/*    hi*/}
-                  {/*</div>*/}
                 </div>
               </div>
             </div>
