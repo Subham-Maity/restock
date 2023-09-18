@@ -1,35 +1,52 @@
-import { createSlice } from '@reduxjs/toolkit'
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+import {createAction} from "@reduxjs/toolkit/src";
 
-export interface CounterState {
-    value: number
+const axios = require('axios')
+
+export interface BannerState {
+    status:string,
+    images:[string]
 }
 
-const initialState = {
-    images:["https://github.com/Subham-Maity/restock/blob/main/client/public/BannerPoster/4.jpg?raw=true"]
+const initialState:BannerState = {
+    images:["https://github.com/Subham-Maity/restock/blob/main/client/public/BannerPoster/4.jpg?raw=true"],
+    status:"init",
 }
 
-const api= async ()=>{
-    const response = await fetch("https://restock-api.onrender.com/banner");
-    const data = await response.json();
-    console.log("server send",data);
-    return data;
+const fetchBrands=async()=>{
+        let response = await axios.get("https://restock-api.onrender.com/banner");
+        console.log("res",response.data.href);
+        return response;
+    // })
+    // return "https://github.com/Subham-Maity/restock/blob/main/client/public/BannerPoster/4.jpg?raw=true"
 }
+
+export const fetchApiAsync = createAsyncThunk(
+    "fetchBanner",
+    async () => {
+        const response = await fetchBrands();
+        return response.data;
+    },
+);
+
 export const bannerSlice = createSlice({
     name: 'counter',
     initialState,
     reducers: {
-        set: (state) => {
-            let data = api();
-            // @ts-ignore
-            state.images.push(data);
-            state.images.push("https://github.com/Subham-Maity/restock/blob/main/client/public/BannerPoster/3.jpg?raw=true")
-        },
-
     },
+    extraReducers:(builder)=>{
+        // @ts-ignore
+        builder
+            .addCase(fetchApiAsync.pending,(state)=>{
+                state.status="banner/fetching";
+            })
+            .addCase(fetchApiAsync.fulfilled,(state,action)=>{
+                state.status="banner/fetched";
+                state.images=action.payload;
+            })
+    }
 })
 
-// Action creators are generated for each case reducer function
-export const { set } = bannerSlice.actions
 
 export default bannerSlice.reducer
