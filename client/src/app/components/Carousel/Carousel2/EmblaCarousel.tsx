@@ -1,7 +1,6 @@
 "use client";
 import React, { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel, { EmblaOptionsType } from "embla-carousel-react";
-import imageByIndex from "./imageByIndex";
 import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 import { flushSync } from "react-dom";
