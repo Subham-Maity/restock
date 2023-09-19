@@ -2332,7 +2332,8 @@
     {
       "email": "Demo123@gmail.com",
       "password": "Demo123@gmail.com",
-      "id": 1
+      "id": 1,
+      "addresses": []
     }
   ],
   "cart": [],
