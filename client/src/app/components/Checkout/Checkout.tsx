@@ -19,11 +19,12 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { AppDispatch } from "@/lib/redux/store";
 import { FaArrowLeft } from "react-icons/fa";
+import Image from "next/image";
 
 function Checkout() {
   const dispatch: AppDispatch = useDispatch();
   const {
-    register,
+      register,
     handleSubmit,
     reset,
     formState: { errors },
@@ -386,10 +387,12 @@ function Checkout() {
                     {items.map((item: any) => (
                       <li key={item.id} className="flex py-6">
                         <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                          <img
-                            src={item.thumbnail}
+                          <Image
+                              src={item.thumbnail}
                             alt={item.title}
                             className="h-full w-full object-cover object-center"
+                            height={100}
+                            width={100}
                           />
                         </div>
 
