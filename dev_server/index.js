@@ -1,11 +1,39 @@
 import express from "express";
+import bodyParser from "body-parser";
+import cors from "cors";
+import dotenv from "dotenv";
+import helmet from "helmet";
+import morgan from "morgan";
+import colors from "colors";
+import connectDB from "./config/dbConnection.js";
+
+/* CONFIG */
+dotenv.config();
 const server = express();
-const port = 8000;
+server.use(express.json());
+server.use(helmet());
+server.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+server.use(morgan("common"));
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({ extended: false }));
+server.use(cors());
 
+/* MONGOOSE SETUP */
+const PORT = process.env.PORT || 8000;
 server.get("/", (req, res) => {
-  res.json({ status: "Server On" });
+  res.send("Yes you are connected to the server! ✅");
 });
 
-server.listen(port, () => {
-  console.log(`now listening on port ${port}`);
-});
+(async () =>
+  await connectDB()
+    .then(() => {
+      server.listen(PORT, () => {
+        console.log(
+          `Server live on: `.cyan.underline.bold + `http://localhost:${PORT}`,
+        );
+      });
+    })
+    .catch((err) => {
+      console.log("Error: ", err);
+      throw new Error(err);
+    }))();
