@@ -1,7 +1,4 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
-import {createAction} from "@reduxjs/toolkit/src";
-
 const axios = require('axios')
 
 export interface BannerState {
@@ -18,8 +15,6 @@ const fetchBrands=async()=>{
         let response = await axios.get("https://restock-api.onrender.com/banner");
         console.log("res",response.data.href);
         return response;
-    // })
-    // return "https://github.com/Subham-Maity/restock/blob/main/client/public/BannerPoster/4.jpg?raw=true"
 }
 
 export const fetchApiAsync = createAsyncThunk(
@@ -36,7 +31,6 @@ export const bannerSlice = createSlice({
     reducers: {
     },
     extraReducers:(builder)=>{
-        // @ts-ignore
         builder
             .addCase(fetchApiAsync.pending,(state)=>{
                 state.status="banner/fetching";
@@ -47,6 +41,5 @@ export const bannerSlice = createSlice({
             })
     }
 })
-
 
 export default bannerSlice.reducer
