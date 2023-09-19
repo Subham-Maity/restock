@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import React, { useEffect, useState } from "react";
 import {
   selectLoggedInUser,
+  updateUserAsync,
   // updateUserAsync,
 } from "@/app/components/auth/authSlice";
 import {
@@ -53,7 +54,8 @@ function Checkout() {
 
   const handleAddress = (e: any) => {
     console.log(e.target.value);
-    // setSelectedAddress(user.addresses[e.target.value]);
+    // @ts-ignore
+    setSelectedAddress(user.addresses[e.target.value]);
   };
 
   const handlePayment = (e: any) => {
@@ -106,7 +108,8 @@ function Checkout() {
                   // @ts-ignore
                   updateUserAsync({
                     ...user,
-                    // addresses: [...user.addresses, data],
+                    // @ts-ignore
+                    addresses: [...user.addresses, data],
                   }),
                 );
                 reset();
