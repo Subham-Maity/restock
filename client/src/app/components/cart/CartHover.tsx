@@ -12,6 +12,7 @@ import {
   deleteItemFromCartAsync,
 } from "@/app/components/cart/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
 
 const CartHover = () => {
   const [open, setOpen] = useState(true);
@@ -21,7 +22,7 @@ const CartHover = () => {
   const dispatch: AppDispatch = useDispatch();
   const totalAmount = items.reduce(
     (amount: any, item: any) => item.price * item.quantity + amount,
-    0,
+    0
   );
 
   const handleQuantityChange = (e: any, item: any) => {
@@ -32,6 +33,8 @@ const CartHover = () => {
     if (isUserClosed) return;
     dispatch(deleteItemFromCartAsync(id));
   };
+
+  const router = useRouter();
   return (
     <div>
       <Transition.Root show={open} as={Fragment}>
@@ -175,12 +178,15 @@ const CartHover = () => {
                           Shipping and taxes calculated at checkout.
                         </p>
                         <div className="mt-6">
-                          <a
-                            href="#"
-                            className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                          <button
+                          onClick={() => {
+                            router.push("/checkout");
+                          }}
+                            type="submit"
+                            className="buyNow w-full flex items-center justify-center rounded-xl border border-transparent bg-indigo-600 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                           >
                             Checkout
-                          </a>
+                          </button>
                         </div>
                         <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                           <p>

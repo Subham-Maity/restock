@@ -75,9 +75,9 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
 
 
   return (
-    <div className="embla rounded-2xl">
-      <div className="embla__viewport rounded-2xl" ref={emblaRef}>
-        <div className="embla__container  h-[180px] sm:h-[200px] md:h-[300px] lg:h-[400px] xl:h-[500px]">
+    <div className="embla rounded-b-2xl">
+      <div className="embla__viewport rounded-b-2xl" ref={emblaRef}>
+        <div className="embla__container  h-[150px] sm:h-[180px] md:h-[300px] lg:h-[400px] xl:h-[550px] 2xl:h-[700px]">
 
           {slides_new.map((index) => (
             <div className="embla__slide " key={index}>
@@ -97,7 +97,10 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
                   {/*{console.log("res",image[index].href)}*/}
                   {/*{console.log("res",index)}*/}
                   {/*{image=0}*/}
-                  <Image className=" embla__slide__img embla__parallax__img" src={image?image[index].href:"https://github.com/Subham-Maity/restock/blob/main/client/public/BannerPoster/5.jpg?raw=true"} alt={"Banner Images"} fill/>
+                  {image[index].href?
+                      <Image className=" embla__slide__img embla__parallax__img" src={image[index].href} alt={"Banner Images 1"} fill/>:
+                      <Image className=" embla__slide__img embla__parallax__img" src={"https://github.com/Subham-Maity/restock/blob/main/client/public/BannerPoster/1.jpg?raw=true"} alt={"Banner Images 2"} fill/>}
+
 
                 </div>
               </div>

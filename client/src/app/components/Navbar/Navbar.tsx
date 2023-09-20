@@ -17,7 +17,6 @@ import Image from "next/image";
 import Switcher from "@/app/components/Mode/Switcher";
 import { useSelector } from "react-redux";
 import { selectItems } from "@/app/components/cart/cartSlice";
-import { router } from "next/client";
 import { useRouter } from "next/navigation";
 
 const user = {
@@ -168,7 +167,7 @@ const Navbar = () => {
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95"
                       >
-                        <Menu.Items className="absolute right-0 z-10 mt-8 w-48 origin-top-right bg-slate-200 dark:bg-slate-800 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none rounded-2xl">
+                        <Menu.Items className="absolute right-0 z-50 mt-8 w-48 origin-top-right bg-slate-200 dark:bg-slate-800 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none rounded-2xl">
                           {userNavigation.map((item) => (
                             <Menu.Item key={item.name}>
                               {({ active }) => (
@@ -193,14 +192,7 @@ const Navbar = () => {
                 </div>
                 <div className="mt-2 ml-4 lg:block hidden">
                   <Switcher />
-                  <button
-                    className="bg-white"
-                    onClick={() => {
-                      router.push("/checkout");
-                    }}
-                  >
-                    checkout
-                  </button>
+                 
                 </div>
 
                 {/* Mobile menu button */}

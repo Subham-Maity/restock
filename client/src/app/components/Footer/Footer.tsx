@@ -55,7 +55,7 @@ import { FaHandshake, FaTruck, FaStar, FaUsers, FaBoxes } from "react-icons/fa";
 const Footer = () => {
   return (
     <div className="">
-      <footer className="bg-gradient-to-r from-[#e5e5e7] via-neutral-[#e5e5e7] to-[#e5e5e7] dark:from-zinc-900 dark:via-neutral-1000 dark:to-slate-900 rounded-t-2xl">
+      <footer className="mt-12 bg-gradient-to-r from-[#e5e5e7] via-neutral-[#e5e5e7] to-[#e5e5e7] dark:from-zinc-900 dark:via-neutral-1000 dark:to-slate-900 rounded-t-2xl">
         <div className=" mx-auto px-4 pb-6 pt-16 sm:px-6 lg:px-8">
           <div className="lg:flex lg:items-center lg:justify-between">
             <div className="flex justify-center text-gray-600 sm:justify-start">
