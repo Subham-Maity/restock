@@ -12,6 +12,7 @@ import {
 } from "@/app/components/cart/cartSlice";
 import { CartItem } from "@/app/components/cart/cart.type";
 import { AppDispatch } from "@/lib/redux/store";
+import { useRouter } from "next/navigation";
 
 export default function Cart() {
   const items: CartItem[] = useSelector(selectItems);
@@ -19,12 +20,12 @@ export default function Cart() {
   const dispatch: AppDispatch = useDispatch();
   const totalAmount = items.reduce(
     (amount: any, item: any) => item.price * item.quantity + amount,
-    0,
+    0
   );
 
   const totalItems = items.reduce(
     (total: any, item: any) => item.quantity + total,
-    0,
+    0
   );
 
   const handleQuantityChange = (e: any, item: any) => {
@@ -33,6 +34,8 @@ export default function Cart() {
   const handleRemove = (e: any, id: any) => {
     dispatch(deleteItemFromCartAsync(id));
   };
+
+  const router = useRouter();
   console.log(items + "items");
   if (items.length === 0) {
     return (
@@ -155,8 +158,10 @@ export default function Cart() {
               </div>
               <div>
                 <div className="mt-6 flex justify-between ">
-                  <Link
-                    href="/"
+                  <button
+                    onClick={() => {
+                      router.push("/");
+                    }}
                     className="relative inline-flex items-center text-lg font-bold justify-center sm:w-40 md:w-48 bg-gray-400/5 dark:bg-zinc-500/5 sm:ml-7 p-4 py-3 overflow-hidden text-indigo-500 transition duration-100 ease-out border-2 dark:border-indigo-500/30 rounded-xl shadow-xl group"
                   >
                     <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white text-2xl duration-100 -translate-x-full bg-indigo-600 dark:bg-indigo-500 group-hover:translate-x-0 ease">
@@ -166,10 +171,12 @@ export default function Cart() {
                       Browse More
                     </span>
                     <span className="relative invisible">Button Text</span>
-                  </Link>
+                  </button>
 
-                  <Link
-                    href=""
+                  <button
+                    onClick={() => {
+                      router.push("/checkout");
+                    }}
                     className="relative inline-flex items-center text-lg font-bold justify-center sm:w-40 md:w-48 bg-gray-400/5 dark:bg-gray-500/5 sm:ml-7 p-4 py-3 overflow-hidden text-indigo-500 transition duration-100 ease-out border-2 dark:border-indigo-500/30 rounded-xl shadow-xl group"
                   >
                     <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white text-2xl duration-100 -translate-x-full bg-indigo-600 dark:bg-indigo-500 group-hover:translate-x-0 ease">
@@ -179,7 +186,7 @@ export default function Cart() {
                       Place Order
                     </span>
                     <span className="relative invisible">Button Text</span>
-                  </Link>
+                  </button>
                 </div>
                 <div className="mt-6 flex justify-center text-center text-sm text-gray-500"></div>
               </div>

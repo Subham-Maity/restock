@@ -20,11 +20,12 @@ import Link from "next/link";
 import { AppDispatch } from "@/lib/redux/store";
 import { FaArrowLeft } from "react-icons/fa";
 import Image from "next/image";
+import { MdDeleteForever } from "react-icons/md";
 
 function Checkout() {
   const dispatch: AppDispatch = useDispatch();
   const {
-      register,
+    register,
     handleSubmit,
     reset,
     formState: { errors },
@@ -34,12 +35,12 @@ function Checkout() {
   const items = useSelector(selectItems);
   const totalAmount = items.reduce(
     (amount: number, item: any) => item.price * item.quantity + amount,
-    0,
+    0
   );
 
   const totalItems = items.reduce(
     (total: number, item: any) => item.quantity + total,
-    0,
+    0
   );
 
   const [selectedAddress, setSelectedAddress] = useState(null);
@@ -101,7 +102,7 @@ function Checkout() {
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
           <div className="lg:col-span-3">
             <form
-              className="bg-white px-5 py-12 mt-12"
+              className="default-card px-5 py-12 mt-12"
               noValidate
               onSubmit={handleSubmit((data) => {
                 console.log(data);
@@ -111,25 +112,25 @@ function Checkout() {
                     ...user,
                     // @ts-ignore
                     addresses: [...user.addresses, data],
-                  }),
+                  })
                 );
                 reset();
               })}
             >
               <div className="space-y-12">
                 <div className="border-b border-gray-900/10 pb-12">
-                  <h2 className="text-2xl font-semibold leading-7 text-gray-900">
-                    Personal Information
+                  <h2 className="block leading-6 text-gray-900 dark:text-gray-200 text-2xl font-semibold ">
+                    Shipping Address
                   </h2>
-                  <p className="mt-1 text-sm leading-6 text-gray-600">
-                    Use a permanent address where you can receive mail.
+                  <p className="mt-1 text-sm text-gray-500">
+                    Use a permanent address where you can receive the product.
                   </p>
 
                   <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div className="sm:col-span-4">
                       <label
                         htmlFor="name"
-                        className="block text-sm font-medium leading-6 text-gray-900"
+                        className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200"
                       >
                         Full name
                       </label>
@@ -140,7 +141,7 @@ function Checkout() {
                             required: "name is required",
                           })}
                           id="name"
-                          className="block w-full rounded-md text-white border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          className="default-input"
                         />
                       </div>
                     </div>
@@ -148,7 +149,7 @@ function Checkout() {
                     <div className="sm:col-span-4">
                       <label
                         htmlFor="email"
-                        className="block text-sm font-medium leading-6 text-gray-900"
+                        className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200"
                       >
                         Email address
                       </label>
@@ -159,7 +160,7 @@ function Checkout() {
                             required: "email is required",
                           })}
                           type="email"
-                          className="block w-full rounded-md text-white border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          className="default-input"
                         />
                       </div>
                     </div>
@@ -167,7 +168,7 @@ function Checkout() {
                     <div className="sm:col-span-3">
                       <label
                         htmlFor="phone"
-                        className="block text-sm font-medium leading-6 text-gray-900"
+                        className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200"
                       >
                         Phone
                       </label>
@@ -178,7 +179,7 @@ function Checkout() {
                             required: "phone is required",
                           })}
                           type="tel"
-                          className="block w-full text-white rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          className="default-input"
                         />
                       </div>
                     </div>
@@ -186,7 +187,7 @@ function Checkout() {
                     <div className="col-span-full">
                       <label
                         htmlFor="street-address"
-                        className="block text-sm font-medium leading-6 text-gray-900"
+                        className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200"
                       >
                         Street address
                       </label>
@@ -197,7 +198,7 @@ function Checkout() {
                             required: "street is required",
                           })}
                           id="street"
-                          className="block w-full text-white rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          className="default-input"
                         />
                       </div>
                     </div>
@@ -205,7 +206,7 @@ function Checkout() {
                     <div className="sm:col-span-2 sm:col-start-1">
                       <label
                         htmlFor="city"
-                        className="block text-sm font-medium leading-6 text-gray-900"
+                        className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200"
                       >
                         City
                       </label>
@@ -217,7 +218,7 @@ function Checkout() {
                           })}
                           id="city"
                           autoComplete="address-level2"
-                          className="block w-full rounded-md border-0 py-1.5 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          className="default-input"
                         />
                       </div>
                     </div>
@@ -225,7 +226,7 @@ function Checkout() {
                     <div className="sm:col-span-2">
                       <label
                         htmlFor="state"
-                        className="block text-sm font-medium leading-6 text-gray-900"
+                        className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200"
                       >
                         State / Province
                       </label>
@@ -237,7 +238,7 @@ function Checkout() {
                           })}
                           id="state"
                           autoComplete="address-level1"
-                          className="block w-full rounded-md text-white border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          className="default-input"
                         />
                       </div>
                     </div>
@@ -245,7 +246,7 @@ function Checkout() {
                     <div className="sm:col-span-2">
                       <label
                         htmlFor="pinCode"
-                        className="block text-sm font-medium leading-6 text-gray-900"
+                        className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200"
                       >
                         ZIP / Postal code
                       </label>
@@ -256,7 +257,7 @@ function Checkout() {
                             required: "pinCode is required",
                           })}
                           id="pinCode"
-                          className="block w-full rounded-md border-0 py-1.5 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          className="default-input"
                         />
                       </div>
                     </div>
@@ -267,23 +268,23 @@ function Checkout() {
                   <button
                     // onClick={e=>reset()}
                     type="button"
-                    className="text-sm font-semibold leading-6 text-gray-900"
+                    className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200"
                   >
                     Reset
                   </button>
                   <button
                     type="submit"
-                    className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    className="flex items-center justify-center p-2 rounded-lg bg-indigo-600 text-sm font-semibold text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   >
                     Add Address
                   </button>
                 </div>
 
-                <div className="border-b border-gray-900/10 pb-12">
-                  <h2 className="text-base font-semibold leading-7 text-gray-900">
+                <div>
+                  <h2 className="block text-base font-semibold text-gray-900 dark:text-gray-200">
                     Addresses
                   </h2>
-                  <p className="mt-1 text-sm leading-6 text-gray-600">
+                  <p className="mt-1 text-sm text-gray-500">
                     Choose from Existing addresses
                   </p>
                   <ul role="list">
@@ -328,10 +329,10 @@ function Checkout() {
 
                   <div className="mt-10 space-y-10">
                     <fieldset>
-                      <legend className="text-sm font-semibold leading-6 text-gray-900">
+                      <legend className="text-sm font-semibold block text-gray-900 dark:text-gray-200">
                         Payment Methods
                       </legend>
-                      <p className="mt-1 text-sm leading-6 text-gray-600">
+                      <p className="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-400">
                         Choose One
                       </p>
                       <div className="mt-6 space-y-6">
@@ -347,7 +348,7 @@ function Checkout() {
                           />
                           <label
                             htmlFor="cash"
-                            className="block text-sm font-medium leading-6 text-gray-900"
+                            className="block text-sm text-gray-900 dark:text-gray-200"
                           >
                             Cash
                           </label>
@@ -364,7 +365,7 @@ function Checkout() {
                           />
                           <label
                             htmlFor="card"
-                            className="block text-sm font-medium leading-6 text-gray-900"
+                            className="block text-sm font-medium text-gray-900 dark:text-gray-200"
                           >
                             Card Payment
                           </label>
@@ -376,108 +377,100 @@ function Checkout() {
               </div>
             </form>
           </div>
-          <div className="lg:col-span-2">
-            <div className="mx-auto mt-12 bg-white max-w-7xl px-2 sm:px-2 lg:px-4">
-              <div className="border-t border-gray-200 px-0 py-6 sm:px-0">
-                <h1 className="text-4xl my-5 font-bold tracking-tight text-gray-900">
-                  Cart
-                </h1>
-                <div className="flow-root">
-                  <ul role="list" className="-my-6 divide-y divide-gray-200">
-                    {items.map((item: any) => (
-                      <li key={item.id} className="flex py-6">
-                        <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                          <Image
+
+          <div className="lg:col-span-2 ">
+            <div className="mt-12 sticky top-24">
+              <div className="default-card shadow-none max-w-7xl px-2 sm:px-2 lg:px-4">
+                <div className="px-0 py-2 sm:px-0">
+                  <h3 className="flex justify-center text-lg font-bold text-gray-900 dark:text-gray-200 py-4">
+                    Order Details
+                  </h3>
+                  <div className="flow-root">
+                    <ul role="list" className="-my-6 divide-y divide-gray-200">
+                      {items.map((item: any) => (
+                        <li key={item.id} className="flex py-6">
+                          <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                            <Image
                               src={item.thumbnail}
-                            alt={item.title}
-                            className="h-full w-full object-cover object-center"
-                            height={100}
-                            width={100}
-                          />
-                        </div>
-
-                        <div className="ml-4 flex flex-1 flex-col">
-                          <div>
-                            <div className="flex justify-between text-base font-medium text-gray-900">
-                              <h3>
-                                <a href={item.href}>{item.title}</a>
-                              </h3>
-                              <p className="ml-4">${item.price}</p>
-                            </div>
-                            <p className="mt-1 text-sm text-gray-500">
-                              {item.brand}
-                            </p>
+                              alt={item.title}
+                              className="h-full w-full object-cover object-center"
+                              height={100}
+                              width={100}
+                            />
                           </div>
-                          <div className="flex flex-1 items-end justify-between text-sm">
-                            <div className="text-gray-500">
-                              <label
-                                htmlFor="quantity"
-                                className="inline mr-5 text-sm font-medium leading-6 text-gray-900"
-                              >
-                                Qty
-                              </label>
-                              <select
-                                onChange={(e) => handleQuantity(e, item)}
-                                value={item.quantity}
-                              >
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                              </select>
-                            </div>
 
-                            <div className="flex">
-                              <button
-                                onClick={(e) => handleRemove(e, item.id)}
-                                type="button"
-                                className="font-medium text-indigo-600 hover:text-indigo-500"
-                              >
-                                Remove
-                              </button>
+                          <div className="ml-4 flex flex-1 flex-col">
+                            <div>
+                              <div className="flex justify-between text-base font-medium leading-6 text-gray-900 dark:text-gray-200">
+                                <h3>
+                                  <a href={item.href}>{item.title}</a>
+                                </h3>
+                                <p className="ml-4">₹{item.price}</p>
+                              </div>
+                              <p className="mt-1 text-sm text-gray-500">
+                                {item.brand}
+                              </p>
+                            </div>
+                            <div className="flex flex-1 items-end justify-between text-sm">
+                              <div className="text-gray-500 flex flex-row space-x-2">
+                                <label
+                                  htmlFor="quantity"
+                                  className="inline text-sm font-medium leading-6 text-gray-900 dark:text-gray-200 my-auto"
+                                >
+                                  Qty
+                                </label>
+                                <select
+                                  onChange={(e) => handleQuantity(e, item)}
+                                  value={item.quantity}
+                                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                >
+                                  <option value="1">1</option>
+                                  <option value="2">2</option>
+                                  <option value="3">3</option>
+                                  <option value="4">4</option>
+                                  <option value="5">5</option>
+                                </select>
+                              </div>
+
+                              <div className="flex item-center flex-row">
+                                <button
+                                  type="button"
+                                  className="md:font-semibold text-sm text-red-600 hover:text-red-500 flex items-center"
+                                  onClick={(e) => handleRemove(e, item.id)}
+                                >
+                                  <MdDeleteForever />
+                                  Remove
+                                </button>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              <div className="border-t border-gray-200 px-2 py-6 sm:px-2">
-                <div className="flex justify-between my-2 text-base font-medium text-gray-900">
-                  <p>Subtotal</p>
-                  <p>$ {totalAmount}</p>
-                </div>
-                <div className="flex justify-between my-2 text-base font-medium text-gray-900">
-                  <p>Total Items in Cart</p>
-                  <p>{totalItems} items</p>
-                </div>
-                <p className="mt-0.5 text-sm text-gray-500">
-                  Shipping and taxes calculated at checkout.
-                </p>
-                <div className="mt-6">
-                  <div
-                    onClick={handleOrder}
-                    className="flex cursor-pointer items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
-                  >
-                    Order Now
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
-                <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
-                  <p>
-                    or
-                    <Link href="/">
-                      <button
-                        type="button"
-                        className="font-medium text-indigo-600 hover:text-indigo-500"
-                      >
-                        Continue Shopping
-                        <span aria-hidden="true"> &rarr;</span>
-                      </button>
-                    </Link>
+
+                <div className="mt-2 border-t border-dashed border-gray-900 dark:border-gray-200 px-2 py-6 sm:px-2">
+                  <div className="flex justify-between  leading-6 text-gray-900 dark:text-gray-200">
+                    <p>Subtotal</p>
+                    <p>₹ {totalAmount}</p>
+                  </div>
+                  <div className="flex justify-between leading-6 text-gray-900 dark:text-gray-200">
+                    <p>Total Items in Cart</p>
+                    <p>x{totalItems} items</p>
+                  </div>
+                  <p className="mt-0.5 text-sm text-gray-500">
+                    Shipping and taxes calculated at checkout.
                   </p>
+
+                  <div className="mt-6">
+                    <button
+                      onClick={handleOrder}
+                      className="buyNow w-full flex items-center justify-center rounded-2xl border border-transparent bg-indigo-600 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    >
+                      Order Now
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
