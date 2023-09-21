@@ -59,7 +59,7 @@ const CartHoverOnMouse = () => {
               <h3 className="flex text-lg font-bold text-gray-900 dark:text-gray-200 mt-1 pb-0">
                 Your Cart({totalItems})
               </h3>
-              <p className="border-t mt-4 mb-4 border-gray-800 py-2 dark:border-gray-200 text-sm font-light dark:text-gray-400"></p>
+              <p className="border-t mt-4 mb-4 border-gray-800 py-2 dark:border-gray-200 text-xs font-light dark:text-gray-400"></p>
               <div className="flow-root">
                 <ul role="list" className="-my-6 divide-y divide-gray-200">
                   {items.map((item: any) => (
@@ -82,22 +82,22 @@ const CartHoverOnMouse = () => {
                             </h3>
                             <p className="ml-4">₹{item.price}</p>
                           </div>
-                          <p className="mt-1 text-sm text-gray-500">
+                          <p className="mt-1 text-xs text-gray-500">
                             {item.brand}
                           </p>
                         </div>
-                        <div className="flex flex-1 items-end justify-between text-sm">
+                        <div className="flex flex-1 items-end justify-between text-xs">
                           <div className="text-gray-500 flex flex-row space-x-2">
                             <label
                               htmlFor="quantity"
-                              className="inline text-sm font-medium leading-6 text-gray-900 dark:text-gray-200 my-auto"
+                              className="inline text-xs font-medium leading-6 text-gray-900 dark:text-gray-200 my-auto"
                             >
                               Qty
                             </label>
                             <select
                               onChange={(e) => handleQuantity(e, item)}
                               value={item.quantity}
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             >
                               <option value="1">1</option>
                               <option value="2">2</option>
@@ -110,7 +110,7 @@ const CartHoverOnMouse = () => {
                           <div className="flex item-center flex-row">
                             <button
                               type="button"
-                              className="md:font-semibold text-sm text-red-600 hover:text-red-500 flex items-center"
+                              className="md:font-semibold text-xs text-red-600 hover:text-red-500 flex items-center"
                               onClick={(e) => handleRemove(e, item.id)}
                             >
                               <MdDeleteForever />
@@ -139,9 +139,9 @@ const CartHoverOnMouse = () => {
                   onClick={() => {
                     router.push("/cart");
                   }}
-                  className="relative mb-4 inline-flex items-center text-sm font-bold justify-center sm:h-10 md:h-10 sm:w-20 md:w-28 bg-gray-400/5 dark:bg-zinc-500/5 overflow-hidden text-indigo-500 transition duration-100 ease-out border-2 dark:border-indigo-500/30 rounded-xl shadow-xl group"
+                  className="relative mb-4 inline-flex items-center text-sm font-bold justify-center sm:h-10 md:h-10 sm:w-40 md:w-40 bg-gray-400/5 dark:bg-zinc-500/5 overflow-hidden text-indigo-500 transition duration-100 ease-out border-2 dark:border-indigo-500/30 rounded-xl shadow-xl group"
                 >
-                  <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white text-lg duration-100 -translate-x-full bg-indigo-600 dark:bg-indigo-500 group-hover:translate-x-0 ease">
+                  <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white text-xs duration-100 -translate-x-full bg-indigo-600 dark:bg-indigo-500 group-hover:translate-x-0 ease">
                     <FaArrowLeft />
                   </span>
                   <span className="absolute flex items-center justify-center w-full h-full text-indigo-500 dark:text-indigo-400 transition-all duration-300 transform group-hover:translate-x-full ease">
@@ -154,7 +154,7 @@ const CartHoverOnMouse = () => {
                   onClick={() => {
                     router.push("/checkout");
                   }}
-                  className="relative mb-4 inline-flex items-center text-sm font-bold justify-center sm:h-10 md:h-10 sm:w-20 md:w-28 bg-gray-400/5 dark:bg-zinc-500/5 overflow-hidden text-indigo-500 transition duration-100 ease-out border-2 dark:border-indigo-500/30 rounded-xl shadow-xl group"
+                  className="relative mb-4 inline-flex items-center text-sm font-bold justify-center sm:h-10 md:h-10 sm:w-40 md:w-40 bg-gray-400/5 dark:bg-zinc-500/5 overflow-hidden text-indigo-500 transition duration-100 ease-out border-2 dark:border-indigo-500/30 rounded-xl shadow-xl group"
                 >
                   <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white text-lg duration-100 -translate-x-full bg-indigo-600 dark:bg-indigo-500 group-hover:translate-x-0 ease">
                     <FaArrowRight />
