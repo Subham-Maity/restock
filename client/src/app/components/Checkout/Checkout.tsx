@@ -120,11 +120,12 @@ function Checkout() {
               })}
             >
               <div className="space-y-12">
-                <div className="border-b border-gray-900/10 pb-12">
+                <div className="border-b dark:border-gray-400/25 border-gray-900/10 pb-12">
                   <h2 className="block leading-6 text-gray-900 dark:text-gray-200 text-2xl font-semibold ">
                     Shipping Address
                   </h2>
-                  <p className="mt-1 text-sm text-gray-500">
+
+                  <p className="border-t mt-4 mb-4 border-gray-800 py-2 dark:border-gray-200 text-sm font-light dark:text-gray-400">
                     Use a permanent address where you can receive the product.
                   </p>
 
@@ -286,7 +287,7 @@ function Checkout() {
                   <h2 className="block text-base font-semibold text-gray-900 dark:text-gray-200">
                     Addresses
                   </h2>
-                  <p className="mt-1 text-sm text-gray-500">
+                  <p className="mt-1 mb-2 text-sm text-gray-500">
                     Choose from Existing addresses
                   </p>
                   <ul role="list">
@@ -295,7 +296,7 @@ function Checkout() {
                       user.addresses.map((address: any, index: any) => (
                         <li
                           key={index}
-                          className="flex justify-between gap-x-6 px-5 py-5 border-solid border-2 border-gray-200"
+                          className="flex justify-between gap-x-6 px-5 py-5 border-solid border dark:border-gray-200/25 border-gray-900/25 rounded-md"
                         >
                           <div className="flex gap-x-4">
                             <input
@@ -306,22 +307,22 @@ function Checkout() {
                               className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                             />
                             <div className="min-w-0 flex-auto">
-                              <p className="text-sm font-semibold leading-6 text-gray-900">
+                              <p className="text-sm font-semibold dark:text-gray-200 leading-6 text-gray-900">
                                 {address.name}
                               </p>
-                              <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+                              <p className="mt-1 truncate text-xs dark:text-gray-200 leading-5 text-gray-500">
                                 {address.street}
                               </p>
-                              <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+                              <p className="mt-1 truncate text-xs dark:text-gray-200 leading-5 text-gray-500">
                                 {address.pinCode}
                               </p>
                             </div>
                           </div>
-                          <div className="hidden sm:flex sm:flex-col sm:items-end">
-                            <p className="text-sm leading-6 text-gray-900">
+                          <div className="hidden sm:flex dark:text-gray-200 sm:flex-col sm:items-end">
+                            <p className="text-sm dark:text-gray-400 leading-6 text-gray-900">
                               Phone: {address.phone}
                             </p>
-                            <p className="text-sm leading-6 text-gray-500">
+                            <p className="text-sm dark:text-gray-200 leading-6 text-gray-500">
                               {address.city}
                             </p>
                           </div>
@@ -384,9 +385,11 @@ function Checkout() {
             <div className="mt-12 sticky top-24">
               <div className="default-card shadow-none max-w-7xl px-2 sm:px-2 lg:px-4">
                 <div className="px-0 py-2 sm:px-0">
-                  <h3 className="flex justify-center text-lg font-bold text-gray-900 dark:text-gray-200 py-4">
+                  <h3 className="flex text-lg font-bold text-gray-900 dark:text-gray-200 pt-10 pb-0">
                     Order Details
                   </h3>
+                  <p className="border-t mt-4 mb-4 border-gray-800 py-2 dark:border-gray-200 text-sm font-light dark:text-gray-400">
+                  </p>
                   <div className="flow-root">
                     <ul role="list" className="-my-6 divide-y divide-gray-200">
                       {items.map((item: any) => (
