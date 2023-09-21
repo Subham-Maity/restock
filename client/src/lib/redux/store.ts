@@ -3,12 +3,14 @@ import productReducer from "@/app/components/products/pages/pc-components/produc
 import authReducer from "@/app/components/auth/authSlice";
 import cartReducer from "@/app/components/cart/cartSlice";
 import bannerReducer from "@/app/components/Carousel/Carousel2/bannerSlice";
+import orderReducer from "@/app/components/order/orderSlice";
 export const store = configureStore({
   reducer: {
     product: productReducer,
     auth: authReducer,
     cart: cartReducer,
-    banner:bannerReducer
+    banner:bannerReducer,
+    order: orderReducer
   },
 });
 

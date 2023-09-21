@@ -30,8 +30,7 @@ function Carousel2() {
                   <span className="text-indigo-700"> Facts</span>
                 </h1>
                 <p className="text-sm p-2 ml-2 lg:text-lg">
-                  Montage India is a store that provides you with the best
-                  footage of video and images.
+           Restock is a platform where you can buy and sell your products.
                 </p>
               </div>
               <div
