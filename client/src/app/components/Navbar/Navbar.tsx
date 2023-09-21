@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Fragment } from "react";
 
 import {
@@ -18,6 +18,8 @@ import Switcher from "@/app/components/Mode/Switcher";
 import { useSelector } from "react-redux";
 import { selectItems } from "@/app/components/cart/cartSlice";
 import { useRouter } from "next/navigation";
+import CartHover from "@/app/components/cart/CartHover";
+import CartHoverOnMouse from "@/app/components/cart/CartHoverOnMouse";
 
 const user = {
   name: "Tom Cook",
@@ -73,8 +75,21 @@ function classNames(...classes: any[]) {
 }
 
 const Navbar = () => {
+  const [isCartHoverOpen, setIsCartHoverOpen] = useState(false);
+  // Function to handle cart icon hover
+  const handleCartIconHover = () => {
+    setIsCartHoverOpen(true);
+  };
+
+  // Function to handle cart icon hover out
+  const handleCartIconHoverOut = () => {
+    setIsCartHoverOpen(false);
+  };
   const router = useRouter();
   const items = useSelector(selectItems);
+  const handleCartIconClick = () => {
+    router.push("/cart");
+  };
   return (
     <div className="fixed top-0 left-0 right-0 rounded-b-lg z-50 backdrop-blur-3xl">
       <Disclosure
@@ -124,16 +139,21 @@ const Navbar = () => {
                   <div className="ml-4 flex items-center md:ml-6">
                     <button
                       type="button"
+                      onMouseEnter={handleCartIconHover}
+                      onMouseLeave={handleCartIconHoverOut}
                       className="rounded-xl bg-gray-500 hover:bg-gray-600 p-1.5 text-white dark:bg-gray-700
-                      dark:hover:text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                      dark:hover:text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 hover:cursor-pointer cursor-pointer"
                     >
-                      <span className="sr-only">View notifications</span>
+                      <span className="sr-only cursor-pointer">
+                        View notifications
+                      </span>
                       <Link href={"/cart"}>
                         <ShoppingCartIcon
-                          className="h-6 w-6"
+                          className="h-6 w-6 cursor-pointer"
                           aria-hidden="true"
                         />
                       </Link>
+                      {isCartHoverOpen && <CartHoverOnMouse />}
                     </button>
                     {items.length > 0 && (
                       <span className="inline-flex items-center mb-7 -ml-3 rounded-xl font-bold bg-green-100 px-2 py-1 text-xs text-green-600 ring-1 ring-inset ring-red-600/10 opacity-75">
@@ -192,8 +212,14 @@ const Navbar = () => {
                 </div>
                 <div className="mt-2 ml-4 lg:block hidden">
                   <Switcher />
-                 
                 </div>
+                {/*<button*/}
+                {/*  onClick={() => {*/}
+                {/*    router.push("/Testing");*/}
+                {/*  }}*/}
+                {/*>*/}
+                {/* Testing*/}
+                {/*</button>*/}
 
                 {/* Mobile menu button */}
                 <div className="flex xl:hidden ">
