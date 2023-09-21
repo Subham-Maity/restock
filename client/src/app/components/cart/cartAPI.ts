@@ -48,3 +48,18 @@ export async function deleteItemFromCart(
   const data = await response.json();
   return { data: { id: itemId } };
 }
+
+export function resetCart(userId: string): Promise<{ status: "success"; data: CartItem[] }> {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await fetchItemsByUserId(userId);
+      const items = response.data;
+      for (let item of items) {
+        await deleteItemFromCart(item.id);
+      }
+      resolve({ status: "success", data: [] });
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
