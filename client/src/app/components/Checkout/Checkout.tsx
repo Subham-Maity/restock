@@ -21,6 +21,8 @@ import { AppDispatch } from "@/lib/redux/store";
 import { FaArrowLeft } from "react-icons/fa";
 import Image from "next/image";
 import { MdDeleteForever } from "react-icons/md";
+import {createOrderAsync} from "@/app/components/order/orderSlice";
+import {Order} from "@/app/components/order/order.type";
 
 function Checkout() {
   const dispatch: AppDispatch = useDispatch();
@@ -66,7 +68,7 @@ function Checkout() {
   };
 
   const handleOrder = (e: any) => {
-    const order = {
+    const order:any = {
       items,
       totalAmount,
       totalItems,
@@ -75,7 +77,7 @@ function Checkout() {
       selectedAddress,
     };
 
-    // dispatch(createOrderAsync(order));
+    dispatch(createOrderAsync(order));
   };
   if (items.length === 0) {
     return (
