@@ -17,6 +17,8 @@ import { User } from "@/app/components/auth/auth.type";
 import CartHover from "@/app/components/cart/CartHover";
 import { LineWave } from "react-loader-spinner";
 import ProductDetailsSkeleton from "./skeleton/ProductDetailsSkeleton";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -81,6 +83,10 @@ export default function ProductDetails() {
     dispatch(addToCartAsync(newItem))
       .then(() => {
         setCartHoverVisible(true); // Show the cart popup after a successful dispatch
+        toast.success(`${product.title} is added to your cart`, {
+          position: "top-right",
+          autoClose: 1000,
+        });
       })
       .catch((error) => {
         console.error("Error adding to cart:", error);
@@ -91,6 +97,7 @@ export default function ProductDetails() {
     <div className="mx-auto 2xl:mx-10 max-w-8xl px-5 sm:px-6 xl:px-8 py-2 sm:py-2 lg:py-2">
       {product && (
         <div className="pt-6">
+          <ToastContainer position="top-right" theme="dark" autoClose={3000} />
           <nav aria-label="Breadcrumb">
             <ol
               role="list"
