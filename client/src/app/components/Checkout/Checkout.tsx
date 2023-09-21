@@ -21,7 +21,7 @@ import { AppDispatch } from "@/lib/redux/store";
 import { FaArrowLeft } from "react-icons/fa";
 import Image from "next/image";
 import { MdDeleteForever } from "react-icons/md";
-import {createOrderAsync} from "@/app/components/order/orderSlice";
+import {createOrderAsync, selectCurrentOrder} from "@/app/components/order/orderSlice";
 import {Order} from "@/app/components/order/order.type";
 
 function Checkout() {
@@ -32,6 +32,8 @@ function Checkout() {
     reset,
     formState: { errors },
   } = useForm();
+
+  const currentOrder = useSelector(selectCurrentOrder);
 
   const user = useSelector(selectLoggedInUser);
   const items = useSelector(selectItems);
@@ -67,6 +69,13 @@ function Checkout() {
     setPaymentMethod(e.target.value);
   };
 
+  useEffect(() => {
+    if (currentOrder) {
+      router.push(`/OrderSuccess/${currentOrder.id}`);
+    }
+  }, [currentOrder]);
+
+
   const handleOrder = (e: any) => {
     const order:any = {
       items,
@@ -75,6 +84,7 @@ function Checkout() {
       user,
       paymentMethod,
       selectedAddress,
+      status: "pending",
     };
 
     dispatch(createOrderAsync(order));
@@ -98,6 +108,8 @@ function Checkout() {
       </div>
     );
   }
+
+
   return (
     <>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

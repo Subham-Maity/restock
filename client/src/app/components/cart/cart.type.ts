@@ -1,5 +1,6 @@
 export interface CartItem {
   id: any;
+
 }
 
 export interface CartState {

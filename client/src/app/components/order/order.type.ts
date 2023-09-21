@@ -47,4 +47,5 @@ export interface OrderState {
     status: "idle" | "loading";
     orders: Order[];
     value: number;
+    currentOrder: Order | null;
 }
