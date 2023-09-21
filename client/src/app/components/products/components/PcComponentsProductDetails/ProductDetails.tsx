@@ -215,7 +215,7 @@ export default function ProductDetails() {
                       onClick={handleCart}
                     >
                       Add to Cart
-                      {isCartHoverVisible && <CartHover />}
+                      {/*{isCartHoverVisible && <CartHover />}*/}
                     </button>
 
                     <button
