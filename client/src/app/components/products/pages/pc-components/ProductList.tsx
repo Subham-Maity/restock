@@ -22,14 +22,17 @@ import {
   selectCategories,
   fetchBrandsAsync,
   fetchCategoriesAsync,
+  selectProductById,
 } from "@/app/components/products/pages/pc-components/productListSlice";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import { AppDispatch } from "@/lib/redux/store";
 import { ITEMS_PER_PAGE } from "@/lib/redux/constants";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import {addToCart} from "@/app/components/cart/cartAPI";
-import {CartItem} from "@/app/components/cart/cart.type";
+import { addToCartAsync } from "@/app/components/cart/cartSlice";
+import { toast } from "react-toastify";
+import { User } from "@/app/components/auth/auth.type";
+import { selectLoggedInUser } from "@/app/components/auth/authSlice";
 
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
@@ -564,13 +567,29 @@ export const ProductGrid = ({ products }: { products: any }) => {
       items: 1,
     },
   };
-
-  function AddToShoppingCard(e:any,id:CartItem) {
+  const product = useSelector(selectProductById);
+  const dispatch: AppDispatch = useDispatch();
+  const user: User | null = useSelector(selectLoggedInUser);
+  const handleCart = (e: any) => {
     e.preventDefault();
-    addToCart(id);
-    console.log("add")
-  }
+    const newItem = {
+      ...product,
+      quantity: 1,
+      user: user ? user.id : "anonymous",
+    };
+    delete newItem["id"];
 
+    dispatch(addToCartAsync(newItem))
+      .then(() => {
+        toast.success(`${product.title} is added to your cart`, {
+          position: "top-right",
+          autoClose: 1000,
+        });
+      })
+      .catch((error) => {
+        console.error("Error adding to cart:", error);
+      });
+  };
   return (
     <>
       <div className="product-card">
@@ -581,7 +600,7 @@ export const ProductGrid = ({ products }: { products: any }) => {
               key={product.id}
             >
               <div
-                className="bg-white dark:bg-gray-800 rounded-md h-full"
+                className="group relative lg:shadow-lg lg:border-2 lg:bg-white/30 lg:dark:bg-black/20 border-gray-400/25 dark:border-gray-600/20 rounded-lg p-2 "
                 key={product.id}
                 onMouseEnter={() => handleMouseEnterWithDelay(index)}
                 onMouseLeave={handleMouseLeave}
@@ -630,20 +649,8 @@ export const ProductGrid = ({ products }: { products: any }) => {
                     </div>
                   </div>
                 </div>
-                {/*here*/}
-                <button
-                    className="xl:w-10 xl:h-10 2xl:w-12 2xl:h-12 relative z-10 p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500"
-                  style={{top:"-5%",left:"60%"}}
-                    onClick={(e)=>AddToShoppingCard(e,product)}
-                >
-                  <svg className="h-6 w-6 2xl:h-8 2xl:w-8" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                       viewBox="0 0 24 24" stroke="currentColor">
-                    <path
-                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                  </svg>
-                </button>
-                <div className="xl:hidden px-2 pb-4 flex justify-between">
-                  <span>
+                <div className="mt-4 flex justify-between">
+                  <div>
                     <h3 className="text-sm text-gray-700">
                       <div className="text-gray-800 dark:text-gray-300">
                         <span
@@ -653,73 +660,19 @@ export const ProductGrid = ({ products }: { products: any }) => {
                         {product.title}
                       </div>
                     </h3>
-                    <div className="flex items-baseline">
-
-                      ₹<p className="text-sm font-medium block dark:text-gray-100 text-neutral-900">
-                         <span className="text-2xl">
-                           {Math.round(product.price * (1 - product.discountPercentage / 100),)
-                           }
-                         </span>
-                    </p>
-
-
-                      <p className="text-sm ml-2 block font-medium text-gray-400">
-                        M.R.P: <span className="line-through">₹{product.price}
-                        </span>
-                      </p>
-                    </div>
-                  </span>
-                  <span className="flex lg:block">
-                    <span className="mx-1 mt-1 flex items-center">
-                      <div
-                          className={`w-12 h-5 flex items-center justify-center rounded-sm text-sm gap-0.5 ${
-                              product.rating >= 4.5
-                                  ? "bg-green-500 dark:bg-green-600 text-sm"
-                                  : product.rating >= 4
-                                      ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
-                                      : product.rating >= 3.5
-                                          ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
-                                          : product.rating >= 2
-                                              ? "bg-orange-400 dark:bg-orange-600 text-sm"
-                                              : "bg-red-500 dark:bg-red-600 text-sm"
-                          }`}
-                      >
-                        <span className="text-white text-sm">
-                          {product.rating.toFixed(1)}
-                        </span>
-                        <StarIcon className="w-3.5 text-sm text-gray-200" />
-                      </div>
-                    </span>
-
-                  </span>
-                </div>
-
-
-
-                <div className="hidden xl:flex px-2 pb-4 justify-between">
-                  <div>
-                    <h3 className="text-sm text-gray-700">
-                      <div className="text-gray-800 dark:text-gray-300">
-                        <span
-                            aria-hidden="true"
-                            className="absolute inset-0 "
-                        />
-                        {product.title}
-                      </div>
-                    </h3>
                     <div className="mt-1 flex items-center">
                       <div
-                          className={`w-12 h-5 flex items-center justify-center rounded-sm text-sm gap-0.5 ${
-                              product.rating >= 4.5
-                                  ? "bg-green-500 dark:bg-green-600 text-sm"
-                                  : product.rating >= 4
-                                      ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
-                                      : product.rating >= 3.5
-                                          ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
-                                          : product.rating >= 2
-                                              ? "bg-orange-400 dark:bg-orange-600 text-sm"
-                                              : "bg-red-500 dark:bg-red-600 text-sm"
-                          }`}
+                        className={`w-12 h-5 flex items-center justify-center rounded-sm text-sm gap-0.5 ${
+                          product.rating >= 4.5
+                            ? "bg-green-500 dark:bg-green-600 text-sm"
+                            : product.rating >= 4
+                            ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
+                            : product.rating >= 3.5
+                            ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
+                            : product.rating >= 2
+                            ? "bg-orange-400 dark:bg-orange-600 text-sm"
+                            : "bg-red-500 dark:bg-red-600 text-sm"
+                        }`}
                       >
                         <span className="text-white text-sm">
                           {product.rating.toFixed(1)}
@@ -730,17 +683,35 @@ export const ProductGrid = ({ products }: { products: any }) => {
                   </div>
                   <div>
                     <p className="text-sm font-medium block dark:text-gray-100 text-neutral-900">
-                      ₹{Math.round(
-                          product.price * (1 - product.discountPercentage / 100),
+                      {Math.round(
+                        product.price * (1 - product.discountPercentage / 100),
                       )}
-
+                      ₹
                     </p>
                     <p className="text-md block line-through font-medium text-gray-400">
-                      ₹{product.price}
+                      {product.price}₹
                     </p>
                   </div>
                 </div>
               </div>
+              <button
+                className="xl:w-10 xl:h-10 2xl:w-12 2xl:h-12 relative z-10 p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500"
+                style={{ top: "-5%", left: "60%" }}
+                type="submit"
+                onClick={handleCart}
+              >
+                <svg
+                  className="h-6 w-6 2xl:h-8 2xl:w-8"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                </svg>
+              </button>
             </Link>
           ))}
         </div>
