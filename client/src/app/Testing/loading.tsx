@@ -1,4 +1,3 @@
-import "./globals.css";
 import Banner from "@/app/components/Navbar/Banner/Home/Banner";
 import Navbar from "@/app/components/Navbar/Navbar";
 import React from "react";
@@ -9,7 +8,6 @@ import { PcComponentProductList } from "@/app/components/products/pages/pc-compo
 function Loading() {
     return (
         <>
-            loading .....
             <div className="">
                 <main className="">
                     <Navbar />

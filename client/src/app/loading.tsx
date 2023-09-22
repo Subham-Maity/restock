@@ -20,9 +20,7 @@ import { router } from "next/client";
 import { useRouter } from "next/navigation";
 import {ChevronDownIcon, FunnelIcon, Squares2X2Icon} from "@heroicons/react/20/solid";
 import {DesktopFilter, ProductGrid} from "@/app/components/products/pages/pc-components/ProductList";
-
 import "@/app/globals.css"
-
 const user = {
     name: "Tom Cook",
     email: "tom@example.com",
@@ -82,7 +80,7 @@ function Loading() {
         for(let i=0;i<15;i++) {
             // @ts-ignore
             temp.push(
-                <div id={i}
+                <div id={""+i}
                     className=" rounded-lg ">
                     <div
                         className=" aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg xl:aspect-h-8 xl:aspect-w-7">
