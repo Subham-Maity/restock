@@ -14,3 +14,24 @@
 .default-input {
   @apply block w-full rounded-2xl h-11 bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-blue-500 focus:border-blue-800 sm:text-sm sm:leading-6;
 }
+
+
+.stretch{
+    animation-name: stretch;
+    animation-duration: 1.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-play-state: running;
+}
+
+@keyframes stretch {
+    0% {
+        background-color: lightgray;
+    }
+    50%{
+        background-color: gray;
+    }
+    100% {
+        background-color: lightgray;
+    }
+}
