@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchLoggedInUserOrderAsync, selectUserOrders } from "../userSlice";
+import { selectLoggedInUser } from "../../auth/authSlice";
 import { AppDispatch } from "@/lib/redux/store";
-import { selectLoggedInUser } from "@/app/components/auth/authSlice";
 
 export default function UserOrders() {
   const dispatch: AppDispatch = useDispatch();
@@ -14,7 +14,6 @@ export default function UserOrders() {
     // @ts-ignore
     dispatch(fetchLoggedInUserOrderAsync(user.id));
   }, []);
-
   if (!user) {
     return (
       <div className="flex flex-col items-center justify-center h-screen">
