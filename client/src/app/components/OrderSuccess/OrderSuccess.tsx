@@ -6,7 +6,7 @@ import { AppDispatch } from "@/lib/redux/store";
 import { useEffect } from "react";
 import { resetCartAsync } from "@/app/components/cart/cartSlice";
 import { selectLoggedInUser } from "@/app/components/auth/authSlice";
-import { resetOrder } from "@/app/components/order/orderSlice";
+import { resetOrder } from "@/app/components/OrderSuccess/order/orderSlice";
 
 function OrderSuccessPage() {
   const params = useParams();
