@@ -22,12 +22,17 @@ import {
   selectCategories,
   fetchBrandsAsync,
   fetchCategoriesAsync,
+  selectProductById,
 } from "@/app/components/products/pages/pc-components/productListSlice";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import { AppDispatch } from "@/lib/redux/store";
 import { ITEMS_PER_PAGE } from "@/lib/redux/constants";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { addToCartAsync } from "@/app/components/cart/cartSlice";
+import { toast } from "react-toastify";
+import { User } from "@/app/components/auth/auth.type";
+import { selectLoggedInUser } from "@/app/components/auth/authSlice";
 
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
@@ -562,7 +567,29 @@ export const ProductGrid = ({ products }: { products: any }) => {
       items: 1,
     },
   };
+  const product = useSelector(selectProductById);
+  const dispatch: AppDispatch = useDispatch();
+  const user: User | null = useSelector(selectLoggedInUser);
+  const handleCart = (e: any) => {
+    e.preventDefault();
+    const newItem = {
+      ...product,
+      quantity: 1,
+      user: user ? user.id : "anonymous",
+    };
+    delete newItem["id"];
 
+    dispatch(addToCartAsync(newItem))
+      .then(() => {
+        toast.success(`${product.title} is added to your cart`, {
+          position: "top-right",
+          autoClose: 1000,
+        });
+      })
+      .catch((error) => {
+        console.error("Error adding to cart:", error);
+      });
+  };
   return (
     <>
       <div className="product-card">

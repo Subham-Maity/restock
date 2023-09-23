@@ -21,7 +21,6 @@ const settings = {
   autoplay: true,
   autoplaySpeed: 4500,
   initialSlide: 0,
-
 };
 
 const Carousel: React.FC<{ props: Image[] }> = ({ props }) => {
@@ -34,7 +33,7 @@ const Carousel: React.FC<{ props: Image[] }> = ({ props }) => {
             <div>
               <div className="grid grid-cols-1 gap-4 max-w-full h-auto rounded-lg overflow-hidden mt-4">
                 <div style={{ overflow: "hidden", padding: "2px 30px 45px" }}>
-                  <Slider {...settings}>
+                  <div {...settings}>
                     {props.map((image) => (
                       <div
                         key={image.id}
@@ -56,7 +55,7 @@ const Carousel: React.FC<{ props: Image[] }> = ({ props }) => {
                         />
                       </div>
                     ))}
-                  </Slider>
+                  </div>
                 </div>
               </div>
             </div>
