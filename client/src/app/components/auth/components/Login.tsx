@@ -16,6 +16,7 @@ import {
 } from "@/app/components/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "@/lib/redux/store";
+import { AiOutlineLock, AiOutlineUser } from "react-icons/ai";
 
 const Login = () => {
   const {
@@ -31,24 +32,17 @@ const Login = () => {
 
   return (
     <>
-      {/*Testing*/}
-      {/*{user && router.push("/cart")}*/}
-      {user && router.push("/")}
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 md:w-[32rem] mx-3  md:mx-auto my-6 default-card">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <Image
-            className="mx-auto h-10 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            alt="Your Company"
-            height={100}
-            width={100}
-          />
-          <h2 className="mt-10 text-center text-3xl font-bold leading-9 tracking-tight text-gray-900 dark:text-gray-200">
+      <div className="flex min-h-full flex-1 shadow-lg shadow-gray-700 flex-col justify-center px-6 py-12 lg:px-8 md:w-[32rem] mx-3  md:mx-auto my-6 default-card">
+        <div className="sm:mx-auto sm:w-full sm:max-w-sm ">
+          <h1 className="text-center border border-gray-600/30 rounded-2xl p-4 text-4xl font-bold leading-9 tracking-tight text-gray-900 dark:text-gray-500">
+            RESTOCK
+          </h1>
+          <h2 className="mt-10 text-left text-3xl font-bold leading-9 tracking-tight text-gray-900 dark:text-gray-500">
             Sign in to your account
           </h2>
         </div>
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-sm">
           <form
             className="space-y-6"
             onSubmit={handleSubmit((data) => {
@@ -63,11 +57,17 @@ const Login = () => {
             <div>
               <label
                 htmlFor="email"
-                className="ml-1 block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200"
+                className="ml-1 block mb-2 text-sm font-medium leading-6 text-gray-900 dark:text-gray-200"
               >
                 Email address
               </label>
-              <div className="mt-2">
+              <div className="flex flex-wrap items-stretch w-full mb-4 relative h-15 bg-[#303030] border border-gray-400/20 rounded-2xl pr-2">
+                <div className="flex -mr-px justify-center w-15 pt-4 p-4">
+                  <span className="flex items-center leading-normal bg-[#303030] border-0 text-2xl text-gray-600">
+                    <AiOutlineUser className="text-gray-400 animate-pulse" />
+                  </span>
+                </div>
+
                 <input
                   id="email"
                   {...register("email", {
@@ -75,12 +75,14 @@ const Login = () => {
                   })}
                   type="email"
                   placeholder="example@domain.com"
-                  className="block w-full rounded-2xl h-11 bg-white bg-opacity-30 dark:bg-stone-950/20 shadow-2xl  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-blue-500 focus:border-blue-800 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-2xl h-11 bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-stone-700 focus:border-blue-800 sm:text-sm sm:leading-6 flex-shrink flex-grow flex-1 leading-normal  border-0 border-grey-light px-3 self-center relative  font-roboto text-xl outline-none"
                 />
                 {errors.email && (
                   <p className="text-red-500">{errors.email.message}</p>
                 )}
               </div>
+
+              <div className="mt-2"></div>
             </div>
 
             <div>
@@ -103,15 +105,26 @@ const Login = () => {
                 </div>
               </div>
               <div className="mt-2">
-                <input
-                  {...register("password", {
-                    required: "password is required",
-                  })}
-                  type="password"
-                  placeholder="12345@Password"
-                  className="block w-full rounded-2xl h-11 bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-blue-500 focus:border-blue-800 sm:text-sm sm:leading-6"
-                />
-                {error && <p className="text-red-500">{error.message}</p>}
+                <div className="flex flex-wrap items-stretch w-full mb-4 relative h-15 bg-[#303030] border border-gray-400/20 rounded-2xl pr-2">
+                  <div className="flex -mr-px justify-center w-15 pt-4 p-4">
+                    <span className="flex items-center leading-normal bg-[#303030] border-0 text-2xl text-gray-600">
+                      <AiOutlineLock className="text-gray-400 animate-pulse" />
+                    </span>
+                  </div>
+
+                  <input
+                    id="password"
+                    {...register("password", {
+                      required: "Password is required",
+                    })}
+                    type="password"
+                    placeholder="12345@Password"
+                    className="block w-full rounded-2xl h-11 bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-stone-700 focus:border-blue-800 sm:text-sm sm:leading-6 flex-shrink flex-grow flex-1 leading-normal border-0 border-grey-light px-3 self-center relative font-roboto text-xl outline-none"
+                  />
+                  {errors.password && (
+                    <p className="text-red-500">{errors.password.message}</p>
+                  )}
+                </div>
               </div>
             </div>
 
