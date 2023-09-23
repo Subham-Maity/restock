@@ -1,7 +1,6 @@
-"use client"
+"use client";
 
 import { CustomButtonsProps } from "@/app/components/CustomButton/custombutton.type";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 const CustomButton = ({
   title,
@@ -10,17 +9,13 @@ const CustomButton = ({
   className,
   icon,
   image,
-  rightArrow,
   disabled = false,
   animated = false,
 }: CustomButtonsProps) => {
-  // Use the title prop as the button text
-  const buttonText = title || "Log in";
+  const buttonText = title || "Text Here";
 
-  // Use the icon prop as the button icon, or use the default arrows
-  const buttonIcon = icon || (rightArrow ? <FaArrowRight /> : <FaArrowLeft />);
+  const buttonIcon = icon;
 
-  // Use the image prop as the button background image, or use a solid color
   const buttonStyle = image
     ? { backgroundImage: `url(${image})` }
     : { backgroundColor: "indigo-600 dark:bg-indigo-500" };
@@ -35,7 +30,7 @@ const CustomButton = ({
       {animated ? (
         <>
           <span
-            className="absolute inset-0 flex items-center justify-center text-white text-2xl duration-100 -translate-x-full group-hover:translate-x-0 ease"
+            className="absolute inset-0 flex items-center justify-center w-full h-full text-white text-2xl duration-100 -translate-x-full bg-indigo-600 dark:bg-indigo-500 group-hover:translate-x-0 ease"
             style={buttonStyle}
           >
             {buttonIcon}
@@ -47,7 +42,10 @@ const CustomButton = ({
         </>
       ) : (
         <>
-          <span className="flex items-center justify-center text-white text-2xl" style={buttonStyle}>
+          <span
+            className="flex items-center justify-center text-white text-2xl"
+            style={buttonStyle}
+          >
             {buttonIcon}
           </span>
           <span className="ml-2">{buttonText}</span>
