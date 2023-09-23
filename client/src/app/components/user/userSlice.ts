@@ -11,7 +11,6 @@ export const fetchLoggedInUserOrderAsync = createAsyncThunk(
   "user/fetchLoggedInUser",
   async (id) => {
     const response = await fetchLoggedInUserOrders(id);
-    // The value we return becomes the `fulfilled` action payload
     return response.data;
   },
 );
@@ -31,7 +30,6 @@ export const userSlice = createSlice({
       })
       .addCase(fetchLoggedInUserOrderAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        // this info can be different or more from logged-in User info
         state.userOrders = action.payload;
       });
   },

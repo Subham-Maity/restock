@@ -21,8 +21,11 @@ import { AppDispatch } from "@/lib/redux/store";
 import { FaArrowLeft } from "react-icons/fa";
 import Image from "next/image";
 import { MdDeleteForever } from "react-icons/md";
-import {createOrderAsync, selectCurrentOrder} from "@/app/components/order/orderSlice";
-import {Order} from "@/app/components/order/order.type";
+import {
+  createOrderAsync,
+  selectCurrentOrder,
+} from "@/app/components/OrderSuccess/order/orderSlice";
+import { Order } from "@/app/components/OrderSuccess/order/order.type";
 
 function Checkout() {
   const dispatch: AppDispatch = useDispatch();
@@ -39,12 +42,12 @@ function Checkout() {
   const items = useSelector(selectItems);
   const totalAmount = items.reduce(
     (amount: number, item: any) => item.price * item.quantity + amount,
-    0
+    0,
   );
 
   const totalItems = items.reduce(
     (total: number, item: any) => item.quantity + total,
-    0
+    0,
   );
 
   const [selectedAddress, setSelectedAddress] = useState(null);
@@ -75,9 +78,8 @@ function Checkout() {
     }
   }, [currentOrder]);
 
-
   const handleOrder = (e: any) => {
-    const order:any = {
+    const order: any = {
       items,
       totalAmount,
       totalItems,
@@ -109,7 +111,6 @@ function Checkout() {
     );
   }
 
-
   return (
     <>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -126,7 +127,7 @@ function Checkout() {
                     ...user,
                     // @ts-ignore
                     addresses: [...user.addresses, data],
-                  })
+                  }),
                 );
                 reset();
               })}
@@ -308,7 +309,7 @@ function Checkout() {
                       user.addresses.map((address: any, index: any) => (
                         <li
                           key={index}
-                          className="flex justify-between gap-x-6 px-5 py-5 border-solid border dark:border-gray-200/25 border-gray-900/25 rounded-md"
+                          className="mb-4 flex justify-between gap-x-6 px-5 py-5 border-solid border dark:border-gray-200/25 border-gray-900/25 rounded-md"
                         >
                           <div className="flex gap-x-4">
                             <input
@@ -400,8 +401,7 @@ function Checkout() {
                   <h3 className="flex text-lg font-bold text-gray-900 dark:text-gray-200 pt-10 pb-0">
                     Order Details
                   </h3>
-                  <p className="border-t mt-4 mb-4 border-gray-800 py-2 dark:border-gray-200 text-sm font-light dark:text-gray-400">
-                  </p>
+                  <p className="border-t mt-4 mb-4 border-gray-800 py-2 dark:border-gray-200 text-sm font-light dark:text-gray-400"></p>
                   <div className="flow-root">
                     <ul role="list" className="-my-6 divide-y divide-gray-200">
                       {items.map((item: any) => (
