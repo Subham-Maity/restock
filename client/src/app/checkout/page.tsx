@@ -10,9 +10,9 @@ const Page = () => {
       <div className="mb-20">
         <Navbar />
       </div>
-      {/*<Protected>*/}
+      <Protected>
         <Checkout />
-      {/*</Protected>*/}
+      </Protected>
       <Footer />
     </div>
   );

@@ -9,7 +9,9 @@ const Page = () => {
     <div>
       <Navbar />
       <Protected>
-        <UserOrders />
+        <div className="mt-24 mx-2">
+          <UserOrders />
+        </div>
       </Protected>
       <Footer />
     </div>
