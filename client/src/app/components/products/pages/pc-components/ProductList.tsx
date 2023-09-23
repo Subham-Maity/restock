@@ -33,6 +33,7 @@ import { addToCartAsync } from "@/app/components/cart/cartSlice";
 import { toast } from "react-toastify";
 import { User } from "@/app/components/auth/auth.type";
 import { selectLoggedInUser } from "@/app/components/auth/authSlice";
+import ProductListSkeleton from "@/app/components/products/pages/pc-components/skeleton/ProductListSkeleton";
 
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
@@ -68,6 +69,7 @@ function classNames(...classes: any) {
 }
 
 export const PcComponentProductList = () => {
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const dispatch: AppDispatch = useDispatch();
   const brands = useSelector(selectBrands);
   const categories = useSelector(selectCategories);
@@ -138,7 +140,10 @@ export const PcComponentProductList = () => {
     dispatch(fetchCategoriesAsync());
   }, [dispatch]);
 
-  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  if (!products) {
+    return <ProductListSkeleton />;
+  }
+
   return (
     <div>
       <MobileFilter
@@ -590,6 +595,7 @@ export const ProductGrid = ({ products }: { products: any }) => {
         console.error("Error adding to cart:", error);
       });
   };
+
   return (
     <>
       <div className="product-card">
