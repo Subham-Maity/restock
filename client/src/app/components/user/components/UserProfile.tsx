@@ -508,7 +508,7 @@ export default function UserProfile() {
                       </p>
                     </div>
                   </div>
-                  <div className="hidden sm:flex sm:flex-col sm:items-end">
+                  <div className="sm:flex sm:flex-col sm:items-end">
                     <p className="text-sm leading-6 text-gray-900 dark:text-gray-200">
                       Phone: {address.phone}
                     </p>
@@ -516,7 +516,7 @@ export default function UserProfile() {
                       {address.city}
                     </p>
                   </div>
-                  <div className="hidden sm:flex sm:flex-col sm:items-end">
+                  <div className="sm:flex sm:flex-col sm:items-end">
                     <button
                       onClick={(e) => handleEditForm(index)}
                       type="button"
