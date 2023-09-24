@@ -123,7 +123,7 @@ const Navbar = () => {
                             item.current
                               ? "bg-gray-100 bg-opacity-90 md:rounded-lg dark:bg-gray-500 dark:bg-opaity-70 text-white"
                               : "text-gray-300 dark:hover:bg-gray-600 dark:bg-opacity-95 hover:bg-gray-300 hover:bg-opacity-95",
-                            "flex items-center rounded-lg px-3 py-2 text-sm font-medium"
+                            "flex items-center rounded-lg px-3 py-2 text-sm font-medium",
                           )}
                           aria-current={item.current ? "page" : undefined}
                         >
@@ -142,16 +142,15 @@ const Navbar = () => {
                       type="button"
                       onMouseEnter={handleCartIconHover}
                       onMouseLeave={handleCartIconHoverOut}
-                      onClick={() => {
-                        router.push("/cart");
-                      }}
                       className="rounded-xl bg-gray-500 hover:bg-gray-600 p-1.5 text-white dark:bg-gray-700
                       dark:hover:text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 hover:cursor-pointer cursor-pointer"
                     >
-                      <ShoppingCartIcon
-                        className="h-6 w-6"
-                        aria-hidden="true"
-                      />
+                      <Link href={"/cart"}>
+                        <ShoppingCartIcon
+                          className="h-6 w-6"
+                          aria-hidden="true"
+                        />
+                      </Link>
                       {isCartHoverOpen && <CartHoverOnMouse />}
                     </button>
                     {items.length > 0 && (
@@ -196,7 +195,7 @@ const Navbar = () => {
                                     active
                                       ? "bg-gray-400 dark:bg-gray-500"
                                       : "",
-                                    "block px-4 py-2 text-sm dark:text-gray-200 rounded-2xl"
+                                    "block px-4 py-2 text-sm dark:text-gray-200 rounded-2xl",
                                   )}
                                 >
                                   {item.name}
@@ -239,7 +238,7 @@ const Navbar = () => {
                       item.current
                         ? "bg-gray-700 dark:bg-gray-400 text-gray-200 dark:text-black "
                         : "text-gray-950 dark:text-gray-100 dark:hover:text-gray-950 hover:bg-gray-300 dark:hover:bg-gray-300 ",
-                      "block rounded-lg px-3 py-2 text-base font-medium"
+                      "block rounded-lg px-3 py-2 text-base font-medium",
                     )}
                     aria-current={item.current ? "page" : undefined}
                   >
