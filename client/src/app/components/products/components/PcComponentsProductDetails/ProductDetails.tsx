@@ -85,7 +85,7 @@ export default function ProductDetails() {
       .then(() => {
         setCartHoverVisible(true); // Show the cart popup after a successful dispatch
         toast.success(`${product.title} is added to your cart`, {
-          position: "top-right",
+          position: "bottom-right",
           autoClose: 1000,
         });
       })
@@ -98,7 +98,11 @@ export default function ProductDetails() {
     <div className="mx-auto 2xl:mx-10 max-w-8xl px-5 sm:px-6 xl:px-8 py-2 sm:py-2 lg:py-2">
       {product && (
         <div className="pt-6">
-          <ToastContainer position="top-right" theme="dark" autoClose={3000} />
+          <ToastContainer
+            position="bottom-right"
+            theme="dark"
+            autoClose={1000}
+          />
           <nav aria-label="Breadcrumb">
             <ol
               role="list"
@@ -222,7 +226,7 @@ export default function ProductDetails() {
                       className="addToCart w-full lg:w-44 xl:w-52 flex items-center justify-center rounded-xl border-2 border-indigo-600 py-3 text-base font-medium text-indigo-600 dark:text-white hover:bg-indigo-200 dark:hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 gap-3"
                       onClick={handleCart}
                     >
-                      <FaCartPlus className="text-lg"/>
+                      <FaCartPlus className="text-lg" />
                       Add to Cart
                       {/*{isCartHoverVisible && <CartHover />}*/}
                     </button>
@@ -231,7 +235,7 @@ export default function ProductDetails() {
                       type="submit"
                       className="buyNow w-full lg:w-44 xl:w-52 flex items-center justify-center rounded-xl border border-transparent bg-indigo-600 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 gap-3"
                     >
-                      <PiLightningFill className="text-lg"/>
+                      <PiLightningFill className="text-lg" />
                       Buy Now
                     </button>
                   </div>
