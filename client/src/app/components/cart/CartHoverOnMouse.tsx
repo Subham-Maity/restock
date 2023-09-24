@@ -22,7 +22,7 @@ const CartHoverOnMouse = () => {
   const dispatch: AppDispatch = useDispatch();
   const totalAmount = items.reduce(
     (amount: any, item: any) => item.price * item.quantity + amount,
-    0
+    0,
   );
   const handleRemove = (e: any, id: any) => {
     if (isUserClosed) return;
@@ -33,7 +33,7 @@ const CartHoverOnMouse = () => {
   };
   const totalItems = items.reduce(
     (total: number, item: any) => item.quantity + total,
-    0
+    0,
   );
   const router = useRouter();
 
@@ -43,7 +43,9 @@ const CartHoverOnMouse = () => {
         <div className="fixed top-2 left-100 right-40 mt-12 rounded-2xl bg-white/80 dark:bg-gray-900 border border-gray-400">
           <div className="max-w-7xl px-2 sm:px-2 lg:px-4">
             <div className="px-0 py-2 sm:px-0">
-              <p className="my-2 text-sm font-bold text-gray-900 dark:text-gray-200">Your Cart is Empty</p>
+              <p className="my-2 text-sm font-bold text-gray-900 dark:text-gray-200">
+                Your Cart is Empty
+              </p>
             </div>
           </div>
         </div>
@@ -54,7 +56,7 @@ const CartHoverOnMouse = () => {
   return (
     <div className="h-fit w-fit hidden lg:block">
       <div className="lg:col-span-2 z-50">
-        <div className="fixed right-36 mt-12 top-2 bg-gray-300 bg-gradient-to-r dark:from-neutral-800 dark:to-slate-800 left-100 rounded-2xl border border-gray-300 dark:border-gray-600 shadow-lg z-50">
+        <div className="fixed right-36 mt-12 top-3 bg-gray-300 bg-gradient-to-r dark:from-neutral-800 dark:to-slate-800 left-100 rounded-2xl border border-gray-300 dark:border-gray-600 shadow-lg z-50">
           <div className="w-[26rem] px-2 sm:px-2 lg:px-4  rounded-2xl">
             <div className="px-0 py-2 sm:px-0">
               <h3 className="flex text-lg font-bold text-gray-900 dark:text-gray-200 mt-1 pb-0">
@@ -151,7 +153,7 @@ const CartHoverOnMouse = () => {
                   title="Buy Now"
                   className="animated-btn sm:h-10 md:h-10 sm:w-40 md:w-40 text-sm font-bold"
                   animated
-                  icon={<PiLightningFill/>}
+                  icon={<PiLightningFill />}
                   onClick={() => {
                     router.push("/checkout");
                   }}

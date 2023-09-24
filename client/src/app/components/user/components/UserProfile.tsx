@@ -502,7 +502,7 @@ export default function UserProfile() {
                         </button>
                         <button
                           type="submit"
-                          className="inline-flex rounded-md dark:bg-blue-700 px-3 py-2 text-sm font-semibold text-white shadow-sm dark:hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                          className="inline-flex rounded-md bg-blue-800 hover:bg-blue-500  dark:bg-blue-700 px-3 py-2 text-sm font-semibold text-white shadow-sm dark:hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
                         >
                           <AiOutlineEdit className="mt-0.5 mr-1" />
                           Edit Address

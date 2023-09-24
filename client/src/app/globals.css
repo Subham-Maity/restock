@@ -5,22 +5,34 @@
 
 .product-card {
     @apply bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl rounded-2xl;
-  }
+}
 
 .default-card {
-  @apply bg-white bg-opacity-40 dark:bg-black/30 shadow-2xl rounded-2xl;
+    @apply bg-white bg-opacity-40 dark:bg-black/30 shadow-2xl rounded-2xl;
 }
 
 .default-input {
-  @apply block w-full rounded-2xl h-11 bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-blue-500 focus:border-blue-800 sm:text-sm sm:leading-6;
+    @apply block w-full rounded-2xl h-11 bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-blue-500 focus:border-blue-800 sm:text-sm sm:leading-6;
 }
 
 .animated-btn {
-  @apply relative inline-flex items-center justify-center overflow-hidden bg-gray-400/5 dark:bg-zinc-500/5 text-indigo-500 transition duration-100 ease-out border-2 dark:border-indigo-500/30 rounded-xl shadow-xl;
+    @apply relative inline-flex items-center justify-center overflow-hidden bg-gray-400/5 dark:bg-zinc-500/5 text-indigo-500 transition duration-100 ease-out border-2 dark:border-indigo-500/30 rounded-xl shadow-xl;
 }
 
+::-webkit-scrollbar {
+    width: 0.4rem;
+}
 
-.stretch{
+::-webkit-scrollbar-thumb {
+    background-color: #3b3b3b;
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.stretch {
     animation-name: stretch;
     animation-duration: 1.5s;
     animation-timing-function: linear;
@@ -32,8 +44,8 @@
     0% {
         background-color: lightgray;
     }
-    50%{
-        background-color: gray;
+    50% {
+        background-color: rgb(128, 128, 128);
     }
     100% {
         background-color: lightgray;
