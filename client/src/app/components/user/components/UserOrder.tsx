@@ -99,7 +99,7 @@ export default function UserOrders() {
               <div className="border-t dark:border-gray-200 border-gray-800  px-4 py-6 sm:px-6">
                 <div className="flex text-gray-900 dark:text-gray-200 justify-between my-2 text-base font-medium ">
                   <p>Subtotal</p>
-                  <p>$ {order.totalAmount}</p>
+                  <p>₹ {order.totalAmount}</p>
                 </div>
                 <div className="flex justify-between my-2 text-base font-medium  text-gray-900 dark:text-gray-200">
                   <p>Total Items in Cart</p>
