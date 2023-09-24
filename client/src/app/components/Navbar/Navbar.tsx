@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import { Fragment } from "react";
-
 import {
   Bars3Icon,
   XMarkIcon,
@@ -18,7 +17,6 @@ import Switcher from "@/app/components/Mode/Switcher";
 import { useSelector } from "react-redux";
 import { selectItems } from "@/app/components/cart/cartSlice";
 import { useRouter } from "next/navigation";
-import CartHover from "@/app/components/cart/CartHover";
 import CartHoverOnMouse from "@/app/components/cart/CartHoverOnMouse";
 
 const user = {
@@ -77,14 +75,22 @@ function classNames(...classes: any[]) {
 
 const Navbar = () => {
   const [isCartHoverOpen, setIsCartHoverOpen] = useState(false);
-  // Function to handle cart icon hover
+  const [cartHoverTimeout, setCartHoverTimeout] = useState(null);
   const handleCartIconHover = () => {
     setIsCartHoverOpen(true);
+    // Clear any previous timeouts
+    if (cartHoverTimeout) {
+      clearTimeout(cartHoverTimeout);
+    }
   };
 
-  // Function to handle cart icon hover out
   const handleCartIconHoverOut = () => {
-    setIsCartHoverOpen(false);
+    const timeoutId: any = setTimeout(() => {
+      setIsCartHoverOpen(false);
+    }, 500);
+
+    // Store the timeout ID in state for future reference
+    setCartHoverTimeout(timeoutId);
   };
   const router = useRouter();
   const items = useSelector(selectItems);
