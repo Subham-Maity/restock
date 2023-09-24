@@ -8,6 +8,8 @@ import {
   selectUserInfo,
   updateUserAsync,
 } from "@/app/components/user/userSlice";
+import { MdDeleteForever } from "react-icons/md";
+import { AiOutlineEdit } from "react-icons/ai";
 
 type Inputs = {
   email: string;
@@ -294,7 +296,7 @@ export default function UserProfile() {
                     })}
                   >
                     <div className="space-y-12 ">
-                      <div className="border-b border-gray-900/10 pb-12">
+                      <div className="border-b dark:border-gray-400/25 border-gray-900/10  pb-12 rounded-2xl">
                         <h2 className="text-2xl font-semibold leading-7 text-gray-900 dark:text-gray-200">
                           Personal Information
                         </h2>
@@ -317,7 +319,7 @@ export default function UserProfile() {
                                   required: "name is required",
                                 })}
                                 id="name"
-                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-200 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                className="default-input"
                               />
                               {errors.name && (
                                 <p className="text-red-500">
@@ -341,7 +343,7 @@ export default function UserProfile() {
                                   required: "email is required",
                                 })}
                                 type="email"
-                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-200 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                className="default-input"
                               />
                               {errors.email && (
                                 <p className="text-red-500">
@@ -365,7 +367,7 @@ export default function UserProfile() {
                                   required: "phone is required",
                                 })}
                                 type="tel"
-                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-200 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                className="default-input"
                               />
                               {errors.phone && (
                                 <p className="text-red-500">
@@ -389,7 +391,7 @@ export default function UserProfile() {
                                   required: "street is required",
                                 })}
                                 id="street"
-                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-200 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                className="default-input"
                               />
                               {errors.street && (
                                 <p className="text-red-500">
@@ -414,7 +416,7 @@ export default function UserProfile() {
                                 })}
                                 id="city"
                                 autoComplete="address-level2"
-                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-200 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                className="default-input"
                               />
                               {errors.city && (
                                 <p className="text-red-500">
@@ -438,7 +440,7 @@ export default function UserProfile() {
                                   required: "state is required",
                                 })}
                                 id="state"
-                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                className="default-input"
                               />
                               {errors.state && (
                                 <p className="text-red-500">
@@ -462,7 +464,7 @@ export default function UserProfile() {
                                   required: "pinCode is required",
                                 })}
                                 id="pinCode"
-                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-200 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                className="default-input"
                               />
                               {errors.pinCode && (
                                 <p className="text-red-500">
@@ -492,7 +494,7 @@ export default function UserProfile() {
                     </div>
                   </form>
                 ) : null}
-                <div className="flex justify-between gap-x-6 px-5 py-5 border-solid border-2 border-gray-200">
+                <div className="flex justify-between gap-x-6 px-5 py-5 border-solid border-2 dark:border-gray-400/25 border-gray-900/10 rounded-xl mb-2 mt-2">
                   <div className="flex gap-x-4">
                     <div className="min-w-0 flex-auto">
                       <p className="text-sm font-semibold leading-6 text-gray-900 dark:text-gray-200">
@@ -518,15 +520,17 @@ export default function UserProfile() {
                     <button
                       onClick={(e) => handleEditForm(index)}
                       type="button"
-                      className="font-medium text-indigo-600 hover:text-indigo-500"
+                      className="md:font-semibold text-sm mb-6 md:text-base text-blue-500 hover:text-blue-500 flex items-center"
                     >
+                      <AiOutlineEdit />
                       Edit
                     </button>
                     <button
                       onClick={(e) => handleRemove(e, index)}
                       type="button"
-                      className="font-medium text-indigo-600 hover:text-indigo-500"
+                      className="md:font-semibold text-sm md:text-base text-red-600 hover:text-red-500 flex items-center"
                     >
+                      <MdDeleteForever />
                       Remove
                     </button>
                   </div>
