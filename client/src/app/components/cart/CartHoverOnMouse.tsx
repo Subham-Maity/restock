@@ -40,7 +40,7 @@ const CartHoverOnMouse = () => {
   if (items.length === 0) {
     return (
       <div className="lg:col-span-2 z-50 ">
-        <div className="fixed top-2 left-100 right-40 mt-12 rounded-2xl bg-white/80 dark:bg-gray-900 border border-gray-400">
+        <div className="fixed top-3 left-100 right-40 mt-12 rounded-2xl bg-white/80 dark:bg-gray-900 border border-gray-400">
           <div className="max-w-7xl px-2 sm:px-2 lg:px-4">
             <div className="px-0 py-2 sm:px-0">
               <p className="my-2 text-sm font-bold text-gray-900 dark:text-gray-200">
