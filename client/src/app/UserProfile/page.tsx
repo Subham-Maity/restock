@@ -8,9 +8,11 @@ const Page = () => {
   return (
     <div>
       <Navbar />
-      <h1 className="text-2xl mt-24 mx-2">My Profile</h1>
+
       <Protected>
-        <UserProfile />
+        <div className="mt-24 mx-2">
+          <UserProfile />
+        </div>
       </Protected>
       <Footer />
     </div>
