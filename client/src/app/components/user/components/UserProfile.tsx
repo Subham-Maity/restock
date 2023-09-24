@@ -75,7 +75,10 @@ export default function UserProfile() {
       <div className="mx-auto mt-12 default-card max-w-7xl  default-card pb-12 ">
         <div className="px-4 py-6 sm:px-6">
           <h1 className="text-4xl my-5 font-bold tracking-tight text-gray-900 dark:text-gray-200">
-            Name: {user?.name && user.name ? user.name : "New User"}
+            Name:{" "}
+            {user.addresses && user.addresses[0]
+              ? user.addresses[0].name
+              : "No Name Provided"}
           </h1>
           <h3 className="text-xl my-5 font-bold tracking-tight dark:text-red-500 text-red-900">
             Email Address : {user?.email && user.email}
