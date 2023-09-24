@@ -16,6 +16,7 @@ import {
 } from "@/app/components/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "@/lib/redux/store";
+import CustomButton from "@/app/components/CustomButton/CustomButton";
 
 const Signup = () => {
   const {
@@ -50,7 +51,7 @@ const Signup = () => {
                   email: data.email,
                   password: data.password,
                   addresses: [],
-                }),
+                })
               );
             })}
           >
@@ -142,18 +143,13 @@ const Signup = () => {
             </div>
 
             <div className="mt-6 items-center">
-              <button
+              <CustomButton
+                className="animated-btn py-2 w-full font-bold"
+                title="Sign up"
                 type="submit"
-                className="relative inline-flex items-center justify-center sm:w-full p-4 py-3 overflow-hidden font-medium text-indigo-500 transition duration-100 ease-out border-2 dark:border-indigo-500/30 rounded-2xl shadow-xl group"
-              >
-                <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white text-2xl duration-100 -translate-x-full bg-indigo-600 dark:bg-indigo-500 group-hover:translate-x-0 ease">
-                  <FaArrowRight />
-                </span>
-                <span className="absolute flex items-center justify-center w-full h-full text-indigo-500 dark:text-indigo-400 transition-all duration-300 transform group-hover:translate-x-full ease">
-                  Sign Up
-                </span>
-                <span className="relative invisible">Button Text</span>
-              </button>
+                animated
+                icon={<FaArrowRight />}
+              />
             </div>
           </form>
 

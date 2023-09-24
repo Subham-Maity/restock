@@ -15,6 +15,10 @@
   @apply block w-full rounded-2xl h-11 bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-blue-500 focus:border-blue-800 sm:text-sm sm:leading-6;
 }
 
+.animated-btn {
+  @apply relative inline-flex items-center justify-center overflow-hidden bg-gray-400/5 dark:bg-zinc-500/5 text-indigo-500 transition duration-100 ease-out border-2 dark:border-indigo-500/30 rounded-xl shadow-xl;
+}
+
 
 .stretch{
     animation-name: stretch;

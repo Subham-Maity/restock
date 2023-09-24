@@ -48,7 +48,9 @@
       "brand": "Samsung",
       "category": "smartphones",
       "thumbnail": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
-      "images": ["https://i.dummyjson.com/data/products/3/1.jpg"]
+      "images": [
+        "https://i.dummyjson.com/data/products/3/1.jpg"
+      ]
     },
     {
       "id": 4,
@@ -1426,7 +1428,9 @@
       "brand": "Fashion Jewellery",
       "category": "womens-jewellery",
       "thumbnail": "https://i.dummyjson.com/data/products/78/thumbnail.jpg",
-      "images": ["https://i.dummyjson.com/data/products/78/thumbnail.jpg"]
+      "images": [
+        "https://i.dummyjson.com/data/products/78/thumbnail.jpg"
+      ]
     },
     {
       "id": 79,
@@ -1439,7 +1443,9 @@
       "brand": "Fashion Jewellery",
       "category": "womens-jewellery",
       "thumbnail": "https://i.dummyjson.com/data/products/79/thumbnail.jpg",
-      "images": ["https://i.dummyjson.com/data/products/79/1.jpg"]
+      "images": [
+        "https://i.dummyjson.com/data/products/79/1.jpg"
+      ]
     },
     {
       "id": 80,
@@ -2334,26 +2340,29 @@
       "password": "Demo123@gmail.com",
       "id": 1,
       "addresses": []
+    },
+    {
+      "email": "Test123@gmail.com",
+      "password": "Test123@gmail.com",
+      "id": 2,
+      "addresses": []
     }
   ],
   "cart": [],
-  "banner":[
+  "banner": [
     {
-      "href":"https://github.com/Subham-Maity/restock/blob/main/client/public/BannerPoster/1.jpg?raw=true"
+      "href": "https://github.com/Subham-Maity/restock/blob/main/client/public/BannerPoster/1.jpg?raw=true"
     },
     {
-      "href":"https://github.com/Subham-Maity/restock/blob/main/client/public/BannerPoster/2.jpg?raw=true"
+      "href": "https://github.com/Subham-Maity/restock/blob/main/client/public/BannerPoster/2.jpg?raw=true"
     },
     {
-      "href":"https://github.com/Subham-Maity/restock/blob/main/client/public/BannerPoster/3.jpg?raw=true"
+      "href": "https://github.com/Subham-Maity/restock/blob/main/client/public/BannerPoster/3.jpg?raw=true"
     },
     {
-      "href":"https://github.com/Subham-Maity/restock/blob/main/client/public/BannerPoster/4.jpg?raw=true"
+      "href": "https://github.com/Subham-Maity/restock/blob/main/client/public/BannerPoster/4.jpg?raw=true"
     }
   ],
   "orders": [
-
-
   ]
-
 }

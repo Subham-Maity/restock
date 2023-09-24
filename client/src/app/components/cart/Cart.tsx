@@ -13,6 +13,7 @@ import {
 import { CartItem } from "@/app/components/cart/cart.type";
 import { AppDispatch } from "@/lib/redux/store";
 import { useRouter } from "next/navigation";
+import CustomButton from "@/app/components/CustomButton/CustomButton";
 
 export default function Cart() {
   const items: CartItem[] = useSelector(selectItems);
@@ -41,18 +42,17 @@ export default function Cart() {
     return (
       <div className="flex flex-col items-center justify-center h-screen">
         <h1 className="text-4xl font-bold">Your Cart is Empty</h1>
-        <Link
-          href="/"
-          className="mt-4 relative inline-flex items-center text-lg font-bold justify-center sm:w-40 md:w-48 bg-gray-400/5 dark:bg-gray-500/5 sm:ml-7 p-4 py-3 overflow-hidden text-indigo-500 transition duration-100 ease-out border-2 dark:border-indigo-500/30 rounded-xl shadow-xl group"
-        >
-          <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white text-2xl duration-100 -translate-x-full bg-indigo-600 dark:bg-indigo-500 group-hover:translate-x-0 ease">
-            <FaArrowLeft />
-          </span>
-          <span className="absolute flex items-center justify-center w-full h-full text-indigo-500 dark:text-indigo-400 transition-all duration-300 transform group-hover:translate-x-full ease">
-            Go Back
-          </span>
-          <span className="relative invisible">Button Text</span>
-        </Link>
+
+        <CustomButton
+          className="animated-btn px-4 py-3 mt-4 font-bold"
+          title="Browse Our Products"
+          type="submit"
+          animated
+          icon={<FaArrowLeft />}
+          onClick={() => {
+            router.push("/");
+          }}
+        />
       </div>
     );
   }
@@ -158,35 +158,27 @@ export default function Cart() {
               </div>
               <div>
                 <div className="mt-6 flex justify-between ">
-                  <button
+                  <CustomButton
+                    className="relative inline-flex items-center text-lg font-bold justify-center sm:w-40 md:w-48 bg-gray-400/5 dark:bg-gray-500/5 sm:ml-7 p-4 py-3 overflow-hidden text-indigo-500 transition duration-100 ease-out border-2 dark:border-indigo-500/30 rounded-xl shadow-xl group"
+                    title="Browse More"
+                    type="submit"
+                    animated
+                    icon={<FaArrowLeft />}
                     onClick={() => {
                       router.push("/");
                     }}
-                    className="relative inline-flex items-center text-lg font-bold justify-center sm:w-40 md:w-48 bg-gray-400/5 dark:bg-zinc-500/5 sm:ml-7 p-4 py-3 overflow-hidden text-indigo-500 transition duration-100 ease-out border-2 dark:border-indigo-500/30 rounded-xl shadow-xl group"
-                  >
-                    <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white text-2xl duration-100 -translate-x-full bg-indigo-600 dark:bg-indigo-500 group-hover:translate-x-0 ease">
-                      <FaArrowLeft />
-                    </span>
-                    <span className="absolute flex items-center justify-center w-full h-full text-indigo-500 dark:text-indigo-400 transition-all duration-300 transform group-hover:translate-x-full ease">
-                      Browse More
-                    </span>
-                    <span className="relative invisible">Button Text</span>
-                  </button>
+                  />
 
-                  <button
+                  <CustomButton
+                    className="relative inline-flex items-center text-lg font-bold justify-center sm:w-40 md:w-48 bg-gray-400/5 dark:bg-gray-500/5 sm:ml-7 p-4 py-3 overflow-hidden text-indigo-500 transition duration-100 ease-out border-2 dark:border-indigo-500/30 rounded-xl shadow-xl group"
+                    title="Checkout"
+                    type="submit"
+                    animated
+                    icon={<FaArrowRight />}
                     onClick={() => {
                       router.push("/checkout");
                     }}
-                    className="relative inline-flex items-center text-lg font-bold justify-center sm:w-40 md:w-48 bg-gray-400/5 dark:bg-gray-500/5 sm:ml-7 p-4 py-3 overflow-hidden text-indigo-500 transition duration-100 ease-out border-2 dark:border-indigo-500/30 rounded-xl shadow-xl group"
-                  >
-                    <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white text-2xl duration-100 -translate-x-full bg-indigo-600 dark:bg-indigo-500 group-hover:translate-x-0 ease">
-                      <FaArrowRight />
-                    </span>
-                    <span className="absolute flex items-center justify-center w-full h-full text-indigo-500 dark:text-indigo-400 transition-all duration-300 transform group-hover:translate-x-full ease">
-                      Place Order
-                    </span>
-                    <span className="relative invisible">Button Text</span>
-                  </button>
+                  />
                 </div>
                 <div className="mt-6 flex justify-center text-center text-sm text-gray-500"></div>
               </div>
