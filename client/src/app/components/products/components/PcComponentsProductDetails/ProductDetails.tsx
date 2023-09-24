@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { useDispatch, useSelector } from "react-redux";
-
+import "react-inner-image-zoom/lib/InnerImageZoom/styles.css";
 import { useParams } from "next/navigation";
 import {
   fetchAllProductByIdAsync,
@@ -20,6 +20,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { PiLightningFill } from "react-icons/pi";
 import { FaCartPlus } from "react-icons/fa";
+import InnerImageZoom from "react-inner-image-zoom";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -153,8 +154,10 @@ export default function ProductDetails() {
                     className="preview-image flex w-fit mx-auto"
                     onMouseEnter={() => handleMouseEnter(image)}
                   >
-                    <img
+                    <Image
                       src={image}
+                      height={100}
+                        width={100}
                       alt="{product.title}"
                       className="rounded-lg border border-gray-400 hover:border-blue-400 h-[100px] w-[100px]"
                     />
@@ -162,12 +165,11 @@ export default function ProductDetails() {
                 ))}
               </div>
               <div className="main-image w-fit h-fit lg:w-[400px] xl:w-[500px] my-auto">
-                <Image
+                <InnerImageZoom
                   src={currentImage}
-                  width={500}
-                  height={500}
-                  alt="Product"
                   className="rounded-lg h-[400px] xl:h-[500px]"
+                    zoomSrc={currentImage}
+                  zoomScale={2}
                 />
               </div>
             </div>
