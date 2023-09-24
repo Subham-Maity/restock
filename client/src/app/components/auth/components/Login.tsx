@@ -17,6 +17,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "@/lib/redux/store";
 import { AiOutlineLock, AiOutlineUser } from "react-icons/ai";
+import CustomButton from "@/app/components/CustomButton/CustomButton";
 
 const Login = () => {
   const {
@@ -51,7 +52,7 @@ const Login = () => {
                 checkUserAsync({
                   email: data.email,
                   password: data.password,
-                }),
+                })
               );
             })}
           >
@@ -76,7 +77,7 @@ const Login = () => {
                   })}
                   type="email"
                   placeholder="example@domain.com"
-                  className="block w-full rounded-xl h-11 bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-stone-700 focus:border-blue-800 sm:text-sm sm:leading-6 flex-shrink flex-grow flex-1 leading-normal  border-0 border-grey-light px-3 self-center relative  font-roboto text-xl outline-none"
+                  className="block w-full rounded-xl h-11 bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-stone-700 focus:border-blue-800 text-sm xl:text-base sm:leading-6 flex-shrink flex-grow flex-1 leading-normal border-0 border-grey-light px-3 self-center relative font-roboto outline-none"
                 />
                 {errors.email && (
                   <p className="text-red-500">{errors.email.message}</p>
@@ -120,7 +121,7 @@ const Login = () => {
                     })}
                     type="password"
                     placeholder="12345@Password"
-                    className="block w-full rounded-xl h-11 bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-stone-700 focus:border-blue-800 sm:text-sm sm:leading-6 flex-shrink flex-grow flex-1 leading-normal border-0 border-grey-light px-3 self-center relative font-roboto text-xl outline-none"
+                    className="block w-full rounded-xl h-11 bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-stone-700 focus:border-blue-800 text-sm xl:text-base sm:leading-6 flex-shrink flex-grow flex-1 leading-normal border-0 border-grey-light px-3 self-center relative font-roboto outline-none"
                   />
                   {errors.password && (
                     <p className="text-red-500">{errors.password.message}</p>
@@ -130,18 +131,13 @@ const Login = () => {
             </div>
 
             <div className="mt-6 items-center blur-[sm]">
-              <button
+              <CustomButton 
+                className="animated-btn py-2 w-full font-bold"
+                title="Log in"
                 type="submit"
-                className="relative inline-flex items-center justify-center sm:w-full p-4 py-3 overflow-hidden font-medium text-indigo-500 transition duration-100 ease-out border-2 dark:border-indigo-500/30 rounded-xl shadow-xl group"
-              >
-                <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white text-2xl duration-100 -translate-x-full bg-indigo-600 dark:bg-indigo-500 group-hover:translate-x-0 ease">
-                  <FaArrowRight />
-                </span>
-                <span className="absolute flex items-center justify-center w-full h-full text-indigo-500 dark:text-indigo-400 transition-all duration-300 transform group-hover:translate-x-full ease">
-                  Log in
-                </span>
-                <span className="relative invisible">Log in</span>
-              </button>
+                animated
+                icon={<FaArrowRight />}
+              />
             </div>
           </form>
 

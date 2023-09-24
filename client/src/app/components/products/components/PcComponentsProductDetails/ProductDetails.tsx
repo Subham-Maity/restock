@@ -14,11 +14,12 @@ import { AppDispatch } from "@/lib/redux/store";
 import { addToCartAsync } from "@/app/components/cart/cartSlice";
 import { selectLoggedInUser } from "@/app/components/auth/authSlice";
 import { User } from "@/app/components/auth/auth.type";
-import CartHover from "@/app/components/cart/CartHover";
 import { LineWave } from "react-loader-spinner";
 import ProductDetailsSkeleton from "./skeleton/ProductDetailsSkeleton";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { PiLightningFill } from "react-icons/pi";
+import { FaCartPlus } from "react-icons/fa";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -218,17 +219,19 @@ export default function ProductDetails() {
                   <div className="w-full lg:mx-0 lg:mr-auto lg:w-fit flex space-x-5 mt-0 lg:mt-10 justify-center lg:justify-start fixed bottom-0 left-0 right-0 z-40 h-16 lg:bg-transparent lg:dark:bg-transparent bg-gray-200 dark:bg-gray-800 p-2 rounded-xl backdrop-blur lg:relative">
                     <button
                       type="submit"
-                      className="addToCart w-full lg:w-44 xl:w-52 flex items-center justify-center rounded-xl border-2 border-indigo-600  py-3 text-base font-medium text-indigo-600 dark:text-white hover:bg-indigo-200 dark:hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2"
+                      className="addToCart w-full lg:w-44 xl:w-52 flex items-center justify-center rounded-xl border-2 border-indigo-600 py-3 text-base font-medium text-indigo-600 dark:text-white hover:bg-indigo-200 dark:hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 gap-3"
                       onClick={handleCart}
                     >
+                      <FaCartPlus className="text-lg"/>
                       Add to Cart
                       {/*{isCartHoverVisible && <CartHover />}*/}
                     </button>
 
                     <button
                       type="submit"
-                      className="buyNow w-full lg:w-44 xl:w-52 flex items-center justify-center rounded-xl border border-transparent bg-indigo-600 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      className="buyNow w-full lg:w-44 xl:w-52 flex items-center justify-center rounded-xl border border-transparent bg-indigo-600 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 gap-3"
                     >
+                      <PiLightningFill className="text-lg"/>
                       Buy Now
                     </button>
                   </div>
