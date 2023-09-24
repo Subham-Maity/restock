@@ -1,10 +1,11 @@
 export default function ProductDetailsSkeleton() {
   return (
     <div className="mx-auto 2xl:mx-10 max-w-8xl px-5 sm:px-6 xl:px-8 py-2 sm:py-2 lg:py-2">
-      <div className="pt-6">
-        <nav aria-label="Breadcrumb" className="animate-pulse">
+      <nav aria-label="Breadcrumb" className="animate-pulse">
           <div className="bg-gray-400/50 animate-pulse h-3 w-44 rounded-md"></div>
         </nav>
+      <div className="pt-6">
+        
 
         <div className="flex flex-col lg:flex-row">
           {/* Image gallery */}

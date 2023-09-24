@@ -123,7 +123,7 @@ const Navbar = () => {
                             item.current
                               ? "bg-gray-100 bg-opacity-90 md:rounded-lg dark:bg-gray-500 dark:bg-opaity-70 text-white"
                               : "text-gray-300 dark:hover:bg-gray-600 dark:bg-opacity-95 hover:bg-gray-300 hover:bg-opacity-95",
-                            "flex items-center rounded-lg px-3 py-2 text-sm font-medium",
+                            "flex items-center rounded-lg px-3 py-2 text-sm font-medium"
                           )}
                           aria-current={item.current ? "page" : undefined}
                         >
@@ -142,22 +142,20 @@ const Navbar = () => {
                       type="button"
                       onMouseEnter={handleCartIconHover}
                       onMouseLeave={handleCartIconHoverOut}
+                      onClick={() => {
+                        router.push("/cart");
+                      }}
                       className="rounded-xl bg-gray-500 hover:bg-gray-600 p-1.5 text-white dark:bg-gray-700
                       dark:hover:text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 hover:cursor-pointer cursor-pointer"
                     >
-                      <span className="sr-only cursor-pointer">
-                        View notifications
-                      </span>
-                      <Link href={"/cart"}>
-                        <ShoppingCartIcon
-                          className="h-6 w-6 cursor-pointer"
-                          aria-hidden="true"
-                        />
-                      </Link>
+                      <ShoppingCartIcon
+                        className="h-6 w-6"
+                        aria-hidden="true"
+                      />
                       {isCartHoverOpen && <CartHoverOnMouse />}
                     </button>
                     {items.length > 0 && (
-                      <span className="inline-flex items-center mb-7 -ml-3 rounded-xl font-bold bg-green-100 px-2 py-1 text-xs text-green-600 ring-1 ring-inset ring-red-600/10 opacity-75">
+                      <span className="inline-flex items-center mb-7 -ml-3 rounded-full font-bold bg-green-600 px-2 py-1 text-xs text-white ring-1 ring-inset">
                         {items.length}
                       </span>
                     )}
@@ -198,7 +196,7 @@ const Navbar = () => {
                                     active
                                       ? "bg-gray-400 dark:bg-gray-500"
                                       : "",
-                                    "block px-4 py-2 text-sm dark:text-gray-200 rounded-2xl",
+                                    "block px-4 py-2 text-sm dark:text-gray-200 rounded-2xl"
                                   )}
                                 >
                                   {item.name}
@@ -214,13 +212,6 @@ const Navbar = () => {
                 <div className="mt-2 ml-4 lg:block hidden">
                   <Switcher />
                 </div>
-                {/*<button*/}
-                {/*  onClick={() => {*/}
-                {/*    router.push("/Testing");*/}
-                {/*  }}*/}
-                {/*>*/}
-                {/* Testing*/}
-                {/*</button>*/}
 
                 {/* Mobile menu button */}
                 <div className="flex xl:hidden ">
@@ -248,7 +239,7 @@ const Navbar = () => {
                       item.current
                         ? "bg-gray-700 dark:bg-gray-400 text-gray-200 dark:text-black "
                         : "text-gray-950 dark:text-gray-100 dark:hover:text-gray-950 hover:bg-gray-300 dark:hover:bg-gray-300 ",
-                      "block rounded-lg px-3 py-2 text-base font-medium",
+                      "block rounded-lg px-3 py-2 text-base font-medium"
                     )}
                     aria-current={item.current ? "page" : undefined}
                   >
