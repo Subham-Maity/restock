@@ -152,49 +152,46 @@ export default function ProductDetails() {
             <div className="w-fit flex flex-col-reverse lg:flex-row mx-auto py-4 sm:space-x-4 mb-10 justify-center lg:justify-start lg:border-r lg:border-gray-400 lg:pr-4 xl:pr-8">
               <div className="flex flex-row lg:flex-col product-previews mt-3 lg:mt-0 space-x-2 lg:space-x-0 lg:space-y-2 p-2 border border-gray-400 rounded-xl h-fit w-fit mx-auto my-auto">
                 {product.images.map((image: string, index: number) => (
-                  <div
-                    key={index}
-                    className="preview-image flex w-fit mx-auto"
-                    onMouseEnter={() => handleMouseEnter(image)}
-                  >
-                    <Image
-                      src={image}
-                      height={100}
-                      width={100}
-                      alt="{product.title}"
-                      className="rounded-lg border border-gray-400 hover:border-blue-400 h-[100px] w-[100px]"
-                    />
-                  </div>
+                    <div
+                        key={index}
+                        className="preview-image flex w-fit mx-auto"
+                        onMouseEnter={() => handleMouseEnter(image)}
+                    >
+                      <img
+                          src={image}
+                          alt="{product.title}"
+                          className="rounded-lg border border-gray-400 hover:border-blue-400 h-[100px] w-[100px]"
+                      />
+                    </div>
                 ))}
               </div>
-
               <div className="main-image w-fit h-fit lg:w-[400px] xl:w-[500px] my-auto">
                 <TransformWrapper>
                   {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
-                    <React.Fragment>
-                      <TransformComponent>
-                        <Image
-                          src={currentImage}
-                          className="rounded-lg h-[400px] xl:h-[500px]"
-                          alt={product.title}
-                          width={1500}
-                          height={1500}
-                        />
-                      </TransformComponent>
-                      <div className="border dark:border-gray-300/20 border-gray-800/20 rounded-lg mt-2 text-center">
-                        <button onClick={() => zoomIn()}>
-                          <AiOutlineZoomIn className="text-3xl mt-2 dark:hover:text-gray-200 dark:text-gray-400 text-neutral-900/30 hover:text-neutral-900/70" />
-                        </button>
-                        <button onClick={() => zoomOut()}>
-                          <AiOutlineZoomOut className="text-3xl ml-4 mt-2 dark:hover:text-gray-200 dark:text-gray-400 text-neutral-900/30 hover:text-neutral-900/70" />
-                        </button>
-                        <button onClick={() => resetTransform()}>
-                          <IoClose className="text-3xl ml-4 mt-2 dark:hover:text-gray-200 dark:text-gray-400 text-neutral-900/30 hover:text-neutral-900/70" />
-                        </button>
-                      </div>
-                    </React.Fragment>
-                  )}
-                </TransformWrapper>
+                      <React.Fragment>
+                        <TransformComponent>
+                <Image
+                    src={currentImage}
+                    width={500}
+                    height={500}
+                    alt="Product"
+                    className="rounded-lg h-[400px] xl:h-[500px]"
+                />
+              </TransformComponent>
+              <div className="border dark:border-gray-300/20 border-gray-800/20 rounded-lg mt-2 text-center">
+                <button onClick={() => zoomIn()}>
+                  <AiOutlineZoomIn className="text-3xl mt-2 dark:hover:text-gray-200 dark:text-gray-400 text-neutral-900/30 hover:text-neutral-900/70" />
+                </button>
+                <button onClick={() => zoomOut()}>
+                  <AiOutlineZoomOut className="text-3xl ml-4 mt-2 dark:hover:text-gray-200 dark:text-gray-400 text-neutral-900/30 hover:text-neutral-900/70" />
+                </button>
+                <button onClick={() => resetTransform()}>
+                  <IoClose className="text-3xl ml-4 mt-2 dark:hover:text-gray-200 dark:text-gray-400 text-neutral-900/30 hover:text-neutral-900/70" />
+                </button>
+              </div>
+            </React.Fragment>
+            )}
+          </TransformWrapper>
               </div>
             </div>
 
