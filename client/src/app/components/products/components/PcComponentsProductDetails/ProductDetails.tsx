@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { useDispatch, useSelector } from "react-redux";
-
+import React, { Component } from "react";
 import { useParams } from "next/navigation";
 import {
   fetchAllProductByIdAsync,
@@ -21,9 +21,10 @@ import "react-toastify/dist/ReactToastify.css";
 import { PiLightningFill } from "react-icons/pi";
 import { FaCartPlus } from "react-icons/fa";
 
-
-
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import {AiOutlineZoomIn, AiOutlineZoomOut} from "react-icons/ai";
+import {IoClose} from "react-icons/io5";
+
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
@@ -159,7 +160,7 @@ export default function ProductDetails() {
                     <Image
                       src={image}
                       height={100}
-                        width={100}
+                      width={100}
                       alt="{product.title}"
                       className="rounded-lg border border-gray-400 hover:border-blue-400 h-[100px] w-[100px]"
                     />
@@ -168,15 +169,25 @@ export default function ProductDetails() {
               </div>
               <div className="main-image w-fit h-fit lg:w-[400px] xl:w-[500px] my-auto">
                 <TransformWrapper>
-                  <TransformComponent>
-                <Image
-                  src={currentImage}
-                  className="rounded-lg h-[400px] xl:h-[500px]"
-                    alt={product.title}
-                    width={500}
-                    height={500}
-                />
-                    </TransformComponent>
+                  {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
+                    <React.Fragment>
+
+                      <TransformComponent>
+                        <Image
+                          src={currentImage}
+                          className="rounded-lg h-[400px] xl:h-[500px]"
+                          alt={product.title}
+                          width={1500}
+                          height={1500}
+                        />
+                      </TransformComponent>
+                      <div className="border dark:border-gray-300/20 border-gray-800/20 rounded-lg mt-2 text-center">
+                        <button onClick={() => zoomIn()}><AiOutlineZoomIn className="text-3xl mt-2 dark:hover:text-gray-200 dark:text-gray-400 text-neutral-900/30 hover:text-neutral-900/70"/></button>
+                        <button onClick={() => zoomOut()}><AiOutlineZoomOut className="text-3xl ml-4 mt-2 dark:hover:text-gray-200 dark:text-gray-400 text-neutral-900/30 hover:text-neutral-900/70"/></button>
+                        <button onClick={() => resetTransform()}><IoClose className="text-3xl ml-4 mt-2 dark:hover:text-gray-200 dark:text-gray-400 text-neutral-900/30 hover:text-neutral-900/70"/></button>
+                      </div>
+                    </React.Fragment>
+                  )}
                 </TransformWrapper>
               </div>
             </div>
@@ -184,6 +195,7 @@ export default function ProductDetails() {
             <div className="lg:pl-6 md:space-y-6 w-full wrap">
               <h1 className="justify-start text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300 sm:text-3xl">
                 {product.title}
+
               </h1>
               {/* Ratings */}
               <div className="flex border-2 shadow-xl dark:border-black/20 border-gray-700/20 rounded-lg w-fit">
