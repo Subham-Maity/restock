@@ -48,3 +48,10 @@ export async function checkUser(loginInfo: LoginInfo): Promise<UserResponse> {
 }
 
 
+export function signOut(userId: any): Promise<{ data: any }> {
+  return new Promise(async (resolve) => {
+    resolve({ data: 'success' });
+  });
+}
+
+
