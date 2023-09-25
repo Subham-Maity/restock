@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { useDispatch, useSelector } from "react-redux";
-import "react-inner-image-zoom/lib/InnerImageZoom/styles.css";
+
 import { useParams } from "next/navigation";
 import {
   fetchAllProductByIdAsync,
@@ -20,8 +20,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { PiLightningFill } from "react-icons/pi";
 import { FaCartPlus } from "react-icons/fa";
-import InnerImageZoom from "react-inner-image-zoom";
 
+
+
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
@@ -165,12 +167,17 @@ export default function ProductDetails() {
                 ))}
               </div>
               <div className="main-image w-fit h-fit lg:w-[400px] xl:w-[500px] my-auto">
-                <InnerImageZoom
+                <TransformWrapper>
+                  <TransformComponent>
+                <Image
                   src={currentImage}
                   className="rounded-lg h-[400px] xl:h-[500px]"
-                    zoomSrc={currentImage}
-                  zoomScale={2}
+                    alt={product.title}
+                    width={500}
+                    height={500}
                 />
+                    </TransformComponent>
+                </TransformWrapper>
               </div>
             </div>
 
