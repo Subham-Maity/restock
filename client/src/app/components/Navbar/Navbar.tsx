@@ -18,13 +18,9 @@ import { useSelector } from "react-redux";
 import { selectItems } from "@/app/components/cart/cartSlice";
 import { useRouter } from "next/navigation";
 import CartHoverOnMouse from "@/app/components/cart/CartHoverOnMouse";
+import { selectLoggedInUser } from "@/app/components/auth/authSlice";
+import { selectUserInfo } from "@/app/components/user/userSlice";
 
-const user = {
-  name: "Tom Cook",
-  email: "tom@example.com",
-  imageUrl:
-    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-};
 const navigation = [
   {
     id: 1,
@@ -65,7 +61,6 @@ const navigation = [
 const userNavigation = [
   { name: "Your Profile Setting", href: "/UserProfile" },
   { name: "My Orders", href: "/orders" },
-  { name: "Sign out", href: "/logout" },
 ];
 
 function classNames(...classes: any[]) {
@@ -75,6 +70,7 @@ function classNames(...classes: any[]) {
 const Navbar = () => {
   const [isCartHoverOpen, setIsCartHoverOpen] = useState(false);
   const [cartHoverTimeout, setCartHoverTimeout] = useState(null);
+  const user = useSelector(selectUserInfo);
   const handleCartIconHover = () => {
     setIsCartHoverOpen(true);
     // Clear any previous timeouts
@@ -173,12 +169,14 @@ const Navbar = () => {
                           </span>
                           <Image
                             className="h-8 w-8 rounded-full hidden xl:block"
-                            src={user.imageUrl}
+                            src={user?.imageUrl && user.imageUrl}
                             alt=""
                             width={32}
                             height={32}
                           />
+
                         </Menu.Button>
+
                       </div>
 
                       <Transition
@@ -191,7 +189,18 @@ const Navbar = () => {
                         leaveTo="transform opacity-0 scale-95"
                       >
                         <Menu.Items className="absolute right-0 z-50 mt-8 w-48 origin-top-right bg-slate-200 dark:bg-slate-800 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none rounded-2xl">
+                          <div >
+                            <div className="text-sm ml-4 mb-2 mt-4 font-medium leading-none text-gray-800 dark:text-gray-300">
+                              {user?.addresses && user.addresses[0]
+                                  ? user.addresses[0].name
+                                  : "No Name Provided"}
+                            </div>
+                            <div className="text-sm ml-4 mb-2 mt-4 font-bold leading-none text-gray-950 dark:text-gray-300 ">
+                              {user?.email && user.email}
+                            </div>
+                          </div>
                           {userNavigation.map((item) => (
+
                             <Menu.Item key={item.name}>
                               {({ active }) => (
                                 <Link
@@ -208,6 +217,16 @@ const Navbar = () => {
                               )}
                             </Menu.Item>
                           ))}
+                          <div className=" ml-4 mb-2 flex items-center ">
+                            {user ? (
+                                <Link href="/logout"  className="text-gray-300 hover:text-white">Logout
+                                </Link>
+                            ) : (
+                                <Link href="/login" className="text-gray-300 hover:text-white">Login
+                                </Link>
+                            )}
+                          </div>
+
                         </Menu.Items>
                       </Transition>
                     </Menu>
@@ -257,7 +276,7 @@ const Navbar = () => {
                   <div className="flex-shrink-0">
                     <Image
                       className="h-10 w-10 rounded-full"
-                      src={user.imageUrl}
+                      src={user?.imageUrl && user.imageUrl}
                       alt=""
                       width={40}
                       height={40}
@@ -265,10 +284,12 @@ const Navbar = () => {
                   </div>
                   <div className="ml-3">
                     <div className="text-base font-medium leading-none text-gray-800 dark:text-white">
-                      {user.name}
+                      {user?.addresses && user.addresses[0]
+                        ? user.addresses[0].name
+                        : "No Name Provided"}
                     </div>
-                    <div className="text-sm font-light leading-none text-gray-950">
-                      {user.email}
+                    <div className="text-sm font-bold leading-none text-gray-950 dark:text-gray-200 ">
+                      {user?.email && user.email}
                     </div>
                   </div>
                   <button
