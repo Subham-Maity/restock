@@ -22,8 +22,8 @@ import { PiLightningFill } from "react-icons/pi";
 import { FaCartPlus } from "react-icons/fa";
 
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
-import {AiOutlineZoomIn, AiOutlineZoomOut} from "react-icons/ai";
-import {IoClose} from "react-icons/io5";
+import { AiOutlineZoomIn, AiOutlineZoomOut } from "react-icons/ai";
+import { IoClose } from "react-icons/io5";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -167,11 +167,11 @@ export default function ProductDetails() {
                   </div>
                 ))}
               </div>
+
               <div className="main-image w-fit h-fit lg:w-[400px] xl:w-[500px] my-auto">
                 <TransformWrapper>
                   {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
                     <React.Fragment>
-
                       <TransformComponent>
                         <Image
                           src={currentImage}
@@ -182,9 +182,15 @@ export default function ProductDetails() {
                         />
                       </TransformComponent>
                       <div className="border dark:border-gray-300/20 border-gray-800/20 rounded-lg mt-2 text-center">
-                        <button onClick={() => zoomIn()}><AiOutlineZoomIn className="text-3xl mt-2 dark:hover:text-gray-200 dark:text-gray-400 text-neutral-900/30 hover:text-neutral-900/70"/></button>
-                        <button onClick={() => zoomOut()}><AiOutlineZoomOut className="text-3xl ml-4 mt-2 dark:hover:text-gray-200 dark:text-gray-400 text-neutral-900/30 hover:text-neutral-900/70"/></button>
-                        <button onClick={() => resetTransform()}><IoClose className="text-3xl ml-4 mt-2 dark:hover:text-gray-200 dark:text-gray-400 text-neutral-900/30 hover:text-neutral-900/70"/></button>
+                        <button onClick={() => zoomIn()}>
+                          <AiOutlineZoomIn className="text-3xl mt-2 dark:hover:text-gray-200 dark:text-gray-400 text-neutral-900/30 hover:text-neutral-900/70" />
+                        </button>
+                        <button onClick={() => zoomOut()}>
+                          <AiOutlineZoomOut className="text-3xl ml-4 mt-2 dark:hover:text-gray-200 dark:text-gray-400 text-neutral-900/30 hover:text-neutral-900/70" />
+                        </button>
+                        <button onClick={() => resetTransform()}>
+                          <IoClose className="text-3xl ml-4 mt-2 dark:hover:text-gray-200 dark:text-gray-400 text-neutral-900/30 hover:text-neutral-900/70" />
+                        </button>
                       </div>
                     </React.Fragment>
                   )}
@@ -195,7 +201,6 @@ export default function ProductDetails() {
             <div className="lg:pl-6 md:space-y-6 w-full wrap">
               <h1 className="justify-start text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300 sm:text-3xl">
                 {product.title}
-
               </h1>
               {/* Ratings */}
               <div className="flex border-2 shadow-xl dark:border-black/20 border-gray-700/20 rounded-lg w-fit">
@@ -222,7 +227,7 @@ export default function ProductDetails() {
                         product.rating.toFixed(1) > rating
                           ? "text-gray-700 dark:text-white"
                           : "text-gray-50 dark:text-gray-500",
-                        "h-5 w-5 flex-shrink-0",
+                        "h-5 w-5 flex-shrink-0"
                       )}
                       aria-hidden="true"
                     />
