@@ -65,7 +65,6 @@ const CartHoverOnMouse = () => {
               <p className="border-t mt-4 mb-4 border-gray-800 py-2 dark:border-gray-200 text-xs font-light dark:text-gray-400"></p>
               <div className="flow-root">
                 <ul
-                  role="list"
                   className="-my-6 divide-y divide-gray-400 h-fit max-h-[24rem] overflow-y-auto pr-3"
                 >
                   {items.map((item: any) => (

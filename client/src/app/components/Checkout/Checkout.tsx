@@ -303,7 +303,7 @@ function Checkout() {
                   <p className="mt-1 mb-2 text-sm text-gray-500">
                     Choose from Existing addresses
                   </p>
-                  <ul role="list">
+                  <ul >
                     {user &&
                       //@ts-ignore
                       user.addresses.map((address: any, index: any) => (
@@ -403,7 +403,7 @@ function Checkout() {
                   </h3>
                   <p className="border-t mt-4 mb-4 border-gray-800 py-2 dark:border-gray-200 text-sm font-light dark:text-gray-400"></p>
                   <div className="flow-root">
-                    <ul role="list" className="-my-6 divide-y divide-gray-200">
+                    <ul className="-my-6 divide-y divide-gray-200">
                       {items.map((item: any) => (
                         <li key={item.id} className="flex py-6">
                           <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
