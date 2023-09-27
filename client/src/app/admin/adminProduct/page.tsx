@@ -1,9 +1,8 @@
-"use client";
-
+import React from "react";
 import { AdminPcComponentProductList } from "@/app/components/admin/components/AdminProductList";
 import AdminProtected from "@/app/components/auth/components/protectedAdmin";
 
-const page = () => {
+const Page = () => {
   return (
     <div>
       <AdminProtected>
@@ -13,4 +12,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
