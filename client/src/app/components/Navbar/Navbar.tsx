@@ -92,6 +92,7 @@ const Navbar = () => {
   const handleCartIconClick = () => {
     router.push("/cart");
   };
+
   return (
     <div className="fixed top-0 left-0 right-0 rounded-b-lg z-50 backdrop-blur-3xl">
       <Disclosure
@@ -124,7 +125,7 @@ const Navbar = () => {
                             item.current
                               ? "bg-gray-100 bg-opacity-90 md:rounded-lg dark:bg-gray-500 dark:bg-opaity-70 text-white"
                               : "text-gray-300 dark:hover:bg-gray-600 dark:bg-opacity-95 hover:bg-gray-300 hover:bg-opacity-95",
-                            "flex items-center rounded-lg px-3 py-2 text-sm font-medium",
+                            "flex items-center rounded-lg px-3 py-2 text-sm font-medium"
                           )}
                           aria-current={item.current ? "page" : undefined}
                         >
@@ -167,16 +168,19 @@ const Navbar = () => {
                           <span className="sr-only xl:hidden">
                             Open user menu
                           </span>
+
                           <Image
                             className="h-8 w-8 rounded-full hidden xl:block"
-                            src={user?.imageUrl && user.imageUrl}
+                            src={
+                              user && user.addresses && user.addresses[0] && user.addresses[0].dpUrl
+                                ? user.addresses[0].dpUrl
+                                : "/Navbar/blankUser.svg"
+                            }
                             alt=""
                             width={32}
                             height={32}
                           />
-
                         </Menu.Button>
-
                       </div>
 
                       <Transition
@@ -189,18 +193,19 @@ const Navbar = () => {
                         leaveTo="transform opacity-0 scale-95"
                       >
                         <Menu.Items className="absolute right-0 z-50 mt-8 w-48 origin-top-right bg-slate-200 dark:bg-slate-800 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none rounded-2xl">
-                          <div >
+                          <div>
                             <div className="text-sm ml-4 mb-2 mt-4 font-medium leading-none text-gray-800 dark:text-gray-300">
                               {user?.addresses && user.addresses[0]
-                                  ? user.addresses[0].name
-                                  : "No Name Provided"}
+                                ? user.addresses[0].name
+                                : "No Name Provided"}
                             </div>
                             <div className="text-sm ml-4 mb-2 mt-4 font-bold leading-none text-gray-950 dark:text-gray-300 ">
-                              {user?.email && user.email}
+                              {user?.email && user.email
+                                ? user.email
+                                : "No Email Provided"}
                             </div>
                           </div>
                           {userNavigation.map((item) => (
-
                             <Menu.Item key={item.name}>
                               {({ active }) => (
                                 <Link
@@ -209,7 +214,7 @@ const Navbar = () => {
                                     active
                                       ? "bg-gray-400 dark:bg-gray-500"
                                       : "",
-                                    "block px-4 py-2 text-sm dark:text-gray-200 rounded-2xl",
+                                    "block px-4 py-2 text-sm dark:text-gray-200 rounded-2xl"
                                   )}
                                 >
                                   {item.name}
@@ -217,16 +222,15 @@ const Navbar = () => {
                               )}
                             </Menu.Item>
                           ))}
-                          <div className=" ml-4 mb-2 flex items-center ">
+                          <div className="block px-4 py-2 text-sm font-bold dark:text-gray-200 rounded-2xl hover:bg-gray-400 hover:dark:bg-gray-500 cursor-pointer">
                             {user ? (
-                                <Link href="/logout"  className="text-gray-300 hover:text-white">Logout
-                                </Link>
+                              <Link href="/logout" className="">
+                                Logout
+                              </Link>
                             ) : (
-                                <Link href="/login" className="text-gray-300 hover:text-white">Login
-                                </Link>
+                              <Link href="/login">Login</Link>
                             )}
                           </div>
-
                         </Menu.Items>
                       </Transition>
                     </Menu>
@@ -262,7 +266,7 @@ const Navbar = () => {
                       item.current
                         ? "bg-gray-700 dark:bg-gray-400 text-gray-200 dark:text-black "
                         : "text-gray-950 dark:text-gray-100 dark:hover:text-gray-950 hover:bg-gray-300 dark:hover:bg-gray-300 ",
-                      "block rounded-lg px-3 py-2 text-base font-medium",
+                      "block rounded-lg px-3 py-2 text-base font-medium"
                     )}
                     aria-current={item.current ? "page" : undefined}
                   >
@@ -276,7 +280,11 @@ const Navbar = () => {
                   <div className="flex-shrink-0">
                     <Image
                       className="h-10 w-10 rounded-full"
-                      src={user?.imageUrl && user.imageUrl}
+                      src={
+                        user && user.addresses && user.addresses[0] && user.addresses[0].dpUrl
+                          ? user.addresses[0].dpUrl
+                          : "/Navbar/blankUser.svg"
+                      }
                       alt=""
                       width={40}
                       height={40}

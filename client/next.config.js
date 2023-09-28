@@ -8,7 +8,8 @@ const nextConfig = {
       "img.freepik.com",
       "images.pexels.com",
       "i.dummyjson.com",
-      "github.com"
+      "github.com",
+      "upload.wikimedia.org"
     ],
   },
 };
