@@ -1,25 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Written by Treer (gitlab.com/Treer) -->
-<svg 
-	version="1.1" 
-	xmlns="http://www.w3.org/2000/svg" 
-	xmlns:xlink="http://www.w3.org/1999/xlink" 
-	width="600" 
-	height="600"
-	fill="white">
-
-  <title>Abstract user icon</title>
-
-  <defs>
-    <clipPath id="circular-border">
-      <circle cx="300" cy="300" r="280" />
-    </clipPath>
-    <clipPath id="avoid-antialiasing-bugs">
-	  <rect width="100%" height="498" />
-    </clipPath>
-  </defs>
-  
-  <circle cx="300" cy="300" r="280" fill="black" clip-path="url(#avoid-antialiasing-bugs)" />
-  <circle cx="300" cy="230" r="115" />
-  <circle cx="300" cy="550" r="205" clip-path="url(#circular-border)" />
+<svg  viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M241.232 254.307C241.232 191.691 190.472 140.932 127.857 140.932C65.2414 140.932 14.4815 191.691 14.4815 254.307H241.232Z" fill="white"/>
+<path d="M127.865 121.748C161.096 121.748 188.036 94.8084 188.036 61.5771C188.036 28.3458 161.096 1.40659 127.865 1.40659C94.6338 1.40659 67.6945 28.3458 67.6945 61.5771C67.6945 94.8084 94.6338 121.748 127.865 121.748Z" fill="white"/>
 </svg>
