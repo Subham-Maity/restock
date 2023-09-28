@@ -180,8 +180,8 @@ export const AdminPcComponentProductList = () => {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md dark:bg-[#25293c] shadow-xl dark:shadow-[#292045] shadow-[#f3f4f6] ring-1 ring-black bg-white ring-opacity-5 focus:outline-none">
-                  <div className="py-1">
+                <Menu.Items className="absolute right-0 z-50 mt-8 w-48 origin-top-right bg-slate-200 dark:bg-slate-800 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none rounded-2xl font-semibold space-x-2">
+                  <div className="">
                     {sortOptions.map((option) => (
                       <Menu.Item key={option.name}>
                         {({ active }) => (
@@ -189,10 +189,10 @@ export const AdminPcComponentProductList = () => {
                             onClick={() => handleSort(option)}
                             className={classNames(
                               option.current
-                                ? "cursor-pointer dark:hover:bg-[#343756] hover:bg-[#f3f4f6] text-gray-800 dark:text-[#d9d8ff] dark:bg-[#25293c ] dark:hover:text-[#7f70ff] "
-                                : "cursor-pointer dark:hover:bg-[#343756] hover:bg-[#f3f4f6] text-gray-800 dark:text-[#d9d8ff] dark:bg-[#25293c ] dark:hover:text-[#7f70ff] ",
+                                ? "cursor-pointer hover:bg-gray-400 hover:dark:bg-gray-500 rounded-2xl"
+                                : "cursor-pointer hover:bg-gray-400 hover:dark:bg-gray-500 rounded-2xl",
                               active ? "" : "",
-                              "block px-4 py-2 text-sm",
+                              "block py-2 px-3 text-sm rounded",
                             )}
                           >
                             {option.name}

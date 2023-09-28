@@ -125,7 +125,7 @@ const Navbar = () => {
                             item.current
                               ? "bg-gray-100 bg-opacity-90 md:rounded-lg dark:bg-gray-500 dark:bg-opaity-70 text-white"
                               : "text-gray-300 dark:hover:bg-gray-600 dark:bg-opacity-95 hover:bg-gray-300 hover:bg-opacity-95",
-                            "flex items-center rounded-lg px-3 py-2 text-sm font-medium"
+                            "flex items-center rounded-lg px-3 py-2 text-sm font-medium",
                           )}
                           aria-current={item.current ? "page" : undefined}
                         >
@@ -169,17 +169,35 @@ const Navbar = () => {
                             Open user menu
                           </span>
 
-                          <Image
-                            className="h-8 w-8 rounded-full hidden xl:block"
-                            src={
-                              user && user.addresses && user.addresses[0] && user.addresses[0].dpUrl
-                                ? user.addresses[0].dpUrl
-                                : "/Navbar/blankUser.svg"
-                            }
-                            alt=""
-                            width={32}
-                            height={32}
-                          />
+                          <div className="flex-shrink-0">
+                            {user &&
+                            user.addresses &&
+                            user.addresses[0] &&
+                            user.addresses[0].dpUrl ? (
+                              <Image
+                                className="h-10 w-10 rounded-full"
+                                src={user.addresses[0].dpUrl}
+                                alt=""
+                                width={40}
+                                height={40}
+                              />
+                            ) : user && user.email ? (
+                              <div
+                                className="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center text-white text-lg"
+                                style={{ fontSize: "1.5rem" }}
+                              >
+                                {user.email[0].toUpperCase()}
+                              </div>
+                            ) : (
+                              <Image
+                                className="h-10 w-10 rounded-full"
+                                src="/Navbar/blankUser.svg"
+                                alt=""
+                                width={40}
+                                height={40}
+                              />
+                            )}
+                          </div>
                         </Menu.Button>
                       </div>
 
@@ -214,7 +232,7 @@ const Navbar = () => {
                                     active
                                       ? "bg-gray-400 dark:bg-gray-500"
                                       : "",
-                                    "block px-4 py-2 text-sm dark:text-gray-200 rounded-2xl"
+                                    "block px-4 py-2 text-sm dark:text-gray-200 rounded-2xl",
                                   )}
                                 >
                                   {item.name}
@@ -266,7 +284,7 @@ const Navbar = () => {
                       item.current
                         ? "bg-gray-700 dark:bg-gray-400 text-gray-200 dark:text-black "
                         : "text-gray-950 dark:text-gray-100 dark:hover:text-gray-950 hover:bg-gray-300 dark:hover:bg-gray-300 ",
-                      "block rounded-lg px-3 py-2 text-base font-medium"
+                      "block rounded-lg px-3 py-2 text-base font-medium",
                     )}
                     aria-current={item.current ? "page" : undefined}
                   >
@@ -278,18 +296,35 @@ const Navbar = () => {
               <div className="border-t border-gray-700 pb-3 pt-4 ">
                 <div className="flex items-center px-5 ">
                   <div className="flex-shrink-0">
-                    <Image
-                      className="h-10 w-10 rounded-full"
-                      src={
-                        user && user.addresses && user.addresses[0] && user.addresses[0].dpUrl
-                          ? user.addresses[0].dpUrl
-                          : "/Navbar/blankUser.svg"
-                      }
-                      alt=""
-                      width={40}
-                      height={40}
-                    />
+                    {user &&
+                    user.addresses &&
+                    user.addresses[0] &&
+                    user.addresses[0].dpUrl ? (
+                      <Image
+                        className="h-10 w-10 rounded-full"
+                        src={user.addresses[0].dpUrl}
+                        alt=""
+                        width={40}
+                        height={40}
+                      />
+                    ) : user && user.email ? (
+                      <div
+                        className="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center text-white text-lg"
+                        style={{ fontSize: "1.5rem" }}
+                      >
+                        {user.email[0].toUpperCase()}
+                      </div>
+                    ) : (
+                      <Image
+                        className="h-10 w-10 rounded-full"
+                        src="/Navbar/blankUser.svg"
+                        alt=""
+                        width={40}
+                        height={40}
+                      />
+                    )}
                   </div>
+
                   <div className="ml-3">
                     <div className="text-base font-medium leading-none text-gray-800 dark:text-white">
                       {user?.addresses && user.addresses[0]

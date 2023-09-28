@@ -9,9 +9,11 @@ const page = () => {
     <div>
       <Navbar />
       <div className="mt-20">
+        <Navbar />
         <AdminProtected>
           <AdminProductDetail />
         </AdminProtected>
+        <Footer />
       </div>
       <Footer />
     </div>
