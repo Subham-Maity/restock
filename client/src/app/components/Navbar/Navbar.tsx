@@ -28,6 +28,7 @@ const navigation = [
     href: "/dod",
     icon: <BiSolidOffer />,
     current: true,
+    user: true,
   },
   {
     id: 2,
@@ -35,6 +36,7 @@ const navigation = [
     href: "/brand",
     icon: <TbBrandSupabase />,
     current: false,
+    user: true,
   },
   {
     id: 3,
@@ -42,6 +44,7 @@ const navigation = [
     href: "/pc-components",
     icon: <BsGpuCard />,
     current: false,
+    user: true,
   },
   {
     id: 4,
@@ -49,6 +52,7 @@ const navigation = [
     href: "/peripherals",
     icon: <BiSolidMouseAlt />,
     current: false,
+    user: true,
   },
   {
     id: 5,
@@ -56,6 +60,7 @@ const navigation = [
     href: "/prebuilt",
     icon: <PiComputerTowerFill />,
     current: false,
+    admin: true,
   },
 ];
 const userNavigation = [
@@ -175,7 +180,7 @@ const Navbar = () => {
                             user.addresses[0] &&
                             user.addresses[0].dpUrl ? (
                               <Image
-                                className="h-10 w-10 rounded-full"
+                                className="h-10 w-10 p-0.5 rounded-full bg-gray-500 dark:bg-gray-500 flex items-center justify-center text-white dark:hover:bg-gray-300 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg"
                                 src={user.addresses[0].dpUrl}
                                 alt=""
                                 width={40}
@@ -183,14 +188,14 @@ const Navbar = () => {
                               />
                             ) : user && user.email ? (
                               <div
-                                className="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center text-white text-lg"
+                                className="h-9 w-9 rounded-full bg-gray-500 dark:bg-gray-700 flex items-center justify-center text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg"
                                 style={{ fontSize: "1.5rem" }}
                               >
-                                {user.email[0].toUpperCase()}
+                                <p className="mt-1">{user.email[0].toUpperCase()}</p>
                               </div>
                             ) : (
                               <Image
-                                className="h-10 w-10 rounded-full"
+                                className="h-10 w-10 p-2 rounded-full bg-gray-500 dark:bg-gray-700 flex items-center justify-center text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg"
                                 src="/Navbar/blankUser.svg"
                                 alt=""
                                 width={40}
@@ -300,28 +305,28 @@ const Navbar = () => {
                     user.addresses &&
                     user.addresses[0] &&
                     user.addresses[0].dpUrl ? (
-                      <Image
-                        className="h-10 w-10 rounded-full"
-                        src={user.addresses[0].dpUrl}
-                        alt=""
-                        width={40}
-                        height={40}
-                      />
+                        <Image
+                            className="h-10 w-10 p-0.5 rounded-full bg-gray-500 dark:bg-gray-500 flex items-center justify-center text-white dark:hover:bg-gray-300 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg"
+                            src={user.addresses[0].dpUrl}
+                            alt=""
+                            width={40}
+                            height={40}
+                        />
                     ) : user && user.email ? (
-                      <div
-                        className="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center text-white text-lg"
-                        style={{ fontSize: "1.5rem" }}
-                      >
-                        {user.email[0].toUpperCase()}
-                      </div>
+                        <div
+                            className="h-9 w-9 rounded-full bg-gray-500 dark:bg-gray-700 flex items-center justify-center text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg"
+                            style={{ fontSize: "1.5rem" }}
+                        >
+                          <p className="mt-1">{user.email[0].toUpperCase()}</p>
+                        </div>
                     ) : (
-                      <Image
-                        className="h-10 w-10 rounded-full"
-                        src="/Navbar/blankUser.svg"
-                        alt=""
-                        width={40}
-                        height={40}
-                      />
+                        <Image
+                            className="h-10 w-10 p-2 rounded-full bg-gray-500 dark:bg-gray-700 flex items-center justify-center text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg"
+                            src="/Navbar/blankUser.svg"
+                            alt=""
+                            width={40}
+                            height={40}
+                        />
                     )}
                   </div>
 
