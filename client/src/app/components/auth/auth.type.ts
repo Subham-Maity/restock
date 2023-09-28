@@ -15,6 +15,7 @@ export interface Address {
   state?: string;
   zip?: string;
   country?: string;
+  dpUrl?: string;
 }
 
 export interface UserResponse {

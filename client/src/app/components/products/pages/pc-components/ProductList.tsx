@@ -106,7 +106,7 @@ export const PcComponentProductList = () => {
       }
     } else {
       const index = newFilter[section.id].findIndex(
-        (el) => el === option.value
+        (el) => el === option.value,
       );
       newFilter[section.id].splice(index, 1);
     }
@@ -180,8 +180,8 @@ export const PcComponentProductList = () => {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md dark:bg-[#25293c] shadow-xl dark:shadow-[#292045] shadow-[#f3f4f6] ring-1 ring-black bg-white ring-opacity-5 focus:outline-none">
-                  <div className="py-1">
+                <Menu.Items className="absolute right-0 z-50 mt-8 w-48 origin-top-right bg-slate-200 dark:bg-slate-800 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none rounded-2xl font-semibold space-x-2">
+                  <div className="">
                     {sortOptions.map((option) => (
                       <Menu.Item key={option.name}>
                         {({ active }) => (
@@ -189,10 +189,10 @@ export const PcComponentProductList = () => {
                             onClick={() => handleSort(option)}
                             className={classNames(
                               option.current
-                                ? "cursor-pointer dark:hover:bg-[#343756] hover:bg-[#f3f4f6] text-gray-800 dark:text-[#d9d8ff] dark:bg-[#25293c ] dark:hover:text-[#7f70ff] "
-                                : "cursor-pointer dark:hover:bg-[#343756] hover:bg-[#f3f4f6] text-gray-800 dark:text-[#d9d8ff] dark:bg-[#25293c ] dark:hover:text-[#7f70ff] ",
+                                ? "cursor-pointer hover:bg-gray-400 hover:dark:bg-gray-500 rounded-2xl"
+                                : "cursor-pointer hover:bg-gray-400 hover:dark:bg-gray-500 rounded-2xl",
                               active ? "" : "",
-                              "block px-4 py-2 text-sm"
+                              "block py-2 px-3 text-sm rounded",
                             )}
                           >
                             {option.name}
@@ -367,7 +367,7 @@ export const MobileFilter = ({
                                       {option.label}
                                     </label>
                                   </div>
-                                )
+                                ),
                               )}
                             </div>
                           </Disclosure.Panel>
@@ -528,7 +528,7 @@ function Pagination({ page, handlePage, totalItems }: any) {
 
 export const ProductGrid = ({ products }: { products: any }) => {
   const [hoveredProductIndex, setHoveredProductIndex] = useState<number | null>(
-    null
+    null,
   );
   const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
 
@@ -536,7 +536,7 @@ export const ProductGrid = ({ products }: { products: any }) => {
     setHoverTimeout(
       setTimeout(() => {
         setHoveredProductIndex(index);
-      }, 1000)
+      }, 1000),
     );
   }, []);
 
@@ -636,7 +636,7 @@ export const ProductGrid = ({ products }: { products: any }) => {
                                   window.location.href = `/pc-components-details/${product.id}`;
                                 }}
                               />
-                            )
+                            ),
                           )}
                         </Carousel>
                       ) : (
@@ -690,7 +690,7 @@ export const ProductGrid = ({ products }: { products: any }) => {
                   <div>
                     <p className="text-sm font-medium block dark:text-gray-100 text-neutral-900">
                       {Math.round(
-                        product.price * (1 - product.discountPercentage / 100)
+                        product.price * (1 - product.discountPercentage / 100),
                       )}
                       ₹
                     </p>

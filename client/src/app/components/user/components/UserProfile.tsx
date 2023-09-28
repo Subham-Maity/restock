@@ -27,6 +27,7 @@ type Inputs = {
   city: string;
   state: string;
   pinCode: string;
+  dpUrl: string;
 };
 export default function UserProfile() {
   const dispatch: AppDispatch = useDispatch();
@@ -64,6 +65,7 @@ export default function UserProfile() {
     setValue("pinCode", address.pinCode);
     setValue("phone", address.phone);
     setValue("street", address.street);
+    setValue("dpUrl", address.dpUrl);
   };
 
   const handleAdd = (address: any) => {
@@ -296,6 +298,28 @@ export default function UserProfile() {
                         )}
                       </div>
                     </div>
+
+                    <div className="col-span-full">
+                      <label
+                        htmlFor="dpUrl"
+                        className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200"
+                      >
+                        Profile Picture URL
+                      </label>
+                      <div className="mt-2">
+                        <input
+                          type="url"
+                          {...register("dpUrl", {
+                            required: "dpUrl is required",
+                          })}
+                          id="dpUrl"
+                          className="default-input"
+                        />
+                        {errors.dpUrl && (
+                          <p className="text-red-500">{errors.dpUrl.message}</p>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -508,6 +532,30 @@ export default function UserProfile() {
                               {errors.pinCode && (
                                 <p className="text-red-500">
                                   {errors.pinCode.message}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+
+                          <div className="col-span-full">
+                            <label
+                              htmlFor="dpUrl"
+                              className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200"
+                            >
+                              Profile Picture URL
+                            </label>
+                            <div className="mt-2">
+                              <input
+                                type="url"
+                                {...register("dpUrl", {
+                                  required: "dpUrl is required",
+                                })}
+                                id="dpUrl"
+                                className="default-input"
+                              />
+                              {errors.dpUrl && (
+                                <p className="text-red-500">
+                                  {errors.dpUrl.message}
                                 </p>
                               )}
                             </div>

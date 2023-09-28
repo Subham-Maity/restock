@@ -92,6 +92,7 @@ const Navbar = () => {
   const handleCartIconClick = () => {
     router.push("/cart");
   };
+
   return (
     <div className="fixed top-0 left-0 right-0 rounded-b-lg z-50 backdrop-blur-3xl">
       <Disclosure
@@ -167,16 +168,37 @@ const Navbar = () => {
                           <span className="sr-only xl:hidden">
                             Open user menu
                           </span>
-                          <Image
-                            className="h-8 w-8 rounded-full hidden xl:block"
-                            src={user?.imageUrl && user.imageUrl}
-                            alt=""
-                            width={32}
-                            height={32}
-                          />
 
+                          <div className="flex-shrink-0">
+                            {user &&
+                            user.addresses &&
+                            user.addresses[0] &&
+                            user.addresses[0].dpUrl ? (
+                              <Image
+                                className="h-10 w-10 rounded-full"
+                                src={user.addresses[0].dpUrl}
+                                alt=""
+                                width={40}
+                                height={40}
+                              />
+                            ) : user && user.email ? (
+                              <div
+                                className="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center text-white text-lg"
+                                style={{ fontSize: "1.5rem" }}
+                              >
+                                {user.email[0].toUpperCase()}
+                              </div>
+                            ) : (
+                              <Image
+                                className="h-10 w-10 rounded-full"
+                                src="/Navbar/blankUser.svg"
+                                alt=""
+                                width={40}
+                                height={40}
+                              />
+                            )}
+                          </div>
                         </Menu.Button>
-
                       </div>
 
                       <Transition
@@ -189,18 +211,19 @@ const Navbar = () => {
                         leaveTo="transform opacity-0 scale-95"
                       >
                         <Menu.Items className="absolute right-0 z-50 mt-8 w-48 origin-top-right bg-slate-200 dark:bg-slate-800 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none rounded-2xl">
-                          <div >
+                          <div>
                             <div className="text-sm ml-4 mb-2 mt-4 font-medium leading-none text-gray-800 dark:text-gray-300">
                               {user?.addresses && user.addresses[0]
-                                  ? user.addresses[0].name
-                                  : "No Name Provided"}
+                                ? user.addresses[0].name
+                                : "No Name Provided"}
                             </div>
                             <div className="text-sm ml-4 mb-2 mt-4 font-bold leading-none text-gray-950 dark:text-gray-300 ">
-                              {user?.email && user.email}
+                              {user?.email && user.email
+                                ? user.email
+                                : "No Email Provided"}
                             </div>
                           </div>
                           {userNavigation.map((item) => (
-
                             <Menu.Item key={item.name}>
                               {({ active }) => (
                                 <Link
@@ -217,16 +240,15 @@ const Navbar = () => {
                               )}
                             </Menu.Item>
                           ))}
-                          <div className=" ml-4 mb-2 flex items-center ">
+                          <div className="block px-4 py-2 text-sm font-bold dark:text-gray-200 rounded-2xl hover:bg-gray-400 hover:dark:bg-gray-500 cursor-pointer">
                             {user ? (
-                                <Link href="/logout"  className="text-gray-300 hover:text-white">Logout
-                                </Link>
+                              <Link href="/logout" className="">
+                                Logout
+                              </Link>
                             ) : (
-                                <Link href="/login" className="text-gray-300 hover:text-white">Login
-                                </Link>
+                              <Link href="/login">Login</Link>
                             )}
                           </div>
-
                         </Menu.Items>
                       </Transition>
                     </Menu>
@@ -274,14 +296,35 @@ const Navbar = () => {
               <div className="border-t border-gray-700 pb-3 pt-4 ">
                 <div className="flex items-center px-5 ">
                   <div className="flex-shrink-0">
-                    <Image
-                      className="h-10 w-10 rounded-full"
-                      src={user?.imageUrl && user.imageUrl}
-                      alt=""
-                      width={40}
-                      height={40}
-                    />
+                    {user &&
+                    user.addresses &&
+                    user.addresses[0] &&
+                    user.addresses[0].dpUrl ? (
+                      <Image
+                        className="h-10 w-10 rounded-full"
+                        src={user.addresses[0].dpUrl}
+                        alt=""
+                        width={40}
+                        height={40}
+                      />
+                    ) : user && user.email ? (
+                      <div
+                        className="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center text-white text-lg"
+                        style={{ fontSize: "1.5rem" }}
+                      >
+                        {user.email[0].toUpperCase()}
+                      </div>
+                    ) : (
+                      <Image
+                        className="h-10 w-10 rounded-full"
+                        src="/Navbar/blankUser.svg"
+                        alt=""
+                        width={40}
+                        height={40}
+                      />
+                    )}
                   </div>
+
                   <div className="ml-3">
                     <div className="text-base font-medium leading-none text-gray-800 dark:text-white">
                       {user?.addresses && user.addresses[0]
