@@ -7,7 +7,11 @@ import {
   ShoppingCartIcon,
 } from "@heroicons/react/24/outline";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { BiSolidOffer, BiSolidMouseAlt } from "react-icons/bi";
+import {
+  BiSolidOffer,
+  BiSolidMouseAlt,
+  BiSolidUserCheck,
+} from "react-icons/bi";
 import { PiComputerTowerFill } from "react-icons/pi";
 import { TbBrandSupabase } from "react-icons/tb";
 import { BsGpuCard } from "react-icons/bs";
@@ -56,9 +60,9 @@ const navigation = [
   },
   {
     id: 5,
-    name: "Pre-Built PCs",
-    href: "/prebuilt",
-    icon: <PiComputerTowerFill />,
+    name: "Admin",
+    href: "/admin",
+    icon: <BiSolidUserCheck />,
     current: false,
     admin: true,
   },
@@ -76,6 +80,8 @@ const Navbar = () => {
   const [isCartHoverOpen, setIsCartHoverOpen] = useState(false);
   const [cartHoverTimeout, setCartHoverTimeout] = useState(null);
   const user = useSelector(selectUserInfo);
+  const users = useSelector(selectLoggedInUser);
+  const role = users?.role;
   const handleCartIconHover = () => {
     setIsCartHoverOpen(true);
     // Clear any previous timeouts
@@ -122,24 +128,28 @@ const Navbar = () => {
                   </div>
                   <div className="hidden xl:block">
                     <div className="flex items-center space-x-4">
-                      {navigation.map((item) => (
-                        <Link
-                          key={item.name}
-                          href={item.href}
-                          className={classNames(
-                            item.current
-                              ? "bg-gray-100 bg-opacity-90 md:rounded-lg dark:bg-gray-500 dark:bg-opaity-70 text-white"
-                              : "text-gray-300 dark:hover:bg-gray-600 dark:bg-opacity-95 hover:bg-gray-300 hover:bg-opacity-95",
-                            "flex items-center rounded-lg px-3 py-2 text-sm font-medium",
-                          )}
-                          aria-current={item.current ? "page" : undefined}
-                        >
-                          <div className="dark:text-white flex space-x-1 text-black mr-2">
-                            <span className="my-auto">{item.icon}</span>
-                            <span>{item.name}</span>
-                          </div>
-                        </Link>
-                      ))}
+                      {navigation.map((item) =>
+                        role === "admin" ||
+                        (!role && item.user) ||
+                        (role === "user" && item.user) ? (
+                          <Link
+                            key={item.name}
+                            href={item.href}
+                            className={classNames(
+                              item.current
+                                ? "bg-gray-100 bg-opacity-90 md:rounded-lg dark:bg-gray-500 dark:bg-opacity-70 text-white"
+                                : "text-gray-300 dark:hover:bg-gray-600 dark:bg-opacity-95 hover:bg-gray-300 hover:bg-opacity-95",
+                              "flex items-center rounded-lg px-3 py-2 text-sm font-medium",
+                            )}
+                            aria-current={item.current ? "page" : undefined}
+                          >
+                            <div className="dark:text-white flex space-x-1 text-black mr-2">
+                              <span className="my-auto">{item.icon}</span>
+                              <span>{item.name}</span>
+                            </div>
+                          </Link>
+                        ) : null,
+                      )}
                     </div>
                   </div>
                 </div>
@@ -191,7 +201,9 @@ const Navbar = () => {
                                 className="h-9 w-9 rounded-full bg-gray-500 dark:bg-gray-700 flex items-center justify-center text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg"
                                 style={{ fontSize: "1.5rem" }}
                               >
-                                <p className="mt-1">{user.email[0].toUpperCase()}</p>
+                                <p className="mt-1">
+                                  {user.email[0].toUpperCase()}
+                                </p>
                               </div>
                             ) : (
                               <Image
@@ -280,22 +292,28 @@ const Navbar = () => {
             {/*Mobile View*/}
             <Disclosure.Panel className="xl:hidden rounded-b-2xl">
               <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-                {navigation.map((item) => (
-                  <Disclosure.Button
-                    key={item.name}
-                    as="a"
-                    href={item.href}
-                    className={classNames(
-                      item.current
-                        ? "bg-gray-700 dark:bg-gray-400 text-gray-200 dark:text-black "
-                        : "text-gray-950 dark:text-gray-100 dark:hover:text-gray-950 hover:bg-gray-300 dark:hover:bg-gray-300 ",
-                      "block rounded-lg px-3 py-2 text-base font-medium",
-                    )}
-                    aria-current={item.current ? "page" : undefined}
-                  >
-                    {item.name}
-                  </Disclosure.Button>
-                ))}
+                {navigation.map((item) =>
+                  role === "admin" ||
+                  (!role && item.user) ||
+                  (role === "user" && item.user) ? (
+                    <Link
+                      key={item.name}
+                      href={item.href}
+                      className={classNames(
+                        item.current
+                          ? "bg-gray-100 bg-opacity-90 md:rounded-lg dark:bg-gray-500 dark:bg-opacity-70 text-white"
+                          : "text-gray-300 dark:hover:bg-gray-600 dark:bg-opacity-95 hover:bg-gray-300 hover:bg-opacity-95",
+                        "flex items-center rounded-lg px-3 py-2 text-sm font-medium",
+                      )}
+                      aria-current={item.current ? "page" : undefined}
+                    >
+                      <div className="dark:text-white flex space-x-1 text-black mr-2">
+                        <span className="my-auto">{item.icon}</span>
+                        <span>{item.name}</span>
+                      </div>
+                    </Link>
+                  ) : null,
+                )}
               </div>
 
               <div className="border-t border-gray-700 pb-3 pt-4 ">
@@ -305,28 +323,28 @@ const Navbar = () => {
                     user.addresses &&
                     user.addresses[0] &&
                     user.addresses[0].dpUrl ? (
-                        <Image
-                            className="h-10 w-10 p-0.5 rounded-full bg-gray-500 dark:bg-gray-500 flex items-center justify-center text-white dark:hover:bg-gray-300 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg"
-                            src={user.addresses[0].dpUrl}
-                            alt=""
-                            width={40}
-                            height={40}
-                        />
+                      <Image
+                        className="h-10 w-10 p-0.5 rounded-full bg-gray-500 dark:bg-gray-500 flex items-center justify-center text-white dark:hover:bg-gray-300 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg"
+                        src={user.addresses[0].dpUrl}
+                        alt=""
+                        width={40}
+                        height={40}
+                      />
                     ) : user && user.email ? (
-                        <div
-                            className="h-9 w-9 rounded-full bg-gray-500 dark:bg-gray-700 flex items-center justify-center text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg"
-                            style={{ fontSize: "1.5rem" }}
-                        >
-                          <p className="mt-1">{user.email[0].toUpperCase()}</p>
-                        </div>
+                      <div
+                        className="h-9 w-9 rounded-full bg-gray-500 dark:bg-gray-700 flex items-center justify-center text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg"
+                        style={{ fontSize: "1.5rem" }}
+                      >
+                        <p className="mt-1">{user.email[0].toUpperCase()}</p>
+                      </div>
                     ) : (
-                        <Image
-                            className="h-10 w-10 p-2 rounded-full bg-gray-500 dark:bg-gray-700 flex items-center justify-center text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg"
-                            src="/Navbar/blankUser.svg"
-                            alt=""
-                            width={40}
-                            height={40}
-                        />
+                      <Image
+                        className="h-10 w-10 p-2 rounded-full bg-gray-500 dark:bg-gray-700 flex items-center justify-center text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg"
+                        src="/Navbar/blankUser.svg"
+                        alt=""
+                        width={40}
+                        height={40}
+                      />
                     )}
                   </div>
 
