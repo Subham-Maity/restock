@@ -13,8 +13,10 @@ import {
   AiFillCloseSquare,
   AiOutlineEdit,
   AiOutlineHome,
+  AiOutlineMail,
 } from "react-icons/ai";
 import { HiPlus } from "react-icons/hi";
+import { FaUserCheck, FaUserShield } from "react-icons/fa";
 
 type Inputs = {
   email: string;
@@ -72,18 +74,37 @@ export default function UserProfile() {
 
   return (
     <div>
-      <div className="mx-auto mt-12 default-card max-w-7xl  default-card pb-12 ">
+      <div className="mx-auto mt-12 default-card max-w-7xl default-card pb-12 ">
         <div className="px-4 py-6 sm:px-6">
-          <h1 className="text-4xl my-5 font-bold tracking-tight text-gray-900 dark:text-gray-200">
-            Name:{" "}
-            {user.addresses && user.addresses[0]
-              ? user.addresses[0].name
-              : "No Name Provided"}
+          <h1 className="text-4xl flex my-5 font-bold tracking-tight text-yellow-900 dark:text-yellow-200">
+            <FaUserShield className="mt-0.5 mr-1.5" /> Name:{" "}
+            <span className="ml-2 text-pink-900 dark:text-pink-200 break-all">
+              {user.addresses && user.addresses[0]
+                ? user.addresses[0].name
+                : "No Name Provided"}
+            </span>
           </h1>
-          <h3 className="text-xl my-5 font-bold tracking-tight dark:text-red-500 text-red-900">
-            Email Address : {user?.email && user.email}
+          <hr className="border-t dark:border-gray-600 border-gray-600 py-2 mr-96" />
+          <h3 className="text-xl flex font-bold tracking-tight dark:text-indigo-500 text-indigo-900 ">
+            <AiOutlineMail className="mt-1 mr-1.5" />
+            Email Address :{" "}
+            <span className="ml-2 text-blue-900 dark:text-blue-400 break-all">
+              {" "}
+              {user?.email && user.email}
+            </span>
           </h3>
+          <hr className="border-t dark:border-gray-600 mt-4 border-gray-600  mr-96 " />
         </div>
+
+        {user.role === "admin" && (
+          <h3 className="text-xl flex ml-6 mb-4 font-bold tracking-tight dark:text-green-500 text-gren-900">
+            <FaUserCheck className="mt-1 mr-1.5" /> role :
+            <span className="ml-2 text-emerald-900 dark:text-emerald-200 break-all">
+              {" "}
+              {user.role}{" "}
+            </span>
+          </h3>
+        )}
 
         <div className="border-t dark:border-gray-200 border-gray-600 px-4 py-6 sm:px-6">
           <button

@@ -2338,14 +2338,23 @@
     {
       "email": "Demo123@gmail.com",
       "password": "Demo123@gmail.com",
+      "addresses": [],
       "id": 1,
-      "addresses": []
+      "role": "user"
     },
     {
       "email": "Test123@gmail.com",
       "password": "Test123@gmail.com",
+      "addresses": [],
       "id": 2,
-      "addresses": []
+      "role": "user"
+    },
+    {
+      "email": "Admin123@gmail.com",
+      "password": "Admin123@gmail.com",
+      "addresses": [],
+      "role": "admin",
+      "id": 3
     }
   ],
   "cart": [],

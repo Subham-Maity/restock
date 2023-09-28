@@ -3,6 +3,7 @@ export interface User {
   password?: string;
   id?: number;
   addresses: Address[];
+  role: string;
 }
 
 export interface Address {

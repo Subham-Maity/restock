@@ -18,7 +18,7 @@ export default function UserOrders() {
   useEffect(() => {
     // @ts-ignore
     dispatch(fetchLoggedInUserOrderAsync(user.id));
-  }, []);
+  }, [dispatch, user]);
   if (!user) {
     return (
       <div className="flex flex-col items-center justify-center h-screen">
@@ -50,7 +50,6 @@ export default function UserOrders() {
                 </h3>
                 <div className="flow-root">
                   <ul
-                    role="list"
                     className="-my-6 dark:text-gray-200 divide-y divide-gray-200"
                   >
                     {order.items.map((item: any) => (
