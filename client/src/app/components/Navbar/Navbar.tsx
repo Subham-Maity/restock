@@ -12,7 +12,6 @@ import {
   BiSolidMouseAlt,
   BiSolidUserCheck,
 } from "react-icons/bi";
-import { PiComputerTowerFill } from "react-icons/pi";
 import { TbBrandSupabase } from "react-icons/tb";
 import { BsGpuCard } from "react-icons/bs";
 import Link from "next/link";

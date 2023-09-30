@@ -7,6 +7,7 @@ import {fetchAllStoreProductsAsync} from "@/app/components/products/pages/pc-com
 
 const ProductProvider = ({ children }: { children: React.ReactNode }) => {
     const dispatch: AppDispatch = useDispatch();
+
     useEffect(() => {
         dispatch(fetchAllStoreProductsAsync());
     }, [dispatch]);
