@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { Fragment } from "react";
 import {
   Bars3Icon,
@@ -18,12 +18,17 @@ import { BsGpuCard } from "react-icons/bs";
 import Link from "next/link";
 import Image from "next/image";
 import Switcher from "@/app/components/Mode/Switcher";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { selectItems } from "@/app/components/cart/cartSlice";
 import { useRouter } from "next/navigation";
 import CartHoverOnMouse from "@/app/components/cart/CartHoverOnMouse";
 import { selectLoggedInUser } from "@/app/components/auth/authSlice";
 import { selectUserInfo } from "@/app/components/user/userSlice";
+import Search from "@/app/components/Search/Search"
+import {
+  selectAllProducts, selectAllProducts_
+} from "@/app/components/products/pages/pc-components/productListSlice";
+
 
 const navigation = [
   {
@@ -67,6 +72,7 @@ const navigation = [
     admin: true,
   },
 ];
+
 const userNavigation = [
   { name: "Your Profile Setting", href: "/UserProfile" },
   { name: "My Orders", href: "/orders" },
@@ -82,6 +88,8 @@ const Navbar = () => {
   const user = useSelector(selectUserInfo);
   const users = useSelector(selectLoggedInUser);
   const role = users?.role;
+  const itemsForSearch = useSelector(selectAllProducts_);
+
   const handleCartIconHover = () => {
     setIsCartHoverOpen(true);
     // Clear any previous timeouts
@@ -99,10 +107,10 @@ const Navbar = () => {
     setCartHoverTimeout(timeoutId);
   };
   const router = useRouter();
-  const items = useSelector(selectItems);
   const handleCartIconClick = () => {
     router.push("/cart");
   };
+  const items = useSelector(selectAllProducts);
 
   return (
     <div className="fixed top-0 left-0 right-0 rounded-b-lg z-50 backdrop-blur-3xl">
@@ -126,6 +134,7 @@ const Navbar = () => {
                       />
                     </Link>
                   </div>
+
                   <div className="hidden xl:block">
                     <div className="flex items-center space-x-4">
                       {navigation.map((item) =>
@@ -152,6 +161,11 @@ const Navbar = () => {
                       )}
                     </div>
                   </div>
+
+                  <div>
+                    <Search items={itemsForSearch}/>
+
+                  </div>
                 </div>
                 <div className="hidden lg:block ml-auto">
                   <div className="ml-4 flex items-center md:ml-6">
@@ -175,6 +189,7 @@ const Navbar = () => {
                         {items.length}
                       </span>
                     )}
+
 
                     {/* Profile dropdown */}
                     <Menu as="div" className="relative ml-3">
@@ -315,6 +330,7 @@ const Navbar = () => {
                   ) : null,
                 )}
               </div>
+
 
               <div className="border-t border-gray-700 pb-3 pt-4 ">
                 <div className="flex items-center px-5 ">
