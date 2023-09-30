@@ -111,7 +111,7 @@ const Navbar = () => {
   const handleCartIconClick = () => {
     router.push("/cart");
   };
-  const items = useSelector(selectAllProducts);
+  const items = useSelector(selectItems);
 
   return (
     <div className="fixed top-0 left-0 right-0 rounded-b-lg z-50 backdrop-blur-3xl">
