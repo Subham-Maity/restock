@@ -22,7 +22,7 @@ import {
   selectCategories,
   fetchBrandsAsync,
   fetchCategoriesAsync,
-  selectProductById,
+  selectProductById,  setAllProducts,
 } from "@/app/components/products/pages/pc-components/productListSlice";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import { AppDispatch } from "@/lib/redux/store";
@@ -74,6 +74,10 @@ export const PcComponentProductList = () => {
   const brands = useSelector(selectBrands);
   const categories = useSelector(selectCategories);
   const products = useSelector(selectAllProducts);
+  console.log(products , "all products")
+  const product2 = useSelector(setAllProducts);
+  console.log(product2 , "all products2")
+
   const totalItems = useSelector(selectTotalItems);
   const filters = [
     {
