@@ -17,6 +17,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "@/lib/redux/store";
 import CustomButton from "@/app/components/CustomButton/CustomButton";
+import { AiOutlineLock, AiOutlineUser } from "react-icons/ai";
 
 const Signup = () => {
   const {
@@ -63,19 +64,21 @@ const Signup = () => {
               >
                 Email address
               </label>
-              <div className="mt-2">
+              <div className="flex flex-wrap items-stretch w-full mb-4 relative h-15 dark:bg-[#303030] bg-stone-300 border border-gray-400/20 rounded-2xl pr-2">
+                <div className="flex justify-center w-15 p-3">
+                  <span className="flex items-center leading-normal dark:bg-[#303030] bg-stone-300 border-0 text-3xl text-gray-600">
+                    <AiOutlineUser className="text-gray-800 dark:text-gray-400 animate-pulse" />
+                  </span>
+                </div>
+
                 <input
                   id="email"
                   {...register("email", {
                     required: "email is required",
-                    pattern: {
-                      value: /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi,
-                      message: "email not valid",
-                    },
                   })}
                   type="email"
                   placeholder="example@domain.com"
-                  className="block w-full rounded-2xl h-11 bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-xl h-11 bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl  dark:border-gray-600 dark:placeholder-gray-400 placeholder:font-bold dark:text-white focus:ring-stone-700 focus:border-blue-800 text-sm xl:text-base sm:leading-6 flex-shrink flex-grow flex-1 leading-normal border-0 border-grey-light px-3 self-center relative font-roboto outline-none"
                 />
                 {errors.email && (
                   <p className="text-red-500">{errors.email.message}</p>
@@ -92,22 +95,21 @@ const Signup = () => {
                   Password
                 </label>
               </div>
-              <div className="mt-2">
+              <div className="flex flex-wrap items-stretch w-full mb-4 relative h-15 dark:bg-[#303030] bg-stone-300 border border-gray-400/20 rounded-xl pr-2 mt-2">
+                <div className="flex justify-center w-15 p-3">
+                  <span className="flex items-center leading-normal dark:bg-[#303030] bg-stone-300 border-0 text-3xl text-gray-600">
+                    <AiOutlineLock className="text-gray-800 dark:text-gray-400 animate-pulse" />
+                  </span>
+                </div>
+
                 <input
                   id="password"
                   {...register("password", {
-                    required: "password is required",
-                    pattern: {
-                      value:
-                        /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm,
-                      message: `- at least 8 characters\n
-                      - must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number\n
-                      - Can contain special characters`,
-                    },
+                    required: "Password is required",
                   })}
                   type="password"
                   placeholder="12345@Password"
-                  className="block w-full rounded-2xl h-11 bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-xl h-11 bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl dark:border-gray-600 dark:placeholder-gray-400 placeholder:font-bold dark:text-white focus:ring-stone-700 focus:border-blue-800 text-sm xl:text-base sm:leading-6 flex-shrink flex-grow flex-1 leading-normal border-0 border-grey-light px-3 self-center relative font-roboto outline-none"
                 />
                 {errors.password && (
                   <p className="text-red-500">{errors.password.message}</p>
@@ -123,30 +125,32 @@ const Signup = () => {
                   Repeat Password
                 </label>
               </div>
-              <div className="mt-2">
+              <div className="flex flex-wrap items-stretch w-full mb-4 relative h-15 dark:bg-[#303030] bg-stone-300 border border-gray-400/20 rounded-xl pr-2 mt-2">
+                <div className="flex justify-center w-15 p-3">
+                  <span className="flex items-center leading-normal dark:bg-[#303030] bg-stone-300 border-0 text-3xl text-gray-600">
+                    <AiOutlineLock className="text-gray-800 dark:text-gray-400 animate-pulse" />
+                  </span>
+                </div>
+
                 <input
-                  id="confirmPassword"
-                  {...register("confirmPassword", {
-                    required: "confirm password is required",
-                    validate: (value, formValues) =>
-                      value === formValues.password || "password not matching",
+                  id="password"
+                  {...register("password", {
+                    required: "Password is required",
                   })}
                   type="password"
                   placeholder="12345@Password"
-                  className="block w-full rounded-2xl h-11 bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 sm:text-sm sm:leading-66"
+                  className="block w-full rounded-xl h-11 bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl dark:border-gray-600 dark:placeholder-gray-400 placeholder:font-bold dark:text-white focus:ring-stone-700 focus:border-blue-800 text-sm xl:text-base sm:leading-6 flex-shrink flex-grow flex-1 leading-normal border-0 border-grey-light px-3 self-center relative font-roboto outline-none"
                 />
-                {errors.confirmPassword && (
-                  <p className="text-red-500">
-                    {errors.confirmPassword.message}
-                  </p>
+                {errors.password && (
+                  <p className="text-red-500">{errors.password.message}</p>
                 )}
               </div>
             </div>
 
             <div className="mt-6 items-center">
               <CustomButton
-                className="animated-btn py-2 w-full font-bold"
-                title="Sign up"
+                className="animated-btn py-3 w-full font-bold"
+                title="Create Account"
                 type="submit"
                 animated
                 icon={<FaArrowRight />}
@@ -158,7 +162,7 @@ const Signup = () => {
             Already have an account?{" "}
             <Link
               href="/login"
-              className="font-semibold leading-6 text-indigo-600 dark:text-indigo-600 hover:text-indigo-500 dark:hover:text-indigo-400"
+              className="font-semibold leading-6 text-indigo-500 dark:text-indigo-500 hover:text-indigo-400 dark:hover:text-indigo-400"
             >
               Sign in
             </Link>

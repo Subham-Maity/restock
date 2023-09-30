@@ -18,6 +18,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "@/lib/redux/store";
 import { AiOutlineLock, AiOutlineUser } from "react-icons/ai";
 import CustomButton from "@/app/components/CustomButton/CustomButton";
+import { BiSolidLogInCircle } from "react-icons/bi";
+import { TbLogin2 } from "react-icons/tb";
 
 const Login = () => {
   const {
@@ -63,9 +65,9 @@ const Login = () => {
               >
                 Email address
               </label>
-              <div className="flex flex-wrap items-stretch w-full mb-4 relative h-15 dark:bg-[#303030] bg-stone-300 border border-gray-400/20 rounded-xl pr-2">
-                <div className="flex -mr-px justify-center w-15 pt-4 p-4">
-                  <span className="flex items-center leading-normal dark:bg-[#303030] bg-stone-300 border-0 text-2xl text-gray-600">
+              <div className="flex flex-wrap items-stretch w-full mb-4 relative h-15 dark:bg-[#303030] bg-stone-300 border border-gray-400/20 rounded-2xl pr-2">
+                <div className="flex justify-center w-15 p-3">
+                  <span className="flex items-center leading-normal dark:bg-[#303030] bg-stone-300 border-0 text-3xl text-gray-600">
                     <AiOutlineUser className="text-gray-800 dark:text-gray-400 animate-pulse" />
                   </span>
                 </div>
@@ -77,7 +79,7 @@ const Login = () => {
                   })}
                   type="email"
                   placeholder="example@domain.com"
-                  className="block w-full rounded-xl h-11 bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-stone-700 focus:border-blue-800 text-sm xl:text-base sm:leading-6 flex-shrink flex-grow flex-1 leading-normal border-0 border-grey-light px-3 self-center relative font-roboto outline-none"
+                  className="block w-full rounded-xl h-11 bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl  dark:border-gray-600 dark:placeholder-gray-400 placeholder:font-bold dark:text-white focus:ring-stone-700 focus:border-blue-800 text-sm xl:text-base sm:leading-6 flex-shrink flex-grow flex-1 leading-normal border-0 border-grey-light px-3 self-center relative font-roboto outline-none"
                 />
                 {errors.email && (
                   <p className="text-red-500">{errors.email.message}</p>
@@ -106,37 +108,36 @@ const Login = () => {
                   </button>
                 </div>
               </div>
-              <div className="mt-2">
-                <div className="flex flex-wrap items-stretch w-full mb-4 relative h-15 dark:bg-[#303030] bg-stone-300 border border-gray-400/20 rounded-xl pr-2">
-                  <div className="flex -mr-px justify-center w-15 pt-4 p-4">
-                    <span className="flex items-center leading-normal dark:bg-[#303030] bg-stone-300 border-0 text-2xl text-gray-600">
-                      <AiOutlineLock className="text-gray-800 dark:text-gray-400 animate-pulse" />
-                    </span>
-                  </div>
 
-                  <input
-                    id="password"
-                    {...register("password", {
-                      required: "Password is required",
-                    })}
-                    type="password"
-                    placeholder="12345@Password"
-                    className="block w-full rounded-xl h-11 bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-stone-700 focus:border-blue-800 text-sm xl:text-base sm:leading-6 flex-shrink flex-grow flex-1 leading-normal border-0 border-grey-light px-3 self-center relative font-roboto outline-none"
-                  />
-                  {errors.password && (
-                    <p className="text-red-500">{errors.password.message}</p>
-                  )}
+              <div className="flex flex-wrap items-stretch w-full mb-4 relative h-15 dark:bg-[#303030] bg-stone-300 border border-gray-400/20 rounded-xl pr-2 mt-2">
+                <div className="flex justify-center w-15 p-3">
+                  <span className="flex items-center leading-normal dark:bg-[#303030] bg-stone-300 border-0 text-3xl text-gray-600">
+                    <AiOutlineLock className="text-gray-800 dark:text-gray-400 animate-pulse" />
+                  </span>
                 </div>
+
+                <input
+                  id="password"
+                  {...register("password", {
+                    required: "Password is required",
+                  })}
+                  type="password"
+                  placeholder="12345@Password"
+                  className="block w-full rounded-xl h-11 bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl dark:border-gray-600 dark:placeholder-gray-400 placeholder:font-bold dark:text-white focus:ring-stone-700 focus:border-blue-800 text-sm xl:text-base sm:leading-6 flex-shrink flex-grow flex-1 leading-normal border-0 border-grey-light px-3 self-center relative font-roboto outline-none"
+                />
+                {errors.password && (
+                  <p className="text-red-500">{errors.password.message}</p>
+                )}
               </div>
             </div>
 
             <div className="mt-6 items-center blur-[sm]">
-              <CustomButton 
-                className="animated-btn py-2 w-full font-bold"
+              <CustomButton
+                className="animated-btn py-3 w-full font-bold"
                 title="Log in"
                 type="submit"
                 animated
-                icon={<FaArrowRight />}
+                icon={<TbLogin2 />}
               />
             </div>
           </form>

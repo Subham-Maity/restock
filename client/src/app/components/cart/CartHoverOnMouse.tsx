@@ -11,7 +11,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import CustomButton from "@/app/components/CustomButton/CustomButton";
-import { MdDeleteForever, MdShoppingCartCheckout } from "react-icons/md";
+import { MdDeleteForever } from "react-icons/md";
 import { TbShoppingCartUp } from "react-icons/tb";
 import { PiLightningFill } from "react-icons/pi";
 
@@ -22,7 +22,7 @@ const CartHoverOnMouse = () => {
   const dispatch: AppDispatch = useDispatch();
   const totalAmount = items.reduce(
     (amount: any, item: any) => item.price * item.quantity + amount,
-    0,
+    0
   );
   const handleRemove = (e: any, id: any) => {
     if (isUserClosed) return;
@@ -33,7 +33,7 @@ const CartHoverOnMouse = () => {
   };
   const totalItems = items.reduce(
     (total: number, item: any) => item.quantity + total,
-    0,
+    0
   );
   const router = useRouter();
 
@@ -64,9 +64,7 @@ const CartHoverOnMouse = () => {
               </h3>
               <p className="border-t mt-4 mb-4 border-gray-800 py-2 dark:border-gray-200 text-xs font-light dark:text-gray-400"></p>
               <div className="flow-root">
-                <ul
-                  className="-my-6 divide-y divide-gray-400 h-fit max-h-[24rem] overflow-y-auto pr-3"
-                >
+                <ul className="-my-6 divide-y divide-gray-400 h-fit max-h-[24rem] overflow-y-auto pr-3">
                   {items.map((item: any) => (
                     <li key={item.id} className="flex py-3">
                       <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
@@ -150,7 +148,7 @@ const CartHoverOnMouse = () => {
 
                 <CustomButton
                   title="Buy Now"
-                  className="animated-btn sm:h-10 md:h-10 sm:w-40 md:w-40 text-sm font-bold"
+                  className="animated-btn sm:h-10 md:h-10 sm:w-36 md:w-40 text-sm font-bold"
                   animated
                   icon={<PiLightningFill />}
                   onClick={() => {
