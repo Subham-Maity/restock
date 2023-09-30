@@ -24,10 +24,11 @@ import { useRouter } from "next/navigation";
 import CartHoverOnMouse from "@/app/components/cart/CartHoverOnMouse";
 import { selectLoggedInUser } from "@/app/components/auth/authSlice";
 import { selectUserInfo } from "@/app/components/user/userSlice";
-import Search from "@/app/components/Search/Search"
+
 import {
   selectAllProducts, selectAllProducts_
 } from "@/app/components/products/pages/pc-components/productListSlice";
+import Search from "@/app/components/search/Search";
 
 
 const navigation = [
