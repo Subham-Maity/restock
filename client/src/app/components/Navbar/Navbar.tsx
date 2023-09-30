@@ -12,7 +12,6 @@ import {
   BiSolidMouseAlt,
   BiSolidUserCheck,
 } from "react-icons/bi";
-import { PiComputerTowerFill } from "react-icons/pi";
 import { TbBrandSupabase } from "react-icons/tb";
 import { BsGpuCard } from "react-icons/bs";
 import Link from "next/link";
@@ -24,6 +23,9 @@ import { useRouter } from "next/navigation";
 import CartHoverOnMouse from "@/app/components/cart/CartHoverOnMouse";
 import { selectLoggedInUser } from "@/app/components/auth/authSlice";
 import { selectUserInfo } from "@/app/components/user/userSlice";
+
+import { selectAllProducts_ } from "@/app/components/products/pages/pc-components/productListSlice";
+import { ReactSearchAutocomplete } from "react-search-autocomplete";
 
 const navigation = [
   {
@@ -67,6 +69,7 @@ const navigation = [
     admin: true,
   },
 ];
+
 const userNavigation = [
   { name: "Your Profile Setting", href: "/UserProfile" },
   { name: "My Orders", href: "/orders" },
@@ -82,6 +85,8 @@ const Navbar = () => {
   const user = useSelector(selectUserInfo);
   const users = useSelector(selectLoggedInUser);
   const role = users?.role;
+  const itemsForSearch = useSelector(selectAllProducts_);
+
   const handleCartIconHover = () => {
     setIsCartHoverOpen(true);
     // Clear any previous timeouts
@@ -98,11 +103,8 @@ const Navbar = () => {
     // Store the timeout ID in state for future reference
     setCartHoverTimeout(timeoutId);
   };
-  const router = useRouter();
+
   const items = useSelector(selectItems);
-  const handleCartIconClick = () => {
-    router.push("/cart");
-  };
 
   return (
     <div className="fixed top-0 left-0 right-0 rounded-b-lg z-50 backdrop-blur-3xl">
@@ -126,6 +128,7 @@ const Navbar = () => {
                       />
                     </Link>
                   </div>
+
                   <div className="hidden xl:block">
                     <div className="flex items-center space-x-4">
                       {navigation.map((item) =>
@@ -151,6 +154,10 @@ const Navbar = () => {
                         ) : null,
                       )}
                     </div>
+                  </div>
+
+                  <div>
+                    <SearchProduct items={itemsForSearch} />
                   </div>
                 </div>
                 <div className="hidden lg:block ml-auto">
@@ -399,3 +406,60 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+export const SearchProduct = ({ items }: any) => {
+  const handleOnSearch = (string: any, results: any) => {
+    console.log(string, results);
+  };
+
+  const handleOnHover = (result: any) => {
+    console.log(result);
+  };
+
+  const handleOnSelect = (item: any) => {
+    console.log(item);
+  };
+
+  const handleOnFocus = () => {
+    console.log("Focused");
+  };
+
+  const formatResult = (items: any) => {
+    return (
+      <div className="flex focus:outline-none bg-cyan-200">
+        <div className="h-20 w-24 object-fill object-center">
+          <Image
+            className="w-full h-full object-fill object-center"
+            src={items.thumbnail}
+            alt={items.category}
+            height={100}
+            width={80}
+          />
+        </div>
+        <span style={{ display: "block", textAlign: "left" }}>
+          name: {items.title}
+        </span>
+      </div>
+    );
+  };
+
+  return (
+    <div className="App">
+      <header className="App-header">
+        <div style={{ width: 400 }}>
+          <ReactSearchAutocomplete
+            items={items}
+            fuseOptions={{ keys: ["title"] }}
+            onSearch={handleOnSearch}
+            onHover={handleOnHover}
+            onSelect={handleOnSelect}
+            onFocus={handleOnFocus}
+            autoFocus
+            formatResult={formatResult}
+            className="focus:outline-none bg-cyan-500"
+          />
+        </div>
+      </header>
+    </div>
+  );
+};

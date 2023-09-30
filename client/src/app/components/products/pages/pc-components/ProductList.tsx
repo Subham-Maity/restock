@@ -74,6 +74,9 @@ export const PcComponentProductList = () => {
   const brands = useSelector(selectBrands);
   const categories = useSelector(selectCategories);
   const products = useSelector(selectAllProducts);
+  console.log(products , "all products")
+
+
   const totalItems = useSelector(selectTotalItems);
   const filters = [
     {
