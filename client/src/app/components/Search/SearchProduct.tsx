@@ -1,7 +1,7 @@
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import Image from "next/image";
 
-const search = ({ items }: any) => {
+const SearchProduct = ({ items }: any) => {
   const handleOnSearch = (string: any, results: any) => {
     console.log(string, results);
   };
@@ -58,4 +58,4 @@ const search = ({ items }: any) => {
   );
 };
 
-export default search;
+export default SearchProduct;

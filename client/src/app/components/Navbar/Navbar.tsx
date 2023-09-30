@@ -1,5 +1,5 @@
 "use client";
-import React, {useEffect, useState} from "react";
+import React, { useState } from "react";
 import { Fragment } from "react";
 import {
   Bars3Icon,
@@ -17,18 +17,15 @@ import { BsGpuCard } from "react-icons/bs";
 import Link from "next/link";
 import Image from "next/image";
 import Switcher from "@/app/components/Mode/Switcher";
-import {useDispatch, useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import { selectItems } from "@/app/components/cart/cartSlice";
 import { useRouter } from "next/navigation";
 import CartHoverOnMouse from "@/app/components/cart/CartHoverOnMouse";
 import { selectLoggedInUser } from "@/app/components/auth/authSlice";
 import { selectUserInfo } from "@/app/components/user/userSlice";
 
-import {
-  selectAllProducts, selectAllProducts_
-} from "@/app/components/products/pages/pc-components/productListSlice";
-import Search from "@/app/components/search/Search";
-
+import { selectAllProducts_ } from "@/app/components/products/pages/pc-components/productListSlice";
+import SearchProduct from "@/app/components/search/SearchProduct";
 
 const navigation = [
   {
@@ -106,10 +103,7 @@ const Navbar = () => {
     // Store the timeout ID in state for future reference
     setCartHoverTimeout(timeoutId);
   };
-  const router = useRouter();
-  const handleCartIconClick = () => {
-    router.push("/cart");
-  };
+
   const items = useSelector(selectItems);
 
   return (
@@ -163,8 +157,7 @@ const Navbar = () => {
                   </div>
 
                   <div>
-                    <Search items={itemsForSearch}/>
-
+                    <SearchProduct items={itemsForSearch} />
                   </div>
                 </div>
                 <div className="hidden lg:block ml-auto">
@@ -189,7 +182,6 @@ const Navbar = () => {
                         {items.length}
                       </span>
                     )}
-
 
                     {/* Profile dropdown */}
                     <Menu as="div" className="relative ml-3">
@@ -330,7 +322,6 @@ const Navbar = () => {
                   ) : null,
                 )}
               </div>
-
 
               <div className="border-t border-gray-700 pb-3 pt-4 ">
                 <div className="flex items-center px-5 ">
