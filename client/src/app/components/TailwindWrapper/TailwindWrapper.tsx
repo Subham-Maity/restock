@@ -11,7 +11,7 @@ const TailwindWrapper = ({
   return (
     <div
       className={cn(
-        "w-full h-full mt-24 mx-2",
+        "w-full h-full mt-24",
         className,
       )}
     >

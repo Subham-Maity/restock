@@ -17,6 +17,7 @@ import {
 } from "react-icons/ai";
 import { HiPlus } from "react-icons/hi";
 import { FaUserCheck, FaUserShield } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 type Inputs = {
   email: string;
@@ -109,17 +110,20 @@ export default function UserProfile() {
         )}
 
         <div className="border-t dark:border-gray-200 border-gray-600 px-4 py-6 sm:px-6">
-          <button
+          <motion.button
             onClick={(e) => {
               setShowAddAddressForm(true);
               setSelectedEditIndex(-1);
             }}
             type="submit"
-            className="inline-flex rounded-md my-5 bg-green-600 px-3 py-2 text-sm text-gray-900 dark:text-gray-200 font-semibold  shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="inline-flex rounded-md my-5 text-gray-200 bg-green-600 px-3 py-2 text-md dark:text-gray-200 font-semibold shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            initial={{ scale: 1 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <HiPlus className="mt-0.5 mr-1" />
+            <HiPlus className="mt-0.5 mr-1 text-md" />
             Add New Address
-          </button>
+          </motion.button>
           {showAddAddressForm ? (
             <form
               className="default-card px-5 py-12 mt-12"
@@ -324,21 +328,31 @@ export default function UserProfile() {
                 </div>
 
                 <div className="mt-6 flex items-center justify-end gap-x-6">
-                  <button
+                  <motion.button
                     onClick={(e) => setShowAddAddressForm(false)}
                     type="submit"
                     className="inline-flex rounded-md px-3 border-2 py-2 text-sm font-semibold text-grey text-red-900 dark:text-red-200 shadow-sm hover:bg-grey-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 border-red-600/50"
+                    whileHover={{
+                      scale: 1.05,
+                      backgroundColor: "#FF0000",
+                      color: "#FFFFFF",
+                    }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ duration: 0.2 }}
                   >
                     <AiFillCloseSquare className="mt-0.5 mr-1" />
                     Cancel
-                  </button>
-                  <button
+                  </motion.button>
+                  <motion.button
                     type="submit"
-                    className="inline-flex rounded-md bg-green-600 px-3 py-2 text-sm  font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    className="inline-flex rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    whileHover={{ scale: 1.05, backgroundColor: "#4CAF50" }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ duration: 0.2 }}
                   >
                     <AiOutlineHome className="mt-0.5 mr-1" />
                     Add Address
-                  </button>
+                  </motion.button>
                 </div>
               </div>
             </form>
@@ -564,21 +578,34 @@ export default function UserProfile() {
                       </div>
 
                       <div className="mt-6 flex items-center justify-end gap-x-6">
-                        <button
+                        <motion.button
                           onClick={(e) => setSelectedEditIndex(-1)}
                           type="submit"
                           className="inline-flex rounded-md px-3 border-2 py-2 text-sm font-semibold text-grey text-red-900 dark:text-red-200 shadow-sm hover:bg-grey-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 border-red-600/50"
+                          whileHover={{
+                            scale: 1.05,
+                            backgroundColor: "#FF0000",
+                            color: "#FFFFFF",
+                          }}
+                          whileTap={{ scale: 0.95 }}
+                          transition={{ duration: 0.2 }}
                         >
                           <AiFillCloseSquare className="mt-0.5 mr-1" />
                           Cancel
-                        </button>
-                        <button
+                        </motion.button>
+                        <motion.button
                           type="submit"
-                          className="inline-flex rounded-md bg-blue-800 hover:bg-blue-500  dark:bg-blue-700 px-3 py-2 text-sm font-semibold text-white shadow-sm dark:hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                          className="inline-flex rounded-md bg-blue-800 hover:bg-blue-500 dark:bg-blue-700 px-3 py-2 text-sm font-semibold text-white shadow-sm dark:hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                          whileHover={{
+                            scale: 1.05,
+                            backgroundColor: "#1E40AF",
+                          }}
+                          whileTap={{ scale: 0.95 }}
+                          transition={{ duration: 0.2 }}
                         >
                           <AiOutlineEdit className="mt-0.5 mr-1" />
                           Edit Address
-                        </button>
+                        </motion.button>
                       </div>
                     </div>
                   </form>
@@ -606,22 +633,36 @@ export default function UserProfile() {
                     </p>
                   </div>
                   <div className="sm:flex sm:flex-col sm:items-end">
-                    <button
+                    <motion.button
                       onClick={(e) => handleEditForm(index)}
                       type="button"
                       className="md:font-semibold text-sm mb-6 md:text-base text-blue-500 hover:text-blue-500 flex items-center"
+                      whileHover={{ scale: 1.05, color: "#1E40AF" }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{ duration: 0.2 }}
                     >
                       <AiOutlineEdit />
                       Edit
-                    </button>
-                    <button
+                    </motion.button>
+
+                    <motion.button
                       onClick={(e) => handleRemove(e, index)}
                       type="button"
                       className="md:font-semibold text-sm md:text-base text-red-600 hover:text-red-500 flex items-center"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{ duration: 0.2 }}
                     >
-                      <MdDeleteForever />
+                      <motion.span
+                        initial={{ rotate: 0 }}
+                        whileHover={{ rotate: 360 }}
+                        transition={{ duration: 0.5 }}
+                        className="inline-block"
+                      >
+                        <MdDeleteForever />
+                      </motion.span>
                       Remove
-                    </button>
+                    </motion.button>
                   </div>
                 </div>
               </div>
