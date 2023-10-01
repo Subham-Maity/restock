@@ -8,9 +8,8 @@ import ThemeProviders from "@/app/ThemeProvider";
 import { ReduxProvider } from "@/lib/provider";
 import CartProvider from "@/app/components/cart/CartProvider";
 import UserProvider from "@/app/components/user/UserProvider";
-import { useDispatch } from "react-redux";
-import { fetchAllProductsAsync } from "@/app/components/products/pages/pc-components/productListSlice";
 import ProductProvider from "@/app/components/products/ProductProvider";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -42,7 +41,9 @@ export default function RootLayout({
           >
             <ProductProvider>
               <UserProvider>
-                <CartProvider>{children}</CartProvider>
+                <CartProvider>
+                  {children} <Analytics />
+                </CartProvider>
               </UserProvider>
             </ProductProvider>
           </body>
