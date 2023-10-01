@@ -12,7 +12,7 @@
 }
 
 .default-input {
-    @apply block w-full rounded-2xl h-11 bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-blue-500 focus:border-blue-800 sm:text-sm sm:leading-6;
+    @apply block w-full rounded-2xl h-11 bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-800 sm:text-sm sm:leading-6;
 }
 
 .animated-btn {
