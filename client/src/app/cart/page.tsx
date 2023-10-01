@@ -4,16 +4,16 @@ import Protected from "@/app/components/auth/components/Protected";
 import Cart from "@/app/components/cart/Cart";
 import Navbar from "@/app/components/Navbar/Navbar";
 import Footer from "@/app/components/Footer/Footer";
+import TailwindWrapper from "@/app/components/TailwindWrapper/TailwindWrapper";
 
 const Page = () => {
   return (
     <div>
       <Navbar />
-      <div className="mt-24">
+      <TailwindWrapper>
         <Cart />
-      </div>
-
-      <Footer />
+      </TailwindWrapper>
+        <Footer />
     </div>
   );
 };

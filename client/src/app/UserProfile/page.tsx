@@ -3,6 +3,7 @@ import UserProfile from "@/app/components/user/components/UserProfile";
 import Navbar from "@/app/components/Navbar/Navbar";
 import Footer from "@/app/components/Footer/Footer";
 import Protected from "@/app/components/auth/components/Protected";
+import TailwindWrapper from "@/app/components/TailwindWrapper/TailwindWrapper";
 
 const Page = () => {
   return (
@@ -10,9 +11,9 @@ const Page = () => {
       <Navbar />
 
       <Protected>
-        <div className="mt-24 mx-2">
+       <TailwindWrapper>
           <UserProfile />
-        </div>
+       </TailwindWrapper>
       </Protected>
       <Footer />
     </div>
