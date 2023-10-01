@@ -456,7 +456,7 @@ export const SearchProduct = ({ items }: any) => {
             onFocus={handleOnFocus}
             autoFocus
             formatResult={formatResult}
-            className="focus:outline-none bg-cyan-500"
+            className="focus:outline-none "
           />
         </div>
       </header>
