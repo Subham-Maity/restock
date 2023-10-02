@@ -3,27 +3,37 @@ import { useState } from "react";
 import {
   AiOutlineDown,
   AiOutlineMenuUnfold,
-  AiOutlineLeft,
+  AiOutlineLeft, AiOutlineHome, AiOutlineEdit,
 } from "react-icons/ai";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import {IoDocumentTextOutline, IoShareSocialSharp} from "react-icons/io5";
 import {BsGpuCard, BsTelegram} from "react-icons/bs";
 import { LuTwitter } from "react-icons/lu";
+import {FaRegEdit} from "react-icons/fa";
 
 const Menus = [
   {
-    title: "Pc Components Admin",
+    title: "Home Page",
+    image: "Navbar/form.svg",
+    icon: AiOutlineHome,
+    href: "/",
+    gap: true,
+
+  },
+  {
+    title: "Pc Components",
     icon: BsGpuCard,
     href: "/admin",
     gap: true,
-  },
-  {
-    title: "Admin Form",
-    image: "Navbar/form.svg",
-    icon: IoDocumentTextOutline,
-    href: "/admin/adminForm",
-    gap: true,
+    subNav: [
+      {
+        title: "Edit",
+        image: "Navbar/form.svg",
+        icon: AiOutlineEdit,
+        href: "/admin/adminForm",
+      }
+    ],
   },
   {
     title: "Socials",

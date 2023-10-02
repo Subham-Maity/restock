@@ -417,7 +417,7 @@ export const DesktopFilter = ({
 }) => {
   return (
     <>
-      <form className="hidden xl:block p-8 lg:w-72">
+      <form className="hidden xl:block p-1 lg:w-72">
         <h3 className="sr-only">Categories</h3>
 
         {filters.map((section: any) => (
@@ -623,7 +623,7 @@ export const ProductGrid = ({ products }: { products: any }) => {
   return (
     <>
       <div>
-        <div className="grid grid-cols-2 lg:p-8 gap-x-2 gap-y-10 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 xl:gap-x-2">
+        <div className="grid grid-cols-2 lg:p-2 gap-x-2 gap-y-10 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 xl:gap-x-2">
           {products.map((product: any, index: number) => (
             <div key={index}>
               <Link
