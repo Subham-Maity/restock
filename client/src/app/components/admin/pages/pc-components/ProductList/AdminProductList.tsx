@@ -255,11 +255,11 @@ export const AdminPcComponentProductList = () => {
                 </button>
               </div>
                 </BgAdminTailwindWrapper>
-              <BgAdminTailwindWrapper className="mt-2">
+
               <div>
                 <ProductGrid products={products}></ProductGrid>
               </div>
-              </BgAdminTailwindWrapper>
+
             </div>
           </div>
         </section>
@@ -623,15 +623,16 @@ export const ProductGrid = ({ products }: { products: any }) => {
   return (
     <>
       <div>
-        <div className="grid grid-cols-2 lg:p-2 gap-x-2 gap-y-10 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 xl:gap-x-2">
+        <div className="grid grid-cols-2 lg:p-2 gap-x-2 gap-y-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 xl:gap-x-2">
           {products.map((product: any, index: number) => (
+              <BgAdminTailwindWrapper key={index}>
             <div key={index}>
               <Link
                 href={`admin/admin-pc-components-details/${product.id}`}
                 key={product.id}
               >
                 <div
-                  className="group relative lg:shadow-lg lg:border-2 lg:bg-white/30 lg:dark:bg-black/20 border-gray-400/25 dark:border-gray-600/20 rounded-lg pb-2"
+                  className="group relative lg:shadow-lg lg:border-2 lg:bg-white/30 lg:dark:bg-black/20 border-gray-400/25 dark:border-gray-600/20 rounded-lg "
                   key={product.id}
                   onMouseEnter={() => handleMouseEnterWithDelay(index)}
                   onMouseLeave={handleMouseLeave}
@@ -737,6 +738,7 @@ export const ProductGrid = ({ products }: { products: any }) => {
                 </button>
               </div>
             </div>
+              </BgAdminTailwindWrapper>
           ))}
         </div>
       </div>
