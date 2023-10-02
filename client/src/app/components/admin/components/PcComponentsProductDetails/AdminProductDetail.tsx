@@ -24,7 +24,7 @@ import { FaCartPlus } from "react-icons/fa";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { AiOutlineZoomIn, AiOutlineZoomOut } from "react-icons/ai";
 import { IoClose } from "react-icons/io5";
-import ProductDetailsSkeleton from "@/app/components/admin/components/skeleton/ProductDetailsSkeleton";
+import ProductDetailsSkeleton from "@/app/components/admin/components/PcComponentsProductDetails/skeleton/ProductDetailsSkeleton";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");

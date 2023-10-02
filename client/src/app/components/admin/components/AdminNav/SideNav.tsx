@@ -10,7 +10,6 @@ import Link from "next/link";
 import {IoDocumentTextOutline, IoShareSocialSharp} from "react-icons/io5";
 import {BsGpuCard, BsTelegram} from "react-icons/bs";
 import { LuTwitter } from "react-icons/lu";
-import Switcher from "@/app/components/Mode/Switcher";
 
 const Menus = [
   {
@@ -91,8 +90,8 @@ const SubNav = () => {
       <div className="stickyClass top-[calc(100px+0.5rem)] lg:block md:block hidden ">
         <div
             className={`${
-                open ? "w-60" : "w-16 "
-            }  bg-white/50 dark:bg-black/70 border rounded-2xl border-gray-600/75 h-screen p-3 pt-8 text-gray-900 dark:text-gray-300 relative duration-300 `}
+                open ? "w-80" : "w-16"
+            }  dark:bg-[#2b2d30] bg-stone-200/25 border rounded-2xl lg:border lg:dark:border-white/25 lg:border-gray-800/25 h-[2000px] p-3 pt-8 text-gray-900 dark:text-gray-300 relative duration-300 `}
         >
           <div
               className={`absolute cursor-pointer -right-3 top-9 w-10 h-10 text-gray-900 dark:text-gray-300 flex items-center justify-center bg-sidebar border-2 border-stone-400 dark:border-stone-800 rounded-full ${
