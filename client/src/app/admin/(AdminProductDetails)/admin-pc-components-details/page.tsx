@@ -1,5 +1,5 @@
 import React from "react";
-import AdminProductDetail from "@/app/components/admin/components/AdminProductDetail";
+import AdminProductDetail from "@/app/components/admin/components/PcComponentsProductDetails/AdminProductDetail";
 import TailwindWrapper from "@/app/components/TailwindWrapper/TailwindWrapper";
 import AdminProtected from "@/app/components/auth/components/protectedAdmin";
 import DefaultLayout from "@/app/components/admin/components/AdminNav/DefaultNav";
