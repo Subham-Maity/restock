@@ -403,7 +403,7 @@ export const DesktopFilter = ({
           <Disclosure
             as="div"
             key={section.id}
-            className="border-b border-gray-200 py-3 dark:text-white"
+            className="border-b dark:border-gray-200 border-gray-800/25 py-3 dark:text-white"
           >
             {({ open }) => (
               <>

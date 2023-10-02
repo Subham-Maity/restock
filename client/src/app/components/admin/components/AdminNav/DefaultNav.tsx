@@ -8,12 +8,12 @@ import AdminNavbar from "@/app/components/admin/components/AdminNav/Navbar";
 const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <div className="flex flex-col h-screen">
+      <div className="flex flex-col h-fit dark:bg-stone-800 bg-stone-400/25">
         <div className="flex flex-1 mt-16">
           <div>
             <Sidebar />
           </div>
-          <div className="flex-1 overflow-x-hidden dark:bg-[#2b2d30] bg-stone-200/25 lg:border lg:dark:border-white/25 lg:border-gray-800/25 lg:m-4 lg:mt-6 rounded-lg">
+          <div className="flex-1 overflow-x-hidden lg:m-2 lg:mt-6 rounded-lg p-2">
             {children}
           </div>
         </div>

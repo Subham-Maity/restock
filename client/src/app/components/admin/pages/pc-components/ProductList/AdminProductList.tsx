@@ -34,12 +34,10 @@ import { toast } from "react-toastify";
 import { User } from "@/app/components/auth/auth.type";
 import { selectLoggedInUser } from "@/app/components/auth/authSlice";
 import ProductListSkeleton from "@/app/components/products/pages/pc-components/skeleton/ProductListSkeleton";
-import { AiOutlineEdit } from "react-icons/ai";
-import { FaEdit } from "react-icons/fa";
-import { FiEdit } from "react-icons/fi";
-import { VscEdit } from "react-icons/vsc";
 import { TbEditOff } from "react-icons/tb";
 import {MdAddToPhotos} from "react-icons/md";
+import BgAdminTailwindWrapper from "@/app/components/admin/components/TailwindWrapper/BgTailwindWrapper";
+
 
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
@@ -159,8 +157,10 @@ export const AdminPcComponentProductList = () => {
         filters={filters}
       ></MobileFilter>
 
-      <main className="  max-w-8xl  sm:px-6 xl:px-8 py-2 sm:py-2 lg:py-2">
+      <main className="  max-w-8xl ">
+        <BgAdminTailwindWrapper>
         <div className="flex items-baseline justify-between border-b border-gray-200 pt-6 lg:pt-0 pb-6">
+
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
             New Arrivals
           </h1>
@@ -228,6 +228,7 @@ export const AdminPcComponentProductList = () => {
             </button>
           </div>
         </div>
+        </BgAdminTailwindWrapper>
 
         <section aria-labelledby="products-heading" className="pb-12 pt-6">
           <h2 id="products-heading" className="sr-only">
@@ -235,12 +236,15 @@ export const AdminPcComponentProductList = () => {
           </h2>
           <div className="flex gap-2">
             <div>
+              <BgAdminTailwindWrapper>
               <DesktopFilter
                 handleFilter={handleFilter}
                 filters={filters}
               ></DesktopFilter>
+                </BgAdminTailwindWrapper>
             </div>
             <div>
+              <BgAdminTailwindWrapper>
               <div className="mb-4">
                 <button
                   type="submit"
@@ -250,18 +254,23 @@ export const AdminPcComponentProductList = () => {
                   Add New Product
                 </button>
               </div>
+                </BgAdminTailwindWrapper>
+              <BgAdminTailwindWrapper className="mt-2">
               <div>
                 <ProductGrid products={products}></ProductGrid>
               </div>
+              </BgAdminTailwindWrapper>
             </div>
           </div>
         </section>
+        <BgAdminTailwindWrapper>
         <Pagination
           page={page}
           setPage={setPage}
           handlePage={handlePage}
           totalItems={totalItems}
         ></Pagination>
+        </BgAdminTailwindWrapper>
       </main>
     </div>
   );
@@ -408,14 +417,14 @@ export const DesktopFilter = ({
 }) => {
   return (
     <>
-      <form className="hidden xl:block product-card p-8 lg:w-72">
+      <form className="hidden xl:block p-8 lg:w-72">
         <h3 className="sr-only">Categories</h3>
 
         {filters.map((section: any) => (
           <Disclosure
             as="div"
             key={section.id}
-            className="border-b border-gray-200 py-3 dark:text-white"
+            className="border-b dark:border-gray-200 border-gray-800/25 py-3 dark:text-white"
           >
             {({ open }) => (
               <>
@@ -613,7 +622,7 @@ export const ProductGrid = ({ products }: { products: any }) => {
 
   return (
     <>
-      <div className="product-card">
+      <div>
         <div className="grid grid-cols-2 lg:p-8 gap-x-2 gap-y-10 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 xl:gap-x-2">
           {products.map((product: any, index: number) => (
             <div key={index}>
