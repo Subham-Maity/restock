@@ -67,15 +67,7 @@ const navigation = [
     icon: <BiSolidUserCheck />,
     current: false,
     admin: true,
-  },
-  {
-    id: 6,
-    name: "Admin",
-    href: "/admin/adminForm",
-    icon: <BiSolidUserCheck />,
-    current: false,
-    admin: true,
-  },
+  }
 ];
 
 const userNavigation = [

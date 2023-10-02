@@ -3,15 +3,17 @@ import { AdminPcComponentProductList } from "@/app/components/admin/components/A
 import Navbar from "@/app/components/Navbar/Navbar";
 import Footer from "@/app/components/Footer/Footer";
 import AdminProtected from "@/app/components/auth/components/protectedAdmin";
+import DefaultLayout from "@/app/components/admin/components/AdminNav/DefaultNav";
+import TailwindWrapper from "@/app/components/TailwindWrapper/TailwindWrapper";
 
 const Page = () => {
   return (
     <div>
-      <Navbar />
       <AdminProtected>
-        <AdminPcComponentProductList />
+        <DefaultLayout>
+            <AdminPcComponentProductList />
+        </DefaultLayout>
       </AdminProtected>
-      <Footer />
     </div>
   );
 };
