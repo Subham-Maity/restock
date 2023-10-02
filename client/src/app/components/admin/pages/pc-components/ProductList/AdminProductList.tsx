@@ -157,9 +157,9 @@ export const AdminPcComponentProductList = () => {
         filters={filters}
       ></MobileFilter>
 
-      <main className="  max-w-8xl ">
+      <main className=" max-w-8xl">
         <BgAdminTailwindWrapper>
-        <div className="flex items-baseline justify-between border-b border-gray-200 pt-6 lg:pt-0 pb-6">
+        <div className="flex items-baseline justify-between border-b border-gray-200 pt-6 lg:pt-0 pb-2">
 
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
             New Arrivals
@@ -230,7 +230,7 @@ export const AdminPcComponentProductList = () => {
         </div>
         </BgAdminTailwindWrapper>
 
-        <section aria-labelledby="products-heading" className="pb-12 pt-6">
+        <section aria-labelledby="products-heading" className="pb-12 pt-2">
           <h2 id="products-heading" className="sr-only">
             Products
           </h2>
