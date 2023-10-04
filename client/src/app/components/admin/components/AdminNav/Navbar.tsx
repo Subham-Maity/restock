@@ -35,7 +35,7 @@ const navigation = [
     icon: <BsGpuCard />,
     current: true,
     admin: true,
-  }
+  },
 ];
 
 const userNavigation = [
@@ -78,25 +78,13 @@ const AdminNavbar = () => {
     <div className="fixed top-0 left-0 right-0 rounded-b-lg z-50 backdrop-blur-3xl">
       <Disclosure
         as="nav"
-        className="dark:bg-[#2b2d30] bg-stone-200/25 border-b lg:border lg:dark:border-white/25 lg:border-gray-800/25 "
+        className="dark:bg-[#2b3039] bg-stone-200/25 border-b lg:border lg:dark:border-gray-400/25 lg:border-gray-800/25 "
       >
         {({ open }) => (
           <>
-            <div className="lg:mx-16 max-w-8xl px-5 sm:px-6 xl:px-8 py-2 sm:py-2 lg:py-2">
+            <div className="lg:mx-4 max-w-8xl  py-2 sm:py-2 lg:py-2">
               <div className="flex h-16 items-center justify-between lg:justify-start">
                 <div className="flex items-center">
-                  <div className="flex space-x-2 mr-8">
-                    <Link href="/">
-                      <Image
-                        className="h-8 w-8"
-                        src="https://img.freepik.com/free-vector/modern-desktop-compute-concept-illustration_114360-12156.jpg"
-                        alt="Your Company"
-                        width={32}
-                        height={32}
-                      />
-                    </Link>
-                  </div>
-
                   <div className="hidden xl:block">
                     <div className="flex items-center space-x-4">
                       {navigation.map((item) =>
@@ -106,9 +94,9 @@ const AdminNavbar = () => {
                             href={item.href}
                             className={classNames(
                               item.current
-                                ? "bg-gray-100 bg-opacity-90 md:rounded-lg dark:bg-gray-500 dark:bg-opacity-70 text-white"
+                                ? "bg-gray-100 bg-opacity-90 md:rounded-md dark:bg-[#545454] dark:bg-opacity-70 text-white"
                                 : "text-gray-300 dark:hover:bg-gray-600 dark:bg-opacity-95 hover:bg-gray-300 hover:bg-opacity-95",
-                              "flex items-center rounded-lg px-3 py-2 text-sm font-medium",
+                              "flex items-center rounded-md px-3 py-2 text-sm font-medium",
                             )}
                             aria-current={item.current ? "page" : undefined}
                           >
@@ -122,9 +110,9 @@ const AdminNavbar = () => {
                     </div>
                   </div>
 
-                  <div className="ml-2">
-                    <SearchProduct items={itemsForSearch} />
-                  </div>
+                  {/*<div className="ml-2">*/}
+                  {/*  <SearchProduct items={itemsForSearch} />*/}
+                  {/*</div>*/}
                 </div>
                 <div className="hidden lg:block ml-auto">
                   <div className="ml-4 flex items-center md:ml-6">

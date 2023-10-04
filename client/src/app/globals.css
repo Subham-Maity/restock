@@ -51,3 +51,9 @@
         background-color: lightgray;
     }
 }
+
+.stickyClass {
+    position: sticky;
+}
+
+
