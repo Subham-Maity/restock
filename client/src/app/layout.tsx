@@ -10,6 +10,7 @@ import CartProvider from "@/app/components/cart/CartProvider";
 import UserProvider from "@/app/components/user/UserProvider";
 import ProductProvider from "@/app/components/products/ProductProvider";
 import { Analytics } from "@vercel/analytics/react";
+import ContextProvider from "@/context/ContextProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -35,19 +36,21 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <ReduxProvider>
-        <ThemeProviders>
-          <body
-            className={`${inter.className} ${comfortaa.variable}  ${pacifico.variable} box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25) bg-gradient-to-r from-zinc-300 via-neutral-300 to-slate-300 dark:from-zinc-700 dark:via-neutral-700 dark:to-slate-700`}
-          >
-            <ProductProvider>
-              <UserProvider>
-                <CartProvider>
-                  {children} <Analytics />
-                </CartProvider>
-              </UserProvider>
-            </ProductProvider>
-          </body>
-        </ThemeProviders>
+        <ContextProvider>
+          <ThemeProviders>
+            <body
+              className={`${inter.className} ${comfortaa.variable}  ${pacifico.variable} box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25) bg-gradient-to-r from-zinc-300 via-neutral-300 to-slate-300 dark:from-zinc-700 dark:via-neutral-700 dark:to-slate-700`}
+            >
+              <ProductProvider>
+                <UserProvider>
+                  <CartProvider>
+                    {children} <Analytics />
+                  </CartProvider>
+                </UserProvider>
+              </ProductProvider>
+            </body>
+          </ThemeProviders>
+        </ContextProvider>
       </ReduxProvider>
     </html>
   );

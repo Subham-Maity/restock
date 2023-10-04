@@ -11,9 +11,7 @@ const Page = () => {
         <div>
             <AdminProtected>
                 <DefaultLayout>
-            <TailwindWrapper>
-              <ProductForm/>
-            </TailwindWrapper>
+                    <ProductForm/>
                 </DefaultLayout>
             </AdminProtected>
         </div>
