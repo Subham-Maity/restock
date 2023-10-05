@@ -1,8 +1,6 @@
 "use client";
-import React from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
-import { FaArrowRight } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 
 type Inputs = {
@@ -16,7 +14,12 @@ import {
 } from "@/app/components/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "@/lib/redux/store";
-import { AiOutlineLock, AiOutlineUser } from "react-icons/ai";
+import {
+  AiFillEye,
+  AiFillEyeInvisible,
+  AiOutlineLock,
+  AiOutlineUser,
+} from "react-icons/ai";
 import CustomButton from "@/app/components/CustomButton/CustomButton";
 import { BiSolidLogInCircle } from "react-icons/bi";
 import { TbLogin2 } from "react-icons/tb";
@@ -32,6 +35,7 @@ const Login = () => {
   const error = useSelector(selectError);
   const user = useSelector(selectLoggedInUser);
   const router = useRouter();
+  const [passType, setPassType] = useState("password");
 
   return (
     <>
@@ -61,11 +65,11 @@ const Login = () => {
             <div>
               <label
                 htmlFor="email"
-                className="ml-1 block mb-2 text-sm font-medium leading-6 text-gray-900 dark:text-gray-200"
+                className="ml-1 block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200"
               >
                 Email address
               </label>
-              <div className="flex flex-wrap items-stretch w-full mb-4 relative h-15 dark:bg-[#303030] bg-stone-300 border border-gray-400/20 rounded-2xl pr-2">
+              <div className="flex flex-wrap items-stretch w-full relative h-15 dark:bg-[#303030] bg-stone-300 border border-gray-400/20 rounded-2xl pr-2">
                 <div className="flex justify-center w-15 p-3">
                   <span className="flex items-center leading-normal dark:bg-[#303030] bg-stone-300 border-0 text-3xl text-gray-600">
                     <AiOutlineUser className="text-gray-800 dark:text-gray-400 animate-pulse" />
@@ -76,17 +80,21 @@ const Login = () => {
                   id="email"
                   {...register("email", {
                     required: "email is required",
+                    pattern: {
+                      value: /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi,
+                      message: "Invalid Email Address",
+                    },
                   })}
                   type="email"
                   placeholder="example@domain.com"
                   className="block w-full rounded-xl h-11 bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl  dark:border-gray-600 dark:placeholder-gray-400 placeholder:font-bold dark:text-white focus:ring-stone-700 focus:border-blue-800 text-sm xl:text-base sm:leading-6 flex-shrink flex-grow flex-1 leading-normal border-0 border-grey-light px-3 self-center relative font-roboto outline-none"
                 />
-                {errors.email && (
-                  <p className="text-red-500">{errors.email.message}</p>
-                )}
               </div>
-
-              <div className="mt-2"></div>
+              {errors.email && (
+                <p className="text-red-500 flex justify-center">
+                  {errors.email.message}
+                </p>
+              )}
             </div>
 
             <div>
@@ -109,7 +117,7 @@ const Login = () => {
                 </div>
               </div>
 
-              <div className="flex flex-wrap items-stretch w-full mb-4 relative h-15 dark:bg-[#303030] bg-stone-300 border border-gray-400/20 rounded-xl pr-2 mt-2">
+              <div className="flex flex-wrap items-stretch w-full relative h-15 dark:bg-[#303030] bg-stone-300 border border-gray-400/20 rounded-xl pr-2 mt-2">
                 <div className="flex justify-center w-15 p-3">
                   <span className="flex items-center leading-normal dark:bg-[#303030] bg-stone-300 border-0 text-3xl text-gray-600">
                     <AiOutlineLock className="text-gray-800 dark:text-gray-400 animate-pulse" />
@@ -121,14 +129,31 @@ const Login = () => {
                   {...register("password", {
                     required: "Password is required",
                   })}
-                  type="password"
+                  type={passType}
                   placeholder="12345@Password"
                   className="block w-full rounded-xl h-11 bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl dark:border-gray-600 dark:placeholder-gray-400 placeholder:font-bold dark:text-white focus:ring-stone-700 focus:border-blue-800 text-sm xl:text-base sm:leading-6 flex-shrink flex-grow flex-1 leading-normal border-0 border-grey-light px-3 self-center relative font-roboto outline-none"
                 />
-                {errors.password && (
-                  <p className="text-red-500">{errors.password.message}</p>
+                {passType === "password" ? (
+                  <span
+                    className="my-auto pl-2"
+                    onClick={() => setPassType("text")}
+                  >
+                    <AiFillEyeInvisible size={20} />
+                  </span>
+                ) : (
+                  <span
+                    className="my-auto pl-2"
+                    onClick={() => setPassType("password")}
+                  >
+                    <AiFillEye size={20} />
+                  </span>
                 )}
               </div>
+              {errors.password && (
+                <p className="text-red-500 flex justify-center">
+                  {errors.password.message}
+                </p>
+              )}
             </div>
 
             <div className="mt-6 items-center blur-[sm]">

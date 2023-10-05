@@ -19,7 +19,6 @@ import Image from "next/image";
 import Switcher from "@/app/components/Mode/Switcher";
 import { useSelector } from "react-redux";
 import { selectItems } from "@/app/components/cart/cartSlice";
-import { useRouter } from "next/navigation";
 import CartHoverOnMouse from "@/app/components/cart/CartHoverOnMouse";
 import { selectLoggedInUser } from "@/app/components/auth/authSlice";
 import { selectUserInfo } from "@/app/components/user/userSlice";
@@ -67,7 +66,7 @@ const navigation = [
     icon: <BiSolidUserCheck />,
     current: false,
     admin: true,
-  }
+  },
 ];
 
 const userNavigation = [
@@ -142,7 +141,7 @@ const Navbar = () => {
                               item.current
                                 ? "bg-gray-100 bg-opacity-90 md:rounded-lg dark:bg-gray-500 dark:bg-opacity-70 text-white"
                                 : "text-gray-300 dark:hover:bg-gray-600 dark:bg-opacity-95 hover:bg-gray-300 hover:bg-opacity-95",
-                              "flex items-center rounded-lg px-3 py-2 text-sm font-medium",
+                              "flex items-center rounded-lg px-3 py-2 text-sm font-medium"
                             )}
                             aria-current={item.current ? "page" : undefined}
                           >
@@ -151,7 +150,7 @@ const Navbar = () => {
                               <span>{item.name}</span>
                             </div>
                           </Link>
-                        ) : null,
+                        ) : null
                       )}
                     </div>
                   </div>
@@ -256,7 +255,7 @@ const Navbar = () => {
                                     active
                                       ? "bg-gray-400 dark:bg-gray-500"
                                       : "",
-                                    "block px-4 py-2 text-sm dark:text-gray-200 rounded-2xl",
+                                    "block px-4 py-2 text-sm dark:text-gray-200 rounded-2xl"
                                   )}
                                 >
                                   {item.name}
@@ -264,15 +263,21 @@ const Navbar = () => {
                               )}
                             </Menu.Item>
                           ))}
-                          <div className="block px-4 py-2 text-sm font-bold dark:text-gray-200 rounded-2xl hover:bg-gray-400 hover:dark:bg-gray-500 cursor-pointer">
-                            {user ? (
-                              <Link href="/logout" className="">
-                                Logout
-                              </Link>
-                            ) : (
-                              <Link href="/login">Login</Link>
-                            )}
-                          </div>
+                          {user ? (
+                            <Link
+                              href="/logout"
+                              className="block px-4 py-2 text-sm font-bold dark:text-gray-200 rounded-2xl hover:bg-gray-400 hover:dark:bg-gray-500 cursor-pointer"
+                            >
+                              Logout
+                            </Link>
+                          ) : (
+                            <Link
+                              href="/login"
+                              className="block px-4 py-2 text-sm font-bold dark:text-gray-200 rounded-2xl hover:bg-gray-400 hover:dark:bg-gray-500 cursor-pointer"
+                            >
+                              Login
+                            </Link>
+                          )}
                         </Menu.Items>
                       </Transition>
                     </Menu>
@@ -310,7 +315,7 @@ const Navbar = () => {
                         item.current
                           ? "bg-gray-100 bg-opacity-90 md:rounded-lg dark:bg-gray-500 dark:bg-opacity-70 text-white"
                           : "text-gray-300 dark:hover:bg-gray-600 dark:bg-opacity-95 hover:bg-gray-300 hover:bg-opacity-95",
-                        "flex items-center rounded-lg px-3 py-2 text-sm font-medium",
+                        "flex items-center rounded-lg px-3 py-2 text-sm font-medium"
                       )}
                       aria-current={item.current ? "page" : undefined}
                     >
@@ -319,7 +324,7 @@ const Navbar = () => {
                         <span>{item.name}</span>
                       </div>
                     </Link>
-                  ) : null,
+                  ) : null
                 )}
               </div>
 
@@ -389,11 +394,26 @@ const Navbar = () => {
                       key={item.name}
                       as="a"
                       href={item.href}
-                      className="block rounded-md px-3 py-2 text-base font-medium text-gray-950 dark:text-gray-200 hover:bg-gray-700 hover:text-white"
+                      className="block px-3 py-2 text-base font-medium dark:text-gray-200 rounded-2xl hover:bg-gray-400 hover:dark:bg-gray-500"
                     >
                       {item.name}
                     </Disclosure.Button>
                   ))}
+                  {user ? (
+                    <Link
+                      href="/logout"
+                      className="block px-3 py-2 font-bold dark:text-gray-200 rounded-2xl hover:bg-gray-400 hover:dark:bg-gray-500 cursor-pointer"
+                    >
+                      Logout
+                    </Link>
+                  ) : (
+                    <Link
+                      href="/login"
+                      className="block px-3 py-2 font-bold dark:text-gray-200 rounded-2xl hover:bg-gray-400 hover:dark:bg-gray-500 cursor-pointer"
+                    >
+                      Login
+                    </Link>
+                  )}
                 </div>
                 <Switcher />
               </div>
