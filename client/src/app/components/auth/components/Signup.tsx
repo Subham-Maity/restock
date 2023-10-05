@@ -150,7 +150,7 @@ const Signup = () => {
                   htmlFor="password"
                   className="ml-1 block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200"
                 >
-                  Password
+                  New Password
                 </label>
               </div>
               <div className="flex flex-wrap items-stretch w-full mb-4 relative h-15 dark:bg-[#303030] bg-stone-300 border border-gray-400/20 rounded-xl pr-2 mt-2">
@@ -169,14 +169,14 @@ const Signup = () => {
                 />
                 {passType === "password" ? (
                   <span
-                    className="my-auto pl-2"
+                    className="my-auto pl-2 hidden sm:block"
                     onClick={() => setPassType("text")}
                   >
                     <AiFillEyeInvisible size={20} />
                   </span>
                 ) : (
                   <span
-                    className="my-auto pl-2"
+                    className="my-auto pl-2 hidden sm:block"
                     onClick={() => setPassType("password")}
                   >
                     <AiFillEye size={20} />
@@ -266,7 +266,7 @@ const Signup = () => {
                   htmlFor="confirm-password"
                   className="ml-1 block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200"
                 >
-                  Repeat Password
+                  Confirm Password
                 </label>
               </div>
               <div className="flex flex-wrap items-stretch w-full mb-4 relative h-15 dark:bg-[#303030] bg-stone-300 border border-gray-400/20 rounded-xl pr-2 mt-2">

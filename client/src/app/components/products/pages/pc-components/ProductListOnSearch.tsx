@@ -155,7 +155,7 @@ export const PcComponentProductListOnSearch = () => {
         filters={filters}
       ></MobileFilter>
 
-      <main className=" lg:mx-16 max-w-8xl lg:px-5 sm:px-6 xl:px-8 py-2 sm:py-2 lg:py-2">
+      <main className=" lg:mx-16 lg:px-5 sm:px-6 xl:px-8 py-2 sm:py-2 lg:py-2">
         <div className="flex items-baseline justify-between border-b border-gray-200 pt-6 pb-6">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
             New Arrivals
@@ -601,72 +601,69 @@ export const ProductGrid = ({ products }: { products: any }) => {
   return (
     <>
       <div className="w-full">
-        <div className="">
+        <div className="w-full">
           {products.map((product: any, index: number) => (
             <Link
               href={`/pc-components-details/${product.id}`}
               key={product.id}
             >
               <div
-                className="flex w-full lg:shadow-lg lg:border-2 lg:bg-white/30 lg:dark:bg-black/20 border-gray-400/25 dark:border-gray-600/20 rounded-lg pb-2"
+                className="grid grid-rows-1 grid-template-columns-[250px 1fr 50px] gap-2 my-2 bg-white/30 dark:bg-black/20 border-gray-400/25 dark:border-gray-600/20 rounded-lg h-[250px] min-w-full px-4"
                 key={product.id}
                 onMouseEnter={() => handleMouseEnterWithDelay(index)}
                 onMouseLeave={handleMouseLeave}
               >
-                <div className="overflow-hidden rounded-lg bg-gray-200 w-[300px] h-[200px] ">
-                  
-                    <Image
-                      src={product.thumbnail}
-                      alt={product.title}
-                      className="w-[300px] h-[200px] object-center"
-                      // fill
-                      height={200}
-                      width={300}
-                      onClick={() => {
-                        window.location.href = `/pc-components-details/${product.id}`;
-                      }}
-                    />
-                  
+                <div className="rounded-lg bg-gray-200 my-auto h-[250px] w-[250px] overflow-hidden">
+                  <Image
+                    src={product.thumbnail}
+                    alt={product.title}
+                    className="rounded-lg h-full w-full object-cover"
+                    // fill
+                    width={250}
+                    height={250}
+                    onClick={() => {
+                      window.location.href = `/pc-components-details/${product.id}`;
+                    }}
+                  />
                 </div>
-                <div className="mt-4 flex justify-between">
-                  <div>
-                    <h3 className="text-sm px-2 text-gray-800 dark:text-gray-300">
-                      {product.title}
-                    </h3>
-                    <p className="text-justify">
+                <div className="m-3 justify-start">
+                  <h2 className="text-xl lg:text-2xl font-semibold lg:font-bold text-gray-800 dark:text-gray-100">
+                    {product.title}
+                  </h2>
+                  <p className="text-sm text-justify text-gray-900 dark:text-gray-300 hidden mt-4 lg:flex col-start-2 row-start-2">
                     {product.description}
-                    </p>
-                    <div className="mt-1 flex items-center px-2">
-                      <div
-                        className={`w-12 h-5 flex items-center justify-center rounded-sm text-sm gap-0.5 ${
-                          product.rating >= 4.5
-                            ? "bg-green-500 dark:bg-green-600 text-sm"
-                            : product.rating >= 4
-                            ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
-                            : product.rating >= 3.5
-                            ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
-                            : product.rating >= 2
-                            ? "bg-orange-400 dark:bg-orange-600 text-sm"
-                            : "bg-red-500 dark:bg-red-600 text-sm"
-                        }`}
-                      >
-                        <span className="text-white text-sm">
-                          {product.rating.toFixed(1)}
-                        </span>
-                        <StarIcon className="w-3.5 text-sm text-gray-200" />
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium block dark:text-gray-100 text-neutral-900">
+                  </p>
+                  <div className="price my-4 col-start-2 row-start-3">
+                    <p className="text-xl font-semibold dark:text-gray-100 text-neutral-900">
+                      ₹
                       {Math.round(
                         product.price * (1 - product.discountPercentage / 100)
                       )}
-                      ₹
                     </p>
-                    <p className="text-md block line-through font-medium text-gray-400 pr-2">
-                      {product.price}₹
+                    <p className="text-base block line-through font-medium text-gray-400 pr-2">
+                      ₹{product.price}
                     </p>
+                  </div>
+                </div>
+
+                <div className="mt-4 flex  px-2 col-start-3 row-start-1 ml-auto ">
+                  <div
+                    className={`w-12 h-5 flex items-center justify-center rounded-sm text-sm gap-0.5 ${
+                      product.rating >= 4.5
+                        ? "bg-green-500 dark:bg-green-600 text-sm"
+                        : product.rating >= 4
+                        ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
+                        : product.rating >= 3.5
+                        ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
+                        : product.rating >= 2
+                        ? "bg-orange-400 dark:bg-orange-600 text-sm"
+                        : "bg-red-500 dark:bg-red-600 text-sm"
+                    }`}
+                  >
+                    <span className="text-white text-sm">
+                      {product.rating.toFixed(1)}
+                    </span>
+                    <StarIcon className="w-3.5 text-sm text-gray-200" />
                   </div>
                 </div>
               </div>

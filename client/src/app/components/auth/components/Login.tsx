@@ -40,7 +40,7 @@ const Login = () => {
   return (
     <>
       {user && router.push("/")}
-      <div className="flex min-h-full flex-1 shadow-lg shadow-gray-700 flex-col justify-center px-6 py-12 lg:px-8 md:w-[32rem] mx-3  md:mx-auto my-6 default-card">
+      <div className="flex min-h-full flex-1 shadow-lg shadow-gray-700 flex-col justify-center px-6 py-12 lg:px-8 md:w-[32rem] mx-3 md:mx-auto my-6 default-card">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm ">
           <h1 className="text-center border border-gray-600/30 rounded-xl p-4 text-4xl font-bold leading-9 tracking-tight text-gray-600 dark:text-gray-500">
             RESTOCK
@@ -135,14 +135,14 @@ const Login = () => {
                 />
                 {passType === "password" ? (
                   <span
-                    className="my-auto pl-2"
+                    className="my-auto pl-2 hidden sm:block"
                     onClick={() => setPassType("text")}
                   >
                     <AiFillEyeInvisible size={20} />
                   </span>
                 ) : (
                   <span
-                    className="my-auto pl-2"
+                    className="my-auto pl-2 hidden sm:block"
                     onClick={() => setPassType("password")}
                   >
                     <AiFillEye size={20} />
