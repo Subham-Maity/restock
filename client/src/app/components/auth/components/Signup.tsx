@@ -16,7 +16,6 @@ import {
   AiFillEye,
   AiFillEyeInvisible,
   AiOutlineExclamationCircle,
-  AiOutlineEyeInvisible,
   AiOutlineLock,
   AiOutlineUser,
 } from "react-icons/ai";
@@ -48,8 +47,7 @@ const Signup = () => {
   const [specialValidated, setSpecialValidated] = useState(false);
   const [lengthValidated, setLengthValidated] = useState(false);
 
-
-  const handleChange = (value:any) => {
+  const handleChange = (value: any) => {
     const lower = new RegExp("(?=.*[a-z])");
     const upper = new RegExp("(?=.*[A-Z])");
     const number = new RegExp("(?=.*[0-9])");
@@ -81,6 +79,8 @@ const Signup = () => {
       setLengthValidated(false);
     }
   };
+
+  // console.log(errors.email, errors.confirmPassword, 'lmao');
   return (
     <>
       {user && router.push("/")}
@@ -162,6 +162,9 @@ const Signup = () => {
 
                 <input
                   id="password"
+                  {...register("password", {
+                    required: "password is required",
+                  })}
                   type={passType}
                   onChange={(e) => handleChange(e.target.value)}
                   placeholder="12345@Password"
@@ -184,7 +187,6 @@ const Signup = () => {
                 )}
               </div>
               <div className="bg-white bg-opacity-40 dark:bg-stone-950/20 p-4 rounded-md">
-                
                 {/* validation tracker */}
                 <main className="tracker-box">
                   <div
@@ -279,7 +281,7 @@ const Signup = () => {
                 <input
                   id="confirmPassword"
                   {...register("confirmPassword", {
-                    required: "confirm password is required",
+                    required: "Confirm password is required",
                     validate: (value, formValues) =>
                       value === formValues.password || "Password mismatch",
                   })}

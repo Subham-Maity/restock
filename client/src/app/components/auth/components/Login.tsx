@@ -21,7 +21,6 @@ import {
   AiOutlineUser,
 } from "react-icons/ai";
 import CustomButton from "@/app/components/CustomButton/CustomButton";
-import { BiSolidLogInCircle } from "react-icons/bi";
 import { TbLogin2 } from "react-icons/tb";
 
 const Login = () => {
@@ -30,7 +29,7 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
-  console.log(errors);
+  console.log(errors.email, 'lmao');
   const dispatch: AppDispatch = useDispatch();
   const error = useSelector(selectError);
   const user = useSelector(selectLoggedInUser);
