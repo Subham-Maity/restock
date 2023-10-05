@@ -1,15 +1,9 @@
 "use client";
-import React from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa";
 import { useForm } from "react-hook-form";
-
-type Inputs = {
-  email: string;
-  password: string;
-  confirmPassword: string;
-};
 import {
   selectLoggedInUser,
   createUserAsync,
@@ -17,7 +11,21 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "@/lib/redux/store";
 import CustomButton from "@/app/components/CustomButton/CustomButton";
-import { AiOutlineLock, AiOutlineUser } from "react-icons/ai";
+import {
+  AiFillCheckCircle,
+  AiFillEye,
+  AiFillEyeInvisible,
+  AiOutlineExclamationCircle,
+  AiOutlineEyeInvisible,
+  AiOutlineLock,
+  AiOutlineUser,
+} from "react-icons/ai";
+
+type Inputs = {
+  email: string;
+  password: string;
+  confirmPassword: string;
+};
 
 const Signup = () => {
   const {
@@ -25,10 +33,54 @@ const Signup = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
-  console.log(errors);
+
   const dispatch: AppDispatch = useDispatch();
   const user = useSelector(selectLoggedInUser);
   const router = useRouter();
+
+  const [passType, setPassType] = useState("password");
+  const [confirmPasstype, setConfirmPassType] = useState("password");
+
+  // validated states
+  const [lowerValidated, setLowerValidated] = useState(false);
+  const [upperValidated, setUpperValidated] = useState(false);
+  const [numberValidated, setNumberValidated] = useState(false);
+  const [specialValidated, setSpecialValidated] = useState(false);
+  const [lengthValidated, setLengthValidated] = useState(false);
+
+
+  const handleChange = (value:any) => {
+    const lower = new RegExp("(?=.*[a-z])");
+    const upper = new RegExp("(?=.*[A-Z])");
+    const number = new RegExp("(?=.*[0-9])");
+    const special = new RegExp("(?=.*[!@#$%^&*])");
+    const length = new RegExp("(?=.{8,})");
+    if (lower.test(value)) {
+      setLowerValidated(true);
+    } else {
+      setLowerValidated(false);
+    }
+    if (upper.test(value)) {
+      setUpperValidated(true);
+    } else {
+      setUpperValidated(false);
+    }
+    if (number.test(value)) {
+      setNumberValidated(true);
+    } else {
+      setNumberValidated(false);
+    }
+    if (special.test(value)) {
+      setSpecialValidated(true);
+    } else {
+      setSpecialValidated(false);
+    }
+    if (length.test(value)) {
+      setLengthValidated(true);
+    } else {
+      setLengthValidated(false);
+    }
+  };
   return (
     <>
       {user && router.push("/")}
@@ -64,7 +116,7 @@ const Signup = () => {
               >
                 Email address
               </label>
-              <div className="flex flex-wrap items-stretch w-full mb-4 relative h-15 dark:bg-[#303030] bg-stone-300 border border-gray-400/20 rounded-2xl pr-2">
+              <div className="flex flex-wrap items-stretch w-full relative h-15 dark:bg-[#303030] bg-stone-300 border border-gray-400/20 rounded-2xl pr-2">
                 <div className="flex justify-center w-15 p-3">
                   <span className="flex items-center leading-normal dark:bg-[#303030] bg-stone-300 border-0 text-3xl text-gray-600">
                     <AiOutlineUser className="text-gray-800 dark:text-gray-400 animate-pulse" />
@@ -75,15 +127,21 @@ const Signup = () => {
                   id="email"
                   {...register("email", {
                     required: "email is required",
+                    pattern: {
+                      value: /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi,
+                      message: "Invalid Email Address",
+                    },
                   })}
                   type="email"
                   placeholder="example@domain.com"
                   className="block w-full rounded-xl h-11 bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl  dark:border-gray-600 dark:placeholder-gray-400 placeholder:font-bold dark:text-white focus:ring-stone-700 focus:border-blue-800 text-sm xl:text-base sm:leading-6 flex-shrink flex-grow flex-1 leading-normal border-0 border-grey-light px-3 self-center relative font-roboto outline-none"
                 />
-                {errors.email && (
-                  <p className="text-red-500">{errors.email.message}</p>
-                )}
               </div>
+              {errors.email && (
+                <p className="text-red-500 flex justify-center">
+                  {errors.email.message}
+                </p>
+              )}
             </div>
 
             <div>
@@ -92,7 +150,7 @@ const Signup = () => {
                   htmlFor="password"
                   className="ml-1 block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200"
                 >
-                  Password
+                  New Password
                 </label>
               </div>
               <div className="flex flex-wrap items-stretch w-full mb-4 relative h-15 dark:bg-[#303030] bg-stone-300 border border-gray-400/20 rounded-xl pr-2 mt-2">
@@ -104,16 +162,102 @@ const Signup = () => {
 
                 <input
                   id="password"
-                  {...register("password", {
-                    required: "Password is required",
-                  })}
-                  type="password"
+                  type={passType}
+                  onChange={(e) => handleChange(e.target.value)}
                   placeholder="12345@Password"
                   className="block w-full rounded-xl h-11 bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl dark:border-gray-600 dark:placeholder-gray-400 placeholder:font-bold dark:text-white focus:ring-stone-700 focus:border-blue-800 text-sm xl:text-base sm:leading-6 flex-shrink flex-grow flex-1 leading-normal border-0 border-grey-light px-3 self-center relative font-roboto outline-none"
                 />
-                {errors.password && (
-                  <p className="text-red-500">{errors.password.message}</p>
+                {passType === "password" ? (
+                  <span
+                    className="my-auto pl-2 hidden sm:block"
+                    onClick={() => setPassType("text")}
+                  >
+                    <AiFillEyeInvisible size={20} />
+                  </span>
+                ) : (
+                  <span
+                    className="my-auto pl-2 hidden sm:block"
+                    onClick={() => setPassType("password")}
+                  >
+                    <AiFillEye size={20} />
+                  </span>
                 )}
+              </div>
+              <div className="bg-white bg-opacity-40 dark:bg-stone-950/20 p-4 rounded-md">
+                
+                {/* validation tracker */}
+                <main className="tracker-box">
+                  <div
+                    className={`flex gap-2 ${
+                      lowerValidated
+                        ? "text-gray-950 dark:text-gray-200 font-bold"
+                        : "text-gray-400 dark:text-gray-600 font-semibold"
+                    }`}
+                  >
+                    {lowerValidated ? (
+                      <AiFillCheckCircle className="text-green-500 dark:text-green-400 my-auto" />
+                    ) : (
+                      <AiOutlineExclamationCircle className="text-red-500 my-auto" />
+                    )}
+                    At least one lowercase letter
+                  </div>
+                  <div
+                    className={`flex gap-2 ${
+                      upperValidated
+                        ? "text-gray-950 dark:text-gray-200 font-bold"
+                        : "text-gray-400 dark:text-gray-600 font-semibold"
+                    }`}
+                  >
+                    {upperValidated ? (
+                      <AiFillCheckCircle className="text-green-500 dark:text-green-400 my-auto" />
+                    ) : (
+                      <AiOutlineExclamationCircle className="text-red-500 my-auto" />
+                    )}
+                    At least one uppercase letter
+                  </div>
+                  <div
+                    className={`flex gap-2 ${
+                      numberValidated
+                        ? "text-gray-950 dark:text-gray-200 font-bold"
+                        : "text-gray-400 dark:text-gray-600 font-semibold"
+                    }`}
+                  >
+                    {numberValidated ? (
+                      <AiFillCheckCircle className="text-green-500 dark:text-green-400 my-auto" />
+                    ) : (
+                      <AiOutlineExclamationCircle className="text-red-500 my-auto" />
+                    )}
+                    At least one number
+                  </div>
+                  <div
+                    className={`flex gap-2 ${
+                      specialValidated
+                        ? "text-gray-950 dark:text-gray-200 font-bold"
+                        : "text-gray-400 dark:text-gray-600 font-semibold"
+                    }`}
+                  >
+                    {specialValidated ? (
+                      <AiFillCheckCircle className="text-green-500 dark:text-green-400 my-auto" />
+                    ) : (
+                      <AiOutlineExclamationCircle className="text-red-500 my-auto" />
+                    )}
+                    At least one special character
+                  </div>
+                  <div
+                    className={`flex gap-2 ${
+                      lengthValidated
+                        ? "text-gray-950 dark:text-gray-200 font-bold"
+                        : "text-gray-400 dark:text-gray-600 font-semibold"
+                    }`}
+                  >
+                    {lengthValidated ? (
+                      <AiFillCheckCircle className="text-green-500 dark:text-green-400 my-auto" />
+                    ) : (
+                      <AiOutlineExclamationCircle className="text-red-500 my-auto" />
+                    )}
+                    At least 8 characters
+                  </div>
+                </main>
               </div>
             </div>
             <div>
@@ -122,7 +266,7 @@ const Signup = () => {
                   htmlFor="confirm-password"
                   className="ml-1 block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200"
                 >
-                  Repeat Password
+                  Confirm Password
                 </label>
               </div>
               <div className="flex flex-wrap items-stretch w-full mb-4 relative h-15 dark:bg-[#303030] bg-stone-300 border border-gray-400/20 rounded-xl pr-2 mt-2">
@@ -133,18 +277,35 @@ const Signup = () => {
                 </div>
 
                 <input
-                  id="password"
-                  {...register("password", {
-                    required: "Password is required",
+                  id="confirmPassword"
+                  {...register("confirmPassword", {
+                    required: "confirm password is required",
+                    validate: (value, formValues) =>
+                      value === formValues.password || "Password mismatch",
                   })}
-                  type="password"
+                  type={confirmPasstype}
                   placeholder="12345@Password"
                   className="block w-full rounded-xl h-11 bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl dark:border-gray-600 dark:placeholder-gray-400 placeholder:font-bold dark:text-white focus:ring-stone-700 focus:border-blue-800 text-sm xl:text-base sm:leading-6 flex-shrink flex-grow flex-1 leading-normal border-0 border-grey-light px-3 self-center relative font-roboto outline-none"
                 />
-                {errors.password && (
-                  <p className="text-red-500">{errors.password.message}</p>
+                {confirmPasstype === "password" ? (
+                  <span
+                    className="my-auto pl-2"
+                    onClick={() => setConfirmPassType("text")}
+                  >
+                    <AiFillEyeInvisible size={20} />
+                  </span>
+                ) : (
+                  <span
+                    className="my-auto pl-2"
+                    onClick={() => setConfirmPassType("password")}
+                  >
+                    <AiFillEye size={20} />
+                  </span>
                 )}
               </div>
+              {errors.confirmPassword && (
+                <p className="text-red-500">{errors.confirmPassword.message}</p>
+              )}
             </div>
 
             <div className="mt-6 items-center">
