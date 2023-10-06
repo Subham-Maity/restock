@@ -9,9 +9,9 @@ const page = () => {
     <div>
         <AdminProtected>
             <DefaultLayout>
-         <TailwindWrapper>
-        <AdminProductDetail />
-        </TailwindWrapper>
+             <TailwindWrapper>
+                <AdminProductDetail />
+            </TailwindWrapper>
             </DefaultLayout>
         </AdminProtected>
     </div>

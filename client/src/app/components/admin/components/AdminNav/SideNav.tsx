@@ -12,6 +12,8 @@ import Link from "next/link";
 import { IoShareSocialSharp } from "react-icons/io5";
 import { BsGpuCard, BsTelegram } from "react-icons/bs";
 import { LuTwitter } from "react-icons/lu";
+import {GrTableAdd} from "react-icons/gr";
+import {CiViewTable} from "react-icons/ci";
 
 type MenuItem = {
   title: string;
@@ -48,6 +50,11 @@ const Menus: MenuItem[] = [
         href: "/admin/adminForm",
       },
     ],
+  },{
+    title: "Table",
+    image: "Navbar/form.svg",
+    icon: CiViewTable,
+    href: "/admin/table",
   },
   {
     title: "Socials",

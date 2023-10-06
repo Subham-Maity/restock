@@ -3,7 +3,6 @@ import AdminProtected from "@/app/components/auth/components/protectedAdmin";
 import DefaultLayout from "@/app/components/admin/components/AdminNav/DefaultNav";
 import {AdminPcComponentProductList} from "@/app/components/admin/pages/pc-components/ProductList/AdminProductList";
 
-
 const Page = () => {
   return (
     <div>
@@ -11,7 +10,7 @@ const Page = () => {
         <DefaultLayout>
             <AdminPcComponentProductList />
         </DefaultLayout>
-      </AdminProtected>
+       </AdminProtected>
     </div>
   );
 };

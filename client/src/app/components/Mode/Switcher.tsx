@@ -1,12 +1,19 @@
 "use client";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useEffect,useContext, useState } from "react";
 import { BsMoonFill, BsFillSunFill } from "react-icons/bs";
 import { motion } from "framer-motion";
+import Context from "@/context/Context";
 
 const Switcher = () => {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
+  const { isDarkTheme, setIsDarkTheme } = useContext(Context);
+
+  useEffect(()=>{
+      setMounted(true);
+      setIsDarkTheme(theme === "dark");
+  },[theme])
 
   // useEffect only runs on the client, so now we can safely show the UI
   useEffect(() => {

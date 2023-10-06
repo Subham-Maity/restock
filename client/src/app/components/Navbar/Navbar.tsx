@@ -19,6 +19,7 @@ import Image from "next/image";
 import Switcher from "@/app/components/Mode/Switcher";
 import { useSelector } from "react-redux";
 import { selectItems } from "@/app/components/cart/cartSlice";
+import { useRouter } from "next/navigation";
 import CartHoverOnMouse from "@/app/components/cart/CartHoverOnMouse";
 import { selectLoggedInUser } from "@/app/components/auth/authSlice";
 import { selectUserInfo } from "@/app/components/user/userSlice";
@@ -66,7 +67,7 @@ const navigation = [
     icon: <BiSolidUserCheck />,
     current: false,
     admin: true,
-  },
+  }
 ];
 
 const userNavigation = [
@@ -84,8 +85,29 @@ const Navbar = () => {
   const user = useSelector(selectUserInfo);
   const users = useSelector(selectLoggedInUser);
   const role = users?.role;
-  const itemsForSearch = useSelector(selectAllProducts_);
-
+  // const itemsForSearch = useSelector(selectAllProducts_);
+    const itemsForSearch=[
+            {
+                id: 0,
+                name: 'Cobol'
+            },
+            {
+                id: 1,
+                name: 'JavaScript'
+            },
+            {
+                id: 2,
+                name: 'Basic'
+            },
+            {
+                id: 3,
+                name: 'PHP'
+            },
+            {
+                id: 4,
+                name: 'Java'
+            }
+        ]
   const handleCartIconHover = () => {
     setIsCartHoverOpen(true);
     // Clear any previous timeouts
@@ -106,322 +128,301 @@ const Navbar = () => {
   const items = useSelector(selectItems);
 
   return (
-    <div className="fixed top-0 left-0 right-0 rounded-b-lg z-50 backdrop-blur-3xl">
-      <Disclosure
-        as="nav"
-        className="bg-white/50 dark:bg-[#1a1a1a]/70 rounded-b-xl"
-      >
-        {({ open }) => (
-          <>
-            <div className="lg:mx-16 max-w-8xl px-5 sm:px-6 xl:px-8 py-2 sm:py-2 lg:py-2">
-              <div className="flex h-16 items-center justify-between lg:justify-start">
-                <div className="flex items-center">
-                  <div className="flex space-x-2 mr-8">
-                    <Link href="/">
-                      <Image
-                        className="h-8 w-8"
-                        src="https://img.freepik.com/free-vector/modern-desktop-compute-concept-illustration_114360-12156.jpg"
-                        alt="Your Company"
-                        width={32}
-                        height={32}
-                      />
-                    </Link>
-                  </div>
+      <div className="fixed top-0 left-0 right-0 rounded-b-lg z-50 backdrop-blur-3xl">
+        <Disclosure
+            as="nav"
+            className="bg-white/50 dark:bg-[#1a1a1a]/70 rounded-b-xl"
+        >
+          {({ open }) => (
+              <>
+                <div className="lg:mx-16 max-w-8xl px-5 sm:px-6 xl:px-8 py-2 sm:py-2 lg:py-2">
+                  <div className="flex h-16 items-center justify-between lg:justify-start">
+                    <div className="flex items-center">
+                      <div className="flex space-x-2 mr-8">
+                        <Link href="/">
+                          <Image
+                              className="h-8 w-8"
+                              src="https://img.freepik.com/free-vector/modern-desktop-compute-concept-illustration_114360-12156.jpg"
+                              alt="Your Company"
+                              width={32}
+                              height={32}
+                          />
+                        </Link>
+                      </div>
 
-                  <div className="hidden xl:block">
-                    <div className="flex items-center space-x-4">
-                      {navigation.map((item) =>
-                        role === "admin" ||
-                        (!role && item.user) ||
-                        (role === "user" && item.user) ? (
-                          <Link
-                            key={item.name}
-                            href={item.href}
-                            className={classNames(
-                              item.current
-                                ? "bg-gray-100 bg-opacity-90 md:rounded-lg dark:bg-gray-500 dark:bg-opacity-70 text-white"
-                                : "text-gray-300 dark:hover:bg-gray-600 dark:bg-opacity-95 hover:bg-gray-300 hover:bg-opacity-95",
-                              "flex items-center rounded-lg px-3 py-2 text-sm font-medium"
-                            )}
-                            aria-current={item.current ? "page" : undefined}
-                          >
-                            <div className="dark:text-white flex space-x-1 text-black mr-2">
-                              <span className="my-auto">{item.icon}</span>
-                              <span>{item.name}</span>
-                            </div>
-                          </Link>
-                        ) : null
-                      )}
+                      <div className="hidden xl:block">
+                        <div className="flex items-center space-x-4">
+                          {navigation.map((item) =>
+                              role === "admin" ||
+                              (!role && item.user) ||
+                              (role === "user" && item.user) ? (
+                                  <Link
+                                      key={item.name}
+                                      href={item.href}
+                                      className={classNames(
+                                          item.current
+                                              ? "bg-gray-100 bg-opacity-90 md:rounded-lg dark:bg-gray-500 dark:bg-opacity-70 text-white"
+                                              : "text-gray-300 dark:hover:bg-gray-600 dark:bg-opacity-95 hover:bg-gray-300 hover:bg-opacity-95",
+                                          "flex items-center rounded-lg px-3 py-2 text-sm font-medium",
+                                      )}
+                                      aria-current={item.current ? "page" : undefined}
+                                  >
+                                    <div className="dark:text-white flex space-x-1 text-black mr-2">
+                                      <span className="my-auto">{item.icon}</span>
+                                      <span>{item.name}</span>
+                                    </div>
+                                  </Link>
+                              ) : null,
+                          )}
+                        </div>
+                      </div>
+
+                      <div>
+                        <SearchProduct items={itemsForSearch} />
+                      </div>
                     </div>
-                  </div>
-
-                  <div>
-                    <SearchProduct items={itemsForSearch} />
-                  </div>
-                </div>
-                <div className="hidden lg:block ml-auto">
-                  <div className="ml-4 flex items-center md:ml-6">
-                    <button
-                      type="button"
-                      onMouseEnter={handleCartIconHover}
-                      onMouseLeave={handleCartIconHoverOut}
-                      className="rounded-xl bg-gray-500 hover:bg-gray-600 p-1.5 text-white dark:bg-gray-700
+                    <div className="hidden lg:block ml-auto">
+                      <div className="ml-4 flex items-center md:ml-6">
+                        <button
+                            type="button"
+                            onMouseEnter={handleCartIconHover}
+                            onMouseLeave={handleCartIconHoverOut}
+                            className="rounded-xl bg-gray-500 hover:bg-gray-600 p-1.5 text-white dark:bg-gray-700
                       dark:hover:text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 hover:cursor-pointer cursor-pointer"
-                    >
-                      <Link href={"/cart"}>
-                        <ShoppingCartIcon
-                          className="h-6 w-6"
-                          aria-hidden="true"
-                        />
-                      </Link>
-                      {isCartHoverOpen && <CartHoverOnMouse />}
-                    </button>
-                    {items.length > 0 && (
-                      <span className="inline-flex items-center mb-7 -ml-3 rounded-full font-bold bg-green-600 px-2 py-1 text-xs text-white ring-1 ring-inset">
+                        >
+                          <Link href={"/cart"}>
+                            <ShoppingCartIcon
+                                className="h-6 w-6"
+                                aria-hidden="true"
+                            />
+                          </Link>
+                          {isCartHoverOpen && <CartHoverOnMouse />}
+                        </button>
+                        {items.length > 0 && (
+                            <span className="inline-flex items-center mb-7 -ml-3 rounded-full font-bold bg-green-600 px-2 py-1 text-xs text-white ring-1 ring-inset">
                         {items.length}
                       </span>
-                    )}
+                        )}
 
-                    {/* Profile dropdown */}
-                    <Menu as="div" className="relative ml-3">
-                      <div>
-                        <Menu.Button className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                        {/* Profile dropdown */}
+                        <Menu as="div" className="relative ml-3">
+                          <div>
+                            <Menu.Button className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                           <span className="sr-only xl:hidden">
                             Open user menu
                           </span>
 
-                          <div className="flex-shrink-0">
-                            {user &&
-                            user.addresses &&
-                            user.addresses[0] &&
-                            user.addresses[0].dpUrl ? (
-                              <Image
+                              <div className="flex-shrink-0">
+                                {user &&
+                                user.addresses &&
+                                user.addresses[0] &&
+                                user.addresses[0].dpUrl ? (
+                                    <Image
+                                        className="h-10 w-10 p-0.5 rounded-full bg-gray-500 dark:bg-gray-500 flex items-center justify-center text-white dark:hover:bg-gray-300 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg"
+                                        src={user.addresses[0].dpUrl}
+                                        alt=""
+                                        width={40}
+                                        height={40}
+                                    />
+                                ) : user && user.email ? (
+                                    <div
+                                        className="h-9 w-9 rounded-full bg-gray-500 dark:bg-gray-700 flex items-center justify-center text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg"
+                                        style={{ fontSize: "1.5rem" }}
+                                    >
+                                      <p className="mt-1">
+                                        {user.email[0].toUpperCase()}
+                                      </p>
+                                    </div>
+                                ) : (
+                                    <Image
+                                        className="h-10 w-10 p-2 rounded-full bg-gray-500 dark:bg-gray-700 flex items-center justify-center text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg"
+                                        src="/Navbar/blankUser.svg"
+                                        alt=""
+                                        width={40}
+                                        height={40}
+                                    />
+                                )}
+                              </div>
+                            </Menu.Button>
+                          </div>
+
+                          <Transition
+                              as={Fragment}
+                              enter="transition ease-out duration-100"
+                              enterFrom="transform opacity-0 scale-95"
+                              enterTo="transform opacity-100 scale-100"
+                              leave="transition ease-in duration-75"
+                              leaveFrom="transform opacity-100 scale-100"
+                              leaveTo="transform opacity-0 scale-95"
+                          >
+                            <Menu.Items className="absolute right-0 z-50 mt-8 w-48 origin-top-right bg-slate-200 dark:bg-slate-800 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none rounded-2xl">
+                              <div>
+                                <div className="text-sm ml-4 mb-2 mt-4 font-medium leading-none text-gray-800 dark:text-gray-300">
+                                  {user?.addresses && user.addresses[0]
+                                      ? user.addresses[0].name
+                                      : "No Name Provided"}
+                                </div>
+                                <div className="text-sm ml-4 mb-2 mt-4 font-bold leading-none text-gray-950 dark:text-gray-300 ">
+                                  {user?.email && user.email
+                                      ? user.email
+                                      : "No Email Provided"}
+                                </div>
+                              </div>
+                              {userNavigation.map((item) => (
+                                  <Menu.Item key={item.name}>
+                                    {({ active }) => (
+                                        <Link
+                                            href={item.href}
+                                            className={classNames(
+                                                active
+                                                    ? "bg-gray-400 dark:bg-gray-500"
+                                                    : "",
+                                                "block px-4 py-2 text-sm dark:text-gray-200 rounded-2xl",
+                                            )}
+                                        >
+                                          {item.name}
+                                        </Link>
+                                    )}
+                                  </Menu.Item>
+                              ))}
+                              <div className="block px-4 py-2 text-sm font-bold dark:text-gray-200 rounded-2xl hover:bg-gray-400 hover:dark:bg-gray-500 cursor-pointer">
+                                {user ? (
+                                    <Link href="/logout" className="">
+                                      Logout
+                                    </Link>
+                                ) : (
+                                    <Link href="/login">Login</Link>
+                                )}
+                              </div>
+                            </Menu.Items>
+                          </Transition>
+                        </Menu>
+                      </div>
+                    </div>
+                    <div className="mt-2 ml-4 lg:block hidden">
+                      <Switcher />
+                    </div>
+
+                    {/* Mobile menu button */}
+                    <div className="flex xl:hidden ">
+                      <Disclosure.Button className="inline-flex items-center justify-center rounded-full bg-gray-300 dark:bg-gray-600 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                        <span className="sr-only">Open main menu</span>
+                        {open ? (
+                            <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+                        ) : (
+                            <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+                        )}
+                      </Disclosure.Button>
+                    </div>
+                  </div>
+                </div>
+
+                {/*Mobile View*/}
+                <Disclosure.Panel className="xl:hidden rounded-b-2xl">
+                  <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+                    {navigation.map((item) =>
+                        role === "admin" ||
+                        (!role && item.user) ||
+                        (role === "user" && item.user) ? (
+                            <Link
+                                key={item.name}
+                                href={item.href}
+                                className={classNames(
+                                    item.current
+                                        ? "bg-gray-100 bg-opacity-90 md:rounded-lg dark:bg-gray-500 dark:bg-opacity-70 text-white"
+                                        : "text-gray-300 dark:hover:bg-gray-600 dark:bg-opacity-95 hover:bg-gray-300 hover:bg-opacity-95",
+                                    "flex items-center rounded-lg px-3 py-2 text-sm font-medium",
+                                )}
+                                aria-current={item.current ? "page" : undefined}
+                            >
+                              <div className="dark:text-white flex space-x-1 text-black mr-2">
+                                <span className="my-auto">{item.icon}</span>
+                                <span>{item.name}</span>
+                              </div>
+                            </Link>
+                        ) : null,
+                    )}
+                  </div>
+
+                  <div className="border-t border-gray-700 pb-3 pt-4 ">
+                    <div className="flex items-center px-5 ">
+                      <div className="flex-shrink-0">
+                        {user &&
+                        user.addresses &&
+                        user.addresses[0] &&
+                        user.addresses[0].dpUrl ? (
+                            <Image
                                 className="h-10 w-10 p-0.5 rounded-full bg-gray-500 dark:bg-gray-500 flex items-center justify-center text-white dark:hover:bg-gray-300 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg"
                                 src={user.addresses[0].dpUrl}
                                 alt=""
                                 width={40}
                                 height={40}
-                              />
-                            ) : user && user.email ? (
-                              <div
+                            />
+                        ) : user && user.email ? (
+                            <div
                                 className="h-9 w-9 rounded-full bg-gray-500 dark:bg-gray-700 flex items-center justify-center text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg"
                                 style={{ fontSize: "1.5rem" }}
-                              >
-                                <p className="mt-1">
-                                  {user.email[0].toUpperCase()}
-                                </p>
-                              </div>
-                            ) : (
-                              <Image
+                            >
+                              <p className="mt-1">{user.email[0].toUpperCase()}</p>
+                            </div>
+                        ) : (
+                            <Image
                                 className="h-10 w-10 p-2 rounded-full bg-gray-500 dark:bg-gray-700 flex items-center justify-center text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg"
                                 src="/Navbar/blankUser.svg"
                                 alt=""
                                 width={40}
                                 height={40}
-                              />
-                            )}
-                          </div>
-                        </Menu.Button>
+                            />
+                        )}
                       </div>
 
-                      <Transition
-                        as={Fragment}
-                        enter="transition ease-out duration-100"
-                        enterFrom="transform opacity-0 scale-95"
-                        enterTo="transform opacity-100 scale-100"
-                        leave="transition ease-in duration-75"
-                        leaveFrom="transform opacity-100 scale-100"
-                        leaveTo="transform opacity-0 scale-95"
+                      <div className="ml-3">
+                        <div className="text-base font-medium leading-none text-gray-800 dark:text-white">
+                          {user?.addresses && user.addresses[0]
+                              ? user.addresses[0].name
+                              : "No Name Provided"}
+                        </div>
+                        <div className="text-sm font-bold leading-none text-gray-950 dark:text-gray-200 ">
+                          {user?.email && user.email}
+                        </div>
+                      </div>
+                      <button
+                          type="button"
+                          className="ml-auto flex-shrink-0 rounded-xl bg-gray-500 hover:bg-gray-600 p-1 text-white dark:bg-gray-700 dark:hover:text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 lg:hidden"
                       >
-                        <Menu.Items className="absolute right-0 z-50 mt-8 w-48 origin-top-right bg-slate-200 dark:bg-slate-800 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none rounded-2xl">
-                          <div>
-                            <div className="text-sm ml-4 mb-2 mt-4 font-medium leading-none text-gray-800 dark:text-gray-300">
-                              {user?.addresses && user.addresses[0]
-                                ? user.addresses[0].name
-                                : "No Name Provided"}
-                            </div>
-                            <div className="text-sm ml-4 mb-2 mt-4 font-bold leading-none text-gray-950 dark:text-gray-300 ">
-                              {user?.email && user.email
-                                ? user.email
-                                : "No Email Provided"}
-                            </div>
-                          </div>
-                          {userNavigation.map((item) => (
-                            <Menu.Item key={item.name}>
-                              {({ active }) => (
-                                <Link
-                                  href={item.href}
-                                  className={classNames(
-                                    active
-                                      ? "bg-gray-400 dark:bg-gray-500"
-                                      : "",
-                                    "block px-4 py-2 text-sm dark:text-gray-200 rounded-2xl"
-                                  )}
-                                >
-                                  {item.name}
-                                </Link>
-                              )}
-                            </Menu.Item>
-                          ))}
-                          {user ? (
-                            <Link
-                              href="/logout"
-                              className="block px-4 py-2 text-sm font-bold dark:text-gray-200 rounded-2xl hover:bg-gray-400 hover:dark:bg-gray-500 cursor-pointer"
-                            >
-                              Logout
-                            </Link>
-                          ) : (
-                            <Link
-                              href="/login"
-                              className="block px-4 py-2 text-sm font-bold dark:text-gray-200 rounded-2xl hover:bg-gray-400 hover:dark:bg-gray-500 cursor-pointer"
-                            >
-                              Login
-                            </Link>
-                          )}
-                        </Menu.Items>
-                      </Transition>
-                    </Menu>
-                  </div>
-                </div>
-                <div className="mt-2 ml-4 lg:block hidden">
-                  <Switcher />
-                </div>
-
-                {/* Mobile menu button */}
-                <div className="flex xl:hidden ">
-                  <Disclosure.Button className="inline-flex items-center justify-center rounded-full bg-gray-300 dark:bg-gray-600 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                    <span className="sr-only">Open main menu</span>
-                    {open ? (
-                      <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
-                    ) : (
-                      <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
-                    )}
-                  </Disclosure.Button>
-                </div>
-              </div>
-            </div>
-
-            {/*Mobile View*/}
-            <Disclosure.Panel className="xl:hidden rounded-b-2xl">
-              <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-                {navigation.map((item) =>
-                  role === "admin" ||
-                  (!role && item.user) ||
-                  (role === "user" && item.user) ? (
-                    <Link
-                      key={item.name}
-                      href={item.href}
-                      className={classNames(
-                        item.current
-                          ? "bg-gray-100 bg-opacity-90 md:rounded-lg dark:bg-gray-500 dark:bg-opacity-70 text-white"
-                          : "text-gray-300 dark:hover:bg-gray-600 dark:bg-opacity-95 hover:bg-gray-300 hover:bg-opacity-95",
-                        "flex items-center rounded-lg px-3 py-2 text-sm font-medium"
-                      )}
-                      aria-current={item.current ? "page" : undefined}
-                    >
-                      <div className="dark:text-white flex space-x-1 text-black mr-2">
-                        <span className="my-auto">{item.icon}</span>
-                        <span>{item.name}</span>
-                      </div>
-                    </Link>
-                  ) : null
-                )}
-              </div>
-
-              <div className="border-t border-gray-700 pb-3 pt-4 ">
-                <div className="flex items-center px-5 ">
-                  <div className="flex-shrink-0">
-                    {user &&
-                    user.addresses &&
-                    user.addresses[0] &&
-                    user.addresses[0].dpUrl ? (
-                      <Image
-                        className="h-10 w-10 p-0.5 rounded-full bg-gray-500 dark:bg-gray-500 flex items-center justify-center text-white dark:hover:bg-gray-300 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg"
-                        src={user.addresses[0].dpUrl}
-                        alt=""
-                        width={40}
-                        height={40}
-                      />
-                    ) : user && user.email ? (
-                      <div
-                        className="h-9 w-9 rounded-full bg-gray-500 dark:bg-gray-700 flex items-center justify-center text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg"
-                        style={{ fontSize: "1.5rem" }}
-                      >
-                        <p className="mt-1">{user.email[0].toUpperCase()}</p>
-                      </div>
-                    ) : (
-                      <Image
-                        className="h-10 w-10 p-2 rounded-full bg-gray-500 dark:bg-gray-700 flex items-center justify-center text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg"
-                        src="/Navbar/blankUser.svg"
-                        alt=""
-                        width={40}
-                        height={40}
-                      />
-                    )}
-                  </div>
-
-                  <div className="ml-3">
-                    <div className="text-base font-medium leading-none text-gray-800 dark:text-white">
-                      {user?.addresses && user.addresses[0]
-                        ? user.addresses[0].name
-                        : "No Name Provided"}
-                    </div>
-                    <div className="text-sm font-bold leading-none text-gray-950 dark:text-gray-200 ">
-                      {user?.email && user.email}
-                    </div>
-                  </div>
-                  <button
-                    type="button"
-                    className="ml-auto flex-shrink-0 rounded-xl bg-gray-500 hover:bg-gray-600 p-1 text-white dark:bg-gray-700 dark:hover:text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 lg:hidden"
-                  >
-                    <span className="sr-only">View notifications</span>
-                    <Link href={"/cart"}>
-                      <ShoppingCartIcon
-                        className="h-6 w-6"
-                        aria-hidden="true"
-                      />
-                    </Link>
-                  </button>
-                  {items.length > 0 && (
-                    <span className="inline-flex items-center mb-7 -ml-3 rounded-full bg-green-200 px-2 py-1 text-xs font-medium text-green-600 ring-1 ring-inset ring-green-600/10 opacity-75 lg:hidden">
+                        <span className="sr-only">View notifications</span>
+                        <Link href={"/cart"}>
+                          <ShoppingCartIcon
+                              className="h-6 w-6"
+                              aria-hidden="true"
+                          />
+                        </Link>
+                      </button>
+                      {items.length > 0 && (
+                          <span className="inline-flex items-center mb-7 -ml-3 rounded-full bg-green-200 px-2 py-1 text-xs font-medium text-green-600 ring-1 ring-inset ring-green-600/10 opacity-75 lg:hidden">
                       {items.length}
                     </span>
-                  )}
-                </div>
-                <div className="mt-3 space-y-1 px-2">
-                  {userNavigation.map((item) => (
-                    <Disclosure.Button
-                      key={item.name}
-                      as="a"
-                      href={item.href}
-                      className="block px-3 py-2 text-base font-medium dark:text-gray-200 rounded-2xl hover:bg-gray-400 hover:dark:bg-gray-500"
-                    >
-                      {item.name}
-                    </Disclosure.Button>
-                  ))}
-                  {user ? (
-                    <Link
-                      href="/logout"
-                      className="block px-3 py-2 font-bold dark:text-gray-200 rounded-2xl hover:bg-gray-400 hover:dark:bg-gray-500 cursor-pointer"
-                    >
-                      Logout
-                    </Link>
-                  ) : (
-                    <Link
-                      href="/login"
-                      className="block px-3 py-2 font-bold dark:text-gray-200 rounded-2xl hover:bg-gray-400 hover:dark:bg-gray-500 cursor-pointer"
-                    >
-                      Login
-                    </Link>
-                  )}
-                </div>
-                <Switcher />
-              </div>
-            </Disclosure.Panel>
-          </>
-        )}
-      </Disclosure>
-    </div>
+                      )}
+                    </div>
+                    <div className="mt-3 space-y-1 px-2">
+                      {userNavigation.map((item) => (
+                          <Disclosure.Button
+                              key={item.name}
+                              as="a"
+                              href={item.href}
+                              className="block rounded-md px-3 py-2 text-base font-medium text-gray-950 dark:text-gray-200 hover:bg-gray-700 hover:text-white"
+                          >
+                            {item.name}
+                          </Disclosure.Button>
+                      ))}
+                    </div>
+                    <Switcher />
+                  </div>
+                </Disclosure.Panel>
+              </>
+          )}
+        </Disclosure>
+      </div>
   );
 };
 
@@ -446,40 +447,60 @@ export const SearchProduct = ({ items }: any) => {
 
   const formatResult = (items: any) => {
     return (
-      <div className="flex focus:outline-none bg-cyan-200">
-        <div className="h-20 w-24 object-fill object-center">
-          <Image
-            className="w-full h-full object-fill object-center"
-            src={items.thumbnail}
-            alt={items.category}
-            height={100}
-            width={80}
-          />
-        </div>
-        <span style={{ display: "block", textAlign: "left" }}>
-          name: {items.title}
-        </span>
-      </div>
+        // <div className="flex focus:outline-none">
+        //   <div className="h-20 w-24 object-fill object-center">
+        //     <Image
+        //         className="w-full h-full object-fill object-center"
+        //         src={items.thumbnail}
+        //         alt={items.category}
+        //         height={100}
+        //         width={80}
+        //     />
+        //   </div>
+        //   <span style={{ display: "block", textAlign: "left" }}>
+        //   name: {items.title}
+        // </span>
+        // </div>
+        <>
+            <span style={{ display: 'block', textAlign: 'left' }}>id: {items.id}</span>
+            <span style={{ display: 'block', textAlign: 'left' }}>name: {items.name}</span>
+        </>
     );
   };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <div style={{ width: 400 }}>
-          <ReactSearchAutocomplete
-            items={items}
-            fuseOptions={{ keys: ["title"] }}
-            onSearch={handleOnSearch}
-            onHover={handleOnHover}
-            onSelect={handleOnSelect}
-            onFocus={handleOnFocus}
-            autoFocus
-            formatResult={formatResult}
-            className="focus:outline-none "
-          />
-        </div>
-      </header>
-    </div>
+      <div className="App">
+        <header className="App-header">
+          <div style={{ width: 400 }}>
+            <ReactSearchAutocomplete
+                items={items}
+                // fuseOptions={{ keys: ["title"] }}
+                onSearch={handleOnSearch}
+                onHover={handleOnHover}
+                onSelect={handleOnSelect}
+                onFocus={handleOnFocus}
+                autoFocus
+                formatResult={formatResult}
+                className="focus:outline-none text-white"
+                styling={{
+                  height: "44px",
+                  color:"white",
+                  border: "1px solid #dfe1e5",
+                  borderRadius: "24px",
+                  backgroundColor: "#2a2a2b",
+                  boxShadow: "rgba(32, 33, 36, 0.28) 0px 1px 6px 0px",
+                  hoverBackgroundColor: "#51555f",
+                  fontSize: "16px",
+                  fontFamily: "Arial",
+                  iconColor: "grey",
+                  lineColor: "rgb(232, 234, 237)",
+                  placeholderColor: "grey",
+                  clearIconMargin: '3px 14px 0 0',
+                  searchIconMargin: '0 0 0 16px'
+                }}
+            />
+          </div>
+        </header>
+      </div>
   );
 };
