@@ -108,6 +108,7 @@ const columns: ColumnsType<DataType> = [
             { text: '2 or less', value: '2' },
             // Add more filter options as needed
         ],
+        //@ts-ignore
         onFilter: (value, record) => record.rating < parseInt(value, 10),
     },
     {
