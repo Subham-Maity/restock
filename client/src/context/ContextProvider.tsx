@@ -15,13 +15,18 @@ const ContextProvider: React.FC<FormProviderProps> = ({ children }) => {
     softCap: 0,
   });
 
+  const [isDarkTheme, setIsDarkTheme] = useState<Boolean>(false);
+
   const contextState: ContextState = {
     infoData,
+    isDarkTheme,
   };
 
   const contextDispatch: ContextDispatch = {
     setInfoData,
+    setIsDarkTheme,
   };
+
 
   return (
     <FormContext.Provider value={{ ...contextState, ...contextDispatch }}>
