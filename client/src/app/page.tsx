@@ -8,7 +8,6 @@ import Footer from "@/app/components/Footer/Footer";
 import { PcComponentProductList } from "@/app/components/products/pages/pc-components/ProductList";
 
 export default function Home() {
-
   return (
     <>
       <div className="">

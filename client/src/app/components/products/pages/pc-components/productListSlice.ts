@@ -109,7 +109,6 @@ export const productSlice = createSlice({
                 state.allProducts = action.payload;
             })
 
-
             .addCase(fetchProductsByFiltersAsync.pending, (state) => {
                 state.status = "loading";
             })
