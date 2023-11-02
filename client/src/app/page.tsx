@@ -16,7 +16,6 @@ export default function Home() {
           <Navbar />
           <Banner />
           <ProductListView />
-          <PcComponentProductList />
           <OurFacts />
         </main>
       </div>
