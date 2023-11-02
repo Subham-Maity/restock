@@ -29,7 +29,6 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
-  console.log(errors.email, 'lmao');
   const dispatch: AppDispatch = useDispatch();
   const error = useSelector(selectError);
   const user = useSelector(selectLoggedInUser);
