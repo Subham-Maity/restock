@@ -34,6 +34,9 @@ import { toast } from "react-toastify";
 import { User } from "@/app/components/auth/auth.type";
 import { selectLoggedInUser } from "@/app/components/auth/authSlice";
 import ProductListSkeleton from "@/app/components/products/pages/pc-components/skeleton/ProductListSkeleton";
+import Context from "@/context/Context";
+import { useContext } from "react";
+import { FaListUl } from "react-icons/fa";
 
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
@@ -74,9 +77,9 @@ export const PcComponentProductList = () => {
   const brands = useSelector(selectBrands);
   const categories = useSelector(selectCategories);
   const products = useSelector(selectAllProducts);
-  console.log(products , "all products")
+  console.log(products, "all products");
 
-
+  const { isGrid, setIsGrid } = useContext(Context);
   const totalItems = useSelector(selectTotalItems);
   const filters = [
     {
@@ -109,7 +112,7 @@ export const PcComponentProductList = () => {
       }
     } else {
       const index = newFilter[section.id].findIndex(
-        (el) => el === option.value,
+        (el) => el === option.value
       );
       newFilter[section.id].splice(index, 1);
     }
@@ -195,7 +198,7 @@ export const PcComponentProductList = () => {
                                 ? "cursor-pointer hover:bg-gray-400 hover:dark:bg-gray-500 rounded-2xl"
                                 : "cursor-pointer hover:bg-gray-400 hover:dark:bg-gray-500 rounded-2xl",
                               active ? "" : "",
-                              "block py-2 px-3 text-sm rounded",
+                              "block py-2 px-3 text-sm rounded"
                             )}
                           >
                             {option.name}
@@ -211,9 +214,14 @@ export const PcComponentProductList = () => {
             <button
               type="button"
               className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7"
+              onClick={() => setIsGrid(!isGrid)}
             >
               <span className="sr-only">View grid</span>
-              <Squares2X2Icon className="h-5 w-5" aria-hidden="true" />
+              {isGrid ? (
+                <Squares2X2Icon className="h-5 w-5" aria-hidden="true" />
+              ) : (
+                <FaListUl className="h-5 w-5" aria-hidden="true" />
+              )}
             </button>
             <button
               type="button"
@@ -370,7 +378,7 @@ export const MobileFilter = ({
                                       {option.label}
                                     </label>
                                   </div>
-                                ),
+                                )
                               )}
                             </div>
                           </Disclosure.Panel>
@@ -531,7 +539,7 @@ function Pagination({ page, handlePage, totalItems }: any) {
 
 export const ProductGrid = ({ products }: { products: any }) => {
   const [hoveredProductIndex, setHoveredProductIndex] = useState<number | null>(
-    null,
+    null
   );
   const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
 
@@ -539,7 +547,7 @@ export const ProductGrid = ({ products }: { products: any }) => {
     setHoverTimeout(
       setTimeout(() => {
         setHoveredProductIndex(index);
-      }, 1000),
+      }, 1000)
     );
   }, []);
 
@@ -602,7 +610,7 @@ export const ProductGrid = ({ products }: { products: any }) => {
   return (
     <>
       <div className="product-card">
-        <div className="grid grid-cols-2 lg:p-8 gap-x-2 gap-y-10 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 xl:gap-x-2">
+        <div className="grid grid-cols-2 p-4 gap-x-2 gap-y-10 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
           {products.map((product: any, index: number) => (
             <Link
               href={`/pc-components-details/${product.id}`}
@@ -639,7 +647,7 @@ export const ProductGrid = ({ products }: { products: any }) => {
                                   window.location.href = `/pc-components-details/${product.id}`;
                                 }}
                               />
-                            ),
+                            )
                           )}
                         </Carousel>
                       ) : (
@@ -693,7 +701,7 @@ export const ProductGrid = ({ products }: { products: any }) => {
                   <div>
                     <p className="text-sm font-medium block dark:text-gray-100 text-neutral-900">
                       {Math.round(
-                        product.price * (1 - product.discountPercentage / 100),
+                        product.price * (1 - product.discountPercentage / 100)
                       )}
                       ₹
                     </p>

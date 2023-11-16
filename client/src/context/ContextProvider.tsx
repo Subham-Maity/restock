@@ -17,14 +17,18 @@ const ContextProvider: React.FC<FormProviderProps> = ({ children }) => {
 
   const [isDarkTheme, setIsDarkTheme] = useState<Boolean>(false);
 
+  const[isGrid, setIsGrid] = useState<Boolean>(true);
+
   const contextState: ContextState = {
     infoData,
     isDarkTheme,
+    isGrid
   };
 
   const contextDispatch: ContextDispatch = {
     setInfoData,
     setIsDarkTheme,
+    setIsGrid
   };
 
 

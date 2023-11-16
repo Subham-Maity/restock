@@ -52,8 +52,18 @@
     }
 }
 
-.stickyClass {
-    position: sticky;
+.wrapper {
+    border:0px !important;
+}
+.sc-dcJsrY div div input:focus{
+    outline: none;
+    border: 0px; /* Add a custom border */
+    --tw-ring-color:none;
 }
 
-
+/*.sc-gEvEr {*/
+/*    height: 50px !important;*/
+/*}*/
+/*.fyEHDT{*/
+/*    height: 50px !important;*/
+/*}*/

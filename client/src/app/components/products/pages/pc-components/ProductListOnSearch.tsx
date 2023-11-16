@@ -27,13 +27,16 @@ import {
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import { AppDispatch } from "@/lib/redux/store";
 import { ITEMS_PER_PAGE } from "@/lib/redux/constants";
-import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { addToCartAsync } from "@/app/components/cart/cartSlice";
 import { toast } from "react-toastify";
 import { User } from "@/app/components/auth/auth.type";
 import { selectLoggedInUser } from "@/app/components/auth/authSlice";
 import ProductListSkeleton from "@/app/components/products/pages/pc-components/skeleton/ProductListSkeleton";
+import Context from "@/context/Context";
+import { useContext } from "react";
+import { BsListTask } from "react-icons/bs";
+import { FaListUl } from "react-icons/fa";
 
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
@@ -76,6 +79,7 @@ export const PcComponentProductListOnSearch = () => {
   const products = useSelector(selectAllProducts);
   console.log(products, "all products");
 
+  const { isGrid, setIsGrid } = useContext(Context);
   const totalItems = useSelector(selectTotalItems);
   const filters = [
     {
@@ -210,9 +214,15 @@ export const PcComponentProductListOnSearch = () => {
             <button
               type="button"
               className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7"
+              onClick={() => setIsGrid(!isGrid)}
             >
               <span className="sr-only">View grid</span>
-              <Squares2X2Icon className="h-5 w-5" aria-hidden="true" />
+              {isGrid ? (
+                <Squares2X2Icon className="h-5 w-5" aria-hidden="true" />
+              ) : (
+                <FaListUl className="h-5 w-5" aria-hidden="true" />
+                
+              )}
             </button>
             <button
               type="button"
@@ -628,12 +638,12 @@ export const ProductGrid = ({ products }: { products: any }) => {
                 </div>
                 <div className="m-3 justify-start col-span-1 xs:col-span-2 lg:col-span-3 ">
                   <div className="product-details">
-                  <h2 className="text-sm sm:text-lg lg:text-xl xl:text-2xl font-normal md:font-semibold lg:font-bold text-gray-800 dark:text-gray-100">
-                    {product.title}
-                  </h2>
-                  <p className="text-sm text-justify text-gray-900 dark:text-gray-300 hidden mt-4 lg:flex">
-                    {product.description}
-                  </p>
+                    <h2 className="text-sm sm:text-lg lg:text-xl xl:text-2xl font-normal md:font-semibold lg:font-bold text-gray-800 dark:text-gray-100">
+                      {product.title}
+                    </h2>
+                    <p className="text-sm text-justify text-gray-900 dark:text-gray-300 hidden mt-4 lg:flex">
+                      {product.description}
+                    </p>
                   </div>
                   <div className="mt-4 flex">
                     <div
@@ -666,7 +676,6 @@ export const ProductGrid = ({ products }: { products: any }) => {
                       ₹{product.price}
                     </p>
                   </div>
-                  
                 </div>
               </div>
             </Link>

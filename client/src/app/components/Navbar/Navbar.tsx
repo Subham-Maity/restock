@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { Fragment } from "react";
 import {
   Bars3Icon,
@@ -17,14 +17,17 @@ import { BsGpuCard } from "react-icons/bs";
 import Link from "next/link";
 import Image from "next/image";
 import Switcher from "@/app/components/Mode/Switcher";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { selectItems } from "@/app/components/cart/cartSlice";
 import { useRouter } from "next/navigation";
 import CartHoverOnMouse from "@/app/components/cart/CartHoverOnMouse";
 import { selectLoggedInUser } from "@/app/components/auth/authSlice";
 import { selectUserInfo } from "@/app/components/user/userSlice";
 
-import { selectAllProducts_ } from "@/app/components/products/pages/pc-components/productListSlice";
+import {
+    fetchAllStoreProductsAsync,
+    selectAllProducts_
+} from "@/app/components/products/pages/pc-components/productListSlice";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 
 const navigation = [
@@ -80,34 +83,19 @@ function classNames(...classes: any[]) {
 }
 
 const Navbar = () => {
-  const [isCartHoverOpen, setIsCartHoverOpen] = useState(false);
-  const [cartHoverTimeout, setCartHoverTimeout] = useState(null);
-  const user = useSelector(selectUserInfo);
-  const users = useSelector(selectLoggedInUser);
-  const role = users?.role;
-  // const itemsForSearch = useSelector(selectAllProducts_);
-    const itemsForSearch=[
-            {
-                id: 0,
-                name: 'Cobol'
-            },
-            {
-                id: 1,
-                name: 'JavaScript'
-            },
-            {
-                id: 2,
-                name: 'Basic'
-            },
-            {
-                id: 3,
-                name: 'PHP'
-            },
-            {
-                id: 4,
-                name: 'Java'
-            }
-        ]
+    const dispatch = useDispatch();
+    useEffect(()=>{
+        // @ts-ignore
+        dispatch(fetchAllStoreProductsAsync);
+    },[]);
+
+    const [isCartHoverOpen, setIsCartHoverOpen] = useState(false);
+    const [cartHoverTimeout, setCartHoverTimeout] = useState(null);
+    const user = useSelector(selectUserInfo);
+    const users = useSelector(selectLoggedInUser);
+    const role = users?.role;
+    const itemsForSearch = useSelector(selectAllProducts_);
+
   const handleCartIconHover = () => {
     setIsCartHoverOpen(true);
     // Clear any previous timeouts
@@ -461,10 +449,25 @@ export const SearchProduct = ({ items }: any) => {
         //   name: {items.title}
         // </span>
         // </div>
-        <>
-            <span style={{ display: 'block', textAlign: 'left' }}>id: {items.id}</span>
-            <span style={{ display: 'block', textAlign: 'left' }}>name: {items.name}</span>
-        </>
+        <div className="grid h-20 grid-cols-4">
+            <div className="object-fill object-center">
+                <Image
+                    className="w-full h-full object-fill object-center"
+                    src={items.thumbnail}
+                    alt={items.category}
+                    height={100}
+                    width={80}
+                />
+            </div>
+            <div className="col-span-3 flex pl-4 items-center">
+                    {items.title}
+            </div>
+
+        </div>
+        // <>
+        //     <span style={{ display: 'block', textAlign: 'left' }}>id: {items.id}</span>
+        //     <span style={{ display: 'block', textAlign: 'left' }}>name: {items.name}</span>
+        // </>
     );
   };
 
@@ -474,7 +477,7 @@ export const SearchProduct = ({ items }: any) => {
           <div style={{ width: 400 }}>
             <ReactSearchAutocomplete
                 items={items}
-                // fuseOptions={{ keys: ["title"] }}
+                fuseOptions={{ keys: ["title"] }}
                 onSearch={handleOnSearch}
                 onHover={handleOnHover}
                 onSelect={handleOnSelect}

@@ -37,6 +37,8 @@ import ProductListSkeleton from "@/app/components/products/pages/pc-components/s
 import { TbEditOff } from "react-icons/tb";
 import { MdAddToPhotos } from "react-icons/md";
 import BgAdminTailwindWrapper from "@/app/components/admin/components/TailwindWrapper/BgTailwindWrapper";
+import {router} from "next/client";
+import {useRouter} from "next/navigation";
 
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
@@ -72,6 +74,7 @@ function classNames(...classes: any) {
 }
 
 export const AdminPcComponentProductList = () => {
+  const router = useRouter();
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const dispatch: AppDispatch = useDispatch();
   const brands = useSelector(selectBrands);
@@ -146,6 +149,8 @@ export const AdminPcComponentProductList = () => {
   if (!products) {
     return <ProductListSkeleton />;
   }
+
+
 
   return (
     <div>
@@ -247,6 +252,8 @@ export const AdminPcComponentProductList = () => {
                   <button
                     type="submit"
                     className="inline-flex rounded-md bg-green-600  dark:text-gray-200 hover:bg-green-500 mt-2 ml-2 dark:bg-green-700/60 px-1.5 py-1 text-lg font-semibold text-white shadow-sm dark:hover:bg-green-500/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+
+                   onClick={() => {router.push("/admin/adminForm")} }
                   >
                     <MdAddToPhotos className="mt-1 mr-1" />
                     Add New Product

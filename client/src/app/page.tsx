@@ -6,16 +6,16 @@ import React, {useEffect} from "react";
 import OurFacts from "@/app/components/siteStats/SiteStats";
 import Footer from "@/app/components/Footer/Footer";
 import { PcComponentProductList } from "@/app/components/products/pages/pc-components/ProductList";
+import ProductListView from "@/app/components/products/pages/pc-components/ProductListView";
 
 export default function Home() {
-
   return (
     <>
       <div className="">
         <main className="">
           <Navbar />
           <Banner />
-          <PcComponentProductList />
+          <ProductListView />
           <OurFacts />
         </main>
       </div>
