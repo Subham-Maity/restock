@@ -7,11 +7,11 @@ import ProductForm from "@/app/components/admin/pages/pc-components/ProductFrom/
 const Page = () => {
     return (
         <div>
-            <AdminProtected>
+            {/*<AdminProtected>*/}
                 <DefaultLayout>
                     <ProductForm/>
                 </DefaultLayout>
-            </AdminProtected>
+            {/*</AdminProtected>*/}
         </div>
     );
 };
