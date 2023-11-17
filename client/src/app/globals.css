@@ -54,6 +54,7 @@
 
 .wrapper {
     border:0px !important;
+    background-color: rgba(21,24,35,0.2);
 }
 .sc-dcJsrY div div input:focus{
     outline: none;
