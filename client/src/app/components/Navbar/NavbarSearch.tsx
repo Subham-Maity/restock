@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { ReactSearchAutocomplete } from 'react-search-autocomplete';
+import Link from "next/link";
+import {useSelector} from "react-redux";
+import {selectBrands, selectCategories} from "@/app/components/products/pages/pc-components/productListSlice";
 
 export const NavbarSearch = ({ items }: any) => {
     var oldKey = 'title';
@@ -22,6 +25,22 @@ export const NavbarSearch = ({ items }: any) => {
 
     const [showComponent, setShowComponent] = useState(false);
 
+    const brands = useSelector(selectBrands);
+    const categories = useSelector(selectCategories);
+
+    const filters = [
+        {
+            id: "category",
+            name: "Category",
+            options: categories,
+        },
+        {
+            id: "brand",
+            name: "Brands",
+            options: brands,
+        },
+    ];
+
     useEffect(() => {
         // This will be executed after the initial render
         setShowComponent(true);
@@ -36,7 +55,8 @@ export const NavbarSearch = ({ items }: any) => {
     };
 
     const handleOnSelect = (item: any) => {
-        console.log("pc-components-details/",item);
+        // onClick("pc-components-details/",item);
+        window.location.href = `/pc-components-details/${item.id}`;
         // console.log(item);
     };
 
@@ -49,6 +69,7 @@ export const NavbarSearch = ({ items }: any) => {
             return null; // or some default content
         }
         return (
+            <Link href={"/pc-components-details/64"}>
             <div className="grid h-20 grid-cols-4">
                 <div className="object-fill object-center">
                     <Image
@@ -61,6 +82,7 @@ export const NavbarSearch = ({ items }: any) => {
                 </div>
                 <div className="col-span-3 flex pl-4 items-center">{item.name}</div>
             </div>
+            </Link>
         );
     };
 
@@ -72,7 +94,7 @@ export const NavbarSearch = ({ items }: any) => {
                         items={items}
                         onSearch={handleOnSearch}
                         onHover={handleOnHover}
-                        onSelect={handleOnSelect}
+                        onSelect={onclick => handleOnSelect(onclick)}
                         onFocus={handleOnFocus}
                         autoFocus
                         formatResult={formatResult}
