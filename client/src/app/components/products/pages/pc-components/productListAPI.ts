@@ -23,6 +23,24 @@ export function fetchProductById(id: Id): Promise<{ data: any }> {
   });
 }
 
+
+export function createProduct(product: any): Promise<{ data: any }> {
+  return new Promise(async (resolve) => {
+    const response = await fetch(
+      "https://restock-api.onrender.com/products/",
+      {
+        method: "POST",
+        body: JSON.stringify(product),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+    const data = await response.json();
+    resolve({ data });
+  });
+}
+
 export function fetchProductsByFilters(
   filter: Filter,
   sort: Sort,

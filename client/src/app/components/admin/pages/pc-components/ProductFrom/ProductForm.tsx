@@ -17,6 +17,7 @@ import {useParams} from "next/navigation";
 import {FaSave, FaTrashAlt} from "react-icons/fa";
 import BgAdminTailwindWrapper from '../../../components/TailwindWrapper/BgTailwindWrapper';
 import {AiFillCloseSquare} from "react-icons/ai";
+import {AppDispatch} from "@/lib/redux/store";
 
 function ProductForm() {
     const {
@@ -28,7 +29,7 @@ function ProductForm() {
     } = useForm();
     const brands = useSelector(selectBrands);
     const categories = useSelector(selectCategories);
-    const dispatch = useDispatch();
+    const dispatch:AppDispatch = useDispatch();
     const params = useParams();
     const selectedProduct = useSelector(selectProductById);
     const [openModal, setOpenModal] = useState(null);

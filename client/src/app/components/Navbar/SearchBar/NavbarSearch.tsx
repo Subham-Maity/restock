@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import Image from 'next/image';
 import { ReactSearchAutocomplete } from 'react-search-autocomplete';
 import Link from "next/link";
 import {useSelector} from "react-redux";
 import {selectBrands, selectCategories} from "@/app/components/products/pages/pc-components/productListSlice";
 import {useRouter} from "next/navigation";
+import Context from "@/context/Context";
 
 
 
 export const NavbarSearch = ({ items }: any) => {
+    const {isDarkTheme} = useContext(Context);
     const router = useRouter();
     var oldKey = 'title';
     var newKey = 'name';
@@ -104,21 +106,21 @@ export const NavbarSearch = ({ items }: any) => {
                         onFocus={handleOnFocus}
                         autoFocus
                         formatResult={formatResult}
-                        maxResults={5} // Set the maximum number of results to display in the dropdown
+                        maxResults={5} 
                         className="focus:outline-none text-white"
                         styling={{
                             height: '44px',
-                            color: 'white',
-                            border: '1px solid #dfe1e5',
+                            color: isDarkTheme ? '#FFFFFF' : '#000000',
+                            border: isDarkTheme ? '1px solid #000000' : '1px solid #FFFFFF',
                             borderRadius: '24px',
-                            backgroundColor: '#2a2a2b',
-                            boxShadow: 'rgba(32, 33, 36, 0.28) 0px 1px 6px 0px',
-                            hoverBackgroundColor: '#51555f',
+                            backgroundColor: isDarkTheme ? '#2a2a2b' : '#FFFFFF',
+                            boxShadow:isDarkTheme ? 'rgba(32, 33, 36, 0.28) 0px 1px 6px 0px' : 'rgba(32, 33, 36, 0.28) 0px 1px 6px 0px',
+                            hoverBackgroundColor: isDarkTheme ? '#51555f' : '#ebebeb',
                             fontSize: '16px',
                             fontFamily: 'Arial',
                             iconColor: 'grey',
-                            lineColor: 'rgb(232, 234, 237)',
-                            placeholderColor: 'grey',
+                            lineColor: isDarkTheme ? `rgb(232, 234, 237)` : `rgb(232, 234, 237)`,
+                            placeholderColor: isDarkTheme ? "gray" : "#dfe1e5",
                             clearIconMargin: '3px 14px 0 0',
                             searchIconMargin: '0 0 0 16px',
                         }}
