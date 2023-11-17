@@ -28,7 +28,7 @@ import {
   fetchAllStoreProductsAsync,
   selectAllProducts_,
 } from "@/app/components/products/pages/pc-components/productListSlice";
-import NavbarSearch from "@/app/components/Navbar/NavbarSearch";
+import NavbarSearch from "@/app/components/Navbar/SearchBar/NavbarSearch";
 
 const navigation = [
   {
