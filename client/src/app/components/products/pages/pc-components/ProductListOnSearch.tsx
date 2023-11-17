@@ -221,7 +221,6 @@ export const PcComponentProductListOnSearch = () => {
                 <Squares2X2Icon className="h-5 w-5" aria-hidden="true" />
               ) : (
                 <FaListUl className="h-5 w-5" aria-hidden="true" />
-                
               )}
             </button>
             <button
@@ -611,76 +610,72 @@ export const ProductGrid = ({ products }: { products: any }) => {
   return (
     <>
       <div className="w-full">
-        <div className="w-full">
-          {products.map((product: any, index: number) => (
-            <Link
-              href={`/pc-components-details/${product.id}`}
+        {products.map((product: any, index: number) => (
+          <Link href={`/pc-components-details/${product.id}`} key={product.id}>
+            <div
+              className="grid grid-cols-2 xs:grid-cols-3 lg:grid-cols-4 grid-rows-1 gap-2 mb-2 bg-white/30 dark:bg-black/20 border-gray-400/25 dark:border-gray-600/20 rounded-lg h-[200px] sm:h-[280px] w-full p-4"
               key={product.id}
+              onMouseEnter={() => handleMouseEnterWithDelay(index)}
+              onMouseLeave={handleMouseLeave}
             >
-              <div
-                className="grid grid-cols-2 xs:grid-cols-3 lg:grid-cols-4 grid-rows-1 gap-2 my-2 bg-white/30 dark:bg-black/20 border-gray-400/25 dark:border-gray-600/20 rounded-lg h-[200px] sm:h-[280px] min-w-full p-4"
-                key={product.id}
-                onMouseEnter={() => handleMouseEnterWithDelay(index)}
-                onMouseLeave={handleMouseLeave}
-              >
-                <div className="rounded-lg bg-gray-200 sm:w-fit w-[140px] sm:h-fit h-[140px] my-auto overflow-hidden">
-                  <Image
-                    src={product.thumbnail}
-                    alt={product.title}
-                    className="rounded-lg h-[140px] sm:h-full sm:w-full w-[140px] object-cover"
-                    // fill
-                    width={250}
-                    height={250}
-                    onClick={() => {
-                      window.location.href = `/pc-components-details/${product.id}`;
-                    }}
-                  />
+              <div className="w-full h-full">
+                <Image
+                  src={product.thumbnail}
+                  alt={product.title}
+                  className="w-full h-full object-fill object-center"
+                  // fill
+                  width={500}
+                  height={500}
+                  unoptimized
+                  onClick={() => {
+                    window.location.href = `/pc-components-details/${product.id}`;
+                  }}
+                />
+              </div>
+              <div className="m-3 justify-start col-span-1 xs:col-span-2 lg:col-span-3 ">
+                <div className="product-details">
+                  <h2 className="text-sm sm:text-lg lg:text-xl xl:text-2xl font-normal md:font-semibold lg:font-bold text-gray-800 dark:text-gray-100">
+                    {product.title}
+                  </h2>
+                  <p className="text-sm text-justify text-gray-900 dark:text-gray-300 hidden mt-4 lg:flex">
+                    {product.description}
+                  </p>
                 </div>
-                <div className="m-3 justify-start col-span-1 xs:col-span-2 lg:col-span-3 ">
-                  <div className="product-details">
-                    <h2 className="text-sm sm:text-lg lg:text-xl xl:text-2xl font-normal md:font-semibold lg:font-bold text-gray-800 dark:text-gray-100">
-                      {product.title}
-                    </h2>
-                    <p className="text-sm text-justify text-gray-900 dark:text-gray-300 hidden mt-4 lg:flex">
-                      {product.description}
-                    </p>
+                <div className="mt-4 flex">
+                  <div
+                    className={`w-12 h-5 flex items-center justify-center rounded-sm text-sm gap-0.5 ${
+                      product.rating >= 4.5
+                        ? "bg-green-500 dark:bg-green-600 text-sm"
+                        : product.rating >= 4
+                        ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
+                        : product.rating >= 3.5
+                        ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
+                        : product.rating >= 2
+                        ? "bg-orange-400 dark:bg-orange-600 text-sm"
+                        : "bg-red-500 dark:bg-red-600 text-sm"
+                    }`}
+                  >
+                    <span className="text-white text-sm">
+                      {product.rating.toFixed(1)}
+                    </span>
+                    <StarIcon className="w-3.5 text-sm text-gray-200" />
                   </div>
-                  <div className="mt-4 flex">
-                    <div
-                      className={`w-12 h-5 flex items-center justify-center rounded-sm text-sm gap-0.5 ${
-                        product.rating >= 4.5
-                          ? "bg-green-500 dark:bg-green-600 text-sm"
-                          : product.rating >= 4
-                          ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
-                          : product.rating >= 3.5
-                          ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
-                          : product.rating >= 2
-                          ? "bg-orange-400 dark:bg-orange-600 text-sm"
-                          : "bg-red-500 dark:bg-red-600 text-sm"
-                      }`}
-                    >
-                      <span className="text-white text-sm">
-                        {product.rating.toFixed(1)}
-                      </span>
-                      <StarIcon className="w-3.5 text-sm text-gray-200" />
-                    </div>
-                  </div>
-                  <div className="price my-4">
-                    <p className="text-xl font-semibold dark:text-gray-100 text-neutral-900">
-                      ₹
-                      {Math.round(
-                        product.price * (1 - product.discountPercentage / 100)
-                      )}
-                    </p>
-                    <p className="text-base block line-through font-medium text-gray-400">
-                      ₹{product.price}
-                    </p>
-                  </div>
+                </div>
+                <div className="price my-4">
+                  <p className="text-xl font-semibold dark:text-gray-100 text-neutral-900">
+                    ₹
+                    {Math.round(
+                      product.price * (1 - product.discountPercentage / 100)
+                    )}
+                  </p>
+                  <p className="text-base block line-through font-medium text-gray-400">
+                    ₹{product.price}
+                  </p>
                 </div>
               </div>
-            </Link>
-          ))}
-        </div>
+            </div>
+          </Link>
+        ))}
       </div>
     </>
   );

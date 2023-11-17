@@ -5,7 +5,6 @@ import Navbar from "@/app/components/Navbar/Navbar";
 import React, {useEffect} from "react";
 import OurFacts from "@/app/components/siteStats/SiteStats";
 import Footer from "@/app/components/Footer/Footer";
-import { PcComponentProductList } from "@/app/components/products/pages/pc-components/ProductList";
 import ProductListView from "@/app/components/products/pages/pc-components/ProductListView";
 
 export default function Home() {

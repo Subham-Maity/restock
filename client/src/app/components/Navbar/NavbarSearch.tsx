@@ -4,8 +4,12 @@ import { ReactSearchAutocomplete } from 'react-search-autocomplete';
 import Link from "next/link";
 import {useSelector} from "react-redux";
 import {selectBrands, selectCategories} from "@/app/components/products/pages/pc-components/productListSlice";
+import {useRouter} from "next/navigation";
+
+
 
 export const NavbarSearch = ({ items }: any) => {
+    const router = useRouter();
     var oldKey = 'title';
     var newKey = 'name';
     var newArray = items.map(function(obj:any) {
@@ -48,6 +52,7 @@ export const NavbarSearch = ({ items }: any) => {
 
     const handleOnSearch = (string: any, results: any) => {
         // console.log(string, results);
+
     };
 
     const handleOnHover = (result: any) => {
@@ -56,7 +61,8 @@ export const NavbarSearch = ({ items }: any) => {
 
     const handleOnSelect = (item: any) => {
         // onClick("pc-components-details/",item);
-        window.location.href = `/pc-components-details/${item.id}`;
+        // window.location.href = `/pc-components-details/${item.id}`;
+        router.push(`/pc-components-details/${item.id}`);
         // console.log(item);
     };
 
