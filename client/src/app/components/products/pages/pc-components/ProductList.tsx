@@ -194,9 +194,7 @@ export const PcComponentProductList = () => {
                           <p
                             onClick={() => handleSort(option)}
                             className={classNames(
-                              option.current
-                                ? ""
-                                : " rounded-2xl",
+                              option.current ? "" : " rounded-2xl",
                               active ? "" : "",
                               "block py-2 px-3 text-sm rounded cursor-pointer hover:bg-gray-400 hover:dark:bg-gray-500 text-black dark:text-white"
                             )}
@@ -638,14 +636,11 @@ export const ProductGrid = ({ products }: { products: any }) => {
                         >
                           {product.images.map(
                             (image: string, imageIndex: number) => (
-                              <Image
+                              <img
                                 key={imageIndex}
                                 src={image}
                                 alt={product.title}
-                                className="w-full h-fit object-fill"
-                                // fill
-                                height={500}
-                                width={500}
+                                className="w-full h-full object-fill object-center"
                                 onClick={() => {
                                   window.location.href = `/pc-components-details/${product.id}`;
                                 }}
