@@ -195,10 +195,10 @@ export const PcComponentProductList = () => {
                             onClick={() => handleSort(option)}
                             className={classNames(
                               option.current
-                                ? "cursor-pointer hover:bg-gray-400 hover:dark:bg-gray-500 rounded-2xl"
-                                : "cursor-pointer hover:bg-gray-400 hover:dark:bg-gray-500 rounded-2xl",
+                                ? ""
+                                : " rounded-2xl",
                               active ? "" : "",
-                              "block py-2 px-3 text-sm rounded"
+                              "block py-2 px-3 text-sm rounded cursor-pointer hover:bg-gray-400 hover:dark:bg-gray-500 text-black dark:text-white"
                             )}
                           >
                             {option.name}
@@ -622,8 +622,8 @@ export const ProductGrid = ({ products }: { products: any }) => {
                 onMouseEnter={() => handleMouseEnterWithDelay(index)}
                 onMouseLeave={handleMouseLeave}
               >
-                <div className=" aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
-                  <div className="w-full h-full">
+                <div className="aspect-h-1 aspect-w-1 h-fit w-full overflow-hidden rounded-lg bg-gray-200 object-cover">
+                  <div className="">
                     <div>
                       {hoveredProductIndex === index ? (
                         <Carousel
@@ -633,16 +633,19 @@ export const ProductGrid = ({ products }: { products: any }) => {
                           autoPlaySpeed={1500}
                           showDots={false}
                           arrows={false}
-                          swipeable={true}
-                          draggable={true}
+                          swipeable={false}
+                          draggable={false}
                         >
                           {product.images.map(
                             (image: string, imageIndex: number) => (
-                              <img
+                              <Image
                                 key={imageIndex}
                                 src={image}
                                 alt={product.title}
-                                className="w-full h-full object-fill object-center"
+                                className="w-full h-fit object-fill"
+                                // fill
+                                height={500}
+                                width={500}
                                 onClick={() => {
                                   window.location.href = `/pc-components-details/${product.id}`;
                                 }}

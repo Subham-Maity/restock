@@ -195,10 +195,10 @@ export const PcComponentProductListOnSearch = () => {
                             onClick={() => handleSort(option)}
                             className={classNames(
                               option.current
-                                ? "cursor-pointer hover:bg-gray-400 hover:dark:bg-gray-500 rounded-2xl"
-                                : "cursor-pointer hover:bg-gray-400 hover:dark:bg-gray-500 rounded-2xl",
-                              active ? "" : "",
-                              "block py-2 px-3 text-sm rounded"
+                              ? ""
+                              : " rounded-2xl",
+                            active ? "" : "",
+                            "block py-2 px-3 text-sm rounded cursor-pointer hover:bg-gray-400 hover:dark:bg-gray-500 text-black dark:text-white"
                             )}
                           >
                             {option.name}
