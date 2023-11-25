@@ -68,3 +68,29 @@
 /*.fyEHDT{*/
 /*    height: 50px !important;*/
 /*}*/
+
+.search .wrapper:first-child {
+    border: 4px solid orange !important;
+}.search .wrapper:first-child {
+     border: 4px solid orange;
+     width: 100% !important;
+     height: auto;
+ }
+
+@media (min-width: 768px) {
+    .search .wrapper:first-child {
+        width: 50% !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    .search .wrapper:first-child {
+        width: 33.33% !important;
+    }
+}
+
+@media (min-width: 1440px) {
+    .search .wrapper:first-child {
+        width: 25%;
+    }
+}

@@ -2,14 +2,29 @@ import React, {useState, useEffect, useContext} from 'react';
 import Image from 'next/image';
 import { ReactSearchAutocomplete } from 'react-search-autocomplete';
 import Link from "next/link";
-import {useSelector} from "react-redux";
-import {selectBrands, selectCategories} from "@/app/components/products/pages/pc-components/productListSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {
+    fetchProductsByFiltersAsync,
+    selectBrands,
+    selectCategories
+} from "@/app/components/products/pages/pc-components/productListSlice";
 import {useRouter} from "next/navigation";
 import Context from "@/context/Context";
+import {ITEMS_PER_PAGE} from "@/lib/redux/constants";
 
 
 
 export const NavbarSearch = ({ items }: any) => {
+    const dispatch = useDispatch();
+    const [page, setPage] = useState(1);
+    const [filter, setFilter] = useState<Filter>({});
+    const [sort, setSort] = useState<SortOption>({
+        _sort: "rating",
+        _order: "desc",
+    } as SortOption);
+
+
+    const [latestArray,setLatestArray] = useState();
     const {isDarkTheme} = useContext(Context);
     const router = useRouter();
     var oldKey = 'title';
@@ -34,18 +49,18 @@ export const NavbarSearch = ({ items }: any) => {
     const brands = useSelector(selectBrands);
     const categories = useSelector(selectCategories);
 
-    const filters = [
-        {
-            id: "category",
-            name: "Category",
-            options: categories,
-        },
-        {
-            id: "brand",
-            name: "Brands",
-            options: brands,
-        },
-    ];
+    // const filters = [
+    //     {
+    //         id: "category",
+    //         name: "Category",
+    //         options: categories,
+    //     },
+    //     {
+    //         id: "brand",
+    //         name: "Brands",
+    //         options: brands,
+    //     },
+    // ];
 
     useEffect(() => {
         // This will be executed after the initial render
@@ -54,23 +69,30 @@ export const NavbarSearch = ({ items }: any) => {
 
     const handleOnSearch = (string: any, results: any) => {
         // console.log(string, results);
-
+        setLatestArray(results);
     };
 
     const handleOnHover = (result: any) => {
         // console.log(result);
+        console.log(result,"hover");
     };
 
     const handleOnSelect = (item: any) => {
         // onClick("pc-components-details/",item);
         // window.location.href = `/pc-components-details/${item.id}`;
         router.push(`/pc-components-details/${item.id}`);
+        console.log(item,"clicken on select");
         // console.log(item);
     };
 
     const handleOnFocus = () => {
         console.log('Focused');
     };
+
+    // useEffect(() => {
+    //     const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
+    //     dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination }));
+    // }, [dispatch, filter, sort, page]);
 
     const formatResult = (item: any) => {
         if (!item) {
@@ -94,15 +116,27 @@ export const NavbarSearch = ({ items }: any) => {
         );
     };
 
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            // Perform the action you want here
+            // @ts-ignore
+            console.log("select catagory...........", latestArray[0].category);
+            // setFilter(newFilter);
+            const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
+            // @ts-ignore
+            dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination }));
+        }
+    };
+
     return (
         <div className={`App ${showComponent ? '' : 'hidden'}`}>
             <header className="App-header">
-                <div style={{ width: 400 }}>
+                <div style={{ width: 400 }} onKeyDown={handleKeyDown}>
                     <ReactSearchAutocomplete
                         items={items}
                         onSearch={handleOnSearch}
                         onHover={handleOnHover}
-                        onSelect={onclick => handleOnSelect(onclick)}
+                        onSelect={(onclick: any) => handleOnSelect(onclick)}
                         onFocus={handleOnFocus}
                         autoFocus
                         formatResult={formatResult}
