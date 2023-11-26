@@ -2,6 +2,7 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {motion} from "framer-motion";
 import {
+    fetchAllProductByIdAsync,
     // clearSelectedProduct,
     // createProductAsync,
     // fetchProductByIdAsync,
@@ -34,13 +35,13 @@ function ProductForm() {
     const selectedProduct = useSelector(selectProductById);
     const [openModal, setOpenModal] = useState(null);
 
-    // useEffect(() => {
-    //   if (params.id) {
-    //     dispatch(fetchProductByIdAsync(params.id));
-    //   } else {
-    //     dispatch(clearSelectedProduct());
-    //   }
-    // }, [params.id, dispatch]);
+    useEffect(() => {
+      if (params.id) {
+        dispatch(fetchAllProductByIdAsync(params.id));
+      } else {
+        // dispatch(clearSelectedProduct());
+      }
+    }, [params.id, dispatch]);
 
     useEffect(() => {
         if (selectedProduct && params.id) {

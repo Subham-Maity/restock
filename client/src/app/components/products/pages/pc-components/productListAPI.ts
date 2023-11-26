@@ -13,7 +13,7 @@ export function fetchAllProducts(): Promise<{ data: any }> {
   });
 }
 
-export function fetchProductById(id: Id): Promise<{ data: any }> {
+export function fetchProductById(id: any): Promise<{ data: any }> {
   return new Promise(async (resolve) => {
     const response = await fetch(
       "https://restock-api.onrender.com/products/" + id,
