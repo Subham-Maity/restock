@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "restock",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -30,12 +30,9 @@
     "eslint-config-next": "13.4.12",
     "framer-motion": "^10.16.4",
     "json-server": "^0.17.3",
-    "next": "13.4.12",
     "next-themes": "^0.2.1",
     "postcss": "8.4.27",
-    "react": "18.2.0",
     "react-countup": "^6.4.2",
-    "react-dom": "18.2.0",
     "react-hook-form": "^7.46.2",
     "react-icons": "^4.11.0",
     "react-intersection-observer": "^9.5.2",
@@ -51,9 +48,21 @@
     "tailwind-merge": "^1.14.0",
     "tailwindcss": "3.3.3",
     "tsparticles-slim": "^2.12.0",
-    "typescript": "5.1.6"
+    "typescript": "5.1.6",
+    "react": "^18",
+    "react-dom": "^18",
+    "next": "14.0.3"
   },
   "devDependencies": {
+    "typescript": "^5",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.0.1",
+    "postcss": "^8",
+    "tailwindcss": "^3.3.0",
+    "eslint": "^8",
+    "eslint-config-next": "14.0.3",
     "@types/react-inner-image-zoom": "^3.0.0",
     "@types/react-slick": "^0.23.10",
     "daisyui": "^4.4.2"
