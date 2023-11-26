@@ -12,7 +12,16 @@ import {useRouter} from "next/navigation";
 import Context from "@/context/Context";
 import {ITEMS_PER_PAGE} from "@/lib/redux/constants";
 
+interface Filter {
+    [key: string]: string[];
+}
 
+interface SortOption {
+    _sort: string;
+    _order: string;
+
+    [key: string]: any;
+}
 
 export const NavbarSearch = ({ items }: any) => {
     const dispatch = useDispatch();
@@ -116,7 +125,7 @@ export const NavbarSearch = ({ items }: any) => {
         );
     };
 
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e:any) => {
         if (e.key === 'Enter') {
             // Perform the action you want here
             // @ts-ignore

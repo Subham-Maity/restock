@@ -3,7 +3,7 @@ export interface Filter {
 }
 
 export interface Id {
-  [key: string]: string;
+  [key: string]: string | string[];
 }
 
 export interface Sort {

@@ -226,7 +226,7 @@ const Navbar = () => {
                         role === "admin" ||
                         (!role && item.user) ||
                         (role === "user" && item.user) ? (
-                          <div key={item.name}>
+                          <div key={item.name} >
                             {item.submenu ? (
                               <div className="dropdown dropdown-hover">
                                 <label tabIndex={0}>
@@ -255,7 +255,7 @@ const Navbar = () => {
                                 </label>
                                 <ul
                                   tabIndex={0}
-                                  className="dropdown-content z-50 menu shadow bg-slate-200 dark:bg-slate-800  rounded-box w-52"
+                                  className="dropdown-content mt-2 z-50 menu shadow bg-slate-200 dark:bg-slate-800  rounded-box w-52"
                                 >
                                   {item.submenu.map((subitem) => (
                                     <li key={subitem.name}>
