@@ -109,18 +109,18 @@ export const NavbarSearch = ({ items }: any) => {
         }
         return (
             <Link href={"/pc-components-details/64"}>
-            <div className="grid h-20 grid-cols-4">
-                <div className="object-fill object-center">
-                    <Image
-                        className="w-full h-full object-fill object-center"
-                        src={item.thumbnail}
-                        alt={item.category}
-                        height={100}
-                        width={80}
-                    />
+                <div className="grid h-20 grid-cols-4">
+                    <div className="object-fill object-center">
+                        <Image
+                            className="w-full h-full object-fill object-center"
+                            src={item.thumbnail}
+                            alt={item.category}
+                            height={100}
+                            width={80}
+                        />
+                    </div>
+                    <div className="col-span-3 flex pl-4 items-center">{item.name}</div>
                 </div>
-                <div className="col-span-3 flex pl-4 items-center">{item.name}</div>
-            </div>
             </Link>
         );
     };
@@ -132,6 +132,13 @@ export const NavbarSearch = ({ items }: any) => {
             console.log("select catagory...........", latestArray[0].category);
             // setFilter(newFilter);
             const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
+            // @ts-ignore
+            let filter={"category":[latestArray[0].category]};
+            router.push("/");
+            // @ts-ignore
+            dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination }));
+            // @ts-ignore
+            dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination }));
             // @ts-ignore
             dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination }));
         }
@@ -147,9 +154,14 @@ export const NavbarSearch = ({ items }: any) => {
                         onHover={handleOnHover}
                         onSelect={(onclick: any) => handleOnSelect(onclick)}
                         onFocus={handleOnFocus}
-                        autoFocus
                         formatResult={formatResult}
-                        maxResults={5} 
+                        placeholder={"Search here..."}
+                        maxResults={5}
+                        // autoFocus={true}
+                        // showNoResultsText={"HI"}
+                        // showNoResults={true}
+                        // showClear={true}
+                        // showItemsOnFocus={false}
                         className="focus:outline-none text-white"
                         styling={{
                             height: '44px',
