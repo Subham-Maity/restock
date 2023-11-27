@@ -555,6 +555,7 @@ function Pagination({ page, handlePage, totalItems }: any) {
 }
 
 export const ProductGrid = ({ products }: { products: any }) => {
+  const router = useRouter();
   const [hoveredProductIndex, setHoveredProductIndex] = useState<number | null>(
     null,
   );
@@ -736,6 +737,7 @@ export const ProductGrid = ({ products }: { products: any }) => {
                   <button
                     type="submit"
                     className="inline-flex rounded-md bg-blue-800 hover:bg-blue-500 mt-2 ml-2 dark:bg-cyan-700/60 px-1 py-1 text-sm font-semibold text-white shadow-sm dark:hover:bg-cyan-500/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                   onClick={() => {router.push(`/admin/editForm/${product.id}`)}}
                   >
                     <TbEditOff className="mt-0.5 mr-1" />
                     Edit Your Product
