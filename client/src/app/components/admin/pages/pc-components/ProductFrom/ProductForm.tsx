@@ -2,13 +2,14 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {motion} from "framer-motion";
 import {
+    createProductAsync,
     fetchAllProductByIdAsync,
     // clearSelectedProduct,
     // createProductAsync,
     // fetchProductByIdAsync,
     selectBrands,
     selectCategories,
-    selectProductById,
+    selectProductById, updateProductAsync,
     // updateProductAsync,
 } from "@/app/components/products/pages/pc-components/productListSlice";
 import {useForm} from 'react-hook-form';
@@ -59,11 +60,11 @@ function ProductForm() {
         }
     }, [selectedProduct, params.id, setValue]);
 
-    // const handleDelete = () => {
-    //   const product = { ...selectedProduct };
-    //   product.deleted = true;
-    //   dispatch(updateProductAsync(product));
-    // };
+    const handleDelete = () => {
+      const product = { ...selectedProduct };
+      product.deleted = true;
+      dispatch(updateProductAsync(product));
+    };
 
     return (
         <>
@@ -72,32 +73,32 @@ function ProductForm() {
                 noValidate
                 onSubmit={handleSubmit((data) => {
                     console.log(data);
-                    const product = {...data};
+                    const product:{[p:string]:any} = {...data};
                     product.images = [
-                        product.image1,
-                        product.image2,
-                        product.image3,
-                        product.thumbnail,
+                        product?.image1,
+                        product?.image2,
+                        product?.image3,
+                        product?.thumbnail,
                     ];
                     product.rating = 0;
                     delete product['image1'];
                     delete product['image2'];
                     delete product['image3'];
-                    product.price = +product.price;
-                    product.stock = +product.stock;
-                    product.discountPercentage = +product.discountPercentage;
+                    product.price = +product?.price;
+                    product.stock = +product?.stock;
+                    product.discountPercentage = +product?.discountPercentage;
                     console.log(product);
 
-                    // if (params.id) {
-                    //   product.id = params.id;
-                    //   product.rating = selectedProduct.rating || 0;
-                    //   dispatch(updateProductAsync(product));
-                    //   reset();
-                    // } else {
-                    //   dispatch(createProductAsync(product));
-                    //   reset();
-                    //   //TODO:  on product successfully added clear fields and show a message
-                    // }
+                    if (params.id) {
+                      product.id = params?.id;
+                      product.rating = selectedProduct?.rating || 0;
+                      dispatch(updateProductAsync(product));
+                      reset();
+                    } else {
+                      dispatch(createProductAsync(product));
+                      reset();
+                      //TODO:  on product successfully added clear fields and show a message
+                    }
                 })}
             >
                 <BgAdminTailwindWrapper>

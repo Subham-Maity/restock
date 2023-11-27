@@ -4,7 +4,7 @@ import {
     fetchProductsByFilters,
     fetchBrands,
     fetchCategories,
-    fetchProductById, createProduct,
+    fetchProductById, createProduct, updateProduct,
 } from "@/app/components/products/pages/pc-components/productListAPI";
 import {
     Filter,
@@ -90,12 +90,18 @@ export const fetchCategoriesAsync = createAsyncThunk(
 
 export const createProductAsync = createAsyncThunk(
     "product/create",
-    async (product) => {
+    async (product:any) => {
         const response = await createProduct(product);
         return response.data;
     },
 );
-
+export const updateProductAsync = createAsyncThunk(
+    'product/update',
+    async (update:any) => {
+        const response = await updateProduct(update);
+        return response.data;
+    }
+);
 export const productSlice = createSlice({
     name: "product",
     initialState,
@@ -154,11 +160,18 @@ export const productSlice = createSlice({
                 state.status = 'idle';
                 state.products.push(action.payload);
             })
-
-
+            .addCase(updateProductAsync.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(updateProductAsync.fulfilled, (state, action) => {
+                state.status = 'idle';
+                const index = state.products.findIndex(
+                    (product) => product.id === action.payload.id
+                );
+                state.products[index] = action.payload;
+            });
     },
 });
-
 export const {increment} = productSlice.actions;
 
 export const selectAllProducts = (state: any) => state.product.products;

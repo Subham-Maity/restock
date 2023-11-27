@@ -40,7 +40,21 @@ export function createProduct(product: any): Promise<{ data: any }> {
     resolve({ data });
   });
 }
-
+export function updateProduct(update:any): Promise<{ data: any }> {
+  return new Promise(async (resolve) => {
+    const response = await fetch(
+        'https://restock-api.onrender.com/products/' + update.id,
+        {
+          method: 'PATCH',
+          body: JSON.stringify(update),
+          headers: { 'content-type': 'application/json' },
+        }
+    );
+    const data = await response.json();
+    // TODO: on server it will only return some info of user (not password)
+    resolve({ data });
+  });
+}
 export function fetchProductsByFilters(
   filter: Filter,
   sort: Sort,
