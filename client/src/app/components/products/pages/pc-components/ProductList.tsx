@@ -1,10 +1,12 @@
 "use client";
 
-import { Fragment, useCallback, useEffect, useState } from "react";
+import { Fragment, useCallback, useContext, useEffect, useState } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
   ChevronDownIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
   FunnelIcon,
   MinusIcon,
   PlusIcon,
@@ -15,16 +17,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  selectAllProducts,
-  fetchProductsByFiltersAsync,
-  selectTotalItems,
-  selectBrands,
-  selectCategories,
   fetchBrandsAsync,
   fetchCategoriesAsync,
+  fetchProductsByFiltersAsync,
+  selectAllProducts,
+  selectBrands,
+  selectCategories,
   selectProductById,
+  selectTotalItems,
 } from "@/app/components/products/pages/pc-components/productListSlice";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import { AppDispatch } from "@/lib/redux/store";
 import { ITEMS_PER_PAGE } from "@/lib/redux/constants";
 import Carousel from "react-multi-carousel";
@@ -35,8 +36,8 @@ import { User } from "@/app/components/auth/auth.type";
 import { selectLoggedInUser } from "@/app/components/auth/authSlice";
 import ProductListSkeleton from "@/app/components/products/pages/pc-components/skeleton/ProductListSkeleton";
 import Context from "@/context/Context";
-import { useContext } from "react";
 import { FaListUl } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
@@ -112,7 +113,7 @@ export const PcComponentProductList = () => {
       }
     } else {
       const index = newFilter[section.id].findIndex(
-        (el) => el === option.value
+        (el) => el === option.value,
       );
       newFilter[section.id].splice(index, 1);
     }
@@ -134,7 +135,7 @@ export const PcComponentProductList = () => {
 
   useEffect(() => {
     const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
-    console.log("here is ...", filter,sort, pagination);
+    console.log("here is ...", filter, sort, pagination);
     dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination }));
   }, [dispatch, filter, sort, page]);
 
@@ -150,7 +151,9 @@ export const PcComponentProductList = () => {
   if (!products) {
     return <ProductListSkeleton />;
   }
-
+  const handleButtonClick = () => {
+    setIsGrid(!isGrid);
+  };
   return (
     <div>
       <MobileFilter
@@ -197,7 +200,7 @@ export const PcComponentProductList = () => {
                             className={classNames(
                               option.current ? "" : " rounded-2xl",
                               active ? "" : "",
-                              "block py-2 px-3 text-sm rounded cursor-pointer hover:bg-gray-400 hover:dark:bg-gray-500 text-black dark:text-white"
+                              "block py-2 px-3 text-sm rounded cursor-pointer hover:bg-gray-400 hover:dark:bg-gray-500 text-black dark:text-white",
                             )}
                           >
                             {option.name}
@@ -210,18 +213,27 @@ export const PcComponentProductList = () => {
               </Transition>
             </Menu>
 
-            <button
-              type="button"
-              className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7"
-              onClick={() => setIsGrid(!isGrid)}
-            >
-              <span className="sr-only">View grid</span>
-              {isGrid ? (
-                <Squares2X2Icon className="h-5 w-5" aria-hidden="true" />
-              ) : (
-                <FaListUl className="h-5 w-5" aria-hidden="true" />
-              )}
-            </button>
+            <div>
+              <motion.button
+                type="button"
+                aria-label="Toggle Icon"
+                className="text-2xl flex-shrink-0 rounded-full ml-4 bg-black/40 dark:bg-gray-600/40 hover:bg-black/60 p-2 text-white dark:hover:text-white dark:hover:bg-gray-500/40 drop focus:outline-none focus:ring-0 focus:ring-white/75 focus:ring-offset-0 focus:ring-offset-gray-800"
+                whileTap={{
+                  scale: 1,
+                  rotate: 360,
+                  transition: { duration: 0.4 },
+                }}
+                whileHover={{ scale: 1.1 }}
+                onClick={handleButtonClick}
+              >
+                <span className="sr-only">Toggle Icon</span>
+                {isGrid ? (
+                  <Squares2X2Icon className="h-5 w-5" aria-hidden="true" />
+                ) : (
+                  <FaListUl className="h-5 w-5" aria-hidden="true" />
+                )}
+              </motion.button>
+            </div>
             <button
               type="button"
               className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
@@ -377,7 +389,7 @@ export const MobileFilter = ({
                                       {option.label}
                                     </label>
                                   </div>
-                                )
+                                ),
                               )}
                             </div>
                           </Disclosure.Panel>
@@ -538,15 +550,16 @@ function Pagination({ page, handlePage, totalItems }: any) {
 
 export const ProductGrid = ({ products }: { products: any }) => {
   const [hoveredProductIndex, setHoveredProductIndex] = useState<number | null>(
-    null
+    null,
   );
+  const { isGrid } = useContext(Context);
   const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
 
   const handleMouseEnterWithDelay = useCallback((index: number) => {
     setHoverTimeout(
       setTimeout(() => {
         setHoveredProductIndex(index);
-      }, 1000)
+      }, 1000),
     );
   }, []);
 
@@ -605,89 +618,60 @@ export const ProductGrid = ({ products }: { products: any }) => {
         console.error("Error adding to cart:", error);
       });
   };
-
+  const filteredProducts = products.filter(
+    (product: { deleted: any }) => !product.deleted,
+  );
   return (
     <>
-      <div className="product-card">
-        <div className="grid grid-cols-2 p-4 gap-x-2 gap-y-10 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-          {products.map((product: any, index: number) => (
-            <Link
-              href={`/pc-components-details/${product.id}`}
-              key={product.id}
-            >
-              <div
-                className="group relative lg:shadow-lg lg:border-2 lg:bg-white/30 lg:dark:bg-black/20 border-gray-400/25 dark:border-gray-600/20 rounded-lg pb-2"
+      {!isGrid ? (
+        <>
+          <div>
+            {filteredProducts.map((product: any, index: number) => (
+              <Link
+                href={`/pc-components-details/${product.id}`}
                 key={product.id}
-                onMouseEnter={() => handleMouseEnterWithDelay(index)}
-                onMouseLeave={handleMouseLeave}
               >
-                <div className="aspect-h-1 aspect-w-1 h-fit w-full overflow-hidden rounded-lg bg-gray-200 object-cover">
-                  <div className="">
-                    <div>
-                      {hoveredProductIndex === index ? (
-                        <Carousel
-                          responsive={responsive}
-                          infinite={true}
-                          autoPlay={hoveredProductIndex === index}
-                          autoPlaySpeed={1500}
-                          showDots={false}
-                          arrows={false}
-                          swipeable={false}
-                          draggable={false}
-                        >
-                          {product.images.map(
-                            (image: string, imageIndex: number) => (
-                              <img
-                                key={imageIndex}
-                                src={image}
-                                alt={product.title}
-                                className="w-full h-full object-fill object-center"
-                                onClick={() => {
-                                  window.location.href = `/pc-components-details/${product.id}`;
-                                }}
-                              />
-                            )
-                          )}
-                        </Carousel>
-                      ) : (
-                        <Image
-                          src={product.thumbnail}
-                          alt={product.title}
-                          className="w-full h-full object-fill object-center"
-                          fill
-                          // height={300}
-                          // width={300}
-                          onClick={() => {
-                            window.location.href = `/pc-components-details/${product.id}`;
-                          }}
-                        />
-                      )}
-                    </div>
+                <div
+                  className="grid grid-cols-2 xs:grid-cols-3 lg:grid-cols-4 grid-rows-1 gap-2 mb-2 bg-white/30 dark:bg-black/20 border-gray-400/25 dark:border-gray-600/20 rounded-lg h-[200px] sm:h-[280px] w-full p-4"
+                  key={product.id}
+                  onMouseEnter={() => handleMouseEnterWithDelay(index)}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  <div className="w-full h-full ">
+                    <Image
+                      src={product.thumbnail}
+                      alt={product.title}
+                      className="w-full h-full object-fill object-center rounded-lg"
+                      // fill
+                      width={500}
+                      height={500}
+                      unoptimized
+                      onClick={() => {
+                        window.location.href = `/pc-components-details/${product.id}`;
+                      }}
+                    />
                   </div>
-                </div>
-                <div className="mt-4 flex justify-between">
-                  <div>
-                    <h3 className="text-sm px-2">
-                      <div className="text-gray-800 dark:text-gray-300">
-                        <span
-                          aria-hidden="true"
-                          className="absolute inset-0 "
-                        />
+                  <div className="m-3 justify-start col-span-1 xs:col-span-2 lg:col-span-3 ">
+                    <div className="product-details">
+                      <h2 className="text-sm sm:text-lg lg:text-xl xl:text-2xl font-normal md:font-semibold lg:font-bold text-gray-800 dark:text-gray-100">
                         {product.title}
-                      </div>
-                    </h3>
-                    <div className="mt-1 flex items-center px-2">
+                      </h2>
+                      <p className="text-sm text-justify text-gray-900 dark:text-gray-300 hidden mt-4 lg:flex">
+                        {product.description}
+                      </p>
+                    </div>
+                    <div className="mt-4 flex">
                       <div
                         className={`w-12 h-5 flex items-center justify-center rounded-sm text-sm gap-0.5 ${
                           product.rating >= 4.5
                             ? "bg-green-500 dark:bg-green-600 text-sm"
                             : product.rating >= 4
-                            ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
-                            : product.rating >= 3.5
-                            ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
-                            : product.rating >= 2
-                            ? "bg-orange-400 dark:bg-orange-600 text-sm"
-                            : "bg-red-500 dark:bg-red-600 text-sm"
+                              ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
+                              : product.rating >= 3.5
+                                ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
+                                : product.rating >= 2
+                                  ? "bg-orange-400 dark:bg-orange-600 text-sm"
+                                  : "bg-red-500 dark:bg-red-600 text-sm"
                         }`}
                       >
                         <span className="text-white text-sm">
@@ -696,24 +680,127 @@ export const ProductGrid = ({ products }: { products: any }) => {
                         <StarIcon className="w-3.5 text-sm text-gray-200" />
                       </div>
                     </div>
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium block dark:text-gray-100 text-neutral-900">
-                      {Math.round(
-                        product.price * (1 - product.discountPercentage / 100)
-                      )}
-                      ₹
-                    </p>
-                    <p className="text-md block line-through font-medium text-gray-400 pr-2">
-                      {product.price}₹
-                    </p>
+                    <div className="price my-4">
+                      <p className="text-xl font-semibold dark:text-gray-100 text-neutral-900">
+                        ₹
+                        {Math.round(
+                          product.price *
+                            (1 - product.discountPercentage / 100),
+                        )}
+                      </p>
+                      <p className="text-base block line-through font-medium text-gray-400">
+                        ₹{product.price}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </div>
+              </Link>
+            ))}
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="product-card">
+            <div className="grid grid-cols-2 p-4 gap-x-2 gap-y-10 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+              {filteredProducts.map((product: any, index: number) => (
+                <Link
+                  href={`/pc-components-details/${product.id}`}
+                  key={product.id}
+                >
+                  <div
+                    className="group relative lg:shadow-lg lg:border-2 lg:bg-white/30 lg:dark:bg-black/20 border-gray-400/25 dark:border-gray-600/20 rounded-lg pb-2"
+                    key={product.id}
+                    onMouseEnter={() => handleMouseEnterWithDelay(index)}
+                    onMouseLeave={handleMouseLeave}
+                  >
+                    <div className="aspect-h-1 aspect-w-1 h-fit w-full overflow-hidden rounded-lg bg-gray-200 object-cover">
+                      <div className="">
+                        <div>
+                          {hoveredProductIndex === index ? (
+                            <Carousel
+                              responsive={responsive}
+                              infinite={true}
+                              autoPlay={hoveredProductIndex === index}
+                              autoPlaySpeed={1500}
+                              showDots={false}
+                              arrows={false}
+                              swipeable={false}
+                              draggable={false}
+                            >
+                              {product.images.map(
+                                (image: string, imageIndex: number) => (
+                                  <img
+                                    key={imageIndex}
+                                    src={image}
+                                    alt={product.title}
+                                    className="w-full h-full object-fill object-center"
+                                  />
+                                ),
+                              )}
+                            </Carousel>
+                          ) : (
+                            <Image
+                              src={product.thumbnail}
+                              alt={product.title}
+                              className="w-full h-full object-fill object-center"
+                              fill
+                            />
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mt-4 flex justify-between">
+                      <div>
+                        <h3 className="text-sm px-2">
+                          <div className="text-gray-800 dark:text-gray-300">
+                            <span
+                              aria-hidden="true"
+                              className="absolute inset-0 "
+                            />
+                            {product.title}
+                          </div>
+                        </h3>
+                        <div className="mt-1 flex items-center px-2">
+                          <div
+                            className={`w-12 h-5 flex items-center justify-center rounded-sm text-sm gap-0.5 ${
+                              product.rating >= 4.5
+                                ? "bg-green-500 dark:bg-green-600 text-sm"
+                                : product.rating >= 4
+                                  ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
+                                  : product.rating >= 3.5
+                                    ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
+                                    : product.rating >= 2
+                                      ? "bg-orange-400 dark:bg-orange-600 text-sm"
+                                      : "bg-red-500 dark:bg-red-600 text-sm"
+                            }`}
+                          >
+                            <span className="text-white text-sm">
+                              {product.rating.toFixed(1)}
+                            </span>
+                            <StarIcon className="w-3.5 text-sm text-gray-200" />
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium block dark:text-gray-100 text-neutral-900">
+                          {Math.round(
+                            product.price *
+                              (1 - product.discountPercentage / 100),
+                          )}
+                          ₹
+                        </p>
+                        <p className="text-md block line-through font-medium text-gray-400 pr-2">
+                          {product.price}₹
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 };

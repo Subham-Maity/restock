@@ -5,7 +5,8 @@ import Navbar from "@/app/components/Navbar/Navbar";
 import React, {useEffect} from "react";
 import OurFacts from "@/app/components/siteStats/SiteStats";
 import Footer from "@/app/components/Footer/Footer";
-import ProductListView from "@/app/components/products/pages/pc-components/ProductListView";
+import {PcComponentProductList} from "@/app/components/products/pages/pc-components/ProductList";
+
 
 export default function Home() {
   return (
@@ -14,7 +15,7 @@ export default function Home() {
         <main className="">
           <Navbar />
           <Banner />
-          <ProductListView />
+            <PcComponentProductList/>
           <OurFacts />
         </main>
       </div>

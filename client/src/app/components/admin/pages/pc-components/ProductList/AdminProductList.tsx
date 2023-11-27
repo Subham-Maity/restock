@@ -37,8 +37,8 @@ import ProductListSkeleton from "@/app/components/products/pages/pc-components/s
 import { TbEditOff } from "react-icons/tb";
 import { MdAddToPhotos } from "react-icons/md";
 import BgAdminTailwindWrapper from "@/app/components/admin/components/TailwindWrapper/BgTailwindWrapper";
-import {router} from "next/client";
-import {useRouter} from "next/navigation";
+import { router } from "next/client";
+import { useRouter } from "next/navigation";
 
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
@@ -150,8 +150,6 @@ export const AdminPcComponentProductList = () => {
     return <ProductListSkeleton />;
   }
 
-
-
   return (
     <div>
       <MobileFilter
@@ -252,8 +250,9 @@ export const AdminPcComponentProductList = () => {
                   <button
                     type="submit"
                     className="inline-flex rounded-md bg-green-600  dark:text-gray-200 hover:bg-green-500 mt-2 ml-2 dark:bg-green-700/60 px-1.5 py-1 text-lg font-semibold text-white shadow-sm dark:hover:bg-green-500/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-
-                   onClick={() => {router.push("/admin/adminForm")} }
+                    onClick={() => {
+                      router.push("/admin/adminForm");
+                    }}
                   >
                     <MdAddToPhotos className="mt-1 mr-1" />
                     Add New Product
@@ -636,6 +635,12 @@ export const ProductGrid = ({ products }: { products: any }) => {
                   href={`admin/admin-pc-components-details/${product.id}`}
                   key={product.id}
                 >
+                  {product.deleted && (
+                    <p className="text-sm font-bold text-center bg-orange-100 p-1 mx-1 rounded-lg block dark:text-red-400 text-red-600">
+                      {" "}
+                      This Product {product.id} is deleted
+                    </p>
+                  )}
                   <div
                     className="group relative lg:shadow-lg lg:border-2 lg:bg-white/30 lg:dark:bg-black/20 border-gray-400/25 dark:border-gray-600/20 rounded-lg "
                     key={product.id}
@@ -703,12 +708,12 @@ export const ProductGrid = ({ products }: { products: any }) => {
                               product.rating >= 4.5
                                 ? "bg-green-500 dark:bg-green-600 text-sm"
                                 : product.rating >= 4
-                                ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
-                                : product.rating >= 3.5
-                                ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
-                                : product.rating >= 2
-                                ? "bg-orange-400 dark:bg-orange-600 text-sm"
-                                : "bg-red-500 dark:bg-red-600 text-sm"
+                                  ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
+                                  : product.rating >= 3.5
+                                    ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
+                                    : product.rating >= 2
+                                      ? "bg-orange-400 dark:bg-orange-600 text-sm"
+                                      : "bg-red-500 dark:bg-red-600 text-sm"
                             }`}
                           >
                             <span className="text-white text-sm">
@@ -733,11 +738,14 @@ export const ProductGrid = ({ products }: { products: any }) => {
                     </div>
                   </div>
                 </Link>
+
                 <div>
                   <button
                     type="submit"
                     className="inline-flex rounded-md bg-blue-800 hover:bg-blue-500 mt-2 ml-2 dark:bg-cyan-700/60 px-1 py-1 text-sm font-semibold text-white shadow-sm dark:hover:bg-cyan-500/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-                   onClick={() => {router.push(`/admin/editForm/${product.id}`)}}
+                    onClick={() => {
+                      router.push(`/admin/editForm/${product.id}`);
+                    }}
                   >
                     <TbEditOff className="mt-0.5 mr-1" />
                     Edit Your Product
