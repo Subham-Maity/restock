@@ -2,24 +2,24 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {motion} from "framer-motion";
 import {
+    clearSelectedProduct,
     createProductAsync,
     fetchAllProductByIdAsync,
-    // clearSelectedProduct,
-    // createProductAsync,
-    // fetchProductByIdAsync,
+
     selectBrands,
     selectCategories,
-    selectProductById, updateProductAsync,
-    // updateProductAsync,
+    selectProductById,
+    updateProductAsync,
 } from "@/app/components/products/pages/pc-components/productListSlice";
 import {useForm} from 'react-hook-form';
 import {useEffect, useState} from 'react';
 import Modal from '@/app/common/Modal';
-import {useParams} from "next/navigation";
+import {useParams, useRouter} from "next/navigation";
 import {FaSave, FaTrashAlt} from "react-icons/fa";
 import BgAdminTailwindWrapper from '../../../components/TailwindWrapper/BgTailwindWrapper';
 import {AiFillCloseSquare} from "react-icons/ai";
 import {AppDispatch} from "@/lib/redux/store";
+import {router} from "next/client";
 
 function ProductForm() {
     const {
@@ -31,6 +31,7 @@ function ProductForm() {
     } = useForm();
     const brands = useSelector(selectBrands);
     const categories = useSelector(selectCategories);
+    const router = useRouter();
     const dispatch:AppDispatch = useDispatch();
     const params = useParams();
     const selectedProduct = useSelector(selectProductById);
@@ -40,23 +41,23 @@ function ProductForm() {
       if (params.id) {
         dispatch(fetchAllProductByIdAsync(params.id));
       } else {
-        // dispatch(clearSelectedProduct());
+        dispatch(clearSelectedProduct());
       }
     }, [params.id, dispatch]);
 
     useEffect(() => {
         if (selectedProduct && params.id) {
-            setValue('title', selectedProduct.title);
-            setValue('description', selectedProduct.description);
-            setValue('price', selectedProduct.price);
-            setValue('discountPercentage', selectedProduct.discountPercentage);
-            setValue('thumbnail', selectedProduct.thumbnail);
-            setValue('stock', selectedProduct.stock);
-            setValue('image1', selectedProduct.images[0]);
-            setValue('image2', selectedProduct.images[1]);
-            setValue('image3', selectedProduct.images[2]);
-            setValue('brand', selectedProduct.brand);
-            setValue('category', selectedProduct.category);
+            setValue('title', selectedProduct?.title);
+            setValue('description', selectedProduct?.description);
+            setValue('price', selectedProduct?.price);
+            setValue('discountPercentage', selectedProduct?.discountPercentage);
+            setValue('thumbnail', selectedProduct?.thumbnail);
+            setValue('stock', selectedProduct?.stock);
+            setValue('image1', selectedProduct?.images[0]);
+            setValue('image2', selectedProduct?.images[1]);
+            setValue('image3', selectedProduct?.images[2]);
+            setValue('brand', selectedProduct?.brand);
+            setValue('category', selectedProduct?.category);
         }
     }, [selectedProduct, params.id, setValue]);
 
@@ -311,7 +312,7 @@ function ProductForm() {
                                     </div>
 
                                     <div className="sm:col-span-6">
-                                        <label
+                                        xa                 <label
                                             htmlFor="image2"
                                             className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200"
                                         >
@@ -495,6 +496,7 @@ function ProductForm() {
                                         duration: 0.2,
                                     },
                                 }}
+                                onClick={()=>{ router.push('/admin') }}
                             >
                                 <motion.span
                                     initial={{rotate: 0}}

@@ -106,8 +106,9 @@ export const productSlice = createSlice({
     name: "product",
     initialState,
     reducers: {
-        increment: (state) => {
-        },
+        clearSelectedProduct:(state)=>{
+            state.selectedProduct = null
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -172,7 +173,7 @@ export const productSlice = createSlice({
             });
     },
 });
-export const {increment} = productSlice.actions;
+export const { clearSelectedProduct } = productSlice.actions;
 
 export const selectAllProducts = (state: any) => state.product.products;
 export const selectAllProducts_ = (state: any) => state.product.allProducts;
