@@ -777,7 +777,7 @@ export const ProductGrid = ({ products }: { products: any }) => {
                         </p>
                       )}
                       <div
-                        className="group relative lg:shadow-lg lg:border-2 lg:bg-white/30 lg:dark:bg-black/20 border-gray-400/25 dark:border-gray-600/20 rounded-lg "
+                        className="group relative"
                         key={product.id}
                         onMouseEnter={() => handleMouseEnterWithDelay(index)}
                         onMouseLeave={handleMouseLeave}
