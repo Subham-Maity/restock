@@ -249,17 +249,14 @@ export const PcComponentProductList = () => {
           <h2 id="products-heading" className="sr-only">
             Products
           </h2>
-          <div className="flex gap-2">
-            <div>
-              <DesktopFilter
-                handleFilter={handleFilter}
-                filters={filters}
-              ></DesktopFilter>
-            </div>
-            <div>
-              <div>
-                <ProductGrid products={products}></ProductGrid>
-              </div>
+          <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
+            <DesktopFilter
+              handleFilter={handleFilter}
+              filters={filters}
+            ></DesktopFilter>
+
+            <div className="lg:col-span-3">
+              <ProductGrid products={products}></ProductGrid>
             </div>
           </div>
         </section>
@@ -415,20 +412,20 @@ export const DesktopFilter = ({
 }) => {
   return (
     <>
-      <form className="hidden xl:block product-card p-8 lg:w-72">
+      <form className="hidden xl:block product-card ">
         <h3 className="sr-only">Categories</h3>
 
         {filters.map((section: any) => (
           <Disclosure
             as="div"
             key={section.id}
-            className="border-b dark:border-gray-200 border-gray-800/25 py-3 dark:text-white"
+            className="border-b dark:border-gray-200 border-gray-800/25 py-8 dark:text-white px-8"
           >
             {({ open }) => (
               <>
                 <h3 className="-my-3 flow-root">
                   {/*Here it is*/}
-                  <Disclosure.Button className="flex w-full items-center justify-between py-3 text-sm text-black hover:text-gray-500 dark:hover:bg-[#34384e]  px-2 dark:text-white dark:hover:text-[#8669de]">
+                  <Disclosure.Button className="flex w-full items-center justify-between py-3 text-sm text-black hover:text-gray-500 dark:hover:bg-[#34384e]  px-2 dark:text-white dark:hover:text-[#8669de] ">
                     <span className="font-medium">{section.name}</span>
                     <span className="ml-6 flex items-center">
                       {open ? (
