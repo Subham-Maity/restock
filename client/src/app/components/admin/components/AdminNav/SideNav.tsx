@@ -2,29 +2,13 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
-  AiOutlineRocket,
-  AiOutlineUnlock,
-  AiOutlineCrown,
-  AiOutlineRobot,
   AiOutlineHome,
   AiOutlineMenuUnfold,
 } from "react-icons/ai";
-import { FiChevronDown, FiChevronLeft, FiChevronRight } from "react-icons/fi";
-
-import {
-  BsFillShieldFill,
-  BsTelegram,
-  BsTwitter,
-  BsFacebook,
-} from "react-icons/bs";
-import { BiPaperPlane } from "react-icons/bi";
-import {FaUserSecret, FaChartLine, FaCaretRight} from "react-icons/fa";
-import { FaAddressCard } from "react-icons/fa";
-import { LuShoppingCart } from "react-icons/lu";
-import {RiComputerLine, RiFileLine, RiMenu2Fill} from "react-icons/ri";
-import { GiParachute } from "react-icons/gi";
+import { FiChevronDown, FiChevronRight } from "react-icons/fi";
+import {FaCaretRight} from "react-icons/fa";
+import {RiComputerLine} from "react-icons/ri";
 import Link from "next/link";
-import {TbSquareRoundedArrowRightFilled} from "react-icons/tb";
 interface NavItem {
   title: string;
   href: string;
@@ -61,7 +45,6 @@ interface SidebarProps {
   toggleSidebar: () => void;
 }
 const SideNavbar = ({ isSidebarOpen, toggleSidebar }: SidebarProps) => {
-  const [showSidebar, setShowSidebar] = useState(isSidebarOpen);
   const [activeSubNav, setActiveSubNav] = useState<string | null>(null);
   const [activeSubNavItem, setActiveSubNavItem] = useState<string | null>(null);
   const [selectedNoSubNav, setSelectedNoSubNav] = useState<string | null>(null);
@@ -79,9 +62,6 @@ const SideNavbar = ({ isSidebarOpen, toggleSidebar }: SidebarProps) => {
       prevActiveSubNav === title ? null : title,
     );
   };
-  const handleSidebarToggle = () => {
-    toggleSidebar(); // Call the function to toggle the sidebar
-  };
   const handleNoSubNavClick = (title: string) => {
     setActiveSubNav(null);
     setSelectedNoSubNav(title);
@@ -90,14 +70,11 @@ const SideNavbar = ({ isSidebarOpen, toggleSidebar }: SidebarProps) => {
   return (
     <>
       {!isNavOpen ? (
-        <motion.nav
-          initial={{ width: 0 }}
-          animate={{ width: !isNavOpen ? "220px" : "auto" }}
-          transition={{ duration: 0.1 }}
+        <nav
           className={`overflow-hidden h-screen ${
             isNavOpen
-              ? "w-auto fixed lg:relative "
-              : "w-[220px] fixed lg:relative"
+              ? "fixed lg:relative "
+              : "fixed lg:relative"
           } z-40 lg:block h-screen lg:dark:bg-transparent lg:mt-0 mt-16 bg-no-repeat bg-cover dark:text-white text-black flex flex-col justify-between lg:relative duration-300 `}
         >
           <div
@@ -107,13 +84,13 @@ const SideNavbar = ({ isSidebarOpen, toggleSidebar }: SidebarProps) => {
           >
             <div
               className={`absolute cursor-pointer -right-3 dark:bg-[#2b313a] dark:bg-gradient-to-r dark:from-transparent bg dark:to-stone-400/25 dark:bg-transparent top-9 w-10 h-10 text-gray-900 dark:text-gray-300 flex items-center justify-center bg-sidebar border border-stone-400 dark:border-stone-400/25 rounded-full ${
-                !isNavOpen && "rotate-180"
+                !open && "rotate-180"
               }`}
               onClick={() => setOpen(!open)}
             >
               <AiOutlineMenuUnfold
                 className={`text-gray-900 dark:text-gray-300  ${
-                    isNavOpen ? "text-2xl " : "text-3xl"
+                    open ? "text-2xl " : "text-3xl"
                 }`}
               />
             </div>
@@ -122,17 +99,14 @@ const SideNavbar = ({ isSidebarOpen, toggleSidebar }: SidebarProps) => {
                   !open ? "py-0" : "py-2 my-4 dark:bg-gradient-to-r dark:from-transparent bg dark:to-stone-400/25 dark:bg-transparent font-bold text-lg text-gray-900 dark:text-gray-300 duration-200"
               }`}>
                 <h1
-                  className={` mt-4 origin-left px-4 mb-6  ${
+                  className={`mt-4 origin-left px-4 mb-6  ${
                       !open && "scale-0"
                   }`}
               >
                 AdminOnly
               </h1>
               </div>
-
               <div className="flex flex-col items-center justify-between z-50 overflow-y-auto ">
-
-
 
                 <ul
                   className={`${
@@ -148,7 +122,7 @@ const SideNavbar = ({ isSidebarOpen, toggleSidebar }: SidebarProps) => {
                     >
                       {item.subNav && item.subNav.length > 0 ? (
                         <div
-                          className={`group flex items-center px-4 py-2 ${
+                          className={`group flex items-center px-4 py-2 my-4 ${
                             item.href === "/"
                               ? "bg-gray-200 dark:bg-transparent"
                               : ""
@@ -159,7 +133,7 @@ const SideNavbar = ({ isSidebarOpen, toggleSidebar }: SidebarProps) => {
                           }`}
                           onClick={() => handleSubNavToggle(item.title)}
                         >
-                          <div className="mr-3 text-xl">{item.icon}</div>
+                          <div className="mr-3 text-2xl">{item.icon}</div>
                           <span>{item.title}</span>
                           {activeSubNav === item.title ? (
                             <FiChevronDown className="ml-auto w-4 h-4" />
@@ -170,7 +144,7 @@ const SideNavbar = ({ isSidebarOpen, toggleSidebar }: SidebarProps) => {
                       ) : (
                         <Link
                           href={item.href}
-                          className={`group flex items-center px-4 py-3  ${
+                          className={`group flex items-center px-4 pt-4  ${open?`mt-0`:`mt-4`}  ${
                             item.href === "/"
                               ? "bg-gray-200 dark:bg-transparent"
                               : ""
@@ -181,7 +155,7 @@ const SideNavbar = ({ isSidebarOpen, toggleSidebar }: SidebarProps) => {
                           }`}
                           onClick={() => handleNoSubNavClick(item.title)}
                         >
-                          <div className="mr-3 text-xl">{item.icon}</div>
+                          <div className="mr-3 text-2xl">{item.icon}</div>
                           <span>{item.title}</span>
                         </Link>
                       )}
@@ -222,7 +196,7 @@ const SideNavbar = ({ isSidebarOpen, toggleSidebar }: SidebarProps) => {
               </div>
             </div>
           </div>
-        </motion.nav>
+        </nav>
       ) : null}
     </>
   );

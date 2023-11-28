@@ -24,7 +24,7 @@ const DefaultNav = ({ children }: { children: React.ReactNode }) => {
                 isSidebarOpen={isSidebarOpen}
                 toggleSidebar={toggleSidebar}
               />
-              <div className=" lg:max-h-[90vh] max-h-[98vh] overflow-y-scroll w-full h-screen rounded-4xl mt-20">
+              <div className=" lg:max-h-[90vh] max-h-screen lg:pb-0 pb-16 overflow-y-scroll w-full h-screen rounded-4xl mt-20">
                 {children}
               </div>
             </div>
