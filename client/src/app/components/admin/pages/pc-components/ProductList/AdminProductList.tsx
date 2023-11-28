@@ -1,6 +1,12 @@
 "use client";
 
-import React, { Fragment, useCallback, useEffect, useState } from "react";
+import React, {
+  Fragment,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
@@ -37,8 +43,11 @@ import ProductListSkeleton from "@/app/components/products/pages/pc-components/s
 import { TbEditOff } from "react-icons/tb";
 import { MdAddToPhotos } from "react-icons/md";
 import BgAdminTailwindWrapper from "@/app/components/admin/components/TailwindWrapper/BgTailwindWrapper";
-import {router} from "next/client";
-import {useRouter} from "next/navigation";
+import { router } from "next/client";
+import { useRouter } from "next/navigation";
+import Context from "@/context/Context";
+import { FaListUl } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
@@ -81,6 +90,7 @@ export const AdminPcComponentProductList = () => {
   const categories = useSelector(selectCategories);
   const products = useSelector(selectAllProducts);
   const totalItems = useSelector(selectTotalItems);
+  const { isGrid, setIsGrid } = useContext(Context);
   const filters = [
     {
       id: "category",
@@ -149,9 +159,9 @@ export const AdminPcComponentProductList = () => {
   if (!products) {
     return <ProductListSkeleton />;
   }
-
-
-
+  const handleButtonClick = () => {
+    setIsGrid(!isGrid);
+  };
   return (
     <div>
       <MobileFilter
@@ -214,13 +224,27 @@ export const AdminPcComponentProductList = () => {
                 </Transition>
               </Menu>
 
-              <button
-                type="button"
-                className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7"
-              >
-                <span className="sr-only">View grid</span>
-                <Squares2X2Icon className="h-5 w-5" aria-hidden="true" />
-              </button>
+              <div>
+                <motion.button
+                  type="button"
+                  aria-label="Toggle Icon"
+                  className="text-2xl flex-shrink-0 rounded-full ml-4 bg-black/40 dark:bg-gray-600/40 hover:bg-black/60 p-2 text-white dark:hover:text-white dark:hover:bg-gray-500/40 drop focus:outline-none focus:ring-0 focus:ring-white/75 focus:ring-offset-0 focus:ring-offset-gray-800"
+                  whileTap={{
+                    scale: 1,
+                    rotate: 360,
+                    transition: { duration: 0.4 },
+                  }}
+                  whileHover={{ scale: 1.1 }}
+                  onClick={handleButtonClick}
+                >
+                  <span className="sr-only">Toggle Icon</span>
+                  {isGrid ? (
+                    <Squares2X2Icon className="h-5 w-5" aria-hidden="true" />
+                  ) : (
+                    <FaListUl className="h-5 w-5" aria-hidden="true" />
+                  )}
+                </motion.button>
+              </div>
               <button
                 type="button"
                 className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
@@ -237,33 +261,30 @@ export const AdminPcComponentProductList = () => {
           <h2 id="products-heading" className="sr-only">
             Products
           </h2>
-          <div className="flex gap-2">
-            <div>
-              <BgAdminTailwindWrapper>
-                <DesktopFilter
-                  handleFilter={handleFilter}
-                  filters={filters}
-                ></DesktopFilter>
-              </BgAdminTailwindWrapper>
+          <BgAdminTailwindWrapper>
+            <div className="mb-">
+              <button
+                type="submit"
+                className="inline-flex rounded-md bg-green-600  dark:text-gray-200 hover:bg-green-500 mt-2 ml-2 dark:bg-green-700/60 px-1.5 py-1 text-lg font-semibold text-white shadow-sm dark:hover:bg-green-500/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                onClick={() => {
+                  router.push("/admin/adminForm");
+                }}
+              >
+                <MdAddToPhotos className="mt-1 mr-1" />
+                Add New Product
+              </button>
             </div>
-            <div>
-              <BgAdminTailwindWrapper>
-                <div className="mb-4">
-                  <button
-                    type="submit"
-                    className="inline-flex rounded-md bg-green-600  dark:text-gray-200 hover:bg-green-500 mt-2 ml-2 dark:bg-green-700/60 px-1.5 py-1 text-lg font-semibold text-white shadow-sm dark:hover:bg-green-500/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+          </BgAdminTailwindWrapper>
+          <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4 mt-2">
+            <BgAdminTailwindWrapper>
+              <DesktopFilter
+                handleFilter={handleFilter}
+                filters={filters}
+              ></DesktopFilter>
+            </BgAdminTailwindWrapper>
 
-                   onClick={() => {router.push("/admin/adminForm")} }
-                  >
-                    <MdAddToPhotos className="mt-1 mr-1" />
-                    Add New Product
-                  </button>
-                </div>
-              </BgAdminTailwindWrapper>
-
-              <div>
-                <ProductGrid products={products}></ProductGrid>
-              </div>
+            <div className="lg:col-span-3">
+              <ProductGrid products={products}></ProductGrid>
             </div>
           </div>
         </section>
@@ -421,14 +442,14 @@ export const DesktopFilter = ({
 }) => {
   return (
     <>
-      <form className="hidden xl:block p-1 lg:w-72">
+      <form className="hidden xl:block ">
         <h3 className="sr-only">Categories</h3>
 
         {filters.map((section: any) => (
           <Disclosure
             as="div"
             key={section.id}
-            className="border-b dark:border-gray-200 border-gray-800/25 py-3 dark:text-white"
+            className="border-b dark:border-gray-200 border-gray-800/25 py-8 dark:text-white px-8"
           >
             {({ open }) => (
               <>
@@ -555,6 +576,7 @@ function Pagination({ page, handlePage, totalItems }: any) {
 }
 
 export const ProductGrid = ({ products }: { products: any }) => {
+  const { isGrid } = useContext(Context);
   const router = useRouter();
   const [hoveredProductIndex, setHoveredProductIndex] = useState<number | null>(
     null,
@@ -627,88 +649,71 @@ export const ProductGrid = ({ products }: { products: any }) => {
 
   return (
     <>
-      <div>
-        <div className="grid grid-cols-2 lg:mt-2 gap-x-2 gap-y-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 xl:gap-x-2">
-          {products.map((product: any, index: number) => (
-            <BgAdminTailwindWrapper key={index}>
-              <div key={index}>
-                <Link
-                  href={`admin/admin-pc-components-details/${product.id}`}
-                  key={product.id}
-                >
+      {!isGrid ? (
+        <>
+          <div>
+            {products.map((product: any, index: number) => (
+              <BgAdminTailwindWrapper key={index} className="mb-2">
+                <div>
+                  {product.deleted && (
+                    <p className="text-sm font-bold text-center bg-orange-100 mb-2 p-1 mx-1 rounded-lg block dark:text-red-400 text-red-600">
+                      {" "}
+                      This Product {product.id} is deleted
+                    </p>
+                  )}
                   <div
-                    className="group relative lg:shadow-lg lg:border-2 lg:bg-white/30 lg:dark:bg-black/20 border-gray-400/25 dark:border-gray-600/20 rounded-lg "
+                    className="grid grid-cols-2 xs:grid-cols-3 lg:grid-cols-4 grid-rows-1 gap-2 mb-2  border-gray-400/25 dark:border-gray-600/20 rounded-lg h-[200px] sm:h-[280px] w-full"
                     key={product.id}
                     onMouseEnter={() => handleMouseEnterWithDelay(index)}
                     onMouseLeave={handleMouseLeave}
                   >
-                    <div className=" aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
-                      <div className="w-full h-full">
-                        <div>
-                          {hoveredProductIndex === index ? (
-                            <Carousel
-                              responsive={responsive}
-                              infinite={true}
-                              autoPlay={hoveredProductIndex === index}
-                              autoPlaySpeed={1500}
-                              showDots={false}
-                              arrows={false}
-                              swipeable={true}
-                              draggable={true}
-                            >
-                              {product.images.map(
-                                (image: string, imageIndex: number) => (
-                                  <img
-                                    key={imageIndex}
-                                    src={image}
-                                    alt={product.title}
-                                    className="w-full h-full object-fill object-center"
-                                    onClick={() => {
-                                      window.location.href = `/pc-components-details/${product.id}`;
-                                    }}
-                                  />
-                                ),
-                              )}
-                            </Carousel>
-                          ) : (
-                            <Image
-                              src={product.thumbnail}
-                              alt={product.title}
-                              className="w-full h-full object-fill object-center"
-                              fill
-                              // height={300}
-                              // width={300}
-                              onClick={() => {
-                                window.location.href = `/pc-components-details/${product.id}`;
-                              }}
-                            />
-                          )}
-                        </div>
+                    <Link
+                      href={`admin/admin-pc-components-details/${product.id}`}
+                      key={product.id}
+                    >
+                      <div className="w-full h-full ">
+                        <Image
+                          src={product.thumbnail}
+                          alt={product.title}
+                          className="w-full h-full object-fill object-center rounded-lg"
+                          // fill
+                          width={500}
+                          height={500}
+                          unoptimized
+                        />
                       </div>
-                    </div>
-                    <div className="mt-4 flex justify-between">
-                      <div>
-                        <h3 className="text-sm px-2">
-                          <div className="text-gray-800 dark:text-gray-300">
-                            <span
-                              aria-hidden="true"
-                              className="absolute inset-0 "
-                            />
+                    </Link>
+
+                    <div className="m-3 justify-start col-span-1 xs:col-span-2 lg:col-span-3 ">
+                      <Link
+                        href={`admin/admin-pc-components-details/${product.id}`}
+                        key={product.id}
+                      >
+                        <div className="product-details">
+                          <h2 className="text-sm sm:text-lg lg:text-xl xl:text-2xl font-normal md:font-semibold lg:font-bold text-gray-800 dark:text-gray-100">
                             {product.title}
-                          </div>
-                        </h3>
-                        <div className="mt-1 flex items-center px-2">
+                          </h2>
+                          <p className="text-sm text-justify text-gray-900 dark:text-gray-300 hidden mt-4 lg:flex">
+                            {product.description}
+                          </p>
+                        </div>
+                      </Link>
+                      <Link
+                        href={`admin/admin-pc-components-details/${product.id}`}
+                        key={product.id}
+                      >
+                        <div className="mt-4 flex">
                           <div
                             className={`w-12 h-5 flex items-center justify-center rounded-sm text-sm gap-0.5 ${
                               product.rating >= 4.5
                                 ? "bg-green-500 dark:bg-green-600 text-sm"
                                 : product.rating >= 4
-                                ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
-                                : product.rating >= 3.5
-                                ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
-                                : product.rating >= 2
-                                ? "bg-orange-400 dark:bg-orange-600 text-sm"
-                                : "bg-red-500 dark:bg-red-600 text-sm"
+                                  ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
+                                  : product.rating >= 3.5
+                                    ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
+                                    : product.rating >= 2
+                                      ? "bg-orange-400 dark:bg-orange-600 text-sm"
+                                      : "bg-red-500 dark:bg-red-600 text-sm"
                             }`}
                           >
                             <span className="text-white text-sm">
@@ -717,37 +722,177 @@ export const ProductGrid = ({ products }: { products: any }) => {
                             <StarIcon className="w-3.5 text-sm text-gray-200" />
                           </div>
                         </div>
-                      </div>
+                      </Link>
+                      <Link
+                        href={`admin/admin-pc-components-details/${product.id}`}
+                        key={product.id}
+                      >
+                        <div className="price my-4">
+                          <p className="text-xl font-semibold dark:text-gray-100 text-neutral-900">
+                            ₹
+                            {Math.round(
+                              product.price *
+                                (1 - product.discountPercentage / 100),
+                            )}
+                          </p>
+                          <p className="text-base block line-through font-medium text-gray-400">
+                            ₹{product.price}
+                          </p>
+                        </div>
+                      </Link>
                       <div>
-                        <p className="text-sm font-medium block dark:text-gray-100 text-neutral-900">
-                          ₹
-                          {Math.round(
-                            product.price *
-                              (1 - product.discountPercentage / 100),
-                          )}
-                        </p>
-                        <p className="text-md block line-through font-medium text-gray-400 pr-2">
-                          ₹{product.price}
-                        </p>
+                        <button
+                          type="submit"
+                          className="inline-flex rounded-md bg-blue-800 hover:bg-blue-500 mt-2 ml-2 dark:bg-cyan-700/60 px-1 py-1 text-sm font-semibold text-white shadow-sm dark:hover:bg-cyan-500/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                          onClick={() => {
+                            router.push(`/admin/editForm/${product.id}`);
+                          }}
+                        >
+                          <TbEditOff className="mt-0.5 mr-1" />
+                          Edit Your Product
+                        </button>
                       </div>
                     </div>
                   </div>
-                </Link>
-                <div>
-                  <button
-                    type="submit"
-                    className="inline-flex rounded-md bg-blue-800 hover:bg-blue-500 mt-2 ml-2 dark:bg-cyan-700/60 px-1 py-1 text-sm font-semibold text-white shadow-sm dark:hover:bg-cyan-500/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-                   onClick={() => {router.push(`/admin/editForm/${product.id}`)}}
-                  >
-                    <TbEditOff className="mt-0.5 mr-1" />
-                    Edit Your Product
-                  </button>
                 </div>
-              </div>
-            </BgAdminTailwindWrapper>
-          ))}
-        </div>
-      </div>
+              </BgAdminTailwindWrapper>
+            ))}
+          </div>
+        </>
+      ) : (
+        <>
+          <div>
+            <div className="grid grid-cols-2 gap-x-2 gap-y-10 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+              {products.map((product: any, index: number) => (
+                <BgAdminTailwindWrapper key={index}>
+                  <div key={index}>
+                    <Link
+                      href={`admin/admin-pc-components-details/${product.id}`}
+                      key={product.id}
+                    >
+                      {product.deleted && (
+                        <p className="text-sm font-bold text-center bg-orange-100 p-1 mx-1 rounded-lg block dark:text-red-400 text-red-600">
+                          {" "}
+                          This Product {product.id} is deleted
+                        </p>
+                      )}
+                      <div
+                        className="group relative lg:shadow-lg lg:border-2 lg:bg-white/30 lg:dark:bg-black/20 border-gray-400/25 dark:border-gray-600/20 rounded-lg "
+                        key={product.id}
+                        onMouseEnter={() => handleMouseEnterWithDelay(index)}
+                        onMouseLeave={handleMouseLeave}
+                      >
+                        <div className=" aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
+                          <div className="w-full h-full">
+                            <div>
+                              {hoveredProductIndex === index ? (
+                                <Carousel
+                                  responsive={responsive}
+                                  infinite={true}
+                                  autoPlay={hoveredProductIndex === index}
+                                  autoPlaySpeed={1500}
+                                  showDots={false}
+                                  arrows={false}
+                                  swipeable={true}
+                                  draggable={true}
+                                >
+                                  {product.images.map(
+                                    (image: string, imageIndex: number) => (
+                                      <img
+                                        key={imageIndex}
+                                        src={image}
+                                        alt={product.title}
+                                        className="w-full h-full object-fill object-center"
+                                        onClick={() => {
+                                          window.location.href = `/pc-components-details/${product.id}`;
+                                        }}
+                                      />
+                                    ),
+                                  )}
+                                </Carousel>
+                              ) : (
+                                <Image
+                                  src={product.thumbnail}
+                                  alt={product.title}
+                                  className="w-full h-full object-fill object-center"
+                                  fill
+                                  // height={300}
+                                  // width={300}
+                                  onClick={() => {
+                                    window.location.href = `/pc-components-details/${product.id}`;
+                                  }}
+                                />
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="mt-4 flex justify-between">
+                          <div>
+                            <h3 className="text-sm px-2">
+                              <div className="text-gray-800 dark:text-gray-300">
+                                <span
+                                  aria-hidden="true"
+                                  className="absolute inset-0 "
+                                />
+                                {product.title}
+                              </div>
+                            </h3>
+                            <div className="mt-1 flex items-center px-2">
+                              <div
+                                className={`w-12 h-5 flex items-center justify-center rounded-sm text-sm gap-0.5 ${
+                                  product.rating >= 4.5
+                                    ? "bg-green-500 dark:bg-green-600 text-sm"
+                                    : product.rating >= 4
+                                      ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
+                                      : product.rating >= 3.5
+                                        ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
+                                        : product.rating >= 2
+                                          ? "bg-orange-400 dark:bg-orange-600 text-sm"
+                                          : "bg-red-500 dark:bg-red-600 text-sm"
+                                }`}
+                              >
+                                <span className="text-white text-sm">
+                                  {product.rating.toFixed(1)}
+                                </span>
+                                <StarIcon className="w-3.5 text-sm text-gray-200" />
+                              </div>
+                            </div>
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium block dark:text-gray-100 text-neutral-900">
+                              ₹
+                              {Math.round(
+                                product.price *
+                                  (1 - product.discountPercentage / 100),
+                              )}
+                            </p>
+                            <p className="text-md block line-through font-medium text-gray-400 pr-2">
+                              ₹{product.price}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+
+                    <div>
+                      <button
+                        type="submit"
+                        className="inline-flex rounded-md bg-blue-800 hover:bg-blue-500 mt-2 ml-2 dark:bg-cyan-700/60 px-1 py-1 text-sm font-semibold text-white shadow-sm dark:hover:bg-cyan-500/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                        onClick={() => {
+                          router.push(`/admin/editForm/${product.id}`);
+                        }}
+                      >
+                        <TbEditOff className="mt-0.5 mr-1" />
+                        Edit Your Product
+                      </button>
+                    </div>
+                  </div>
+                </BgAdminTailwindWrapper>
+              ))}
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 };

@@ -3,7 +3,8 @@ import React from "react";
 import Navbar from "@/app/components/Navbar/Navbar";
 import Footer from "@/app/components/Footer/Footer";
 import TailwindWrapper from "@/app/components/TailwindWrapper/TailwindWrapper";
-import ProductListView from "@/app/components/products/pages/pc-components/ProductListView";
+import {PcComponentProductList} from "@/app/components/products/pages/pc-components/ProductList";
+
 
 const page = () => {
   return (
@@ -12,7 +13,7 @@ const page = () => {
 
           <Navbar />
           <TailwindWrapper>
-          <ProductListView/>
+          <PcComponentProductList/>
           </TailwindWrapper>
       </div>
       <Footer />
