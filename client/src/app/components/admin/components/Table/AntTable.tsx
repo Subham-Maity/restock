@@ -1,15 +1,16 @@
+"use client";
 import React, { useContext, useState } from "react";
 import { ConfigProvider, Space, Table, theme } from "antd";
 import type { ColumnsType, TableProps } from "antd/es/table";
 import { useSelector } from "react-redux";
 import { selectAllProducts_ } from "@/app/components/products/pages/pc-components/productListSlice";
 import Context from "@/context/Context";
-import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
 import CustomButton from "@/app/components/CustomButton/CustomButton";
 import { FaArrowLeft } from "react-icons/fa";
-
+import BgAdminTailwindWrapper from "@/app/components/admin/components/TailwindWrapper/BgTailwindWrapper";
+import { Switch} from 'antd';
 interface DataType {
   id: number;
   title: string;
@@ -24,23 +25,24 @@ interface DataType {
   totalImage: number;
 }
 
-const App: React.FC = () => {
+const AntTable: React.FC = () => {
   const data = useSelector(selectAllProducts_);
-  const [fixedTop, setFixedTop] = useState(false);
   const { isDarkTheme, setIsDarkTheme } = useContext(Context);
-  const { themes } = useTheme();
   const columns: ColumnsType<DataType> = [
     {
       title: "ID",
       dataIndex: "id",
       defaultSortOrder: "ascend",
       sorter: (a, b) => a.id - b.id,
+
+
     },
     {
       title: "Title",
       dataIndex: "title",
       defaultSortOrder: "descend",
       sorter: (a, b) => a.title.localeCompare(b.title),
+
       filters: [
         {
           text: "iPhone 9",
@@ -54,7 +56,7 @@ const App: React.FC = () => {
           text: "Samsung Universe 9",
           value: "Samsung Universe 9",
         },
-        // Add more filter options as needed
+
       ],
       onFilter: (value, record) => record.title === value,
       filterSearch: true,
@@ -62,7 +64,6 @@ const App: React.FC = () => {
     {
       title: "Description",
       dataIndex: "description",
-      // You can add additional configuration specific to 'description' column here.
     },
     {
       title: "Price",
@@ -80,7 +81,6 @@ const App: React.FC = () => {
       title: "Discount",
       dataIndex: "discountPercentage",
       defaultSortOrder: "descend",
-      // sorter: (a, b) => a.discountPercentage - b.discountPercentage,
       render: (data) => (
         <>
           <div className="flex justify-center">
@@ -99,10 +99,10 @@ const App: React.FC = () => {
     {
       title: (
         <span
-          style={{
-            color: isDarkTheme ? "black" : "white",
-            fontSize: "1.2rem",
-          }}
+        // style={{
+        //   color: isDarkTheme ? "black" : "white",
+        //   fontSize: "1.2rem",
+        // }}
         >
           Rating
         </span>
@@ -119,7 +119,7 @@ const App: React.FC = () => {
       ],
       //@ts-ignore
       onFilter: (value, record) => record.rating < parseInt(value, 10),
-      render: (text) => <span style={{ color: "white" }}>{text}</span>,
+      // render: (text) => <span style={{ color: "white" }}>{text}</span>,
     },
     {
       title: "Category",
@@ -140,7 +140,6 @@ const App: React.FC = () => {
           text: "Samsung Universe 9",
           value: "Samsung Universe 9",
         },
-        // Add more filter options as needed
       ],
       onFilter: (value, record) => record.title === value,
     },
@@ -160,14 +159,12 @@ const App: React.FC = () => {
               height={50}
               width={50}
               key={index}
-              src={image} // Use the image URL from the array
+              src={image}
               alt={`Image ${index + 1}`}
-              // style={{ maxWidth: '50px', maxHeight: '50px' }}
               className="h-10 w-10 rounded-2xl "
             />
           ))}
         </div>
-        // images.length
       ),
     },
     {
@@ -184,20 +181,12 @@ const App: React.FC = () => {
           <a>Delete</a>
         </Space>
       ),
+
     },
     {
       title: "View",
       key: "ViewPage",
       render: (data) => (
-        // <div className="mt-6">
-        //     <Link  href="/">
-        //     <button
-        //         className="buyNow w-full flex items-center justify-center rounded-2xl border border-transparent bg-indigo-600 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-        //     >
-        //         View
-        //     </button>
-        //     </Link>
-        // </div>
         <Link href={`/admin/admin-pc-components-details/${data.id}`}>
           <CustomButton
             className="animated-btn px-4 py-2 font-bold"
@@ -207,6 +196,7 @@ const App: React.FC = () => {
           />
         </Link>
       ),
+   
     },
   ];
 
@@ -220,25 +210,45 @@ const App: React.FC = () => {
   };
   const isDarkMode = isDarkTheme;
   const { defaultAlgorithm, darkAlgorithm } = theme;
+  const mobileColumns = columns.map((column) => ({
+    ...column,
+    ellipsis: true, // Show ellipsis for truncated text
+    responsive: ["md"], // Make columns responsive for mobile devices (using medium size as an example)
+  }));
+  const [fixedTop, setFixedTop] = useState(false);
   return (
     <ConfigProvider
       theme={{
         algorithm: isDarkMode ? darkAlgorithm : defaultAlgorithm,
+        hashed: true,
+        inherit: true,
         token: {
-          colorPrimary: "#2b3039",
+          colorPrimary: isDarkMode ? "#fff" : "#3f3f3f",
           borderRadius: 2,
-          colorBgContainer: "#2b3039",
+          colorBgContainer: isDarkMode ? "#2b3039" : "#ceccce",
+          colorBorder: isDarkMode ? "#2b3039" : "#fff",
+          colorText: isDarkMode ? "#fff" : "#3f3f3f",
+          fontSize: 14,
         },
       }}
     >
-      <Table
-        size="large"
-        columns={columns}
-        dataSource={data}
-        onChange={onChange}
-      />
+      <BgAdminTailwindWrapper>
+        <div
+          style={{ overflowY: "auto", maxHeight: "800px", overflowX: "auto" }}
+        >
+          <Table
+            className="border border-gray-400/25 shadow-gray-200/10 shadow-md"
+            size="large"
+            columns={columns}
+            dataSource={data}
+            onChange={onChange}
+            scroll={{ y: "680px", x: "600px" }}
+            sticky={{ offsetHeader: 0 }}
+          />
+        </div>
+      </BgAdminTailwindWrapper>
     </ConfigProvider>
   );
 };
 
-export default App;
+export default AntTable;
