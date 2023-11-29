@@ -1,13 +1,15 @@
 import React from "react";
-import TableType from "@/app/components/admin/components/Table/TableType";
+
 import AdminProtected from "@/app/components/auth/components/protectedAdmin";
 import DefaultLayout from "@/app/components/admin/components/AdminNav/DefaultNav";
+import AntTable from "@/app/components/admin/components/Table/AntTable";
+
 function Page() {
   return (
     <>
       {/*<AdminProtected>*/}
       <DefaultLayout>
-        <TableType />
+        <AntTable />
       </DefaultLayout>
       {/*</AdminProtected>*/}
     </>
