@@ -173,7 +173,7 @@ export const AdminPcComponentProductList = () => {
 
       <main className=" max-w-8xl">
         <BgAdminTailwindWrapper>
-          <div className="flex items-baseline justify-between border-b border-gray-200 pt-6 lg:pt-0 pb-2">
+          <div className="flex items-baseline justify-between border-b border-gray-200 pt-2 lg:pt-0 pb-2">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
               New Arrivals
             </h1>
@@ -257,7 +257,7 @@ export const AdminPcComponentProductList = () => {
           </div>
         </BgAdminTailwindWrapper>
 
-        <section aria-labelledby="products-heading" className="pb-12 pt-2">
+        <section aria-labelledby="products-heading" className="pb-2 pt-2">
           <h2 id="products-heading" className="sr-only">
             Products
           </h2>
@@ -275,7 +275,7 @@ export const AdminPcComponentProductList = () => {
               </button>
             </div>
           </BgAdminTailwindWrapper>
-          <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4 mt-2">
+          <div className="grid grid-cols-1 gap-x-2 gap-y-2 lg:grid-cols-4 mt-2">
             <BgAdminTailwindWrapper>
               <DesktopFilter
                 handleFilter={handleFilter}
@@ -762,7 +762,7 @@ export const ProductGrid = ({ products }: { products: any }) => {
       ) : (
         <>
           <div>
-            <div className="grid grid-cols-2 gap-x-2 gap-y-10 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+            <div className="grid grid-cols-2 gap-x-2 gap-y-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
               {products.map((product: any, index: number) => (
                 <BgAdminTailwindWrapper key={index}>
                   <div key={index}>
