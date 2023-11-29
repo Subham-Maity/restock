@@ -1,25 +1,38 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
+import Navbar from "@/app/components/admin/components/AdminNav/Navbar";
+import SideNavbar from "@/app/components/admin/components/AdminNav/SideNav";
 
-import Sidebar from "./SideNav";
-import TopNavbar from "@/app/components/Navbar/Navbar";
-import AdminNavbar from "@/app/components/admin/components/AdminNav/Navbar";
-
-const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
+const DefaultNav = ({ children }: { children: React.ReactNode }) => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
   return (
-    <>
-      <div className="flex flex-col h-fit dark:bg-[#202329] bg-stone-400/25">
-        <div className="flex flex-1 mt-16">
-          <div>
-            <Sidebar />
-          </div>
-          <div className="flex-1 overflow-x-hidden lg:m-2 lg:mt-6 rounded-lg p-2">
-            {children}
+    <div>
+      <div className=" dark:bg-[#202329] bg-stone-400/25 select-animate bg-cover bg-no-repeat bg-center h-screen">
+        <div className=" overflow-hidden max-h-screen ">
+          <div className="flex">
+            <div className="lg:flex lg:mt-16 lg:mr-2">
+              <SideNavbar
+                isSidebarOpen={isSidebarOpen}
+                toggleSidebar={toggleSidebar}
+              />
+            </div>
+            <div>
+              <Navbar
+                isSidebarOpen={isSidebarOpen}
+                toggleSidebar={toggleSidebar}
+              />
+              <div className=" lg:max-h-[90vh] max-h-screen lg:pb-0 pb-16 overflow-y-scroll w-full h-screen rounded-4xl mt-20">
+                {children}
+              </div>
+            </div>
           </div>
         </div>
-        <AdminNavbar />
       </div>
-    </>
+    </div>
   );
 };
 
-export default DefaultLayout;
+export default DefaultNav;
