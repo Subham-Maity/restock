@@ -1,13 +1,13 @@
 import React from 'react';
+
+import Footer from "@/components/Footer/Footer";
 import ProductDetailsSkeleton
-    from "@/app/components/products/components/PcComponentsProductDetails/skeleton/ProductDetailsSkeleton";
-import Navbar from "@/app/components/Navbar/Navbar";
-import Footer from "@/app/components/Footer/Footer";
+    from "@/components/admin/components/PcComponentsProductDetails/skeleton/ProductDetailsSkeleton";
 
 const Loading = () => {
     return (
         <div>
-            <Navbar/>
+
             <ProductDetailsSkeleton />
             <Footer/>
         </div>

@@ -1,9 +1,10 @@
 import React from "react";
-import UserProfile from "@/app/components/user/components/UserProfile";
-import Navbar from "@/app/components/Navbar/Navbar";
-import Footer from "@/app/components/Footer/Footer";
-import Protected from "@/app/components/auth/components/Protected";
-import TailwindWrapper from "@/app/components/TailwindWrapper/TailwindWrapper";
+import UserProfile from "@/components/user/UserProfile";
+
+import Footer from "@/components/Footer/Footer";
+import Protected from "@/lib/providers/Protected/User/Protected";
+import TailwindWrapper from "@/lib/wrapper/UserPannel/TailwindWrapper";
+import Navbar from "@/components/Navbar/Navbar";
 
 const Page = () => {
   return (

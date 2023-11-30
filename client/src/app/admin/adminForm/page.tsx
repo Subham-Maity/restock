@@ -1,16 +1,18 @@
 import React from "react";
 
-import AdminProtected from "@/app/components/auth/components/protectedAdmin";
-import DefaultLayout from "@/app/components/admin/components/AdminNav/DefaultNav";
-import ProductForm from "@/app/components/admin/pages/pc-components/ProductFrom/ProductForm";
+import AdminProtected from "@/lib/providers/Protected/Admin/protectedAdmin";
+import ProductForm from "@/components/admin/pages/pc-components/ProductFrom/ProductForm";
+import DefaultNav from "@/components/admin/components/AdminNav/DefaultNav";
+;
+
 
 const Page = () => {
   return (
     <div>
       {/*<AdminProtected>*/}
-      <DefaultLayout>
+      <DefaultNav>
         <ProductForm />
-      </DefaultLayout>
+      </DefaultNav>
       {/*</AdminProtected>*/}
     </div>
   );

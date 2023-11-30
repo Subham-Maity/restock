@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import productReducer from "@/app/components/products/pages/pc-components/productListSlice";
-import authReducer from "@/app/components/auth/authSlice";
-import cartReducer from "@/app/components/cart/cartSlice";
-import bannerReducer from "@/app/components/Carousel/Carousel2/bannerSlice";
-import orderReducer from "@/app/components/OrderSuccess/order/orderSlice";
-import userReducer from "@/app/components/user/userSlice";
+import productReducer from "@/lib/features/Product/productListSlice";
+import authReducer from "@/lib/features/Auth/authSlice";
+import cartReducer from "@/lib/features/Cart/cartSlice";
+import bannerReducer from "@/lib/features/Banner/bannerSlice";
+import orderReducer from "@/lib/features/Order/orderSlice";
+import userReducer from "@/lib/features/RoleWise/userSlice";
 
 export const store = configureStore({
   reducer: {

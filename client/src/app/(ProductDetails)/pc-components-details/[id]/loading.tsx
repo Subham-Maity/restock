@@ -1,8 +1,9 @@
 import React from 'react';
+
+import Footer from "@/components/Footer/Footer";
+import Navbar from "@/components/Navbar/Navbar";
 import ProductDetailsSkeleton
-    from "@/app/components/products/components/PcComponentsProductDetails/skeleton/ProductDetailsSkeleton";
-import Navbar from "@/app/components/Navbar/Navbar";
-import Footer from "@/app/components/Footer/Footer";
+    from "@/components/products/components/PcComponentsProductDetails/skeleton/ProductDetailsSkeleton";
 
 const Loading = () => {
     return (

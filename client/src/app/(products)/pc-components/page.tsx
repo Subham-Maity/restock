@@ -1,9 +1,11 @@
 "use client";
 import React from "react";
-import Navbar from "@/app/components/Navbar/Navbar";
-import Footer from "@/app/components/Footer/Footer";
-import TailwindWrapper from "@/app/components/TailwindWrapper/TailwindWrapper";
-import {PcComponentProductList} from "@/app/components/products/pages/pc-components/ProductList";
+
+import Footer from "@/components/Footer/Footer";
+import TailwindWrapper from "@/lib/wrapper/UserPannel/TailwindWrapper";
+import Navbar from "@/components/Navbar/Navbar";
+import {PcComponentProductList} from "@/components/products/pages/pc-components/ProductList";
+
 
 
 const page = () => {

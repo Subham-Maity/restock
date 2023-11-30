@@ -1,8 +1,9 @@
-import Footer from "@/app/components/Footer/Footer";
-import Navbar from "@/app/components/Navbar/Navbar";
-import ProductDetails from "@/app/components/products/components/PcComponentsProductDetails/ProductDetails";
+import Footer from "@/components/Footer/Footer";
+
 import React from "react";
-import TailwindWrapper from "@/app/components/TailwindWrapper/TailwindWrapper";
+import TailwindWrapper from "@/lib/wrapper/UserPannel/TailwindWrapper";
+import Navbar from "@/components/Navbar/Navbar";
+import ProductDetails from "@/components/products/components/PcComponentsProductDetails/ProductDetails";
 
 const page = () => {
   return (

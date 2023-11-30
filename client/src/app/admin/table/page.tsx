@@ -1,16 +1,17 @@
 import React from "react";
 
-import AdminProtected from "@/app/components/auth/components/protectedAdmin";
-import DefaultLayout from "@/app/components/admin/components/AdminNav/DefaultNav";
-import AntTable from "@/app/components/admin/components/Table/AntTable";
+import AdminProtected from "@/lib/providers/Protected/Admin/protectedAdmin";
+import DefaultNav from "@/components/admin/components/AdminNav/DefaultNav";
+import AntTable from "@/components/admin/components/Table/AntTable";
+
 
 function Page() {
   return (
     <>
       {/*<AdminProtected>*/}
-      <DefaultLayout>
+      <DefaultNav>
         <AntTable />
-      </DefaultLayout>
+      </DefaultNav>
       {/*</AdminProtected>*/}
     </>
   );
