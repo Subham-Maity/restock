@@ -1,5 +1,5 @@
 import React from "react";
-import FourOhFour from "@/app/components/FourOhFour/FourOhFour";
+import FourOhFour from "@/components/FourOhFour/FourOhFour";
 
 const NotFound = () => {
   return (

@@ -1,10 +1,11 @@
 "use client";
 
-import Protected from "@/app/components/auth/components/Protected";
-import Cart from "@/app/components/cart/Cart";
-import Navbar from "@/app/components/Navbar/Navbar";
-import Footer from "@/app/components/Footer/Footer";
-import TailwindWrapper from "@/app/components/TailwindWrapper/TailwindWrapper";
+import Protected from "@/lib/providers/Protected/User/Protected";
+import Cart from "@/components/cart/Cart";
+
+import Footer from "@/components/Footer/Footer";
+import TailwindWrapper from "@/lib/wrapper/UserPannel/TailwindWrapper";
+import Navbar from "@/components/Navbar/Navbar";
 
 const Page = () => {
   return (

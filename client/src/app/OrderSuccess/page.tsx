@@ -1,5 +1,5 @@
 import React from 'react';
-import OrderSuccessPage from "@/app/components/OrderSuccess/OrderSuccess";
+import OrderSuccessPage from "@/components/OrderSuccess/OrderSuccess";
 
 const Page = () => {
     return (

@@ -1,18 +1,21 @@
 import React from "react";
-import AdminProductDetail from "@/app/components/admin/components/PcComponentsProductDetails/AdminProductDetail";
-import TailwindWrapper from "@/app/components/TailwindWrapper/TailwindWrapper";
-import AdminProtected from "@/app/components/auth/components/protectedAdmin";
-import DefaultLayout from "@/app/components/admin/components/AdminNav/DefaultNav";
+
+import TailwindWrapper from "@/lib/wrapper/UserPannel/TailwindWrapper";
+import AdminProtected from "@/lib/providers/Protected/Admin/protectedAdmin";
+
+import AdminProductDetail from "@/components/admin/components/PcComponentsProductDetails/AdminProductDetail";
+import DefaultNav from "@/components/admin/components/AdminNav/DefaultNav";
+
 
 const page = () => {
   return (
     <div>
       {/*<AdminProtected>*/}
-      <DefaultLayout>
+      <DefaultNav>
         <TailwindWrapper>
           <AdminProductDetail />
         </TailwindWrapper>
-      </DefaultLayout>
+      </DefaultNav>
       {/*</AdminProtected>*/}
     </div>
   );

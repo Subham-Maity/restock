@@ -1,5 +1,6 @@
 import React from "react";
-import ProductListSkeleton from "@/app/components/products/pages/pc-components/skeleton/ProductListSkeleton";
+import ProductListSkeleton from "@/components/products/pages/pc-components/skeleton/ProductListSkeleton";
+
 
 const Loading = () => {
   return (

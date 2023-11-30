@@ -1,5 +1,5 @@
 import React from "react";
-import Logout from "@/app/components/auth/components/Logout";
+import Logout from "@/components/auth/Logout";
 
 const Page = () => {
     return (

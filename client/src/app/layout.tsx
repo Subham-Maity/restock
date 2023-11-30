@@ -4,13 +4,13 @@ import { Inter, Comfortaa, Pacifico } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 import React from "react";
-import ThemeProviders from "@/app/ThemeProvider";
-import { ReduxProvider } from "@/lib/provider";
-import CartProvider from "@/app/components/cart/CartProvider";
-import UserProvider from "@/app/components/user/UserProvider";
-import ProductProvider from "@/app/components/products/ProductProvider";
+import ThemeProviders from "@/lib/providers/Theme/ThemeProvider";
+import { ReduxProvider } from "@/lib/providers/ReduxProvider/provider";
+import CartProvider from "@/lib/providers/TopLevelFetch/Card/CartProvider";
+import UserProvider from "@/lib/providers/Protected/User/UserProvider";
+import ProductProvider from "@/lib/providers/TopLevelFetch/Products/ProductProvider";
 import { Analytics } from "@vercel/analytics/react";
-import ContextProvider from "@/context/ContextProvider";
+import ContextProvider from "@/lib/providers/ContextApi/ContextProvider";
 
 export const metadata: Metadata = {
   title: "ReStock",
