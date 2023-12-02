@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a53c3843-1826-4596-ab70-491fa252c31a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/app/components/products/pages/pc-components/productListSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/products/pages/pc-components/productListSlice.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2VcnFdYUfXAaCCXiLI9aE2VsyWr" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;pnpm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\Project\\React\\restock3\\client\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Project\React\restock3\client\src\app\components\admin\components\Table" />
+      <recent name="D:\Project\React\restock3\client\src\app\components\admin\components" />
+      <recent name="D:\Project\React\restock3\client\src\app\admin" />
+      <recent name="D:\Project\React\restock3\client\src\app\admin\(AdminProductDetails)" />
+      <recent name="D:\Project\React\restock3\client\src\app\components\Navbar" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.dev">
+    <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="build" />
+      </scripts>
+      <node-interpreter value="project" />
+      <package-manager value="pnpm" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="dev" type="js.build_tools.npm" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <package-manager value="pnpm" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.build" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a53c3843-1826-4596-ab70-491fa252c31a" name="Changes" comment="" />
+      <created>1695144134608</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1695144134608</updated>
+      <workItem from="1695144137838" duration="1969000" />
+      <workItem from="1695185071560" duration="3014000" />
+      <workItem from="1695203615511" duration="157000" />
+      <workItem from="1695218287857" duration="6433000" />
+      <workItem from="1695229415651" duration="7057000" />
+      <workItem from="1695279297309" duration="586000" />
+      <workItem from="1695309580785" duration="2620000" />
+      <workItem from="1695314686503" duration="4792000" />
+      <workItem from="1695325506846" duration="5452000" />
+      <workItem from="1695389640203" duration="4091000" />
+      <workItem from="1695396164405" duration="1597000" />
+      <workItem from="1695398258894" duration="5548000" />
+      <workItem from="1695466885210" duration="298000" />
+      <workItem from="1695553649264" duration="2462000" />
+      <workItem from="1695621757230" duration="4718000" />
+      <workItem from="1695642061042" duration="14930000" />
+      <workItem from="1695741965024" duration="1865000" />
+      <workItem from="1695982498175" duration="447000" />
+      <workItem from="1695982960094" duration="3145000" />
+      <workItem from="1695986338600" duration="597000" />
+      <workItem from="1695993966447" duration="5000" />
+      <workItem from="1695996853030" duration="109000" />
+      <workItem from="1695998571328" duration="1692000" />
+      <workItem from="1696005810296" duration="9190000" />
+      <workItem from="1696077887541" duration="596000" />
+      <workItem from="1696080093739" duration="23000" />
+      <workItem from="1696081428555" duration="11137000" />
+      <workItem from="1696143065353" duration="592000" />
+      <workItem from="1696161860069" duration="3000" />
+      <workItem from="1696438615647" duration="5121000" />
+      <workItem from="1696503725241" duration="18454000" />
+      <workItem from="1696524695935" duration="839000" />
+      <workItem from="1696527633007" duration="6358000" />
+      <workItem from="1696534836535" duration="1718000" />
+      <workItem from="1696574196842" duration="6746000" />
+      <workItem from="1696603371311" duration="2258000" />
+      <workItem from="1696623003657" duration="602000" />
+      <workItem from="1696696733925" duration="46000" />
+      <workItem from="1696913249884" duration="228000" />
+      <workItem from="1697044873164" duration="4485000" />
+      <workItem from="1697050749486" duration="5419000" />
+      <workItem from="1697085466356" duration="2378000" />
+      <workItem from="1697114219082" duration="5455000" />
+      <workItem from="1697121598943" duration="1813000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
