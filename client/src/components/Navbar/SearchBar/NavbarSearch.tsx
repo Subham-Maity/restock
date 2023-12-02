@@ -147,7 +147,7 @@ export const NavbarSearch = ({ items }: any) => {
     return (
         <div className={`App ${showComponent ? '' : 'hidden'}`}>
             <header className="App-header">
-                <div style={{ width: 400 }} onKeyDown={handleKeyDown}>
+                <div style={{ width: 800 }} onKeyDown={handleKeyDown}>
                     <ReactSearchAutocomplete
                         items={items}
                         onSearch={handleOnSearch}
@@ -162,7 +162,7 @@ export const NavbarSearch = ({ items }: any) => {
                         // showNoResults={true}
                         // showClear={true}
                         // showItemsOnFocus={false}
-                        className="focus:outline-none text-white"
+                        className="focus:outline-none text-white testing_search_bar"
                         styling={{
                             height: '44px',
                             color: isDarkTheme ? '#FFFFFF' : '#000000',
