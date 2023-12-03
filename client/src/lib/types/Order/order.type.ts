@@ -41,6 +41,7 @@ export interface Order {
     paymentMethod: string;
     selectedAddress: Address;
     id: number;
+    status: string;
 }
 
 export interface OrderState {
@@ -48,4 +49,5 @@ export interface OrderState {
     orders: Order[];
     value: number;
     currentOrder: Order | null;
+    totalOrders: number;
 }

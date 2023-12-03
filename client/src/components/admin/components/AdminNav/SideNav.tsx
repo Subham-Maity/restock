@@ -34,6 +34,10 @@ const navConfig: NavItem[] = [
         title: "Table View",
         href: "/admin/table",
         icon: <FaCaretRight />,
+      },{
+        title: "Order Page",
+        href: "/admin/orders",
+        icon: <FaCaretRight />,
       },
     ],
   },

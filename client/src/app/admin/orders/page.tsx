@@ -1,5 +1,6 @@
 import React from "react";
 import DefaultNav from "@/components/admin/components/AdminNav/DefaultNav";
+import AdminOrders from "@/components/admin/components/AdminOrder/AdminOrders";
 
 
 const Page = () => {
@@ -7,7 +8,7 @@ const Page = () => {
     <div>
       {/*<AdminProtected>*/}
       <DefaultNav>
-        {/*<AdminOrders />*/}
+        <AdminOrders />
       </DefaultNav>
       {/*</AdminProtected>*/}
     </div>
