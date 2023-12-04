@@ -656,11 +656,17 @@ export const ProductGrid = ({ products }: { products: any }) => {
             {products.map((product: any, index: number) => (
               <BgAdminTailwindWrapper key={index} className="mb-2">
                 <div>
-                  {product.deleted && (
+                  {product?.deleted && (
                     <p className="text-sm font-bold text-center bg-orange-100 mb-2 p-1 mx-1 rounded-lg block dark:text-red-400 text-red-600">
                       {" "}
                       This Product {product.id} is deleted
                     </p>
+                  )}
+                  {product?.stock && (
+                      <p className="text-sm font-bold text-center bg-orange-100 mb-2 p-1 mx-1 rounded-lg block dark:text-red-400 text-red-600">
+                        {" "}
+                        {product?.id} out Of stock
+                      </p>
                   )}
                   <div
                     className="grid grid-cols-2 xs:grid-cols-3 lg:grid-cols-4 grid-rows-1 gap-2 mb-2  border-gray-400/25 dark:border-gray-600/20 rounded-lg h-[200px] sm:h-[280px] w-full"
