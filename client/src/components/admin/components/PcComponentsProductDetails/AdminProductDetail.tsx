@@ -11,7 +11,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { AppDispatch } from "@/lib/redux/store";
-import { addToCartAsync } from "@/lib/features/Cart/cartSlice";
+import {addToCartAsync, selectItems} from "@/lib/features/Cart/cartSlice";
 import { selectLoggedInUser } from "@/lib/features/Auth/authSlice";
 import { User } from "@/lib/types/Auth/auth.type";
 import { LineWave } from "react-loader-spinner";
@@ -26,6 +26,7 @@ import { AiOutlineZoomIn, AiOutlineZoomOut } from "react-icons/ai";
 import { IoClose } from "react-icons/io5";
 import ProductDetailsSkeleton
   from "@/components/admin/components/PcComponentsProductDetails/skeleton/ProductDetailsSkeleton";
+import {CartItem} from "@/lib/types/Cart/cart.type";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -36,6 +37,7 @@ export default function AdminProductDetail() {
   const dispatch: AppDispatch = useDispatch();
   const params = useParams();
   const user: User | null = useSelector(selectLoggedInUser);
+  const items:CartItem[] = useSelector(selectItems);
   const [isCartHoverVisible, setCartHoverVisible] = useState(false);
   const [currentImage, setCurrentImage] = useState("/");
   const handleMouseEnter = (src: any) => {
@@ -81,23 +83,32 @@ export default function AdminProductDetail() {
 
   const handleCart = (e: any) => {
     e.preventDefault();
-    const newItem = {
-      ...product,
-      quantity: 1,
-      user: user ? user.id : "anonymous",
-    };
-    delete newItem["id"];
-    dispatch(addToCartAsync(newItem))
-      .then(() => {
-        setCartHoverVisible(true); // Show the cart popup after a successful dispatch
-        toast.success(`${product.title} is added to your cart`, {
-          position: "bottom-right",
-          autoClose: 1000,
-        });
-      })
-      .catch((error) => {
-        console.error("Error adding to cart:", error);
+    if(items.findIndex(item=>item?.productId === product?.id) < 0){
+      const newItem = {
+        ...product,
+        productId: product.id,
+        quantity: 1,
+        user: user ? user.id : "anonymous",
+      };
+      delete newItem["id"];
+      dispatch(addToCartAsync(newItem))
+          .then(() => {
+            setCartHoverVisible(true); // Show the cart popup after a successful dispatch
+            toast.success(`${product.title} is added to your cart`, {
+              position: "bottom-right",
+              autoClose: 1000,
+            });
+          })
+          .catch((error) => {
+            console.error("Error adding to cart:", error);
+          });
+    }
+    else {
+      toast.warning(`${product.title} is already in your cart`, {
+        position: "bottom-right",
+        autoClose: 1000,
       });
+    }
   };
 
   return (

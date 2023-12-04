@@ -30,7 +30,6 @@ import {
 } from "@/lib/features/Product/productListSlice";
 import NavbarSearch from "@/components/Navbar/SearchBar/NavbarSearch";
 
-
 const navigation = [
   {
     id: 1,
@@ -227,18 +226,17 @@ const Navbar = () => {
                         role === "admin" ||
                         (!role && item.user) ||
                         (role === "user" && item.user) ? (
-                          <div key={item.name} >
+                          <div key={item.name}>
                             {item.submenu ? (
                               <div className="dropdown dropdown-hover">
                                 <label tabIndex={0}>
                                   <Link
-                                    
                                     href={item.href}
                                     className={classNames(
                                       pathname === item.href
                                         ? "bg-gray-100 bg-opacity-90 md:rounded-lg dark:bg-gray-500 dark:bg-opacity-70 text-white"
                                         : "text-gray-300 dark:hover:bg-gray-600 dark:bg-opacity-95 hover:bg-gray-300 hover:bg-opacity-95",
-                                      "flex items-center rounded-lg px-3 py-2 text-sm font-medium"
+                                      "flex items-center rounded-lg px-3 py-2 text-sm font-medium",
                                     )}
                                     aria-current={
                                       pathname === item.href
@@ -261,7 +259,6 @@ const Navbar = () => {
                                   {item.submenu.map((subitem) => (
                                     <li key={subitem.name}>
                                       <Link
-                                        
                                         href={subitem.href}
                                         className="font-semibold hover:bg-gray-400 dark:hover:bg-gray-400 hover:text-slate-900 text-black dark:text-white py-1 rounded-3xl"
                                       >
@@ -279,7 +276,7 @@ const Navbar = () => {
                                   pathname === item.href
                                     ? "bg-gray-100 bg-opacity-90 md:rounded-lg dark:bg-gray-500 dark:bg-opacity-70 text-white"
                                     : "text-gray-300 dark:hover:bg-gray-600 dark:bg-opacity-95 hover:bg-gray-300 hover:bg-opacity-95",
-                                  "flex items-center rounded-lg px-3 py-2 text-sm font-medium"
+                                  "flex items-center rounded-lg px-3 py-2 text-sm font-medium",
                                 )}
                                 aria-current={
                                   pathname === item.href ? "page" : undefined
@@ -292,7 +289,7 @@ const Navbar = () => {
                               </Link>
                             )}
                           </div>
-                        ) : null
+                        ) : null,
                       )}
                     </div>
                   </div>
@@ -397,7 +394,7 @@ const Navbar = () => {
                                     active
                                       ? " bg-gray-400 dark:bg-gray-500 text-gray-950"
                                       : "",
-                                    "font-medium block px-4 py-2 text-sm text-gray-950 dark:text-gray-300 rounded-2xl"
+                                    "font-medium block px-4 py-2 text-sm text-gray-950 dark:text-gray-300 rounded-2xl",
                                   )}
                                 >
                                   {item.name}
@@ -459,7 +456,7 @@ const Navbar = () => {
                         pathname === item.href
                           ? "bg-gray-100 bg-opacity-90 md:rounded-lg dark:bg-gray-500 dark:bg-opacity-70 text-white"
                           : "text-gray-300 dark:hover:bg-gray-600 dark:bg-opacity-95 hover:bg-gray-300 hover:bg-opacity-95",
-                        "flex items-center rounded-lg px-3 py-2 text-sm font-medium"
+                        "flex items-center rounded-lg px-3 py-2 text-sm font-medium",
                       )}
                       aria-current={pathname === item.href ? "page" : undefined}
                     >
@@ -468,7 +465,7 @@ const Navbar = () => {
                         <span>{item.name}</span>
                       </div>
                     </Link>
-                  ) : null
+                  ) : null,
                 )}
               </div>
 
