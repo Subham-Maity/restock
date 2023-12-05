@@ -1,8 +1,0 @@
-/.idea
-/node_modules
-prod_server/.env
-prod_server/.env
-prod_server/.env
-prod_server/.env
-dev_server/.env
-client/pnpm-lock.yaml
