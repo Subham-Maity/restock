@@ -12,10 +12,10 @@ const connectDB = async () => {
     }
     catch (error) {
         if (error instanceof Error) {
-            console.log(`Error: ${error.message}`.red.bold);
+            console.log(`Error: ${error.message}`);
         }
         else {
-            console.log(`An unknown error occurred`.red.bold);
+            console.log(`An unknown error occurred`);
         }
         process.exit(1);
     }
