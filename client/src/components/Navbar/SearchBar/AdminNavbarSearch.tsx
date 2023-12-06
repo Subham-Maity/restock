@@ -11,6 +11,7 @@ import {
 import {useRouter} from "next/navigation";
 import Context from "@/lib/context/Context";
 import {ITEMS_PER_PAGE} from "@/lib/constant/constants";
+import {AppDispatch} from "@/lib/redux/store";
 
 interface Filter {
     [key: string]: string[];
@@ -24,7 +25,7 @@ interface SortOption {
 }
 
 export const NavbarSearch = ({ items }: any) => {
-    const dispatch = useDispatch();
+    const dispatch:AppDispatch = useDispatch();
     const [page, setPage] = useState(1);
     const [filter, setFilter] = useState<Filter>({});
     const [sort, setSort] = useState<SortOption>({
@@ -135,11 +136,9 @@ export const NavbarSearch = ({ items }: any) => {
             // @ts-ignore
             let filter={"category":[latestArray[0].category]};
             router.push("/admin/");
-            // @ts-ignore
+
             dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination }));
-            // @ts-ignore
             dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination }));
-            // @ts-ignore
             dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination }));
         }
     };
@@ -148,7 +147,7 @@ export const NavbarSearch = ({ items }: any) => {
         <div className="flex justify-center items-center">
             <>
                 <div className="group inline-block text-black dark:text-white">
-                    <button className="outline-none border-0 dark:bg-[#2a2a2b] py-2.5 mb-0.5 rounded-l-full focus:outline-none border px-3 bg-white rounded-sm flex items-center min-w-32">
+                    <button className="outline-none dark:bg-[#2a2a2b] py-2.5 mb-0.5 rounded-l-full focus:outline-none border px-3 bg-white rounded-sm flex items-center min-w-32">
             <span className="pr-1 dark:bg-[#2a2a2b] font-semibold flex-1">
               Items
             </span>
@@ -165,10 +164,10 @@ export const NavbarSearch = ({ items }: any) => {
                     </button>
                     <ul
                         className="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute
-  transition duration-150 ease-in-out origin-top min-w-32 border-0"
+  transition duration-150 ease-in-out origin-top min-w-32 "
                     >
-                        {categories?.map((category: any) => (
-                            <li
+                        {categories?.map((category:any , index:any) => (
+                            <li key={index}
                                 className="dark:bg-[#2a2a2b] px-3 hover:dark:bg-[#3f3f43] py-1 hover:bg-gray-100"
                                 onClick={(e) => {
                                     const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
@@ -176,11 +175,9 @@ export const NavbarSearch = ({ items }: any) => {
                                     let filter = { category: [e.target.textContent] };
                                     router.push("/admin/");
                                     dispatch(
-                                        // @ts-ignore
                                         fetchProductsByFiltersAsync({ filter, sort, pagination }),
                                     );
                                     dispatch(
-                                        // @ts-ignore
                                         fetchProductsByFiltersAsync({ filter, sort, pagination }),
                                     );
                                 }}

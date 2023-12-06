@@ -1,23 +1,27 @@
-import mongoose, { ConnectOptions } from "mongoose";
+import mongoose, { ConnectOptions, Mongoose } from "mongoose";
 import colors from "colors";
 import config from "./default.js";
 
-const connectDB = async () => {
+const connectDB = async (): Promise<void> => {
   try {
-    const uri =
+    const uri:string =
       process.env.MONGO_URL || `mongodb://localhost:${config.port}/mydatabase`;
 
-    const options = {
+    const options: ConnectOptions = {
       useUnifiedTopology: true,
       useNewUrlParser: true,
     } as ConnectOptions;
 
     const con = await mongoose.connect(uri, options);
 
-    // Log the connection status
+
     console.log(`MongoDB Connected: ` + `${con.connection.host}`);
-  } catch (error: any) {
-    console.log(`Error: ${error.message}`.red.bold);
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(`Error: ${error.message}`.red.bold);
+    } else {
+      console.log(`An unknown error occurred`.red.bold);
+    }
     process.exit(1);
   }
 };
