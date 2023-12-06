@@ -167,8 +167,8 @@ export const NavbarSearch = ({ items }: any) => {
                         className="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute
   transition duration-150 ease-in-out origin-top min-w-32 border-0"
                     >
-                        {categories?.map((category: any) => (
-                            <li
+                        {categories?.map((category: any, index: any) => (
+                            <li key={index}
                                 className="dark:bg-[#2a2a2b] px-3 hover:dark:bg-[#3f3f43] py-1 hover:bg-gray-100"
                                 onClick={(e) => {
                                     const pagination = { _page: page, _limit: ITEMS_PER_PAGE };

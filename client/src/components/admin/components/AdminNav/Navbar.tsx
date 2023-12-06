@@ -12,7 +12,7 @@ import CartHoverOnMouse from "@/components/cart/CartHoverOnMouse";
 import { Menu, Transition } from "@headlessui/react";
 import Image from "next/image";
 import React, { Fragment, useState } from "react";
-import AdminNavbarSearch from "@/components/Navbar/SearchBar/AdminNavbarSearch";
+import AdminNavbarSearch from "@/components/admin/components/AdminNav/SearchBar/AdminNavbarSearch";
 import {selectAllProducts_} from "@/lib/features/Product/productListSlice";
 
 interface NavbarProps {

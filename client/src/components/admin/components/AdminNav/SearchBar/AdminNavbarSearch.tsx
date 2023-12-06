@@ -168,7 +168,7 @@ export const NavbarSearch = ({ items }: any) => {
                     >
                         {categories?.map((category:any , index:any) => (
                             <li key={index}
-                                className="dark:bg-[#2a2a2b] px-3 hover:dark:bg-[#3f3f43] py-1 hover:bg-gray-100"
+                                className="dark:bg-[#2a2a2b] px-3 hover:dark:bg-[#3f3f43] py-1 hover:bg-gray-100 "
                                 onClick={(e) => {
                                     const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
                                     // @ts-ignore
