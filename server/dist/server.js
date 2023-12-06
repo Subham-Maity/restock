@@ -7,6 +7,7 @@ connectDB()
     // Start the server only when the DB connection is successful
     app.listen(port, () => {
         console.log(`Server live on: http://localhost:${port}`);
+        //on usually used for listening to events like error, close, etc
     }).on('error', (e) => console.error(e));
 })
     .catch((error) => {
