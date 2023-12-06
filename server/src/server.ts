@@ -1,4 +1,4 @@
-import { port } from './config.js';
+import {port} from './config.js';
 import app from './app.js';
 import connectDB from "./config/dbConnection.js";
 
@@ -9,6 +9,8 @@ connectDB()
         // Start the server only when the DB connection is successful
         app.listen(port, () => {
             console.log(`Server live on: http://localhost:${port}`);
+
+            //on usually used for listening to events like error, close, etc
         }).on('error', (e) => console.error(e));
     })
     .catch((error) => {
