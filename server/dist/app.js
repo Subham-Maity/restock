@@ -31,7 +31,6 @@ app.use("/", createProduct);
 // Default route for the API - This will be used to test if the API is live
 app.get("/", (req, res) => {
     res.send("Yes you are connected to the app! ✅");
-    res.json({ status: "success", message: "Welcome to the app!" });
 });
 // Exporting the app
 export default app;
