@@ -8,11 +8,15 @@ const connectDB = async () => {
             useNewUrlParser: true,
         };
         const con = await mongoose.connect(uri, options);
-        // Log the connection status
         console.log(`MongoDB Connected: ` + `${con.connection.host}`);
     }
     catch (error) {
-        console.log(`Error: ${error.message}`.red.bold);
+        if (error instanceof Error) {
+            console.log(`Error: ${error.message}`.red.bold);
+        }
+        else {
+            console.log(`An unknown error occurred`.red.bold);
+        }
         process.exit(1);
     }
 };

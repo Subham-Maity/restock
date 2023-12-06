@@ -11,6 +11,7 @@ import {
 import {useRouter} from "next/navigation";
 import Context from "@/lib/context/Context";
 import {ITEMS_PER_PAGE} from "@/lib/constant/constants";
+import {AppDispatch} from "@/lib/redux/store";
 
 interface Filter {
     [key: string]: string[];
@@ -24,7 +25,7 @@ interface SortOption {
 }
 
 export const NavbarSearch = ({ items }: any) => {
-    const dispatch = useDispatch();
+    const dispatch:AppDispatch = useDispatch();
     const [page, setPage] = useState(1);
     const [filter, setFilter] = useState<Filter>({});
     const [sort, setSort] = useState<SortOption>({
@@ -38,7 +39,7 @@ export const NavbarSearch = ({ items }: any) => {
     const router = useRouter();
     var oldKey = 'title';
     var newKey = 'name';
-    var newArray = items.map(function(obj:any) {
+    var newArray = items?.map(function(obj:any) {
         var newObj = {};
         for (var key in obj) {
             if (key === oldKey) {
@@ -89,7 +90,7 @@ export const NavbarSearch = ({ items }: any) => {
     const handleOnSelect = (item: any) => {
         // onClick("pc-components-details/",item);
         // window.location.href = `/pc-components-details/${item.id}`;
-        router.push(`/pc-components-details/${item.id}`);
+        router.push(`/admin/admin-pc-components-details/${item.id}`);
         console.log(item,"clicken on select");
         // console.log(item);
     };
@@ -134,12 +135,10 @@ export const NavbarSearch = ({ items }: any) => {
             const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
             // @ts-ignore
             let filter={"category":[latestArray[0].category]};
-            router.push("/");
-            // @ts-ignore
+            router.push("/admin/");
+
             dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination }));
-            // @ts-ignore
             dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination }));
-            // @ts-ignore
             dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination }));
         }
     };
@@ -148,7 +147,7 @@ export const NavbarSearch = ({ items }: any) => {
         <div className="flex justify-center items-center">
             <>
                 <div className="group inline-block text-black dark:text-white">
-                    <button className="outline-none border-0 dark:bg-[#2a2a2b] py-3.5 mb-0.5 rounded-l-full focus:outline-none border px-3 bg-white rounded-sm flex items-center min-w-32">
+                    <button className="outline-none dark:bg-[#2a2a2b] py-2.5 mb-0.5 rounded-l-full focus:outline-none border px-3 bg-white rounded-sm flex items-center min-w-32">
             <span className="pr-1 dark:bg-[#2a2a2b] font-semibold flex-1">
               Items
             </span>
@@ -165,22 +164,20 @@ export const NavbarSearch = ({ items }: any) => {
                     </button>
                     <ul
                         className="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute
-  transition duration-150 ease-in-out origin-top min-w-32 border-0"
+  transition duration-150 ease-in-out origin-top min-w-32 "
                     >
-                        {categories?.map((category: any, index: any) => (
+                        {categories?.map((category:any , index:any) => (
                             <li key={index}
-                                className="dark:bg-[#2a2a2b] px-3 hover:dark:bg-[#3f3f43] py-1 hover:bg-gray-100"
+                                className="dark:bg-[#2a2a2b] px-3 hover:dark:bg-[#3f3f43] py-1 hover:bg-gray-100 "
                                 onClick={(e) => {
                                     const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
                                     // @ts-ignore
                                     let filter = { category: [e.target.textContent] };
-                                    router.push("/");
+                                    router.push("/admin/");
                                     dispatch(
-                                        // @ts-ignore
                                         fetchProductsByFiltersAsync({ filter, sort, pagination }),
                                     );
                                     dispatch(
-                                        // @ts-ignore
                                         fetchProductsByFiltersAsync({ filter, sort, pagination }),
                                     );
                                 }}
@@ -191,44 +188,44 @@ export const NavbarSearch = ({ items }: any) => {
                     </ul>
                 </div>
             </>
-        <div className={`App ${showComponent ? '' : 'hidden'}`}>
-            <header className="App-header">
-                <div style={{ width: 800 }} onKeyDown={handleKeyDown}>
-                    <ReactSearchAutocomplete
-                        items={items}
-                        onSearch={handleOnSearch}
-                        onHover={handleOnHover}
-                        onSelect={(onclick: any) => handleOnSelect(onclick)}
-                        onFocus={handleOnFocus}
-                        formatResult={formatResult}
-                        placeholder={"Search here..."}
-                        maxResults={5}
-                        // autoFocus={true}
-                        // showNoResultsText={"HI"}
-                        // showNoResults={true}
-                        // showClear={true}
-                        // showItemsOnFocus={false}
-                        className="focus:outline-none text-white testing_search_bar"
-                        styling={{
-                            height: '44px',
-                            color: isDarkTheme ? '#FFFFFF' : '#000000',
-                            border: isDarkTheme ? '1px solid #000000' : '1px solid #FFFFFF',
-                            borderRadius: '24px',
-                            backgroundColor: isDarkTheme ? '#2a2a2b' : '#FFFFFF',
-                            boxShadow:isDarkTheme ? 'rgba(32, 33, 36, 0.28) 0px 1px 6px 0px' : 'rgba(32, 33, 36, 0.28) 0px 1px 6px 0px',
-                            hoverBackgroundColor: isDarkTheme ? '#51555f' : '#ebebeb',
-                            fontSize: '16px',
-                            fontFamily: 'Arial',
-                            iconColor: 'grey',
-                            lineColor: isDarkTheme ? `rgb(232, 234, 237)` : `rgb(232, 234, 237)`,
-                            placeholderColor: isDarkTheme ? "gray" : "#dfe1e5",
-                            clearIconMargin: '3px 14px 0 0',
-                            searchIconMargin: '0 0 0 16px',
-                        }}
-                    />
-                </div>
-            </header>
-        </div>
+            <div className={`App ${showComponent ? '' : 'hidden'}`}>
+                <header className="App-header">
+                    <div style={{ width: 800 }} onKeyDown={handleKeyDown}>
+                        <ReactSearchAutocomplete
+                            items={items}
+                            onSearch={handleOnSearch}
+                            onHover={handleOnHover}
+                            onSelect={(onclick: any) => handleOnSelect(onclick)}
+                            onFocus={handleOnFocus}
+                            formatResult={formatResult}
+                            placeholder={"Search here..."}
+                            maxResults={5}
+                            // autoFocus={true}
+                            // showNoResultsText={"HI"}
+                            // showNoResults={true}
+                            // showClear={true}
+                            // showItemsOnFocus={false}
+                            className="focus:outline-none text-white testing_search_bar"
+                            styling={{
+                                height: '44px',
+                                color: isDarkTheme ? '#FFFFFF' : '#000000',
+                                border: isDarkTheme ? '1px solid #000000' : '1px solid #FFFFFF',
+                                borderRadius: '24px',
+                                backgroundColor: isDarkTheme ? '#2a2a2b' : '#FFFFFF',
+                                boxShadow:isDarkTheme ? 'rgba(32, 33, 36, 0.28) 0px 1px 6px 0px' : 'rgba(32, 33, 36, 0.28) 0px 1px 6px 0px',
+                                hoverBackgroundColor: isDarkTheme ? '#51555f' : '#ebebeb',
+                                fontSize: '16px',
+                                fontFamily: 'Arial',
+                                iconColor: 'grey',
+                                lineColor: isDarkTheme ? `rgb(232, 234, 237)` : `rgb(232, 234, 237)`,
+                                placeholderColor: isDarkTheme ? "gray" : "#dfe1e5",
+                                clearIconMargin: '3px 14px 0 0',
+                                searchIconMargin: '0 0 0 16px',
+                            }}
+                        />
+                    </div>
+                </header>
+            </div>
         </div>
     );
 };
