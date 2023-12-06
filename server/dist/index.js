@@ -6,7 +6,6 @@ import helmet from "helmet";
 import morgan from "morgan";
 import connectDB from "./config/dbConnection.js";
 /* CONFIG */
-/* CONFIG */
 dotenv.config();
 const server = express();
 server.use(express.json());
@@ -19,18 +18,16 @@ server.use(cors());
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 8000;
 server.get("/", (req, res) => {
-    res.send("Yes, you are connected to the server! ✅");
+    res.send("Yes you are connected to the server! ✅");
 });
-(async () => {
-    await connectDB()
-        .then(() => {
-        server.listen(PORT, () => {
-            console.log(`Server live on: ` + `http://localhost:${PORT}`);
-        });
-    })
-        .catch((err) => {
-        console.log("Error: ", err);
-        throw new Error(err.message);
+(async () => await connectDB()
+    .then(() => {
+    server.listen(PORT, () => {
+        console.log(`Server live on: ` + `http://localhost:${PORT}`);
     });
-})();
+})
+    .catch((err) => {
+    console.log("Error: ", err);
+    throw new Error(err.message);
+}))();
 //# sourceMappingURL=index.js.map
