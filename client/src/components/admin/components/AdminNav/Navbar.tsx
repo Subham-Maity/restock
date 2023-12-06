@@ -12,6 +12,8 @@ import CartHoverOnMouse from "@/components/cart/CartHoverOnMouse";
 import { Menu, Transition } from "@headlessui/react";
 import Image from "next/image";
 import React, { Fragment, useState } from "react";
+import AdminNavbarSearch from "@/components/Navbar/SearchBar/AdminNavbarSearch";
+import {selectAllProducts_} from "@/lib/features/Product/productListSlice";
 
 interface NavbarProps {
   isSidebarOpen: boolean;
@@ -19,6 +21,7 @@ interface NavbarProps {
 }
 
 const Navbar = ({ toggleSidebar, isSidebarOpen }: NavbarProps) => {
+  const itemsForSearch = useSelector(selectAllProducts_);
   const [isCartHoverOpen, setIsCartHoverOpen] = useState(false);
   const [cartHoverTimeout, setCartHoverTimeout] = useState(null);
   const user = useSelector(selectUserInfo);
@@ -63,6 +66,9 @@ const Navbar = ({ toggleSidebar, isSidebarOpen }: NavbarProps) => {
           <h1 className="dark:text-white text-left text-black ml-2 font-bold whitespace-nowrap text-2xl">
             Restock
           </h1>
+        </div>
+        <div className="flex justify-center">
+          <AdminNavbarSearch items={itemsForSearch}/>
         </div>
         <div className="flex gap-2">
           <div className=" ml-auto">
