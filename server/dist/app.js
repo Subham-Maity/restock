@@ -7,7 +7,7 @@ import dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
 import { corsUrl } from "./config.js";
-import Product from "./routes/products/product.router.js";
+import ProductRouter from "./routes/products/product.router.js";
 /* CONFIG */
 // Loading environment variables from .env file
 dotenv.config();
@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors({ origin: corsUrl, optionsSuccessStatus: 200 }));
 /* ROUTES */
 //Product routes
-app.use("/", Product);
+app.use("/products", ProductRouter);
 // Default route for the API - This will be used to test if the API is live
 app.get("/", (req, res) => {
     res.send("Yes you are connected to the app! ✅");
