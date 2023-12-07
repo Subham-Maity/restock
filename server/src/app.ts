@@ -8,7 +8,8 @@ import dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
 import {corsUrl} from "./config.js";
-import createProduct from "./routes/products/product.router.js"
+import Product from "./routes/products/product.router.js"
+import {fetchProduct} from "./controller/product.controller.js";
 
 
 /* CONFIG */
@@ -41,7 +42,8 @@ app.use(cors({origin: corsUrl, optionsSuccessStatus: 200}));
 
 
 /* ROUTES */
-app.use("/", createProduct)
+//Product routes
+app.use("/", Product)
 
 
 // Default route for the API - This will be used to test if the API is live
