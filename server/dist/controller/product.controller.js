@@ -1,7 +1,7 @@
 import Product from '../model/products/product.model.js';
 import catchAsyncError from '../middleware/catchAsyncError.js';
 import ErrorHandler from '../utils/errorHandler.js';
-//Create new product
+/*Create new product*/
 export const createProduct = catchAsyncError(async (req, res, next) => {
     try {
         // req.body does indeed typically refer to the data that's sent from the frontend as part of an HTTP POST or PUT request
@@ -43,48 +43,64 @@ export const createProduct = catchAsyncError(async (req, res, next) => {
         }
     }
 });
-//Fetch all products
+/*Product Fetching and Functions*/
+//Testing URL: http://localhost:5050/products?category=fragrances&_sort=price&_order=asc&_page=1&_limit=2
+//custom error class for product not found*/
+class ProductNotFoundError extends Error {
+    constructor(message) {
+        super(message);
+        this.statusCode = 404;
+    }
+}
+//Functions
 export const fetchProduct = catchAsyncError(async (req, res, next) => {
-    //Querying the database for all products
-    let query = Product.find({});
-    //Filtering the products based on the query parameters
-    //Sort Example = {_sort: 'price', _order: 'asc'} or {_sort: 'price', _order: 'desc'}
-    //Filter Example  = {"category": ["smartphone", "laptop"]} or {"brand": ["apple", "samsung"]}
-    //Pagination Example = {_page: 1, _limit: 20} or {_page: 2, _limit: 20}
-    //Filtering the products based on the category
-    if (req.query.category) {
-        await query.find({ category: req.query.category });
-    }
-    //Filtering the products based on the brand
-    if (req.query.brand) {
-        await query.find({ brand: req.query.brand });
-    }
-    //Sorting the products based on the price
-    if (req.query._sort && req.query._order) {
-        //For Javascript
-        // await query.sort({[req.query._sort]: req.query._order});
-        //For Typescript(same as Javascript)
-        const sortKey = req.query._sort;
-        const sortOrder = req.query._order;
-        const sortCriteria = {};
-        sortCriteria[sortKey] = sortOrder;
-        await query.sort(sortCriteria);
-    }
-    //Pagination Example = {_page: 1, _limit: 20} or {_page: 2, _limit: 20}
-    //Math = pageSize = 5, page = 3  =>  skip((3-1)*5).limit(5) => skip(10).limit(5)
-    if (req.query._page && req.query._limit) {
-        const pageSize = req.query._limit;
-        const page = req.query._page;
-        query = query.skip((parseInt(page) - 1) * parseInt(pageSize)).limit(parseInt(pageSize));
-    }
     try {
-        //Executing the query
+        // Initialize the query without executing it
+        let query = Product.find({});
+        //Filtering the products based on the query parameters
+        //Sort Example = {_sort: 'price', _order: 'asc'} or {_sort: 'price', _order: 'desc'}
+        //Filter Example  = {"category": ["smartphone", "laptop"]} or {"brand": ["apple", "samsung"]}
+        //Pagination Example = {_page: 1, _limit: 20} or {_page: 2, _limit: 20}
+        //Filtering the products based on the category
+        if (req.query.category) {
+            query = query.where({ category: req.query.category });
+        }
+        //Filtering the products based on the brand
+        if (req.query.brand) {
+            query = query.where({ brand: req.query.brand });
+        }
+        //Sorting the products based on the price
+        if (req.query._sort && req.query._order) {
+            const sortKey = req.query._sort;
+            const sortOrder = req.query._order;
+            const sortCriteria = {};
+            sortCriteria[sortKey] = sortOrder;
+            query = query.sort(sortCriteria);
+        }
+        //Pagination Example = {_page: 1, _limit: 20} or {_page: 2, _limit: 20}
+        //Math = pageSize = 5, page = 3  =>  skip((3-1)*5).limit(5) => skip(10).limit(5)
+        if (req.query._page && req.query._limit) {
+            const pageSize = parseInt(req.query._limit);
+            const page = parseInt(req.query._page);
+            query = query.skip((page - 1) * pageSize).limit(pageSize);
+        }
+        // Executing the query
         const docs = await query.exec();
+        //Addition check to see if the product array is empty
+        if (docs.length === 0) {
+            throw new ProductNotFoundError('No products found');
+        }
         //Sending the products as a response
         res.status(200).json(docs);
     }
     catch (error) {
-        res.status(400).json({ message: error.message });
+        //Custom error handling
+        if (error instanceof ProductNotFoundError) {
+            res.status(error.statusCode).json({ message: error.message });
+        }
+        else {
+            next(error);
+        }
     }
 });
 //# sourceMappingURL=product.controller.js.map
