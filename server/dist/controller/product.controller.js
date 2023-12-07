@@ -45,32 +45,46 @@ export const createProduct = catchAsyncError(async (req, res, next) => {
 });
 //Fetch all products
 export const fetchProduct = catchAsyncError(async (req, res, next) => {
+    //Querying the database for all products
+    let query = Product.find({});
+    //Filtering the products based on the query parameters
+    //Sort Example = {_sort: 'price', _order: 'asc'} or {_sort: 'price', _order: 'desc'}
+    //Filter Example  = {"category": ["smartphone", "laptop"]} or {"brand": ["apple", "samsung"]}
+    //Pagination Example = {_page: 1, _limit: 20} or {_page: 2, _limit: 20}
+    //Filtering the products based on the category
+    if (req.query.category) {
+        await query.find({ category: req.query.category });
+    }
+    //Filtering the products based on the brand
+    if (req.query.brand) {
+        await query.find({ brand: req.query.brand });
+    }
+    //Sorting the products based on the price
+    if (req.query._sort && req.query._order) {
+        //For Javascript
+        // await query.sort({[req.query._sort]: req.query._order});
+        //For Typescript(same as Javascript)
+        const sortKey = req.query._sort;
+        const sortOrder = req.query._order;
+        const sortCriteria = {};
+        sortCriteria[sortKey] = sortOrder;
+        await query.sort(sortCriteria);
+    }
+    //Pagination Example = {_page: 1, _limit: 20} or {_page: 2, _limit: 20}
+    //Math = pageSize = 5, page = 3  =>  skip((3-1)*5).limit(5) => skip(10).limit(5)
+    if (req.query._page && req.query._limit) {
+        const pageSize = req.query._limit;
+        const page = req.query._page;
+        query = query.skip((parseInt(page) - 1) * parseInt(pageSize)).limit(parseInt(pageSize));
+    }
     try {
-        // req.params.id typically refers to the id that's sent from the frontend as part of an HTTP GET request
-        const id = req.params.id;
-        // Check if id is provided
-        if (!id) {
-            return next(new ErrorHandler("Please provide an id", 400));
-        }
-        // findById() means that we're fetching the product object from the database using its id
-        const product = await Product.findById(id);
-        // Check if the product exists
-        if (!product) {
-            return next(new ErrorHandler("Product not found", 404));
-        }
-        res.status(200).json({ message: "Product fetched successfully", product });
+        //Executing the query
+        const docs = await query.exec();
+        //Sending the products as a response
+        res.status(200).json(docs);
     }
     catch (error) {
-        console.error("Error fetching product:", error);
-        // Handle different types of errors with custom messages and status codes
-        if (error instanceof ErrorHandler) {
-            // If it's a known validation or custom error
-            res.status(error.statusCode).json({ message: error.message });
-        }
-        else {
-            // For other unexpected errors
-            next(new ErrorHandler('Internal server error', 500));
-        }
+        res.status(400).json({ message: error.message });
     }
 });
 //# sourceMappingURL=product.controller.js.map
