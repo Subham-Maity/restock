@@ -9,7 +9,9 @@
     "prestart": "npm run build",
     "start": "node dist/server.js",
     "preserve": "npm run build",
-    "prod": "concurrently \"npx tsc -w\"  \"nodemon dist/server.js\""
+    "prod": "concurrently \"npx tsc -w\"  \"nodemon dist/server.js\"",
+    "compile": "npx tsc -w",
+    "deploy": "nodemon dist/server.js"
   },
   "keywords": [],
   "author": "",
