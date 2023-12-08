@@ -17,7 +17,7 @@ dotenv.config();
 //Options for the swagger docs
 const options = {
     definition: {
-        openapi: "3.0.0",
+        restock: "3.0.0",
         info: {
             title: "Restock Ecommerce API",
             version: "1.0.0",
