@@ -29,6 +29,7 @@ import {
   selectAllProducts_,
 } from "@/lib/features/Product/productListSlice";
 import NavbarSearch from "@/components/Navbar/SearchBar/NavbarSearch";
+import { IoSearchOutline } from "react-icons/io5";
 
 const navigation = [
   {
@@ -169,6 +170,7 @@ const Navbar = () => {
   }, []);
 
   const [isCartHoverOpen, setIsCartHoverOpen] = useState(false);
+  const [isSearchHoverOpen, setIsSearchHoverOpen] = useState(false);
   const [cartHoverTimeout, setCartHoverTimeout] = useState(null);
   const pathname = usePathname();
   const user = useSelector(selectUserInfo);
@@ -189,6 +191,23 @@ const Navbar = () => {
   const handleCartIconHoverOut = () => {
     const timeoutId: any = setTimeout(() => {
       setIsCartHoverOpen(false);
+    }, 500);
+
+    // Store the timeout ID in state for future reference
+    setCartHoverTimeout(timeoutId);
+  };
+
+  const handleSearchIconHover = () => {
+    setIsSearchHoverOpen(true);
+    // Clear any previous timeouts
+    if (cartHoverTimeout) {
+      clearTimeout(cartHoverTimeout);
+    }
+  };
+
+  const handleSearchIconHoverOut = () => {
+    const timeoutId: any = setTimeout(() => {
+      setIsSearchHoverOpen(false);
     }, 500);
 
     // Store the timeout ID in state for future reference
@@ -226,7 +245,7 @@ const Navbar = () => {
                         role === "admin" ||
                         (!role && item.user) ||
                         (role === "user" && item.user) ? (
-                          <div key={item.name}>
+                          <div className="whitespace-nowrap" key={item.name}>
                             {item.submenu ? (
                               <div className="dropdown dropdown-hover">
                                 <label tabIndex={0}>
@@ -293,19 +312,42 @@ const Navbar = () => {
                       )}
                     </div>
                   </div>
-
-                  <div>
-                    <NavbarSearch items={itemsForSearch} />
-                  </div>
                 </div>
                 <div className="hidden lg:block ml-auto">
                   <div className="ml-4 flex items-center md:ml-6">
+                    <div>
+                      <button
+                        type="button"
+                        onMouseEnter={handleSearchIconHover}
+                        onMouseLeave={handleSearchIconHoverOut}
+                        className=" rounded-lg w-36 bg-gray-500 hover:bg-gray-600 p-1.5 text-white dark:bg-gray-700
+                      dark:hover:text-white dark:hover:bg-gray-600 drop  hover:cursor-pointer cursor-pointer border border-gray-600/25 shadow shadow-gray-500/25"
+                      >
+                        <div className="flex">
+                          <IoSearchOutline
+                            className="h-5 w-5 "
+                            aria-hidden="true"
+                          />
+                          <p className="mt-0 ml-1 text-gray-200/25 font-light">
+                            Search
+                          </p>
+                        </div>
+                        {isSearchHoverOpen && (
+                          <div className="fixed right-36 mt-12 top-8 z-50">
+                            <div className="bg-white/50 dark:bg-[#1a1a1a]/70 rounded-b-xl lg:mx-16 max-w-8xl px-5 sm:px-6 xl:px-8 py-2 sm:py-2 lg:py-2 ">
+                              <NavbarSearch items={itemsForSearch} />
+                            </div>
+                          </div>
+                        )}
+                      </button>
+                    </div>
+                    <div className="mx-2"></div>
                     <button
                       type="button"
                       onMouseEnter={handleCartIconHover}
                       onMouseLeave={handleCartIconHoverOut}
                       className="rounded-xl bg-gray-500 hover:bg-gray-600 p-1.5 text-white dark:bg-gray-700
-                      dark:hover:text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 hover:cursor-pointer cursor-pointer"
+                      dark:hover:text-white dark:hover:bg-gray-600 drop hover:cursor-pointer cursor-pointer"
                     >
                       <Link href={"/cart"}>
                         <ShoppingCartIcon
@@ -324,7 +366,7 @@ const Navbar = () => {
                     {/* Profile dropdown */}
                     <Menu as="div" className="relative ml-3">
                       <div>
-                        <Menu.Button className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                        <Menu.Button className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm ">
                           <span className="sr-only xl:hidden">
                             Open user menu
                           </span>
@@ -335,7 +377,7 @@ const Navbar = () => {
                             user.addresses[0] &&
                             user.addresses[0].dpUrl ? (
                               <Image
-                                className="h-10 w-10 p-0.5 rounded-full bg-gray-500 dark:bg-gray-500 flex items-center justify-center text-white dark:hover:bg-gray-300 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg"
+                                className="h-10 w-10 p-0.5 rounded-full bg-gray-500 dark:bg-gray-500 flex items-center justify-center text-white dark:hover:bg-gray-300 drop  text-lg"
                                 src={user.addresses[0].dpUrl}
                                 alt=""
                                 width={40}
@@ -343,7 +385,7 @@ const Navbar = () => {
                               />
                             ) : user && user.email ? (
                               <div
-                                className="h-9 w-9 rounded-full bg-gray-500 dark:bg-gray-700 flex items-center justify-center text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg"
+                                className="h-9 w-9 rounded-full bg-gray-500 dark:bg-gray-700 flex items-center justify-center text-white dark:hover:bg-gray-600 drop  text-lg"
                                 style={{ fontSize: "1.5rem" }}
                               >
                                 <p className="mt-1">
@@ -352,7 +394,7 @@ const Navbar = () => {
                               </div>
                             ) : (
                               <Image
-                                className="h-10 w-10 p-2 rounded-full bg-gray-500 dark:bg-gray-700 flex items-center justify-center text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg"
+                                className="h-10 w-10 p-2 rounded-full bg-gray-500 dark:bg-gray-700 flex items-center justify-center text-white dark:hover:bg-gray-600 drop  text-lg"
                                 src="/Navbar/blankUser.svg"
                                 alt=""
                                 width={40}
@@ -424,7 +466,31 @@ const Navbar = () => {
                     </Menu>
                   </div>
                 </div>
-                <div className="mt-2 ml-4 lg:block hidden">
+                <div className="lg:hidden block">
+                  <button
+                    type="button"
+                    onMouseEnter={handleSearchIconHover}
+                    onMouseLeave={handleSearchIconHoverOut}
+                    className=" rounded-lg w-36 bg-gray-500 hover:bg-gray-600 p-1.5 text-white dark:bg-gray-700
+                      dark:hover:text-white dark:hover:bg-gray-600 drop  hover:cursor-pointer cursor-pointer border border-gray-600/25 shadow shadow-gray-500/25"
+                  >
+                    <div className="flex">
+                      <IoSearchOutline
+                        className="h-5 w-5 "
+                        aria-hidden="true"
+                      />
+                      <p className="mt-0 ml-1 text-gray-200/25 font-light">
+                        Search
+                      </p>
+                    </div>
+                    {isSearchHoverOpen && (
+                      <div className="fixed right-36 mt-12 top-8 z-50">
+                        <NavbarSearch items={itemsForSearch} />
+                      </div>
+                    )}
+                  </button>
+                </div>
+                <div className="ml-3 lg:block hidden">
                   <Switcher />
                 </div>
 
