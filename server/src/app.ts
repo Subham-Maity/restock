@@ -30,7 +30,9 @@ const options = {
         },
         servers: [
             {
-                url: "http://localhost:5050",
+                // url: "http://localhost:5050", //Local
+                url: "http://193.160.119.92:5050", //Production
+                // url: "https://restock-server.onrender.com/", //Testing
             },
         ],
     },
