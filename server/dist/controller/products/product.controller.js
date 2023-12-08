@@ -62,6 +62,7 @@ export const fetchProduct = catchAsyncError(async (req, res, next) => {
         //Sort Example = {_sort: 'price', _order: 'asc'} or {_sort: 'price', _order: 'desc'}
         //Filter Example  = {"category": ["smartphone", "laptop"]} or {"brand": ["apple", "samsung"]}
         //Pagination Example = {_page: 1, _limit: 20} or {_page: 2, _limit: 20}
+        //Todo:✅ Multiple Cemeteries and Brands
         //Filtering the products based on the category
         if (req.query.category) {
             query = query.where({ category: req.query.category });
