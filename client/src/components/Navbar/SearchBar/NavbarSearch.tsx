@@ -190,7 +190,10 @@ export const NavbarSearch = ({ items }: any) => {
       </>
       <div className={`App ${showComponent ? "" : "hidden"}`}>
         <header className="App-header">
-          <div style={{ width: 800 }} onKeyDown={handleKeyDown}>
+          <div
+            className="2xl:w-[520px] xl:w-[320px] lg:w-96 md:w-64 sm:w-64 w-64"
+            onKeyDown={handleKeyDown}
+          >
             <ReactSearchAutocomplete
               items={items}
               onSearch={handleOnSearch}

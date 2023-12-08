@@ -484,8 +484,10 @@ const Navbar = () => {
                       </p>
                     </div>
                     {isSearchHoverOpen && (
-                      <div className="fixed right-36 mt-12 top-8 z-50">
-                        <NavbarSearch items={itemsForSearch} />
+                      <div className="fixed md:right-56 sm:right-52 right-4 mt-12 top-5 z-50">
+                        <div className="bg-white/50 dark:bg-[#1a1a1a]/70 rounded-b-xl px-4 py-3">
+                          <NavbarSearch items={itemsForSearch} />
+                        </div>
                       </div>
                     )}
                   </button>
