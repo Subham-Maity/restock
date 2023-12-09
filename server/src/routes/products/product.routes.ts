@@ -1,6 +1,6 @@
 import * as express from "express";
 
-import {createProduct} from "../../controller/products/product.controller.js"
+import {createProduct, fetchProductById} from "../../controller/products/product.controller.js"
 import {fetchProduct} from "../../controller/products/product.controller.js"
 import {Router} from "express";
 
@@ -251,7 +251,7 @@ const router: Router = express.Router();
  *               message: "No products found"
  */
 
-router.post('/', createProduct).get('/', fetchProduct);
+router.post('/', createProduct).get('/', fetchProduct).get('/:id', fetchProductById);
 
 
 export default router;
