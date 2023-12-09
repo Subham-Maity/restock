@@ -21,13 +21,20 @@ const options: swaggerJsdoc.Options = {
                 },
             },
         },
+        servers: [
+            {
+                url: "http://localhost:5050/api/v1/docs", //Local
+                // url: "http://193.160.119.92:5050", //Production
+                // url: "https://restock-server.onrender.com/", //Testing
+            },
+        ],
         security: [
             {
                 bearerAuth: [],
             },
         ],
     },
-    apis: ["./src/routes.ts", "./src/schema/*.ts"],
+    apis: ["./src/routes/**/*.ts"],
 };
 
 const swaggerSpec = swaggerJsdoc(options);
