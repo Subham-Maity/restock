@@ -158,3 +158,39 @@ export const fetchProduct = catchAsyncError(async (req: Request, res: Response, 
         }
     }
 });
+
+
+/*FETCHING A SINGLE PRODUCT*/
+
+//custom error class for product not found*/
+class ProductNotFoundError2 extends Error {
+    statusCode: number;
+
+    constructor(message: string) {
+        super(message);
+        this.statusCode = 404;
+    }
+}
+
+//Fetching a single product
+export const fetchProductById = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { id } = req.params;
+
+        const product = await Product.findById(id);
+
+        if (!product) {
+            throw new ProductNotFoundError2('Product not found');
+        }
+
+        res.status(200).json(product);
+    } catch (error) {
+        if (error instanceof ProductNotFoundError2) {
+            res.status(error.statusCode).json({ message: error.message });
+        } else {
+            next(error);
+        }
+    }
+});
+
+
