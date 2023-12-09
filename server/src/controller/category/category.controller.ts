@@ -1,20 +1,20 @@
 import {Request, Response, NextFunction} from 'express';
-import Brand from "../../model/brand/brand.model.js";
+import Category from "../../model/category/category.model.js";
 import ErrorHandler from "../../utils/errorHandler.js";
 import catchAsyncError from "../../middleware/catchAsyncError.js";
 
-export const fetchBrand = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
+export const fetchCategory = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
         try {
 
-            //Fetch all brands from the database
-            const brands = await Brand.find({}).exec();
+            //Fetch all categories from the database
+            const categories = await Category.find({}).exec();
 
-            //Send an error message if no brands are found
-            if (!brands || brands.length === 0) {
-                throw new ErrorHandler('No brands found', 404);
+            //Send an error message if no categories are found
+            if (!categories || categories.length === 0) {
+                throw new ErrorHandler('No categories found', 404);
             }
 
-            res.status(200).json(brands);
+            res.status(200).json(categories);
         } catch (err) {
             //CastError is thrown when an invalid ID is passed to findById()
             if (err.name === 'CastError') {
