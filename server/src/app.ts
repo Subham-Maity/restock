@@ -9,9 +9,9 @@ import helmet from "helmet";
 import morgan from "morgan";
 import { nanoid } from 'nanoid';
 import {corsUrl} from "./config.js";
-import ProductRouter from "./routes/products/product.router.js"
 import moment from "moment-timezone";
-
+import globalErrorHandler from './utils/globalErrorHandler.js';
+import ProductRouter from "./routes/products/product.router.js"
 
 /* CONFIG */
 
@@ -62,6 +62,13 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 // Middleware for handling CORS - This will handle CORS errors
 app.use(cors({origin: corsUrl, optionsSuccessStatus: 200}));
+
+
+
+//
+app.use(globalErrorHandler);
+
+
 
 
 /* ROUTES */
