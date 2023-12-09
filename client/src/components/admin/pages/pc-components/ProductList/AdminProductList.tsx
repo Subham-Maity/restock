@@ -49,7 +49,6 @@ import Context from "@/lib/context/Context";
 import { FaListUl } from "react-icons/fa";
 import { motion } from "framer-motion";
 import ProductListSkeleton from "@/components/products/pages/pc-components/skeleton/ProductListSkeleton";
-import Component from "@/components/admin/pages/pc-components/ProductList/Modal";
 
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
@@ -124,7 +123,7 @@ export const AdminPcComponentProductList = () => {
       }
     } else {
       const index = newFilter[section.id].findIndex(
-        (el) => el === option.value
+        (el) => el === option.value,
       );
       newFilter[section.id].splice(index, 1);
     }
@@ -213,7 +212,7 @@ export const AdminPcComponentProductList = () => {
                                   ? "cursor-pointer hover:bg-gray-400 hover:dark:bg-gray-500 rounded-2xl"
                                   : "cursor-pointer hover:bg-gray-400 hover:dark:bg-gray-500 rounded-2xl",
                                 active ? "" : "",
-                                "block py-2 px-3 text-sm rounded"
+                                "block py-2 px-3 text-sm rounded",
                               )}
                             >
                               {option.name}
@@ -418,7 +417,7 @@ export const MobileFilter = ({
                                       {option.label}
                                     </label>
                                   </div>
-                                )
+                                ),
                               )}
                             </div>
                           </Disclosure.Panel>
@@ -581,7 +580,7 @@ export const ProductGrid = ({ products }: { products: any }) => {
   const { isGrid } = useContext(Context);
   const router = useRouter();
   const [hoveredProductIndex, setHoveredProductIndex] = useState<number | null>(
-    null
+    null,
   );
   const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
 
@@ -589,7 +588,7 @@ export const ProductGrid = ({ products }: { products: any }) => {
     setHoverTimeout(
       setTimeout(() => {
         setHoveredProductIndex(index);
-      }, 1000)
+      }, 1000),
     );
   }, []);
 
@@ -664,10 +663,10 @@ export const ProductGrid = ({ products }: { products: any }) => {
                     </p>
                   )}
                   {product?.stock && (
-                    <p className="text-sm font-bold text-center bg-orange-100 mb-2 p-1 mx-1 rounded-lg block dark:text-red-400 text-red-600">
-                      {" "}
-                      {product?.id} out Of stock
-                    </p>
+                      <p className="text-sm font-bold text-center bg-orange-100 mb-2 p-1 mx-1 rounded-lg block dark:text-red-400 text-red-600">
+                        {" "}
+                        {product?.id} out Of stock
+                      </p>
                   )}
                   <div
                     className="grid grid-cols-2 xs:grid-cols-3 lg:grid-cols-4 grid-rows-1 gap-2 mb-2  border-gray-400/25 dark:border-gray-600/20 rounded-lg h-[200px] sm:h-[280px] w-full"
@@ -740,7 +739,7 @@ export const ProductGrid = ({ products }: { products: any }) => {
                             ₹
                             {Math.round(
                               product.price *
-                                (1 - product.discountPercentage / 100)
+                                (1 - product.discountPercentage / 100),
                             )}
                           </p>
                           <p className="text-base block line-through font-medium text-gray-400">
@@ -749,7 +748,16 @@ export const ProductGrid = ({ products }: { products: any }) => {
                         </div>
                       </Link>
                       <div>
-                        <Component product={product} />
+                        <button
+                          type="submit"
+                          className="inline-flex rounded-md bg-blue-800 hover:bg-blue-500 mt-2 ml-2 dark:bg-cyan-700/60 px-1 py-1 text-sm font-semibold text-white shadow-sm dark:hover:bg-cyan-500/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                          onClick={() => {
+                            router.push(`/admin/editForm/${product.id}`);
+                          }}
+                        >
+                          <TbEditOff className="mt-0.5 mr-1" />
+                          Edit Your Product
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -806,7 +814,7 @@ export const ProductGrid = ({ products }: { products: any }) => {
                                           window.location.href = `/pc-components-details/${product.id}`;
                                         }}
                                       />
-                                    )
+                                    ),
                                   )}
                                 </Carousel>
                               ) : (
@@ -862,7 +870,7 @@ export const ProductGrid = ({ products }: { products: any }) => {
                               ₹
                               {Math.round(
                                 product.price *
-                                  (1 - product.discountPercentage / 100)
+                                  (1 - product.discountPercentage / 100),
                               )}
                             </p>
                             <p className="text-md block line-through font-medium text-gray-400 pr-2">
@@ -874,7 +882,16 @@ export const ProductGrid = ({ products }: { products: any }) => {
                     </Link>
 
                     <div>
-                      <Component product={product} />
+                      <button
+                        type="submit"
+                        className="inline-flex rounded-md bg-blue-800 hover:bg-blue-500 mt-2 ml-2 dark:bg-cyan-700/60 px-1 py-1 text-sm font-semibold text-white shadow-sm dark:hover:bg-cyan-500/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                        onClick={() => {
+                          router.push(`/admin/editForm/${product.id}`);
+                        }}
+                      >
+                        <TbEditOff className="mt-0.5 mr-1" />
+                        Edit Your Product
+                      </button>
                     </div>
                   </div>
                 </BgAdminTailwindWrapper>

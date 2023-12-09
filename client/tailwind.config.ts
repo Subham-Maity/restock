@@ -38,7 +38,6 @@ const config: Config = {
     require("@tailwindcss/aspect-ratio"),
     require("@tailwindcss/forms"),
     require("daisyui"),
-    require('flowbite/plugin')
   ],
   darkMode: "class",
 };
