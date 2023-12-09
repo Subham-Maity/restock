@@ -9,37 +9,13 @@ import helmet from "helmet";
 import morgan from "morgan";
 import {corsUrl} from "./config.js";
 import ProductRouter from "./routes/products/product.router.js"
-import swaggerUI from "swagger-ui-express";
-import swaggerJsDoc from "swagger-jsdoc";
+
 
 /* CONFIG */
 
 // Loading environment variables from .env file
 dotenv.config();
 
-
-/* SWAGGER */
-//Options for the swagger docs
-const options = {
-    definition: {
-        restock: "3.0.0",
-        info: {
-            title: "Restock Ecommerce API",
-            version: "1.0.0",
-            description: "This is the most advanced ecommerce API",
-        },
-        servers: [
-            {
-                // url: "http://localhost:5050", //Local
-                url: "http://193.160.119.92:5050", //Production
-                // url: "https://restock-server.onrender.com/", //Testing
-            },
-        ],
-    },
-    apis: ["./src/routes/**/*.ts"],
-};
-
-const specs: Object = swaggerJsDoc(options);
 
 
 /* APP SETUP */
@@ -71,8 +47,8 @@ app.use(cors({origin: corsUrl, optionsSuccessStatus: 200}));
 
 //Product routes
 app.use("/api/v1/products", ProductRouter)
-//Swagger routes
-app.use("/api/v1/docs", swaggerUI.serve, swaggerUI.setup(specs));
+
+
 
 
 // Default route for the API - This will be used to test if the API is live

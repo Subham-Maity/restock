@@ -8,32 +8,9 @@ import helmet from "helmet";
 import morgan from "morgan";
 import { corsUrl } from "./config.js";
 import ProductRouter from "./routes/products/product.router.js";
-import swaggerUI from "swagger-ui-express";
-import swaggerJsDoc from "swagger-jsdoc";
 /* CONFIG */
 // Loading environment variables from .env file
 dotenv.config();
-/* SWAGGER */
-//Options for the swagger docs
-const options = {
-    definition: {
-        restock: "3.0.0",
-        info: {
-            title: "Restock Ecommerce API",
-            version: "1.0.0",
-            description: "This is the most advanced ecommerce API",
-        },
-        servers: [
-            {
-                // url: "http://localhost:5050", //Local
-                url: "http://193.160.119.92:5050", //Production
-                // url: "https://restock-server.onrender.com/", //Testing
-            },
-        ],
-    },
-    apis: ["./src/routes/**/*.ts"],
-};
-const specs = swaggerJsDoc(options);
 /* APP SETUP */
 // Initializing express app - This is the app object that will be used throughout the app
 const app = express();
@@ -54,8 +31,6 @@ app.use(cors({ origin: corsUrl, optionsSuccessStatus: 200 }));
 //v1 - useful for versioning without breaking the existing API we can have multiple versions of the API
 //Product routes
 app.use("/api/v1/products", ProductRouter);
-//Swagger routes
-app.use("/api/v1/docs", swaggerUI.serve, swaggerUI.setup(specs));
 // Default route for the API - This will be used to test if the API is live
 app.get("/", (req, res) => {
     res.send("Yes you are connected to the app! 🚀");
