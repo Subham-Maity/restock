@@ -1,26 +1,37 @@
-/* IMPORTS */
+/*❗~~~~IMPORTS~~~~❗*/
 
 // Importing the necessary modules
 import express, {Application, Request, Response} from "express";
 import bodyParser from "body-parser";
+
+//Importing the Security
 import cors from "cors";
+import {corsUrl} from "./config.js";
 import dotenv from "dotenv";
 import helmet from "helmet";
-import morgan from "morgan";
-import { nanoid } from 'nanoid';
-import {corsUrl} from "./config.js";
+
+//Importing the widgets
 import moment from "moment-timezone";
+import { nanoid } from 'nanoid';
+import morgan from "morgan";
+
+//Importing the error handler
 import globalErrorHandler from './utils/globalErrorHandler.js';
-import ProductRouter from "./routes/products/product.router.js"
 
-/* CONFIG */
+//Importing the routes
+import ProductRouter from "./routes/products/product.routes.js"
+import BrandRouter from "./routes/brands/brand.routes.js"
+import CategoryRouter from "./routes/category/category.routes.js"
 
+
+/*❗~~~~CONFIG~~~~❗*/
 // Loading environment variables from .env file
 dotenv.config();
 
 
 
-/* APP SETUP */
+/*❗~~~~APP SETUP~~~~❗*/
+
 // Initializing express app - This is the app object that will be used throughout the app
 const app: Application = express();
 
@@ -65,21 +76,23 @@ app.use(cors({origin: corsUrl, optionsSuccessStatus: 200}));
 
 
 
-//
+//Middleware for handling errors - This will handle all errors
 app.use(globalErrorHandler);
 
 
 
 
-/* ROUTES */
+/*❗~~~~ROUTES~~~~❗*/
 
 //api - This signifies that the routes are part of the API (Application Programming Interface) of our application
 //v1 - useful for versioning without breaking the existing API we can have multiple versions of the API
 
 //Product routes
 app.use("/api/v1/products", ProductRouter)
-
-
+//Brand routes
+app.use("/api/v1/brands", BrandRouter)
+//Category routes
+app.use("/api/v1/category", CategoryRouter)
 
 
 // Default route for the API - This will be used to test if the API is live
@@ -88,5 +101,5 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 
-// Exporting the app
+/*❗~~~~EXPORTS~~~~❗*/
 export default app;
