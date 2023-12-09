@@ -101,8 +101,8 @@ function ProductForm() {
           }
         })}
       >
-        <BgAdminTailwindWrapper className="w-screen">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-4 ">
+        <BgAdminTailwindWrapper className="">
+          <div className="mx-auto px-4 sm:px-6 lg:px-4 ">
             <div className="p-8">
               <div className="border-b dark:border-gray-400/25 border-gray-900/10 ">
                 <h2 className="block leading-6 text-gray-700 dark:text-gray-400 text-2xl font-semibold ">
