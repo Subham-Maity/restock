@@ -8,7 +8,7 @@ const TailwindWrapper = ({
   className?: string;
   children: ReactNode;
 }) => {
-  return <div className={cn("w-full h-full mt-24", className)}>{children}</div>;
+  return <div className={cn("w-full h-full mt-20", className)}>{children}</div>;
 };
 
 export default TailwindWrapper;
