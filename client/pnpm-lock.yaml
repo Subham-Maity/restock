@@ -96,8 +96,8 @@ dependencies:
     specifier: ^9.5.3
     version: 9.5.3(react@18.2.0)
   react-loader-spinner:
-    specifier: ^5.4.5
-    version: 5.4.5(@babel/core@7.23.5)(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^6.1.0
+    version: 6.1.0(@babel/core@7.23.5)(react-dom@18.2.0)(react@18.2.0)
   react-multi-carousel:
     specifier: ^2.8.4
     version: 2.8.4
@@ -4313,8 +4313,8 @@ packages:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
     dev: false
 
-  /react-loader-spinner@5.4.5(@babel/core@7.23.5)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-32f+sb/v2tnNfyvnCCOS4fpyVHsGXjSyNo6QLniHcaj1XjKLxx14L2z0h6szRugOL8IEJ+53GPwNAdbkDqmy4g==}
+  /react-loader-spinner@6.1.0(@babel/core@7.23.5)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-SrC1CoSlJGxy7o9ajLmlZsh5VzdLfmMWih3PrsPEr6/w4Yz7xs/Gbrm66/ecXO/EfKi64LF/NCMlYKXV0JgA8A==}
     peerDependencies:
       react: ^16.0.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0

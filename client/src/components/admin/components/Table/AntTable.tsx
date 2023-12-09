@@ -10,7 +10,7 @@ import Link from "next/link";
 import CustomButton from "@/components/CustomButton/CustomButton";
 import { FaArrowLeft } from "react-icons/fa";
 import BgAdminTailwindWrapper from "@/lib/wrapper/AdminPannel/BgTailwindWrapper";
-import { Switch} from 'antd';
+import { Switch } from "antd";
 interface DataType {
   id: number;
   title: string;
@@ -34,8 +34,6 @@ const AntTable: React.FC = () => {
       dataIndex: "id",
       defaultSortOrder: "ascend",
       sorter: (a, b) => a.id - b.id,
-
-
     },
     {
       title: "Title",
@@ -56,7 +54,6 @@ const AntTable: React.FC = () => {
           text: "Samsung Universe 9",
           value: "Samsung Universe 9",
         },
-
       ],
       onFilter: (value, record) => record.title === value,
       filterSearch: true,
@@ -181,7 +178,6 @@ const AntTable: React.FC = () => {
           <a>Delete</a>
         </Space>
       ),
-
     },
     {
       title: "View",
@@ -196,7 +192,6 @@ const AntTable: React.FC = () => {
           />
         </Link>
       ),
-   
     },
   ];
 
@@ -233,17 +228,16 @@ const AntTable: React.FC = () => {
       }}
     >
       <BgAdminTailwindWrapper>
-        <div
-          style={{ overflowY: "auto", maxHeight: "800px", overflowX: "auto" }}
-        >
+        <div className="max-w-[1780px]">
           <Table
             className="border border-gray-400/25 shadow-gray-200/10 shadow-md"
             size="large"
             columns={columns}
             dataSource={data}
             onChange={onChange}
-            scroll={{ y: "680px", x: "600px" }}
-            sticky={{ offsetHeader: 0 }}
+            scroll={{ y: "680px", x: "1800px" }}
+            // sticky={{ offsetHeader: 0 }}
+            // scroll={{ x: 1800 }}
           />
         </div>
       </BgAdminTailwindWrapper>
