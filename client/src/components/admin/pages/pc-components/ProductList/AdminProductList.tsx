@@ -50,7 +50,7 @@ import { FaListUl } from "react-icons/fa";
 import { motion } from "framer-motion";
 import ProductListSkeleton from "@/components/products/pages/pc-components/skeleton/ProductListSkeleton";
 import ProductForm from "@/components/admin/pages/pc-components/ProductFrom/ProductForm";
-import AdminProductEditModal from "@/components/admin/components/Modal/AdminProductEditModal";
+import AdminProductEditModal from "@/components/admin/pages/pc-components/ProductFrom/ProductEditModal";
 
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
