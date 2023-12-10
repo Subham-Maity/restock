@@ -58,50 +58,26 @@ export const NavbarSearch = ({ items }: any) => {
   const brands = useSelector(selectBrands);
   const categories = useSelector(selectCategories);
 
-  // const filters = [
-  //     {
-  //         id: "category",
-  //         name: "Category",
-  //         options: categories,
-  //     },
-  //     {
-  //         id: "brand",
-  //         name: "Brands",
-  //         options: brands,
-  //     },
-  // ];
-
   useEffect(() => {
     // This will be executed after the initial render
     setShowComponent(true);
   }, []); // Empty dependency array ensures the effect runs only once on mount
 
   const handleOnSearch = (string: any, results: any) => {
-    // console.log(string, results);
     setLatestArray(results);
   };
 
   const handleOnHover = (result: any) => {
-    // console.log(result);
     console.log(result, "hover");
   };
 
   const handleOnSelect = (item: any) => {
-    // onClick("pc-components-details/",item);
-    // window.location.href = `/pc-components-details/${item.id}`;
     router.push(`/pc-components-details/${item.id}`);
-    console.log(item, "clicken on select");
-    // console.log(item);
   };
 
   const handleOnFocus = () => {
-    console.log("Focused");
+    // console.log("Focused");
   };
-
-  // useEffect(() => {
-  //     const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
-  //     dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination }));
-  // }, [dispatch, filter, sort, page]);
 
   const formatResult = (item: any) => {
     if (!item) {
@@ -127,10 +103,6 @@ export const NavbarSearch = ({ items }: any) => {
 
   const handleKeyDown = (e: any) => {
     if (e.key === "Enter") {
-      // Perform the action you want here
-      // @ts-ignore
-      console.log("select catagory...........", latestArray[0].category);
-      // setFilter(newFilter);
       const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
       // @ts-ignore
       let filter = { category: [latestArray[0].category] };
@@ -200,11 +172,6 @@ export const NavbarSearch = ({ items }: any) => {
               formatResult={formatResult}
               placeholder={"Search here..."}
               maxResults={5}
-              // autoFocus={true}
-              // showNoResultsText={"HI"}
-              // showNoResults={true}
-              // showClear={true}
-              // showItemsOnFocus={false}
               className="focus:outline-none text-white testing_search_bar"
               styling={{
                 height: "46px",

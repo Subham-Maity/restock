@@ -1,6 +1,7 @@
 import React from "react";
 import DefaultNav from "@/components/admin/components/AdminNav/DefaultNav";
 import AdminOrders from "@/components/admin/components/AdminOrder/AdminOrders";
+import dynamic from "next/dynamic";
 
 
 const Page = () => {
@@ -15,4 +16,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default dynamic(() => Promise.resolve(Page), { ssr: false });

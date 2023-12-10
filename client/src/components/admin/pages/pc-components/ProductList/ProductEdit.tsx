@@ -12,7 +12,7 @@
 // } from "@/lib/features/Product/productListSlice";
 // import { useForm } from "react-hook-form";
 // import React, { useEffect, useState } from "react";
-// import Modal from "@/app/common/Modal";
+// import AdminProductEditModal from "@/app/common/AdminProductEditModal";
 // import { useParams, useRouter } from "next/navigation";
 // import { FaSave, FaTrashAlt } from "react-icons/fa";
 
@@ -521,7 +521,7 @@
 //           </div>
 //         </BgAdminTailwindWrapper>
 //       </form>
-//       <Modal
+//       <AdminProductEditModal
 //         title={`Delete ${selectedProduct?.title}`}
 //         message="Are you sure you want to delete this Product ?"
 //         dangerOption="Delete"
@@ -533,7 +533,7 @@
 //         }
 //         cancelAction={() => setOpenModal(null)}
 //         showModal={openModal}
-//       ></Modal>
+//       ></AdminProductEditModal>
 //     </>
 //   );
 // }
