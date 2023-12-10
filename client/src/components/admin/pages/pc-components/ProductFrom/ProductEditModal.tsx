@@ -15,10 +15,10 @@ import { AppDispatch } from "@/lib/redux/store";
 import BgAdminTailwindWrapper from "@/lib/wrapper/AdminPannel/BgTailwindWrapper";
 import { motion } from "framer-motion";
 import { AiFillCloseSquare } from "react-icons/ai";
-import {FaRegWindowClose, FaSave, FaTrashAlt} from "react-icons/fa";
+import { FaRegWindowClose, FaSave, FaTrashAlt } from "react-icons/fa";
 import Modal from "@/app/common/Modal";
 
-function AdminProductEditModal({ id,setIsModalOpen }: any) {
+function AdminProductEditModal({ id, setIsModalOpen }: any) {
   const {
     register,
     handleSubmit,
@@ -65,56 +65,58 @@ function AdminProductEditModal({ id,setIsModalOpen }: any) {
   };
 
   return (
-      <div className="bg-cyan-700 w-screen h-screen absolute z-50 top-0 left-0 bg-transparent/40 overflow-y-auto" >
-    <div style={{zIndex:"9999"}} className=" w-fit h-fit absolute overflow-y-hidden top-0 left-1/3">
-      <form
-        noValidate
-        onSubmit={handleSubmit((data) => {
-          console.log(data);
-          const product: { [p: string]: any } = { ...data };
-          product.images = [
-            product?.image1,
-            product?.image2,
-            product?.image3,
-            product?.thumbnail,
-          ];
-          product.rating = 0;
-          delete product["image1"];
-          delete product["image2"];
-          delete product["image3"];
-          product.price = +product?.price;
-          product.stock = +product?.stock;
-          product.discountPercentage = +product?.discountPercentage;
-          console.log(product);
-
-          if (params) {
-            product.id = params;
-            product.rating = selectedProduct?.rating || 0;
-            dispatch(updateProductAsync(product));
-            reset();
-          } else {
-            dispatch(createProductAsync(product));
-            reset();
-            //TODO:  on product successfully added clear fields and show a message
-          }
-        })}
+    <div className="backdrop-blur-sm w-screen h-screen fixed  z-50 top-0 left-0 bg-transparent/40 overflow-y-auto">
+      <div
+        style={{ zIndex: "9999" }}
+        className="bg-gray-200 dark:bg-gray-800 inset-0 w-fit h-fit fixed top-0 mx-auto my-10"
       >
-        <BgAdminTailwindWrapper>
+        <form
+          noValidate
+          onSubmit={handleSubmit((data) => {
+            console.log(data);
+            const product: { [p: string]: any } = { ...data };
+            product.images = [
+              product?.image1,
+              product?.image2,
+              product?.image3,
+              product?.thumbnail,
+            ];
+            product.rating = 0;
+            delete product["image1"];
+            delete product["image2"];
+            delete product["image3"];
+            product.price = +product?.price;
+            product.stock = +product?.stock;
+            product.discountPercentage = +product?.discountPercentage;
+            console.log(product);
+
+            if (params) {
+              product.id = params;
+              product.rating = selectedProduct?.rating || 0;
+              dispatch(updateProductAsync(product));
+              reset();
+            } else {
+              dispatch(createProductAsync(product));
+              reset();
+              //TODO:  on product successfully added clear fields and show a message
+            }
+          })}
+        >
           <div className="mx-auto px-4 sm:px-6 lg:px-4 ">
             <div className="p-8">
               <div className="border-b dark:border-gray-400/25 border-gray-900/10 ">
                 <div className="flex justify-between align-middle">
-                <h2 className="block leading-6 text-gray-700 dark:text-gray-400 text-2xl font-semibold ">
-                  Product Update
-                </h2>
-                  <div>
-                    <FaRegWindowClose className="text-2xl cursor-pointer"
-                                        onClick={()=>{
-                                        setIsModalOpen({id:null,isModalOpen: false});
-                                      }}
-
+                  <h2 className="block leading-6 text-gray-700 dark:text-gray-400 text-2xl font-semibold ">
+                    Product Update
+                  </h2>
+                  <button>
+                    <FaRegWindowClose
+                      className="text-2xl cursor-pointer text-red-700"
+                      onClick={() => {
+                        setIsModalOpen({ id: null, isModalOpen: false });
+                      }}
                     />
-                  </div>
+                  </button>
                 </div>
                 <div className="border-t mt-4 mb-2 border-gray-800 py-2 dark:border-gray-200  "></div>
                 <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -160,7 +162,7 @@ function AdminProductEditModal({ id,setIsModalOpen }: any) {
                           required: "description is required",
                         })}
                         rows={3}
-                        className="p-2 block w-full rounded-2xl bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-800 sm:text-sm sm:leading-6"
+                        className="p-2 block w-full rounded-2xl bg-white dark:bg-stone-950/20 shadow-2xl dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-800 sm:text-sm sm:leading-6"
                         defaultValue={""}
                       />
                     </div>
@@ -328,7 +330,6 @@ function AdminProductEditModal({ id,setIsModalOpen }: any) {
                   </div>
 
                   <div className="sm:col-span-6">
-                    xa{" "}
                     <label
                       htmlFor="image2"
                       className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200"
@@ -458,6 +459,9 @@ function AdminProductEditModal({ id,setIsModalOpen }: any) {
               <motion.button
                 type="submit"
                 className="inline-flex rounded-md px-3 border-2 py-2 text-md font-semibold text-grey text-teal-900 dark:text-teal-200 shadow-sm hover:bg-grey-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 border-teal-600/50"
+                onClick={() => {
+                  setIsModalOpen({ id: null, isModalOpen: false });
+                }}
                 whileHover={{
                   scale: 1.05,
                   backgroundColor: "#37cfc2",
@@ -503,7 +507,7 @@ function AdminProductEditModal({ id,setIsModalOpen }: any) {
 
               <motion.button
                 type="submit"
-                className="rounded-md bg-indigo-600 px-3 py-2 mt-1 text-md font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="rounded-md bg-indigo-600 border-2 border-transparent px-3 py-2 text-md font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 whileHover={{
                   scale: 1.05,
                   backgroundColor: "#4A90E2",
@@ -524,7 +528,7 @@ function AdminProductEditModal({ id,setIsModalOpen }: any) {
                     },
                   }}
                   transition={{ duration: 0.5 }}
-                  className="inline-block mr-1 "
+                  className="inline-block mt-0.5 mr-1 "
                 >
                   <FaSave />
                 </motion.span>
@@ -532,23 +536,22 @@ function AdminProductEditModal({ id,setIsModalOpen }: any) {
               </motion.button>
             </div>
           </div>
-        </BgAdminTailwindWrapper>
-      </form>
-      <Modal
-        title={`Delete ${selectedProduct?.title}`}
-        message="Are you sure you want to delete this Product ?"
-        dangerOption="Delete"
-        cancelOption="Cancel"
-        // dangerAction={handleDelete}
-        dangerAction={
-          //@ts-ignore
-          () => setOpenModal(null)
-        }
-        cancelAction={() => setOpenModal(null)}
-        showModal={openModal}
-      ></Modal>
-    </div>
+        </form>
+        <Modal
+          title={`Delete ${selectedProduct?.title}`}
+          message="Are you sure you want to delete this Product ?"
+          dangerOption="Delete"
+          cancelOption="Cancel"
+          // dangerAction={handleDelete}
+          dangerAction={
+            //@ts-ignore
+            () => setOpenModal(null)
+          }
+          cancelAction={() => setOpenModal(null)}
+          showModal={openModal}
+        ></Modal>
       </div>
+    </div>
   );
 }
 

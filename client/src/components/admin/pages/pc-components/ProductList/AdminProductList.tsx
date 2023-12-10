@@ -278,12 +278,12 @@ export const AdminPcComponentProductList = () => {
                   Add New Product
                 </button>
                 <dialog id="my_modal_1" className="modal">
-                  <div className="modal-box max-w-[60rem]">
+                  <div className="modal-box max-w-fit bg-gray-200 dark:bg-gray-800">
                     <ProductForm />
                     <div className="modal-action">
                       <form method="dialog">
                         {/* if there is a button in form, it will close the modal */}
-                        <button className="btn btn-sm btn-circle btn-ghost absolute right-20 top-16 text-2xl font-extrabold">
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-20 top-14 text-2xl font-extrabold">
                           ✕
                         </button>
                       </form>
@@ -360,7 +360,7 @@ export const MobileFilter = ({
               leaveFrom="translate-x-0"
               leaveTo="translate-x-full"
             >
-              <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white border-2 dark:bg-gradient-to-r dark:border-gray-800 dark:from-[#404043] dark:to-[#334053] rounded-lg">
+              <Dialog.Panel className="relative ml-auto flex h-full w-fit max-w-xs flex-col overflow-y-auto bg-white border-2 dark:bg-gradient-to-r dark:border-gray-800 dark:from-[#404043] dark:to-[#334053] rounded-lg">
                 <div className="mt-[4.5rem] flex items-center justify-between px-4">
                   <h2 className="text-lg font-medium text-gray-900 dark:text-white">
                     Filters
