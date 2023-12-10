@@ -324,7 +324,7 @@ const Signup = () => {
           <p className="mt-10 text-center text-sm text-gray-500">
             Already have an account?{" "}
             <Link
-              href="/client/src/components/auth/Login"
+              href="/login"
               className="font-semibold leading-6 text-indigo-500 dark:text-indigo-500 hover:text-indigo-400 dark:hover:text-indigo-400"
             >
               Sign in
