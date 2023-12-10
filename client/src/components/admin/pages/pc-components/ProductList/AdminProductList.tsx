@@ -50,6 +50,8 @@ import { FaListUl } from "react-icons/fa";
 import { motion } from "framer-motion";
 import ProductListSkeleton from "@/components/products/pages/pc-components/skeleton/ProductListSkeleton";
 import ProductForm from "@/components/admin/pages/pc-components/ProductFrom/ProductForm";
+import AdminProductEditModal from "@/components/admin/components/Modal/AdminProductEditModal";
+
 
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
@@ -664,9 +666,17 @@ export const ProductGrid = ({ products }: { products: any }) => {
         console.error("Error adding to cart:", error);
       });
   };
+  const [isModalOpen, setIsModalOpen] = useState({id:null,isModalOpen:false});
+  var EditProduct = (id:any) => {
+    setIsModalOpen({ id:id, isModalOpen: true });
+  }
 
+  console.log(isModalOpen);
   return (
     <>
+      {isModalOpen.isModalOpen && (
+          <AdminProductEditModal id={isModalOpen.id}/>
+      )}
       {!isGrid ? (
         <>
           <div>
@@ -769,7 +779,8 @@ export const ProductGrid = ({ products }: { products: any }) => {
                           type="submit"
                           className="inline-flex rounded-md bg-blue-800 hover:bg-blue-500 mt-2 ml-2 dark:bg-cyan-700/60 px-1 py-1 text-sm font-semibold text-white shadow-sm dark:hover:bg-cyan-500/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
                           onClick={() => {
-                            router.push(`/admin/editForm/${product.id}`);
+                            // router.push(`/admin/editForm/${product.id}`);
+                            EditProduct(product.id);
                           }}
                         >
                           <TbEditOff className="mt-0.5 mr-1" />
@@ -903,7 +914,7 @@ export const ProductGrid = ({ products }: { products: any }) => {
                         type="submit"
                         className="inline-flex rounded-md bg-blue-800 hover:bg-blue-500 mt-2 ml-2 dark:bg-cyan-700/60 px-1 py-1 text-sm font-semibold text-white shadow-sm dark:hover:bg-cyan-500/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
                         onClick={() => {
-                          router.push(`/admin/editForm/${product.id}`);
+                          EditProduct(product.id);
                         }}
                       >
                         <TbEditOff className="mt-0.5 mr-1" />
