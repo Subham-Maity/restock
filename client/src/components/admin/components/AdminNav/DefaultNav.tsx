@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import SideNavbar from "@/components/admin/components/AdminNav/SideNav";
 import Navbar from "@/components/admin/components/AdminNav/Navbar";
+import dynamic from "next/dynamic";
 
 const DefaultNav = ({ children }: { children: React.ReactNode }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -25,7 +26,7 @@ const DefaultNav = ({ children }: { children: React.ReactNode }) => {
                 isSidebarOpen={isSidebarOpen}
                 toggleSidebar={toggleSidebar}
               />
-              <div className=" lg:max-h-[90vh] max-h-screen lg:pb-0 pb-16 w-screen h-screen rounded-4xl mt-20">
+              <div className=" lg:max-h-[90vh] max-h-screen lg:pb-0 pb-16 h-screen overflow-y-scroll rounded-4xl mt-20">
                 {children}
               </div>
             </div>

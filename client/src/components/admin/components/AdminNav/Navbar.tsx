@@ -3,7 +3,7 @@ import { RiMenu2Fill } from "react-icons/ri";
 import dynamic from "next/dynamic";
 
 import Switcher from "@/components/Mode/Switcher";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { selectUserInfo } from "@/lib/features/RoleWise/userSlice";
 import { selectItems } from "@/lib/features/Cart/cartSlice";
 import Link from "next/link";
@@ -11,9 +11,9 @@ import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import CartHoverOnMouse from "@/components/cart/CartHoverOnMouse";
 import { Menu, Transition } from "@headlessui/react";
 import Image from "next/image";
-import React, { Fragment, useState } from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import AdminNavbarSearch from "@/components/admin/components/AdminNav/SearchBar/AdminNavbarSearch";
-import {selectAllProducts_} from "@/lib/features/Product/productListSlice";
+import {fetchAllStoreProductsAsync, selectAllProducts_} from "@/lib/features/Product/productListSlice";
 
 interface NavbarProps {
   isSidebarOpen: boolean;
@@ -30,6 +30,13 @@ const Navbar = ({ toggleSidebar, isSidebarOpen }: NavbarProps) => {
     { name: "Your Profile Setting", href: "/UserProfile" },
     { name: "My Orders", href: "/orders" },
   ];
+
+  //This is important for fetching all products category needed for search bar
+  const dispatch = useDispatch();
+  useEffect(() => {
+    // @ts-ignore
+    dispatch(fetchAllStoreProductsAsync);
+  }, []);
 
   function classNames(...classes: any[]) {
     return classes.filter(Boolean).join(" ");
@@ -63,7 +70,7 @@ const Navbar = ({ toggleSidebar, isSidebarOpen }: NavbarProps) => {
               }}
             />
           </div>
-          <h1 className="dark:text-white text-left text-black ml-2 font-bold whitespace-nowrap text-2xl">
+          <h1 className="dark:text-white text-left text-black ml-2 font-bold whitespace-nowrap text-2xl hidden sm:block">
             Restock
           </h1>
         </div>

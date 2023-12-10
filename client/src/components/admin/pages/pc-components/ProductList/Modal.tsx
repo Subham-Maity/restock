@@ -1,7 +1,7 @@
 // "use client";
 
 // import ProductForm from "@/components/admin/pages/pc-components/ProductFrom/ProductForm";
-// import { Button, Modal } from "flowbite-react";
+// import { Button, AdminProductEditModal } from "flowbite-react";
 // import { useState } from "react";
 // import ProductEdit from "@/components/admin/pages/pc-components/ProductList/ProductEdit";
 // import { TbEditOff } from "react-icons/tb";
@@ -21,15 +21,15 @@
 //         <TbEditOff className="mt-0.5 mr-1" />
 //         Edit Your Product
 //       </button>
-//       <Modal dismissible show={openModal} onClose={() => setOpenModal(false)} size='2xl'>
-//         <Modal.Header className="font-bold text-xl mt-2 mx-4 ">Product Update</Modal.Header>
-//         <Modal.Body className="shadow-md">
+//       <AdminProductEditModal dismissible show={openModal} onClose={() => setOpenModal(false)} size='2xl'>
+//         <AdminProductEditModal.Header className="font-bold text-xl mt-2 mx-4 ">Product Update</AdminProductEditModal.Header>
+//         <AdminProductEditModal.Body className="shadow-md">
 //           <div className="my-auto h-[800px] overflow-y-auto">
 //             <ProductEdit product={product} />
 //           </div>
-//         </Modal.Body>
-//         <Modal.Footer></Modal.Footer>
-//       </Modal>
+//         </AdminProductEditModal.Body>
+//         <AdminProductEditModal.Footer></AdminProductEditModal.Footer>
+//       </AdminProductEditModal>
 //     </>
 //   );
 // }

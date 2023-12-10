@@ -58,18 +58,6 @@ export const NavbarSearch = ({ items }: any) => {
   const brands = useSelector(selectBrands);
   const categories = useSelector(selectCategories);
 
-  // const filters = [
-  //     {
-  //         id: "category",
-  //         name: "Category",
-  //         options: categories,
-  //     },
-  //     {
-  //         id: "brand",
-  //         name: "Brands",
-  //         options: brands,
-  //     },
-  // ];
 
   useEffect(() => {
     // This will be executed after the initial render
@@ -127,7 +115,6 @@ export const NavbarSearch = ({ items }: any) => {
 
   const handleKeyDown = (e: any) => {
     if (e.key === "Enter") {
-      // Perform the action you want here
       // @ts-ignore
       console.log("select catagory...........", latestArray[0].category);
       // setFilter(newFilter);
@@ -200,11 +187,6 @@ export const NavbarSearch = ({ items }: any) => {
               formatResult={formatResult}
               placeholder={"Search here..."}
               maxResults={5}
-              // autoFocus={true}
-              // showNoResultsText={"HI"}
-              // showNoResults={true}
-              // showClear={true}
-              // showItemsOnFocus={false}
               className="focus:outline-none text-white testing_search_bar"
               styling={{
                 height: "44px",
