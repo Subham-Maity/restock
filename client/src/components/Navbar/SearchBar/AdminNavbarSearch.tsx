@@ -24,7 +24,7 @@ interface SortOption {
   [key: string]: any;
 }
 
-export const AdminNavbarSearch = ({ items }: any) => {
+export const NavbarSearch = ({ items }: any) => {
   const dispatch: AppDispatch = useDispatch();
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState<Filter>({});
@@ -38,7 +38,7 @@ export const AdminNavbarSearch = ({ items }: any) => {
   const router = useRouter();
   var oldKey = "title";
   var newKey = "name";
-  var newArray = items?.map(function (obj: any) {
+  var newArray = items.map(function (obj: any) {
     var newObj = {};
     for (var key in obj) {
       if (key === oldKey) {
@@ -58,38 +58,26 @@ export const AdminNavbarSearch = ({ items }: any) => {
   const brands = useSelector(selectBrands);
   const categories = useSelector(selectCategories);
 
-
   useEffect(() => {
     // This will be executed after the initial render
     setShowComponent(true);
   }, []); // Empty dependency array ensures the effect runs only once on mount
 
   const handleOnSearch = (string: any, results: any) => {
-    // console.log(string, results);
     setLatestArray(results);
   };
 
   const handleOnHover = (result: any) => {
-    // console.log(result);
     console.log(result, "hover");
   };
 
   const handleOnSelect = (item: any) => {
-    // onClick("pc-components-details/",item);
-    // window.location.href = `/pc-components-details/${item.id}`;
-    router.push(`/admin/admin-pc-components-details/${item.id}`);
-    console.log(item, "clicken on select");
-    // console.log(item);
+    router.push(`/pc-components-details/${item.id}`);
   };
 
   const handleOnFocus = () => {
-    console.log("Focused");
+    // console.log("Focused");
   };
-
-  // useEffect(() => {
-  //     const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
-  //     dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination }));
-  // }, [dispatch, filter, sort, page]);
 
   const formatResult = (item: any) => {
     if (!item) {
@@ -115,13 +103,10 @@ export const AdminNavbarSearch = ({ items }: any) => {
 
   const handleKeyDown = (e: any) => {
     if (e.key === "Enter") {
-      // @ts-ignore
-      console.log("select catagory...........", latestArray[0].category);
-      // setFilter(newFilter);
       const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
       // @ts-ignore
       let filter = { category: [latestArray[0].category] };
-      router.push("/admin/");
+      router.push("/");
 
       dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination }));
       dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination }));
@@ -133,9 +118,9 @@ export const AdminNavbarSearch = ({ items }: any) => {
     <div className="flex justify-center items-center">
       <>
         <div className="group inline-block text-black dark:text-white">
-          <button className=" dark:bg-[#2a2a2b] py-2.5 mb-0.5 rounded-l-full px-3 bg-white rounded-sm flex items-center min-w-32">
+          <button className=" dark:bg-[#2a2a2b] py-3.5 mb-0.5 rounded-l-xl px-3 bg-white rounded-sm flex items-center min-w-32">
             <span className="pr-1 dark:bg-[#2a2a2b] font-semibold flex-1">
-              Items
+              Category
             </span>
             <span>
               <svg
@@ -150,17 +135,17 @@ export const AdminNavbarSearch = ({ items }: any) => {
           </button>
           <ul
             className="ransform scale-0 group-hover:scale-100 absolute text-start
-  transition duration-150 ease-in-out origin-top min-w-32 rounded-2xl dark:bg-gray-500/50 bg-gray-800/25 py-2 bg-white dark:bg-[#2a2a2b] px-0.5"
+  transition duration-150 ease-in-out origin-top min-w-32 rounded-2xl dark:bg-gray-500/50 bg-gray-800/25 py-2 bg-white dark:bg-[#2a2a2b] dark:bg-[#3f3f43] px-0.5"
           >
             {categories?.map((category: any, index: any) => (
               <li
                 key={index}
-                className="dark:bg-[#2a2a2b] px-3 hover:dark:bg-[#3f3f43] py-1 hover:bg-gray-100 "
+                className=" px-3 hover:text-black py-1 hover:bg-gray-100"
                 onClick={(e) => {
                   const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
                   // @ts-ignore
                   let filter = { category: [e.target.textContent] };
-                  router.push("/admin/");
+                  router.push("/admin");
                   dispatch(
                     fetchProductsByFiltersAsync({ filter, sort, pagination }),
                   );
@@ -176,8 +161,8 @@ export const AdminNavbarSearch = ({ items }: any) => {
         </div>
       </>
       <div className={`App ${showComponent ? "" : "hidden"}`}>
-        <header className="2xl:w-[520px] xl:w-[320px] lg:w-96 md:w-64 sm:w-64 w-64">
-          <div className="" onKeyDown={handleKeyDown}>
+        <header className="App-header">
+          <div style={{ width: 800 }} onKeyDown={handleKeyDown}>
             <ReactSearchAutocomplete
               items={items}
               onSearch={handleOnSearch}
@@ -189,10 +174,11 @@ export const AdminNavbarSearch = ({ items }: any) => {
               maxResults={5}
               className="focus:outline-none text-white testing_search_bar"
               styling={{
-                height: "44px",
-                color: isDarkTheme ? "#FFFFFF" : "#000000",
+                height: "46px",
+
+                color: isDarkTheme ? "#FFFFFF" : "#4a4c52",
                 border: isDarkTheme ? "1px solid #000000" : "1px solid #FFFFFF",
-                borderRadius: "24px",
+                borderRadius: "12px",
                 backgroundColor: isDarkTheme ? "#2a2a2b" : "#FFFFFF",
                 boxShadow: isDarkTheme
                   ? "rgba(32, 33, 36, 0.28) 0px 1px 6px 0px"
@@ -216,4 +202,4 @@ export const AdminNavbarSearch = ({ items }: any) => {
   );
 };
 
-export default AdminNavbarSearch;
+export default NavbarSearch;
