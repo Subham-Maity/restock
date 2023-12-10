@@ -675,7 +675,7 @@ export const ProductGrid = ({ products }: { products: any }) => {
   console.log(isModalOpen);
   return (
     <>
-      {isModalOpen.isModalOpen && <AdminProductEditModal id={isModalOpen.id} />}
+      {isModalOpen.isModalOpen && <AdminProductEditModal id={isModalOpen.id} setIsModalOpen={setIsModalOpen}/>}
       {!isGrid ? (
         <>
           <div>

@@ -15,10 +15,10 @@ import { AppDispatch } from "@/lib/redux/store";
 import BgAdminTailwindWrapper from "@/lib/wrapper/AdminPannel/BgTailwindWrapper";
 import { motion } from "framer-motion";
 import { AiFillCloseSquare } from "react-icons/ai";
-import { FaSave, FaTrashAlt } from "react-icons/fa";
+import {FaRegWindowClose, FaSave, FaTrashAlt} from "react-icons/fa";
 import Modal from "@/app/common/Modal";
 
-function AdminProductEditModal({ id }: any) {
+function AdminProductEditModal({ id,setIsModalOpen }: any) {
   const {
     register,
     handleSubmit,
@@ -65,7 +65,8 @@ function AdminProductEditModal({ id }: any) {
   };
 
   return (
-    <>
+      <div className="bg-cyan-700 w-screen h-screen absolute z-50 top-0 left-0 bg-transparent/40 overflow-y-auto" >
+    <div style={{zIndex:"9999"}} className=" w-fit h-fit absolute overflow-y-hidden top-0 left-1/3">
       <form
         noValidate
         onSubmit={handleSubmit((data) => {
@@ -98,13 +99,23 @@ function AdminProductEditModal({ id }: any) {
           }
         })}
       >
-        <BgAdminTailwindWrapper className="">
+        <BgAdminTailwindWrapper>
           <div className="mx-auto px-4 sm:px-6 lg:px-4 ">
             <div className="p-8">
               <div className="border-b dark:border-gray-400/25 border-gray-900/10 ">
+                <div className="flex justify-between align-middle">
                 <h2 className="block leading-6 text-gray-700 dark:text-gray-400 text-2xl font-semibold ">
                   Product Update
                 </h2>
+                  <div>
+                    <FaRegWindowClose className="text-2xl cursor-pointer"
+                                        onClick={()=>{
+                                        setIsModalOpen({id:null,isModalOpen: false});
+                                      }}
+
+                    />
+                  </div>
+                </div>
                 <div className="border-t mt-4 mb-2 border-gray-800 py-2 dark:border-gray-200  "></div>
                 <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                   {selectedProduct && selectedProduct.deleted && (
@@ -536,7 +547,8 @@ function AdminProductEditModal({ id }: any) {
         cancelAction={() => setOpenModal(null)}
         showModal={openModal}
       ></Modal>
-    </>
+    </div>
+      </div>
   );
 }
 
