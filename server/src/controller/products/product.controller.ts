@@ -194,3 +194,43 @@ export const fetchProductById = catchAsyncError(async (req: Request, res: Respon
 });
 
 
+/* UPDATE PRODUCT */
+
+// Helper function to check if ID is a valid ObjectId
+function isValidObjectId(id: string): boolean {
+    // Use your preferred method to validate ObjectId (e.g., using mongoose.Types.ObjectId.isValid)
+    // For example:
+    // return mongoose.Types.ObjectId.isValid(id);
+    return /^[0-9a-fA-F]{24}$/.test(id); // Simplified check (24-character hex string)
+}
+export const updateProduct = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { id } = req.params;
+
+        // Check if the provided ID is valid
+        if (!id || !isValidObjectId(id)) {
+            return next(new ErrorHandler('Invalid product ID', 400));
+        }
+
+        const updatedProduct = await Product.findByIdAndUpdate(id, req.body, { new: true });
+
+        if (!updatedProduct) {
+            return next(new ErrorHandler('Product not found', 404));
+        }
+
+        // Calculate discountPrice if necessary
+        if ('price' in req.body || 'discountPercentage' in req.body) {
+            updatedProduct.discountPrice = Math.round(updatedProduct.price * (1 - (updatedProduct.discountPercentage || 0) / 100));
+            await updatedProduct.save();
+        }
+
+        res.status(200).json(updatedProduct);
+    } catch (error) {
+        if (error.name === 'CastError') {
+            return next(new ErrorHandler('Invalid product ID', 400));
+        } else {
+            next(new ErrorHandler('Internal server error', 500));
+        }
+    }
+});
+

@@ -1,6 +1,6 @@
 import * as express from "express";
 
-import {createProduct, fetchProductById} from "../../controller/products/product.controller.js"
+import {createProduct, fetchProductById, updateProduct} from "../../controller/products/product.controller.js"
 import {fetchProduct} from "../../controller/products/product.controller.js"
 import {Router} from "express";
 
@@ -250,8 +250,74 @@ const router: Router = express.Router();
  *             example:
  *               message: "No products found"
  */
+/**
+ * @swagger
+ * /api/v1/products/{id}:
+ *   get:
+ *     summary: Get a product by ID
+ *     tags: [Products]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the product
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: The product details
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Product'
+ *       404:
+ *         description: Product not found
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Product not found"
+ */
 
-router.post('/', createProduct).get('/', fetchProduct).get('/:id', fetchProductById);
+/**
+ * @swagger
+ * /api/v1/products/{id}:
+ *   patch:
+ *     summary: Update a product by ID
+ *     tags: [Products]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the product
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Product'
+ *     responses:
+ *       200:
+ *         description: The updated product
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Product'
+ *       400:
+ *         description: Bad request - Invalid data provided
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Invalid data provided"
+ *       404:
+ *         description: Product not found
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Product not found"
+ */
+router.post('/', createProduct).get('/', fetchProduct).get('/:id', fetchProductById).patch('/:id',updateProduct)
 
 
 export default router;
