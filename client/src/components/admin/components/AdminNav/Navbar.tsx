@@ -14,6 +14,8 @@ import Image from "next/image";
 import React, {Fragment, useEffect, useState} from "react";
 import AdminNavbarSearch from "@/components/admin/components/AdminNav/SearchBar/AdminNavbarSearch";
 import {fetchAllStoreProductsAsync, selectAllProducts_} from "@/lib/features/Product/productListSlice";
+import {IoSearchOutline} from "react-icons/io5";
+import NavbarSearch from "@/components/Navbar/SearchBar/NavbarSearch";
 
 interface NavbarProps {
   isSidebarOpen: boolean;
@@ -22,14 +24,35 @@ interface NavbarProps {
 
 const Navbar = ({ toggleSidebar, isSidebarOpen }: NavbarProps) => {
   const itemsForSearch = useSelector(selectAllProducts_);
-  const [isCartHoverOpen, setIsCartHoverOpen] = useState(false);
   const [cartHoverTimeout, setCartHoverTimeout] = useState(null);
   const user = useSelector(selectUserInfo);
   const items = useSelector(selectItems);
+
+  const [isCartHoverOpen, setIsCartHoverOpen] = useState(false);
+  const [isSearchHoverOpen, setIsSearchHoverOpen] = useState(false);
+
+
   const userNavigation = [
     { name: "Your Profile Setting", href: "/UserProfile" },
     { name: "My Orders", href: "/orders" },
   ];
+
+  const handleSearchIconHover = () => {
+    setIsSearchHoverOpen(true);
+    // Clear any previous timeouts
+    if (cartHoverTimeout) {
+      clearTimeout(cartHoverTimeout);
+    }
+  };
+
+  const handleSearchIconHoverOut = () => {
+    const timeoutId: any = setTimeout(() => {
+      setIsSearchHoverOpen(false);
+    }, 500);
+
+    // Store the timeout ID in state for future reference
+    setCartHoverTimeout(timeoutId);
+  };
 
   //This is important for fetching all products category needed for search bar
   const dispatch = useDispatch();
@@ -75,7 +98,33 @@ const Navbar = ({ toggleSidebar, isSidebarOpen }: NavbarProps) => {
           </h1>
         </div>
         <div className="flex justify-center">
-          <AdminNavbarSearch items={itemsForSearch}/>
+          {/*<AdminNavbarSearch items={itemsForSearch}/>*/}
+          <div>
+            <button
+                type="button"
+                onMouseEnter={handleSearchIconHover}
+                onMouseLeave={handleSearchIconHoverOut}
+                className=" rounded-lg w-36 bg-gray-500 hover:bg-gray-600 p-1.5 text-white dark:bg-gray-700
+                      dark:hover:text-white dark:hover:bg-gray-600 drop  hover:cursor-pointer cursor-pointer border border-gray-600/25 shadow shadow-gray-500/25"
+            >
+              <div className="flex">
+                <IoSearchOutline
+                    className="h-5 w-5 "
+                    aria-hidden="true"
+                />
+                <p className="mt-0 ml-1 text-gray-200/25 font-light">
+                  Search
+                </p>
+              </div>
+              {isSearchHoverOpen && (
+                  <div className="fixed right-36 mt-12 top-8 z-50">
+                    <div className="bg-white/50 dark:bg-[#1a1a1a]/70 rounded-b-xl lg:mx-16 max-w-8xl px-5 sm:px-6 xl:px-8 py-2 sm:py-2 lg:py-2 ">
+                      <AdminNavbarSearch items={itemsForSearch} />
+                    </div>
+                  </div>
+              )}
+            </button>
+          </div>
         </div>
         <div className="flex gap-2">
           <div className=" ml-auto">
