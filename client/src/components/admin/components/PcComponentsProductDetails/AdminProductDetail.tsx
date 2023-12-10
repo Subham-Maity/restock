@@ -11,7 +11,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { AppDispatch } from "@/lib/redux/store";
-import {addToCartAsync, selectItems} from "@/lib/features/Cart/cartSlice";
+import { addToCartAsync, selectItems } from "@/lib/features/Cart/cartSlice";
 import { selectLoggedInUser } from "@/lib/features/Auth/authSlice";
 import { User } from "@/lib/types/Auth/auth.type";
 import { LineWave } from "react-loader-spinner";
@@ -24,9 +24,8 @@ import { FaCartPlus } from "react-icons/fa";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { AiOutlineZoomIn, AiOutlineZoomOut } from "react-icons/ai";
 import { IoClose } from "react-icons/io5";
-import ProductDetailsSkeleton
-  from "@/components/admin/components/PcComponentsProductDetails/skeleton/ProductDetailsSkeleton";
-import {CartItem} from "@/lib/types/Cart/cart.type";
+import ProductDetailsSkeleton from "@/components/admin/components/PcComponentsProductDetails/skeleton/ProductDetailsSkeleton";
+import { CartItem } from "@/lib/types/Cart/cart.type";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -37,7 +36,7 @@ export default function AdminProductDetail() {
   const dispatch: AppDispatch = useDispatch();
   const params = useParams();
   const user: User | null = useSelector(selectLoggedInUser);
-  const items:CartItem[] = useSelector(selectItems);
+  const items: CartItem[] = useSelector(selectItems);
   const [isCartHoverVisible, setCartHoverVisible] = useState(false);
   const [currentImage, setCurrentImage] = useState("/");
   const handleMouseEnter = (src: any) => {
@@ -83,7 +82,7 @@ export default function AdminProductDetail() {
 
   const handleCart = (e: any) => {
     e.preventDefault();
-    if(items.findIndex(item=>item?.productId === product?.id) < 0){
+    if (items.findIndex((item) => item?.productId === product?.id) < 0) {
       const newItem = {
         ...product,
         productId: product.id,
@@ -92,18 +91,17 @@ export default function AdminProductDetail() {
       };
       delete newItem["id"];
       dispatch(addToCartAsync(newItem))
-          .then(() => {
-            setCartHoverVisible(true); // Show the cart popup after a successful dispatch
-            toast.success(`${product.title} is added to your cart`, {
-              position: "bottom-right",
-              autoClose: 1000,
-            });
-          })
-          .catch((error) => {
-            console.error("Error adding to cart:", error);
+        .then(() => {
+          setCartHoverVisible(true); // Show the cart popup after a successful dispatch
+          toast.success(`${product.title} is added to your cart`, {
+            position: "bottom-right",
+            autoClose: 1000,
           });
-    }
-    else {
+        })
+        .catch((error) => {
+          console.error("Error adding to cart:", error);
+        });
+    } else {
       toast.warning(`${product.title} is already in your cart`, {
         position: "bottom-right",
         autoClose: 1000,
@@ -167,9 +165,11 @@ export default function AdminProductDetail() {
                     className="preview-image flex w-fit mx-auto"
                     onMouseEnter={() => handleMouseEnter(image)}
                   >
-                    <img
+                    <Image
                       src={image}
-                      alt="{product.title}"
+                      width={100}
+                      height={100}
+                      alt="Product"
                       className="rounded-lg border border-gray-400 hover:border-blue-400 h-[100px] w-[100px]"
                     />
                   </div>
@@ -216,10 +216,10 @@ export default function AdminProductDetail() {
                     product.rating.toFixed(1) >= 4
                       ? "bg-green-600 dark:bg-green-600 "
                       : product.rating >= 3.5
-                      ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
-                      : product.rating >= 2
-                      ? "bg-orange-400 dark:bg-orange-600 text-sm"
-                      : "bg-red-500 dark:bg-red-600 text-sm"
+                        ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
+                        : product.rating >= 2
+                          ? "bg-orange-400 dark:bg-orange-600 text-sm"
+                          : "bg-red-500 dark:bg-red-600 text-sm"
                   }`}
                 >
                   <p className="">{product.rating}</p>
@@ -234,7 +234,7 @@ export default function AdminProductDetail() {
                         product.rating.toFixed(1) > rating
                           ? "text-gray-700 dark:text-white"
                           : "text-gray-50 dark:text-gray-500",
-                        "h-5 w-5 flex-shrink-0",
+                        "h-5 w-5 flex-shrink-0"
                       )}
                       aria-hidden="true"
                     />

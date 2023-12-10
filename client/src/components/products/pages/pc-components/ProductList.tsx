@@ -114,7 +114,7 @@ export const PcComponentProductList = () => {
       }
     } else {
       const index = newFilter[section.id].findIndex(
-        (el) => el === option.value,
+        (el) => el === option.value
       );
       newFilter[section.id].splice(index, 1);
     }
@@ -201,7 +201,7 @@ export const PcComponentProductList = () => {
                             className={classNames(
                               option.current ? "" : " rounded-2xl",
                               active ? "" : "",
-                              "block py-2 px-3 text-sm rounded cursor-pointer hover:bg-gray-400 hover:dark:bg-gray-500 text-black dark:text-white",
+                              "block py-2 px-3 text-sm rounded cursor-pointer hover:bg-gray-400 hover:dark:bg-gray-500 text-black dark:text-white"
                             )}
                           >
                             {option.name}
@@ -387,7 +387,7 @@ export const MobileFilter = ({
                                       {option.label}
                                     </label>
                                   </div>
-                                ),
+                                )
                               )}
                             </div>
                           </Disclosure.Panel>
@@ -548,7 +548,7 @@ function Pagination({ page, handlePage, totalItems }: any) {
 
 export const ProductGrid = ({ products }: { products: any }) => {
   const [hoveredProductIndex, setHoveredProductIndex] = useState<number | null>(
-    null,
+    null
   );
   const { isGrid } = useContext(Context);
   const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
@@ -557,7 +557,7 @@ export const ProductGrid = ({ products }: { products: any }) => {
     setHoverTimeout(
       setTimeout(() => {
         setHoveredProductIndex(index);
-      }, 1000),
+      }, 1000)
     );
   }, []);
 
@@ -617,7 +617,7 @@ export const ProductGrid = ({ products }: { products: any }) => {
       });
   };
   const filteredProducts = products.filter(
-    (product: { deleted: any }) => !product.deleted,
+    (product: { deleted: any }) => !product.deleted
   );
   return (
     <>
@@ -682,8 +682,7 @@ export const ProductGrid = ({ products }: { products: any }) => {
                       <p className="text-xl font-semibold dark:text-gray-100 text-neutral-900">
                         ₹
                         {Math.round(
-                          product.price *
-                            (1 - product.discountPercentage / 100),
+                          product.price * (1 - product.discountPercentage / 100)
                         )}
                       </p>
                       <p className="text-base block line-through font-medium text-gray-400">
@@ -727,13 +726,15 @@ export const ProductGrid = ({ products }: { products: any }) => {
                             >
                               {product.images.map(
                                 (image: string, imageIndex: number) => (
-                                  <img
+                                  <Image
                                     key={imageIndex}
                                     src={image}
                                     alt={product.title}
-                                    className="w-full h-full object-fill object-center"
+                                    className="w-[300px] h-[300px] object-fill object-center"
+                                    height={300}
+                                    width={300}
                                   />
-                                ),
+                                )
                               )}
                             </Carousel>
                           ) : (
@@ -783,7 +784,7 @@ export const ProductGrid = ({ products }: { products: any }) => {
                         <p className="text-sm font-medium block dark:text-gray-100 text-neutral-900">
                           {Math.round(
                             product.price *
-                              (1 - product.discountPercentage / 100),
+                              (1 - product.discountPercentage / 100)
                           )}
                           ₹
                         </p>

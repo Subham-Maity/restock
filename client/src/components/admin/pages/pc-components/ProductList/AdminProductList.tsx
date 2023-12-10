@@ -52,7 +52,6 @@ import ProductListSkeleton from "@/components/products/pages/pc-components/skele
 import ProductForm from "@/components/admin/pages/pc-components/ProductFrom/ProductForm";
 import AdminProductEditModal from "@/components/admin/components/Modal/AdminProductEditModal";
 
-
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
   { name: "Price: Low to High", sort: "price", order: "asc", current: false },
@@ -288,7 +287,6 @@ export const AdminPcComponentProductList = () => {
                           ✕
                         </button>
                       </form>
-                      
                     </div>
                   </div>
                 </dialog>
@@ -666,17 +664,18 @@ export const ProductGrid = ({ products }: { products: any }) => {
         console.error("Error adding to cart:", error);
       });
   };
-  const [isModalOpen, setIsModalOpen] = useState({id:null,isModalOpen:false});
-  var EditProduct = (id:any) => {
-    setIsModalOpen({ id:id, isModalOpen: true });
-  }
+  const [isModalOpen, setIsModalOpen] = useState({
+    id: null,
+    isModalOpen: false,
+  });
+  var EditProduct = (id: any) => {
+    setIsModalOpen({ id: id, isModalOpen: true });
+  };
 
   console.log(isModalOpen);
   return (
     <>
-      {isModalOpen.isModalOpen && (
-          <AdminProductEditModal id={isModalOpen.id}/>
-      )}
+      {isModalOpen.isModalOpen && <AdminProductEditModal id={isModalOpen.id} />}
       {!isGrid ? (
         <>
           <div>
@@ -833,13 +832,17 @@ export const ProductGrid = ({ products }: { products: any }) => {
                                 >
                                   {product.images.map(
                                     (image: string, imageIndex: number) => (
-                                      <img
+                                      <Image
                                         key={imageIndex}
                                         src={image}
                                         alt={product.title}
-                                        className="w-full h-full object-fill object-center"
+                                        className="w-[300px] h-[300px] object-fill object-center"
+                                        height={300}
+                                        width={300}
                                         onClick={() => {
-                                          window.location.href = `/pc-components-details/${product.id}`;
+                                          router.push(
+                                            `/pc-components-details/${product.id}`
+                                          );
                                         }}
                                       />
                                     )
