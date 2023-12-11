@@ -1,7 +1,7 @@
 export interface CartItem {
-  id: any;
-  productId: any;
-
+  product: any;
+  user: string | number | undefined;
+  quantity: number;
 }
 
 export interface CartState {

@@ -14,6 +14,7 @@ import CustomButton from "@/components/CustomButton/CustomButton";
 import { MdDeleteForever } from "react-icons/md";
 import { TbShoppingCartUp } from "react-icons/tb";
 import { PiLightningFill } from "react-icons/pi";
+import {discountedPrice} from "@/lib/constant/constants";
 
 const CartHoverOnMouse = () => {
   const items: CartItem[] = useSelector(selectItems);
@@ -21,15 +22,15 @@ const CartHoverOnMouse = () => {
 
   const dispatch: AppDispatch = useDispatch();
   const totalAmount = items.reduce(
-    (amount: any, item: any) => item.price * item.quantity + amount,
-    0,
+      (amount: number, item: any) => discountedPrice(item.product) * item.quantity + amount,
+      0,
   );
   const handleRemove = (e: any, id: any) => {
     if (isUserClosed) return;
     dispatch(deleteItemFromCartAsync(id));
   };
   const handleQuantity = (e: any, item: any) => {
-    dispatch(updateCartAsync({ ...item, quantity: +e.target.value }));
+    dispatch(updateCartAsync({ id:item.id, quantity: +e.target.value }));
   };
   const totalItems = items.reduce(
     (total: number, item: any) => item.quantity + total,
@@ -69,8 +70,8 @@ const CartHoverOnMouse = () => {
                     <li key={item.id} className="flex py-3">
                       <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                         <Image
-                          src={item.thumbnail}
-                          alt={item.title}
+                          src={item.product?.thumbnail}
+                          alt={item.product?.title}
                           className="h-full w-full object-cover object-center"
                           height={100}
                           width={100}
@@ -80,10 +81,10 @@ const CartHoverOnMouse = () => {
                       <div className="ml-4 flex flex-1 flex-col">
                         <div>
                           <div className="text-sm text-left space-y-2 font-medium text-gray-900 dark:text-gray-200">
-                            <p>{item.title}</p>
-                            <p>₹{item.price}</p>
+                            <p>{item.product?.title}</p>
+                            <p>₹{item.product?.price}</p>
                             <p className="mt-1 text-xs text-gray-500">
-                              {`Brand: ${item.brand}`}
+                              {`Brand: ${item.product?.brand}`}
                             </p>
                           </div>
                         </div>

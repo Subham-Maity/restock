@@ -82,25 +82,23 @@ export default function AdminProductDetail() {
 
   const handleCart = (e: any) => {
     e.preventDefault();
-    if (items.findIndex((item) => item?.productId === product?.id) < 0) {
+    if (items.findIndex((item) => item?.product?.id === product?.id) < 0) {
       const newItem = {
-        ...product,
-        productId: product.id,
+        product: product.id,
         quantity: 1,
         user: user ? user.id : "anonymous",
       };
-      delete newItem["id"];
       dispatch(addToCartAsync(newItem))
-        .then(() => {
-          setCartHoverVisible(true); // Show the cart popup after a successful dispatch
-          toast.success(`${product.title} is added to your cart`, {
-            position: "bottom-right",
-            autoClose: 1000,
+          .then(() => {
+            setCartHoverVisible(true); // Show the cart popup after a successful dispatch
+            toast.success(`${product.title} is added to your cart`, {
+              position: "bottom-right",
+              autoClose: 1000,
+            });
+          })
+          .catch((error) => {
+            console.error("Error adding to cart:", error);
           });
-        })
-        .catch((error) => {
-          console.error("Error adding to cart:", error);
-        });
     } else {
       toast.warning(`${product.title} is already in your cart`, {
         position: "bottom-right",

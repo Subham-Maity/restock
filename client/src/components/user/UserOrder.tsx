@@ -58,8 +58,8 @@ export default function UserOrders() {
                           <Image
                             width={150}
                             height={150}
-                            src={item.thumbnail}
-                            alt={item.title}
+                            src={item.product.thumbnail}
+                            alt={item.producttitle}
                             className="h-full w-full object-cover object-center"
                           />
                         </div>
@@ -68,12 +68,12 @@ export default function UserOrders() {
                           <div>
                             <div className="flex justify-between text-gray-900 dark:text-gray-200 text-base font-medium text-gray-900">
                               <h3>
-                                <a href={item.href}>{item.title}</a>
+                                <a href={item.product.href}>{item.product.title}</a>
                               </h3>
-                              <p className="ml-4">₹{item.price}</p>
+                              <p className="ml-4">₹{item.product.price}</p>
                             </div>
                             <p className="mt-1 text-sm text-gray-500">
-                              {item.brand}
+                              {item.product.brand}
                             </p>
                           </div>
                           <div className="flex flex-1 items-end justify-between text-sm">
