@@ -1,6 +1,4 @@
 import * as express from "express";
-
-
 import {createBrand, fetchBrand} from "../../controller/brand/brand.controller.js"
 import {Router} from "express";
 

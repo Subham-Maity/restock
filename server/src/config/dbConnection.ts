@@ -1,5 +1,6 @@
 import mongoose, {ConnectOptions, Mongoose} from "mongoose";
 import config from "./default.js";
+import log from "../utils/logger.js";
 
 const connectDB = async (): Promise<void> => {
     try {
@@ -14,7 +15,7 @@ const connectDB = async (): Promise<void> => {
         const con = await mongoose.connect(uri, options);
 
 
-        console.log(`MongoDB Connected: ` + `${con.connection.host}`);
+        log.info(`MongoDB Connected: ` + `${con.connection.host}`);
     } catch (error) {
         if (error instanceof Error) {
             console.log(`Error: ${error.message}`);

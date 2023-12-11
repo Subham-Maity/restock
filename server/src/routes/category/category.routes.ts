@@ -1,5 +1,4 @@
 import * as express from "express";
-
 import {Router} from "express";
 import {createCategory, fetchCategory} from "../../controller/category/category.controller.js";
 
