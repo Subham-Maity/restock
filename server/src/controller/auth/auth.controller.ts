@@ -41,27 +41,22 @@ export const createUser = catchAsyncError(async (req: Request, res: Response, ne
 
 /* LOGIN USER */
 export const loginUser = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const { email, password }: IUser = req.body;
-
-        // Check if required fields are present
-        if (!email || !password) {
-            return res.status(400).json({ message: 'Email and password are required' });
+        try {
+            const user = await User.findOne(
+                { email: req.body.email },
+            ).exec();
+            // TODO: this is just temporary, we will use strong password auth
+            console.log({user})
+            if (!user) {
+                res.status(401).json({ message: 'no such user email' });
+            } else if (user.password === req.body.password) {
+                // TODO: We will make addresses independent of login
+                res.status(200).json({id:user.id, email:user.email, name:user.name,addresses:user.addresses});
+            } else {
+                res.status(401).json({ message: 'invalid credentials' });
+            }
+        } catch (err) {
+            res.status(400).json(err);
         }
-
-        const user = await User.findOne({ email });
-        if (!user) {
-            return res.status(400).json({ message: 'User not found' });
-        }
-
-        if (user.password === password) {
-            // Passwords match
-            res.status(200).json({ message: 'Login successful', user: { id: user.id, name: user.name, email: user.email } });
-        } else {
-            // Passwords don't match
-            res.status(400).json({ message: 'Wrong credentials' });
-        }
-    } catch (err) {
-        res.status(500).json({ message: 'Internal server error', error: err });
     }
-});
+);
