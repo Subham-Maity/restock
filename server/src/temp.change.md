@@ -1,36 +1,91 @@
+`user.model.ts`
+```typescript
+import mongoose, { Schema, Model, model } from 'mongoose';
+import { IUser } from "../../types/user/user.js";
+
+const userSchema: Schema = new mongoose.Schema({
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type:
+        Buffer,
+        required: true
+    },
+    role: {
+        type: String,
+        required: true,
+        default: 'user'
+    },
+    addresses: {
+        type: [Schema.Types.Mixed]
+    },
+    name: {
+        type: String
+    },
+    salt: Buffer,
+    resetPasswordToken: {
+        type: String,
+        default: '' },
+}, {
+    timestamps: true
+});
+
+const virtualId = userSchema.virtual('id');
+virtualId.get(function (this: { _id: any }) {
+    return this._id;
+});
+
+userSchema.set('toJSON', {
+    virtuals: true,
+    versionKey: false,
+    transform: function (doc, ret) {
+        delete ret._id;
+    },
+});
+
+const User: Model<IUser> = model<IUser>('User', userSchema);
+
+export default User;
+
+```
+`AuthController.ts`
+```typescript
 import { NextFunction, Request, Response } from 'express';
 import User from '../../model/user/user.model.js';
 import { IUser } from '../../types/user/user.js';
 import catchAsyncError from '../../middleware/catchAsyncError.js';
 
 /* CREATE USER */
-
 export const createUser = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { email, password, name, role, addresses, orders }: IUser = req.body;
+        const {
+            email,
+            password,
+            role,
+            addresses,
+            name,
+            salt,
+            resetPasswordToken,
+        }: IUser = req.body;
 
         // Check if required fields are present
         if (!email || !password) {
             return res.status(400).json({ message: 'Email and password are required' });
         }
 
-        // Check if the user already exists
-        const existingUser = await User.findOne({ email });
-        if (existingUser) {
-            return res.status(400).json({ message: 'User already exists' });
-        }
-
-        // Create a new user instance
         const newUser = new User({
             email,
             password,
-            name,
-            role,
+            role: role || 'user', // Set default role if not provided
             addresses,
-            orders
+            name,
+            salt,
+            resetPasswordToken,
         });
 
-        // Save the new user to the database
         await newUser.save();
 
         res.status(201).json({ message: 'User created successfully', user: newUser });
@@ -38,6 +93,8 @@ export const createUser = catchAsyncError(async (req: Request, res: Response, ne
         res.status(500).json({ message: 'Internal server error', error: err });
     }
 });
+
+
 
 /* LOGIN USER */
 export const loginUser = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
@@ -65,3 +122,6 @@ export const loginUser = catchAsyncError(async (req: Request, res: Response, nex
         res.status(500).json({ message: 'Internal server error', error: err });
     }
 });
+
+
+```

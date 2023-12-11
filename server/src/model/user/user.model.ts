@@ -8,8 +8,7 @@ const userSchema: Schema = new mongoose.Schema({
         unique: true
     },
     password: {
-        type:
-        Buffer,
+        type: String,
         required: true
     },
     role: {
@@ -23,13 +22,12 @@ const userSchema: Schema = new mongoose.Schema({
     name: {
         type: String
     },
-    salt: Buffer,
-    resetPasswordToken: {
-        type: String,
-        default: '' },
-}, {
-    timestamps: true
+    orders: {
+        type: [Schema.Types.Mixed]
+    }
+
 });
+
 
 const virtualId = userSchema.virtual('id');
 virtualId.get(function (this: { _id: any }) {
