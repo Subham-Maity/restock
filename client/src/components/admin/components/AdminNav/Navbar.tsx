@@ -3,7 +3,7 @@ import { RiMenu2Fill } from "react-icons/ri";
 import dynamic from "next/dynamic";
 
 import Switcher from "@/components/Mode/Switcher";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectUserInfo } from "@/lib/features/RoleWise/userSlice";
 import { selectItems } from "@/lib/features/Cart/cartSlice";
 import Link from "next/link";
@@ -11,9 +11,14 @@ import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import CartHoverOnMouse from "@/components/cart/CartHoverOnMouse";
 import { Menu, Transition } from "@headlessui/react";
 import Image from "next/image";
-import React, {Fragment, useEffect, useState} from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import AdminNavbarSearch from "@/components/admin/components/AdminNav/SearchBar/AdminNavbarSearch";
-import {fetchAllStoreProductsAsync, selectAllProducts_} from "@/lib/features/Product/productListSlice";
+import {
+  fetchAllStoreProductsAsync,
+  selectAllProducts_,
+} from "@/lib/features/Product/productListSlice";
+import { IoSearchOutline } from "react-icons/io5";
+import NavbarSearch from "@/components/Navbar/SearchBar/NavbarSearch";
 
 interface NavbarProps {
   isSidebarOpen: boolean;
@@ -22,14 +27,34 @@ interface NavbarProps {
 
 const Navbar = ({ toggleSidebar, isSidebarOpen }: NavbarProps) => {
   const itemsForSearch = useSelector(selectAllProducts_);
-  const [isCartHoverOpen, setIsCartHoverOpen] = useState(false);
   const [cartHoverTimeout, setCartHoverTimeout] = useState(null);
   const user = useSelector(selectUserInfo);
   const items = useSelector(selectItems);
+
+  const [isCartHoverOpen, setIsCartHoverOpen] = useState(false);
+  const [isSearchHoverOpen, setIsSearchHoverOpen] = useState(false);
+
   const userNavigation = [
     { name: "Your Profile Setting", href: "/UserProfile" },
     { name: "My Orders", href: "/orders" },
   ];
+
+  const handleSearchIconHover = () => {
+    setIsSearchHoverOpen(true);
+    // Clear any previous timeouts
+    if (cartHoverTimeout) {
+      clearTimeout(cartHoverTimeout);
+    }
+  };
+
+  const handleSearchIconHoverOut = () => {
+    const timeoutId: any = setTimeout(() => {
+      setIsSearchHoverOpen(false);
+    }, 500);
+
+    // Store the timeout ID in state for future reference
+    setCartHoverTimeout(timeoutId);
+  };
 
   //This is important for fetching all products category needed for search bar
   const dispatch = useDispatch();
@@ -75,7 +100,28 @@ const Navbar = ({ toggleSidebar, isSidebarOpen }: NavbarProps) => {
           </h1>
         </div>
         <div className="flex justify-center">
-          <AdminNavbarSearch items={itemsForSearch}/>
+          {/*<AdminNavbarSearch items={itemsForSearch}/>*/}
+          <div>
+            <button
+              type="button"
+              onMouseEnter={handleSearchIconHover}
+              onMouseLeave={handleSearchIconHoverOut}
+              className=" rounded-lg w-36 bg-gray-500 hover:bg-gray-600 p-1.5 text-white dark:bg-gray-700
+                      dark:hover:text-white dark:hover:bg-gray-600 drop  hover:cursor-pointer cursor-pointer border border-gray-600/25 shadow shadow-gray-500/25"
+            >
+              <div className="flex">
+                <IoSearchOutline className="h-5 w-5 " aria-hidden="true" />
+                <p className="mt-0 ml-1 text-gray-200/25 font-light">Search</p>
+              </div>
+              {isSearchHoverOpen && (
+                <div className="fixed right-36 mt-12 top-8 z-50">
+                  <div className="bg-white/50 dark:bg-[#1a1a1a]/70 rounded-b-xl lg:mx-16 max-w-8xl px-5 sm:px-6 xl:px-8 py-2 sm:py-2 lg:py-2 ">
+                    <AdminNavbarSearch items={itemsForSearch} />
+                  </div>
+                </div>
+              )}
+            </button>
+          </div>
         </div>
         <div className="flex gap-2">
           <div className=" ml-auto">
@@ -101,8 +147,8 @@ const Navbar = ({ toggleSidebar, isSidebarOpen }: NavbarProps) => {
               {/* Profile dropdown */}
               <Menu as="div" className="relative ml-3">
                 <div>
-                  <Menu.Button className="flex  items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                    <span className="sr-only ">Open user menu</span>
+                  <Menu.Button className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm ">
+                    <span className="sr-only xl:hidden">Open user menu</span>
 
                     <div className="flex-shrink-0">
                       {user &&
@@ -110,7 +156,7 @@ const Navbar = ({ toggleSidebar, isSidebarOpen }: NavbarProps) => {
                       user.addresses[0] &&
                       user.addresses[0].dpUrl ? (
                         <Image
-                          className="h-10 w-10 p-0.5 rounded-full bg-gray-500 dark:bg-gray-500 flex items-center justify-center text-white dark:hover:bg-gray-300 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg"
+                          className="h-10 w-10 p-0.5 rounded-full bg-gray-500 dark:bg-gray-500 flex items-center justify-center text-white dark:hover:bg-gray-300 drop  text-lg"
                           src={user.addresses[0].dpUrl}
                           alt=""
                           width={40}
@@ -118,14 +164,14 @@ const Navbar = ({ toggleSidebar, isSidebarOpen }: NavbarProps) => {
                         />
                       ) : user && user.email ? (
                         <div
-                          className="h-9 w-9 rounded-full bg-gray-500 dark:bg-gray-700 flex items-center justify-center text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg"
+                          className="h-9 w-9 rounded-full bg-gray-500 dark:bg-gray-700 flex items-center justify-center text-white dark:hover:bg-gray-600 drop  text-lg"
                           style={{ fontSize: "1.5rem" }}
                         >
                           <p className="mt-1">{user.email[0].toUpperCase()}</p>
                         </div>
                       ) : (
                         <Image
-                          className="h-10 w-10 p-2 rounded-full bg-gray-500 dark:bg-gray-700 flex items-center justify-center text-white dark:hover:bg-gray-600 drop focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg"
+                          className="h-10 w-10 p-2 rounded-full bg-gray-500 dark:bg-gray-700 flex items-center justify-center text-white dark:hover:bg-gray-600 drop  text-lg"
                           src="/Navbar/blankUser.svg"
                           alt=""
                           width={40}
@@ -145,7 +191,7 @@ const Navbar = ({ toggleSidebar, isSidebarOpen }: NavbarProps) => {
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95"
                 >
-                  <Menu.Items className="absolute right-0 z-50 mt-8  origin-top-right bg-slate-200 dark:bg-slate-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none rounded-2xl">
+                  <Menu.Items className="absolute right-0 z-50 mt-8 w-48 origin-top-right bg-slate-200 dark:bg-slate-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none rounded-2xl">
                     <div>
                       <div className="text-sm ml-4 mb-2 mt-4 font-medium leading-none text-gray-800 dark:text-gray-300">
                         {user?.addresses && user.addresses[0]
@@ -167,7 +213,7 @@ const Navbar = ({ toggleSidebar, isSidebarOpen }: NavbarProps) => {
                               active
                                 ? " bg-gray-400 dark:bg-gray-500 text-gray-950"
                                 : "",
-                              "font-medium block px-4 py-2 text-sm text-gray-950 dark:text-gray-300 rounded-2xl",
+                              "font-medium block px-4 py-2 text-sm text-gray-950 dark:text-gray-300 rounded-2xl"
                             )}
                           >
                             {item.name}
@@ -179,14 +225,14 @@ const Navbar = ({ toggleSidebar, isSidebarOpen }: NavbarProps) => {
                       {user ? (
                         <Link
                           href="/logout"
-                          className="block px-4 py-2 text-sm font-bold text-gray-900 dark:text-gray-200 rounded-2xl hover:bg-red-600/90 cursor-pointer bg-red-500/90"
+                          className="block px-4 py-2 text-sm font-bold text-gray-900 dark:text-gray-200 rounded-2xl hover:bg-red-600/90 bg-red-500/90"
                         >
                           Logout
                         </Link>
                       ) : (
                         <Link
                           href="/login"
-                          className="block px-4 py-2 text-sm font-bold text-gray-900 dark:text-gray-200 rounded-2xl hover:bg-green-600/90 cursor-pointer bg-green-500"
+                          className="block px-4 py-2 text-sm font-bold text-gray-900 dark:hover:text-gray-700 dark:text-gray-200 rounded-2xl hover:bg-green-400"
                         >
                           Login
                         </Link>

@@ -3,8 +3,10 @@ import Login from "@/components/auth/Login";
 
 const Page = () => {
   return (
-    <div>
-      <Login />
+    <div className="h-screen flex items-center justify-center">
+        <div>
+            <Login />
+        </div>
     </div>
   );
 };

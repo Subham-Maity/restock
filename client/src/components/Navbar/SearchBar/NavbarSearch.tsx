@@ -124,7 +124,7 @@ export const NavbarSearch = ({ items }: any) => {
             </span>
             <span>
               <svg
-                className="fill-current h-4 w-4 transform group-hover:-rotate-180
+                className=" fill-current h-4 w-4 transform group-hover:-rotate-180
   transition duration-150 ease-in-out"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
@@ -134,13 +134,13 @@ export const NavbarSearch = ({ items }: any) => {
             </span>
           </button>
           <ul
-            className="ransform scale-0 group-hover:scale-100 absolute
-  transition duration-150 ease-in-out origin-top min-w-32 rounded-2xl dark:bg-gray-500/50 bg-gray-800/25 p-1 "
+            className="ransform scale-0 group-hover:scale-100 absolute text-start
+  transition duration-150 ease-in-out origin-top min-w-32 rounded-2xl dark:bg-gray-500/50 bg-gray-800/25 py-2 bg-white dark:bg-[#2a2a2b] px-0.5"
           >
             {categories?.map((category: any, index: any) => (
               <li
                 key={index}
-                className="dark:bg-[#2a2a2b] bg-[#ffffff] px-3 hover:dark:bg-[#3f3f43] py-1 mt-0.5 hover:bg-gray-100 rounded-md"
+                className=" dark:bg-[#2a2a2b] px-3 hover:dark:bg-[#3f3f43] py-1 hover:bg-gray-100 "
                 onClick={(e) => {
                   const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
                   // @ts-ignore

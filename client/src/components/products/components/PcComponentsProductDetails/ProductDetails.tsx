@@ -11,7 +11,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { AppDispatch } from "@/lib/redux/store";
-import {addToCartAsync, selectItems} from "@/lib/features/Cart/cartSlice";
+import { addToCartAsync, selectItems } from "@/lib/features/Cart/cartSlice";
 import { selectLoggedInUser } from "@/lib/features/Auth/authSlice";
 import { User } from "@/lib/types/Auth/auth.type";
 import { LineWave } from "react-loader-spinner";
@@ -24,7 +24,7 @@ import { FaCartPlus } from "react-icons/fa";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { AiOutlineZoomIn, AiOutlineZoomOut } from "react-icons/ai";
 import { IoClose } from "react-icons/io5";
-import {CartItem} from "@/lib/types/Cart/cart.type";
+import { CartItem } from "@/lib/types/Cart/cart.type";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -35,7 +35,7 @@ export default function ProductDetails() {
   const dispatch: AppDispatch = useDispatch();
   const params = useParams();
   const user: User | null = useSelector(selectLoggedInUser);
-  const items:CartItem[] = useSelector(selectItems);
+  const items: CartItem[] = useSelector(selectItems);
   const [isCartHoverVisible, setCartHoverVisible] = useState(false);
   const [currentImage, setCurrentImage] = useState("/");
   const handleMouseEnter = (src: any) => {
@@ -81,7 +81,7 @@ export default function ProductDetails() {
 
   const handleCart = (e: any) => {
     e.preventDefault();
-    if(items.findIndex(item=>item?.productId === product?.id) < 0){
+    if (items.findIndex((item) => item?.productId === product?.id) < 0) {
       const newItem = {
         ...product,
         productId: product.id,
@@ -90,22 +90,21 @@ export default function ProductDetails() {
       };
       delete newItem["id"];
       dispatch(addToCartAsync(newItem))
-          .then(() => {
-            setCartHoverVisible(true); // Show the cart popup after a successful dispatch
-            toast.success(`${product.title} is added to your cart`, {
-              position: "bottom-right",
-              autoClose: 1000,
-            });
-          })
-          .catch((error) => {
-            console.error("Error adding to cart:", error);
-          });
-    }
-    else {
-        toast.warning(`${product.title} is already in your cart`, {
+        .then(() => {
+          setCartHoverVisible(true); // Show the cart popup after a successful dispatch
+          toast.success(`${product.title} is added to your cart`, {
             position: "bottom-right",
             autoClose: 1000,
+          });
+        })
+        .catch((error) => {
+          console.error("Error adding to cart:", error);
         });
+    } else {
+      toast.warning(`${product.title} is already in your cart`, {
+        position: "bottom-right",
+        autoClose: 1000,
+      });
     }
   };
 
@@ -119,9 +118,7 @@ export default function ProductDetails() {
             autoClose={1000}
           />
           <nav aria-label="Breadcrumb">
-            <ol
-              className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8"
-            >
+            <ol className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
               {product.breadcrumbs &&
                 product.breadcrumbs.map((breadcrumb: any) => (
                   <li key={breadcrumb.id}>
@@ -162,46 +159,48 @@ export default function ProductDetails() {
             <div className="w-fit flex flex-col-reverse lg:flex-row mx-auto py-4 sm:space-x-4 mb-10 justify-center lg:justify-start lg:border-r lg:border-gray-400 lg:pr-4 xl:pr-8">
               <div className="flex flex-row lg:flex-col product-previews mt-3 lg:mt-0 space-x-2 lg:space-x-0 lg:space-y-2 p-2 border border-gray-400 rounded-xl h-fit w-fit mx-auto my-auto">
                 {product.images.map((image: string, index: number) => (
-                    <div
-                        key={index}
-                        className="preview-image flex w-fit mx-auto"
-                        onMouseEnter={() => handleMouseEnter(image)}
-                    >
-                      <img
-                          src={image}
-                          alt="{product.title}"
-                          className="rounded-lg border border-gray-400 hover:border-blue-400 h-[100px] w-[100px]"
-                      />
-                    </div>
+                  <div
+                    key={index}
+                    className="preview-image flex w-fit mx-auto"
+                    onMouseEnter={() => handleMouseEnter(image)}
+                  >
+                    <Image
+                      src={image}
+                      width={100}
+                      height={100}
+                      alt={product.title}
+                      className="rounded-lg border border-gray-400 hover:border-blue-400 h-[100px] w-[100px]"
+                    />
+                  </div>
                 ))}
               </div>
               <div className="main-image w-fit h-fit lg:w-[400px] xl:w-[500px] my-auto">
                 <TransformWrapper>
                   {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
-                      <React.Fragment>
-                        <TransformComponent>
-                <Image
-                    src={currentImage}
-                    width={500}
-                    height={500}
-                    alt="Product"
-                    className="rounded-lg h-[400px] xl:h-[500px]"
-                />
-              </TransformComponent>
-              <div className="border dark:border-gray-300/20 border-gray-800/20 rounded-lg mt-2 text-center">
-                <button onClick={() => zoomIn()}>
-                  <AiOutlineZoomIn className="text-3xl mt-2 dark:hover:text-gray-200 dark:text-gray-400 text-neutral-900/30 hover:text-neutral-900/70" />
-                </button>
-                <button onClick={() => zoomOut()}>
-                  <AiOutlineZoomOut className="text-3xl ml-4 mt-2 dark:hover:text-gray-200 dark:text-gray-400 text-neutral-900/30 hover:text-neutral-900/70" />
-                </button>
-                <button onClick={() => resetTransform()}>
-                  <IoClose className="text-3xl ml-4 mt-2 dark:hover:text-gray-200 dark:text-gray-400 text-neutral-900/30 hover:text-neutral-900/70" />
-                </button>
-              </div>
-            </React.Fragment>
-            )}
-          </TransformWrapper>
+                    <React.Fragment>
+                      <TransformComponent>
+                        <Image
+                          src={currentImage}
+                          width={500}
+                          height={500}
+                          alt="Product"
+                          className="rounded-lg h-[400px] xl:h-[500px]"
+                        />
+                      </TransformComponent>
+                      <div className="border dark:border-gray-300/20 border-gray-800/20 rounded-lg mt-2 text-center">
+                        <button onClick={() => zoomIn()}>
+                          <AiOutlineZoomIn className="text-3xl mt-2 dark:hover:text-gray-200 dark:text-gray-400 text-neutral-900/30 hover:text-neutral-900/70" />
+                        </button>
+                        <button onClick={() => zoomOut()}>
+                          <AiOutlineZoomOut className="text-3xl ml-4 mt-2 dark:hover:text-gray-200 dark:text-gray-400 text-neutral-900/30 hover:text-neutral-900/70" />
+                        </button>
+                        <button onClick={() => resetTransform()}>
+                          <IoClose className="text-3xl ml-4 mt-2 dark:hover:text-gray-200 dark:text-gray-400 text-neutral-900/30 hover:text-neutral-900/70" />
+                        </button>
+                      </div>
+                    </React.Fragment>
+                  )}
+                </TransformWrapper>
               </div>
             </div>
 
@@ -216,10 +215,10 @@ export default function ProductDetails() {
                     product.rating.toFixed(1) >= 4
                       ? "bg-green-600 dark:bg-green-600 "
                       : product.rating >= 3.5
-                      ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
-                      : product.rating >= 2
-                      ? "bg-orange-400 dark:bg-orange-600 text-sm"
-                      : "bg-red-500 dark:bg-red-600 text-sm"
+                        ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
+                        : product.rating >= 2
+                          ? "bg-orange-400 dark:bg-orange-600 text-sm"
+                          : "bg-red-500 dark:bg-red-600 text-sm"
                   }`}
                 >
                   <p className="">{product.rating}</p>

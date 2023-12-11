@@ -84,7 +84,7 @@ const Signup = () => {
   return (
     <>
       {user && router.push("/")}
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 md:w-[32rem] mx-3  md:mx-auto my-6 default-card">
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 md:w-[32rem] mx-3 md:mx-auto default-card">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <p className="font-bold text-2xl dark:text-gray-400 text-neutral-900">
             Our Logo
@@ -324,7 +324,7 @@ const Signup = () => {
           <p className="mt-10 text-center text-sm text-gray-500">
             Already have an account?{" "}
             <Link
-              href="/client/src/components/auth/Login"
+              href="/login"
               className="font-semibold leading-6 text-indigo-500 dark:text-indigo-500 hover:text-indigo-400 dark:hover:text-indigo-400"
             >
               Sign in

@@ -227,14 +227,14 @@ const Navbar = () => {
             <div className="lg:mx-16 max-w-8xl px-5 sm:px-6 xl:px-8 py-2 sm:py-2 lg:py-2">
               <div className="flex h-16 items-center justify-between lg:justify-start">
                 <div className="flex items-center">
-                  <div className="flex space-x-2 mr-8">
+                  <div className="mr-4">
                     <Link href="/">
                       <Image
-                        className="h-8 w-8"
-                        src="https://img.freepik.com/free-vector/modern-desktop-compute-concept-illustration_114360-12156.jpg"
+                        className="h-8 w-24"
+                        src="/Navbar/Logo.png"
                         alt="Your Company"
-                        width={32}
-                        height={32}
+                        width="1080"
+                        height="1080"
                       />
                     </Link>
                   </div>
@@ -248,51 +248,54 @@ const Navbar = () => {
                           <div className="whitespace-nowrap" key={item.name}>
                             {item.submenu ? (
                               <div className="dropdown dropdown-hover">
-                                <label tabIndex={0}>
-                                  <Link
-                                    href={item.href}
-                                    className={classNames(
-                                      pathname === item.href
-                                        ? "bg-gray-100 bg-opacity-90 md:rounded-lg dark:bg-gray-500 dark:bg-opacity-70 text-white"
-                                        : "text-gray-300 dark:hover:bg-gray-600 dark:bg-opacity-95 hover:bg-gray-300 hover:bg-opacity-95",
-                                      "flex items-center rounded-lg px-3 py-2 text-sm font-medium"
-                                    )}
-                                    aria-current={
-                                      pathname === item.href
-                                        ? "page"
-                                        : undefined
-                                    }
-                                  >
-                                    <div className="dark:text-white flex space-x-1 text-black mr-2">
-                                      <span className="my-auto">
-                                        {item.icon}
-                                      </span>
-                                      <span>{item.name}</span>
-                                    </div>
-                                  </Link>
-                                </label>
-                                <div className="bg-slate-200 dark:bg-slate-800">
-                                  <ul
-                                    tabIndex={0}
-                                    className="dropdown-content z-50 menu shadow bg-transparent w-52"
-                                  >
-                                    {item.submenu.map((subitem) => (
-                                      <li
-                                        key={subitem.name}
-                                        className="bg-slate-200 dark:bg-slate-800 font-semibold hover:bg-gray-400 dark:hover:bg-gray-400 hover:text-slate-900 text-black dark:text-white"
-                                      >
-                                        <Link
-                                          href={subitem.href}
-                                          className="font-semibold hover:bg-gray-400 dark:hover:bg-gray-400 hover:text-slate-900 text-black dark:text-white"
-                                        >
-                                          <span className="">
-                                            {subitem.name}
-                                          </span>
-                                        </Link>
-                                      </li>
-                                    ))}
-                                  </ul>
+                                <div
+                                  tabIndex={0}
+                                  role="button"
+                                  className="my-7"
+                                >
+                                  <label>
+                                    <Link
+                                      href={item.href}
+                                      className={classNames(
+                                        pathname === item.href
+                                          ? "bg-gray-100 bg-opacity-90 md:rounded-lg dark:bg-gray-500 dark:bg-opacity-70 text-white"
+                                          : "text-gray-300 dark:hover:bg-gray-600 dark:bg-opacity-95 hover:bg-gray-300 hover:bg-opacity-95",
+                                        "flex items-center rounded-lg px-3 py-2 text-sm font-medium"
+                                      )}
+                                      aria-current={
+                                        pathname === item.href
+                                          ? "page"
+                                          : undefined
+                                      }
+                                    >
+                                      <ul>
+                                        <li>
+                                          <div className="dark:text-white flex space-x-1 text-black">
+                                            <span className="my-auto">
+                                              {item.icon}
+                                            </span>
+                                            <span>{item.name}</span>
+                                          </div>
+                                        </li>
+                                      </ul>
+                                    </Link>
+                                  </label>
                                 </div>
+                                <ul
+                                  tabIndex={0}
+                                  className="dropdown-content z-[1] menu px-2 shadow bg-gray-200 dark:bg-stone-900 rounded-box w-52"
+                                >
+                                  {item.submenu.map((subitem) => (
+                                    <li
+                                      key={subitem.name}
+                                      className="font-semibold hover:bg-gray-400 dark:hover:bg-gray-400 hover:text-slate-900 active:text-slate-950 text-black dark:text-white rounded-box"
+                                    >
+                                      <Link href={subitem.href}>
+                                        <span className="">{subitem.name}</span>
+                                      </Link>
+                                    </li>
+                                  ))}
+                                </ul>
                               </div>
                             ) : (
                               <Link

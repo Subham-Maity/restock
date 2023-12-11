@@ -50,6 +50,7 @@ import { FaListUl } from "react-icons/fa";
 import { motion } from "framer-motion";
 import ProductListSkeleton from "@/components/products/pages/pc-components/skeleton/ProductListSkeleton";
 import ProductForm from "@/components/admin/pages/pc-components/ProductFrom/ProductForm";
+import AdminProductEditModal from "@/components/admin/pages/pc-components/ProductFrom/ProductEditModal";
 
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
@@ -277,16 +278,15 @@ export const AdminPcComponentProductList = () => {
                   Add New Product
                 </button>
                 <dialog id="my_modal_1" className="modal">
-                  <div className="modal-box max-w-[60rem]">
+                  <div className="modal-box max-w-fit bg-gray-200 dark:bg-gray-800">
                     <ProductForm />
                     <div className="modal-action">
                       <form method="dialog">
                         {/* if there is a button in form, it will close the modal */}
-                        <button className="btn btn-sm btn-circle btn-ghost absolute right-20 top-16 text-2xl font-extrabold">
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-20 top-14 text-2xl font-extrabold">
                           ✕
                         </button>
                       </form>
-                      
                     </div>
                   </div>
                 </dialog>
@@ -360,7 +360,7 @@ export const MobileFilter = ({
               leaveFrom="translate-x-0"
               leaveTo="translate-x-full"
             >
-              <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white border-2 dark:bg-gradient-to-r dark:border-gray-800 dark:from-[#404043] dark:to-[#334053] rounded-lg">
+              <Dialog.Panel className="relative ml-auto flex h-full w-fit max-w-xs flex-col overflow-y-auto bg-white border-2 dark:bg-gradient-to-r dark:border-gray-800 dark:from-[#404043] dark:to-[#334053] rounded-lg">
                 <div className="mt-[4.5rem] flex items-center justify-between px-4">
                   <h2 className="text-lg font-medium text-gray-900 dark:text-white">
                     Filters
@@ -664,9 +664,18 @@ export const ProductGrid = ({ products }: { products: any }) => {
         console.error("Error adding to cart:", error);
       });
   };
+  const [isModalOpen, setIsModalOpen] = useState({
+    id: null,
+    isModalOpen: false,
+  });
+  var EditProduct = (id: any) => {
+    setIsModalOpen({ id: id, isModalOpen: true });
+  };
 
+  console.log(isModalOpen);
   return (
     <>
+      {isModalOpen.isModalOpen && <AdminProductEditModal id={isModalOpen.id} setIsModalOpen={setIsModalOpen}/>}
       {!isGrid ? (
         <>
           <div>
@@ -769,7 +778,8 @@ export const ProductGrid = ({ products }: { products: any }) => {
                           type="submit"
                           className="inline-flex rounded-md bg-blue-800 hover:bg-blue-500 mt-2 ml-2 dark:bg-cyan-700/60 px-1 py-1 text-sm font-semibold text-white shadow-sm dark:hover:bg-cyan-500/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
                           onClick={() => {
-                            router.push(`/admin/editForm/${product.id}`);
+                            // router.push(`/admin/editForm/${product.id}`);
+                            EditProduct(product.id);
                           }}
                         >
                           <TbEditOff className="mt-0.5 mr-1" />
@@ -822,13 +832,17 @@ export const ProductGrid = ({ products }: { products: any }) => {
                                 >
                                   {product.images.map(
                                     (image: string, imageIndex: number) => (
-                                      <img
+                                      <Image
                                         key={imageIndex}
                                         src={image}
                                         alt={product.title}
-                                        className="w-full h-full object-fill object-center"
+                                        className="w-[300px] h-[300px] object-fill object-center"
+                                        height={300}
+                                        width={300}
                                         onClick={() => {
-                                          window.location.href = `/pc-components-details/${product.id}`;
+                                          router.push(
+                                            `/pc-components-details/${product.id}`
+                                          );
                                         }}
                                       />
                                     )
@@ -903,7 +917,7 @@ export const ProductGrid = ({ products }: { products: any }) => {
                         type="submit"
                         className="inline-flex rounded-md bg-blue-800 hover:bg-blue-500 mt-2 ml-2 dark:bg-cyan-700/60 px-1 py-1 text-sm font-semibold text-white shadow-sm dark:hover:bg-cyan-500/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
                         onClick={() => {
-                          router.push(`/admin/editForm/${product.id}`);
+                          EditProduct(product.id);
                         }}
                       >
                         <TbEditOff className="mt-0.5 mr-1" />
