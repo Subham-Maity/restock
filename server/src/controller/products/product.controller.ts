@@ -139,7 +139,7 @@ export const fetchProduct = catchAsyncError(async (req: Request, res: Response, 
         const docs = await query.exec();
 
         //We need it x-total-count for pagination in the frontend because we need to know the total number of products
-        res.set('X_Total-Count', totalDocs.toString());
+        res.set('X-Total-Count', totalDocs.toString());
 
         //Addition check to see if the product array is empty
         if (docs.length === 0) {
@@ -175,7 +175,7 @@ class ProductNotFoundError2 extends Error {
 //Fetching a single product
 export const fetchProductById = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { id } = req.params;
+        const {id} = req.params;
 
         const product = await Product.findById(id);
 
@@ -186,7 +186,7 @@ export const fetchProductById = catchAsyncError(async (req: Request, res: Respon
         res.status(200).json(product);
     } catch (error) {
         if (error instanceof ProductNotFoundError2) {
-            res.status(error.statusCode).json({ message: error.message });
+            res.status(error.statusCode).json({message: error.message});
         } else {
             next(error);
         }
@@ -203,16 +203,18 @@ function isValidObjectId(id: string): boolean {
     // return mongoose.Types.ObjectId.isValid(id);
     return /^[0-9a-fA-F]{24}$/.test(id); // Simplified check (24-character hex string)
 }
+
 export const updateProduct = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { id } = req.params;
+        // Get the ID from the request parameters
+        const {id} = req.params;
 
         // Check if the provided ID is valid
         if (!id || !isValidObjectId(id)) {
             return next(new ErrorHandler('Invalid product ID', 400));
         }
 
-        const updatedProduct = await Product.findByIdAndUpdate(id, req.body, { new: true });
+        const updatedProduct = await Product.findByIdAndUpdate(id, req.body, {new: true});
 
         if (!updatedProduct) {
             return next(new ErrorHandler('Product not found', 404));
