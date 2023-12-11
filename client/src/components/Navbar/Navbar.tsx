@@ -30,6 +30,7 @@ import {
 } from "@/lib/features/Product/productListSlice";
 import NavbarSearch from "@/components/Navbar/SearchBar/NavbarSearch";
 import { IoSearchOutline } from "react-icons/io5";
+import {AppDispatch} from "@/lib/redux/store";
 
 const navigation = [
   {
@@ -163,9 +164,8 @@ function classNames(...classes: any[]) {
 }
 
 const Navbar = () => {
-  const dispatch = useDispatch();
+  const dispatch:AppDispatch = useDispatch();
   useEffect(() => {
-    // @ts-ignore
     dispatch(fetchAllStoreProductsAsync);
   }, []);
 

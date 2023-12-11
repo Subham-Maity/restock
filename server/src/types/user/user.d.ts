@@ -8,4 +8,5 @@ export interface IUser {
     resetPasswordToken?: string;
     createdAt?: Date;
     updatedAt?: Date;
+    orders?: Array<any>;
 }

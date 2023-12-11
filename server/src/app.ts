@@ -1,7 +1,5 @@
 /*❗~~~~IMPORTS~~~~❗*/
 
-
-
 // Importing the necessary modules
 import express, {Application, Request, Response} from "express";
 import bodyParser from "body-parser";
@@ -107,7 +105,7 @@ app.use("/api/v1/category", CategoryRouter)
 //User routes
 app.use("/api/v1/users", UserRouter)
 //Auth routes
-app.use("/api/v1/auth/signup", AuthRouter)
+app.use("/api/v1/auth", AuthRouter)
 
 
 // Default route for the API - This will be used to test if the API is live
