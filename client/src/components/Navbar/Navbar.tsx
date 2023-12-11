@@ -548,7 +548,7 @@ const Navbar = () => {
                   role === "admin" ||
                   (!role && item.user) ||
                   (role === "user" && item.user) ? (
-                    <div>
+                    <div key={item.name}>
                       {item.submenu ? (
                         <div
                           tabIndex={0}
