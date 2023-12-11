@@ -3,7 +3,7 @@ import {BASE_URL} from "@/lib/constant/constants";
 
 export async function createUser(userData: User): Promise<{ data: User }> {
   try {
-    const response = await fetch(`${BASE_URL}/users`, {
+    const response = await fetch(`${BASE_URL}/auth/signup`, {
       method: "POST",
       body: JSON.stringify(userData),
       headers: { "content-type": "application/json" },
