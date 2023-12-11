@@ -22,8 +22,8 @@ export async function fetchItemsByUserId(
 }
 
 export async function updateCart(
-  update: CartItem,
-): Promise<{ data: CartItem }> {
+  update: any,
+): Promise<{ data: any }> {
   const response = await fetch(
       `${BASE_URL}/cart/${update.id}`,
     {
@@ -50,11 +50,11 @@ export async function deleteItemFromCart(
   return { data: { id: itemId } };
 }
 
-export function resetCart(userId: string): Promise<{ status: "success"; data: CartItem[] }> {
+export function resetCart(userId: string): Promise<{ status: "success"; data: any }> {
   return new Promise(async (resolve, reject) => {
     try {
       const response = await fetchItemsByUserId(userId);
-      const items = response.data;
+      const items:any = response.data;
       for (let item of items) {
         await deleteItemFromCart(item.id);
       }

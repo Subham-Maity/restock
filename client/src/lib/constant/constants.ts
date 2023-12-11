@@ -7,7 +7,7 @@ interface Item {
 
 export function discountedPrice(item: Item): number {
   return parseFloat(
-    (item.price * (1 - item.discountPercentage / 100)).toFixed(2),
+    (item?.price * (1 - item?.discountPercentage / 100)).toFixed(2),
   );
 }
 

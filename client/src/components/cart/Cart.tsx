@@ -14,14 +14,15 @@ import { CartItem } from "@/lib/types/Cart/cart.type";
 import { AppDispatch } from "@/lib/redux/store";
 import { useRouter } from "next/navigation";
 import CustomButton from "@/components/CustomButton/CustomButton";
+import {discountedPrice} from "@/lib/constant/constants";
 
 export default function Cart() {
   const items: CartItem[] = useSelector(selectItems);
 
   const dispatch: AppDispatch = useDispatch();
   const totalAmount = items.reduce(
-    (amount: any, item: any) => item.price * item.quantity + amount,
-    0
+      (amount: number, item: any) => discountedPrice(item.product) * item.quantity + amount,
+      0,
   );
 
   const totalItems = items.reduce(
@@ -29,8 +30,8 @@ export default function Cart() {
     0
   );
 
-  const handleQuantityChange = (e: any, item: any) => {
-    dispatch(updateCartAsync({ ...item, quantity: +e.target.value }));
+  const handleQuantity = (e: any, item: any) => {
+    dispatch(updateCartAsync({ id:item.id, quantity: +e.target.value }));
   };
   const handleRemove = (e: any, id: any) => {
     dispatch(deleteItemFromCartAsync(id));
@@ -74,8 +75,8 @@ export default function Cart() {
                     <li key={item.id} className="flex py-6">
                       <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-2xl border ">
                         <Image
-                          src={item.thumbnail}
-                          alt={item.title}
+                          src={item.product?.thumbnail}
+                          alt={item.product?.title}
                           className="h-full w-full object-cover object-center"
                           width={384}
                           height={384}
@@ -86,12 +87,12 @@ export default function Cart() {
                         <div>
                           <div className="flex justify-between text-base font-medium text-gray-900 dark:text-gray-200">
                             <h3>
-                              <a href={item.href}>{item.title}</a>
+                              <a href={item.href}>{item.product?.title}</a>
                             </h3>
-                            <p className="ml-4">₹{item.price}</p>
+                            <p className="ml-4">₹{item.product?.price}</p>
                           </div>
                           <p className="mt-1 text-sm text-gray-500">
-                            {item.brand}
+                            {item.product?.brand}
                           </p>
                         </div>
                         <div className="flex flex-1 items-end justify-between text-sm">
@@ -103,7 +104,7 @@ export default function Cart() {
                               Qty
                             </label>
                             <select
-                              onChange={(e) => handleQuantityChange(e, item)}
+                              onChange={(e) => handleQuantity(e, item)}
                               value={item.quantity}
                               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500"
                             >
