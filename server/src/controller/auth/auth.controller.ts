@@ -51,7 +51,7 @@ export const loginUser = catchAsyncError(async (req: Request, res: Response, nex
                 res.status(401).json({ message: 'no such user email' });
             } else if (user.password === req.body.password) {
                 // TODO: We will make addresses independent of login
-                res.status(200).json({id:user.id, email:user.email, name:user.name,addresses:user.addresses});
+                res.status(200).json({id:user.id, email:user.email, name:user.name,addresses:user.addresses,role:user.role});
             } else {
                 res.status(401).json({ message: 'invalid credentials' });
             }

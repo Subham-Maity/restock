@@ -31,7 +31,7 @@ export function fetchAllOrders(
   sort: Sort,
   pagination: Pagination,
 ): Promise<{ data: any }> {
-  let queryString = "";
+  let queryString = '';
 
   for (let key in sort) {
     queryString += `${key}=${sort[key]}&`;
@@ -41,11 +41,11 @@ export function fetchAllOrders(
   }
 
   return new Promise(async (resolve) => {
-    //TODO: we will not hard-code server URL here
-    const response = await fetch(`${BASE_URL}/orders?` + queryString);
+    const response = await fetch(
+        `${BASE_URL}/orders?` + queryString
+    );
     const data = await response.json();
-    const totalOrders = await response.headers.get("X-Total-Count");
-    const parsedTotalOrders = totalOrders ? +totalOrders : 0;
-    resolve({ data: { orders: data, totalOrders: +parsedTotalOrders } });
+    const totalOrders:any = await response.headers.get('X-Total-Count');
+    resolve({ data: { orders: data, totalOrders: +totalOrders } });
   });
 }
