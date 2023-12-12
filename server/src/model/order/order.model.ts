@@ -1,23 +1,41 @@
 import mongoose, {Schema, Model, model} from 'mongoose';
-import {IBrand} from "../../types/brand/brand.js";
+import {IOrder} from "../../types/order/order.js";
 
-const BrandSchema: Schema = new mongoose.Schema<IBrand>({
-    label: {
-        type: String,
-        required: true,
-        unique: true
+const OrderSchema: Schema = new mongoose.Schema({
+    items: {
+        type: [Schema.Types.Mixed],
+        required: true
     },
-    value: {
+    totalAmount: {
+        type: Number
+    },
+    totalItems: {
+        type: Number
+    },
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    //TODO:  we can add enum types
+    paymentMethod: {
         type: String,
-        required: true,
-        unique: true
+        required: true
+    },
+    status: {
+        type: String,
+        default: 'pending'
+    },
+    selectedAddress: {
+        type: [Schema.Types.Mixed],
+        required: true
     },
 });
 
 //Create a virtual data field for id to replace the _id field in the output
 //Purpose: The _id field is an internal field of MongoDB and is not suitable for external use.
 //In our Frontend, we will use the id field instead of the _id field.
-const virtualId = BrandSchema.virtual('id');
+const virtualId = OrderSchema.virtual('id');
 virtualId.get(function () {
 
     return this._id;
@@ -25,7 +43,7 @@ virtualId.get(function () {
 })
 
 // Set the schema options to enable the virtual fields and remove unwanted properties when converting a document to JSON
-BrandSchema.set('toJSON', {
+OrderSchema.set('toJSON', {
 
     virtuals: true,// enable virtual fields
 
@@ -37,6 +55,6 @@ BrandSchema.set('toJSON', {
     }
 })
 
-const Brand: Model<IBrand> = model<IBrand>("Brand", BrandSchema);
+const Order: Model<IOrder> = model<IOrder>("Order", OrderSchema);
 
-export default Brand;
+export default Order;
