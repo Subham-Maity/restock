@@ -16,6 +16,7 @@ import { TbBrandSupabase } from "react-icons/tb";
 import { BsGpuCard } from "react-icons/bs";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import Switcher from "@/components/Mode/Switcher";
 import { useDispatch, useSelector } from "react-redux";
 import { selectItems } from "@/lib/features/Cart/cartSlice";
@@ -30,7 +31,9 @@ import {
 } from "@/lib/features/Product/productListSlice";
 import NavbarSearch from "@/components/Navbar/SearchBar/NavbarSearch";
 import { IoSearchOutline } from "react-icons/io5";
-import {AppDispatch} from "@/lib/redux/store";
+import { AppDispatch } from "@/lib/redux/store";
+import Login from "@/components/auth/Login";
+import { FaArrowAltCircleRight } from "react-icons/fa";
 
 const navigation = [
   {
@@ -164,7 +167,8 @@ function classNames(...classes: any[]) {
 }
 
 const Navbar = () => {
-  const dispatch:AppDispatch = useDispatch();
+  const router = useRouter();
+  const dispatch: AppDispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchAllStoreProductsAsync);
   }, []);
@@ -253,33 +257,31 @@ const Navbar = () => {
                                   role="button"
                                   className="my-7"
                                 >
-                                  <label>
-                                    <Link
-                                      href={item.href}
-                                      className={classNames(
-                                        pathname === item.href
-                                          ? "bg-gray-100 bg-opacity-90 md:rounded-lg dark:bg-gray-500 dark:bg-opacity-70 text-white"
-                                          : "text-gray-300 dark:hover:bg-gray-600 dark:bg-opacity-95 hover:bg-gray-300 hover:bg-opacity-95",
-                                        "flex items-center rounded-lg px-3 py-2 text-sm font-medium"
-                                      )}
-                                      aria-current={
-                                        pathname === item.href
-                                          ? "page"
-                                          : undefined
-                                      }
-                                    >
-                                      <ul>
-                                        <li>
-                                          <div className="dark:text-white flex space-x-1 text-black">
-                                            <span className="my-auto">
-                                              {item.icon}
-                                            </span>
-                                            <span>{item.name}</span>
-                                          </div>
-                                        </li>
-                                      </ul>
-                                    </Link>
-                                  </label>
+                                  <Link
+                                    href={item.href}
+                                    className={classNames(
+                                      pathname === item.href
+                                        ? "bg-gray-100 bg-opacity-90 md:rounded-lg dark:bg-gray-500 dark:bg-opacity-70 text-white"
+                                        : "text-gray-300 dark:hover:bg-gray-600 dark:bg-opacity-95 hover:bg-gray-300 hover:bg-opacity-95",
+                                      "flex items-center rounded-lg px-3 py-2 text-sm font-medium"
+                                    )}
+                                    aria-current={
+                                      pathname === item.href
+                                        ? "page"
+                                        : undefined
+                                    }
+                                  >
+                                    <ul>
+                                      <li>
+                                        <div className="dark:text-white flex space-x-1 text-black">
+                                          <span className="my-auto">
+                                            {item.icon}
+                                          </span>
+                                          <span>{item.name}</span>
+                                        </div>
+                                      </li>
+                                    </ul>
+                                  </Link>
                                 </div>
                                 <ul
                                   tabIndex={0}
@@ -456,19 +458,40 @@ const Navbar = () => {
                           ))}
                           <div>
                             {user ? (
-                              <Link
-                                href="/logout"
-                                className="block px-4 py-2 text-sm font-bold text-gray-900 dark:text-gray-200 rounded-2xl hover:bg-red-600/90 cursor-pointer bg-red-500/90"
+                              <button
+                                onClick={() => {
+                                  router.push("logout");
+                                }}
+                                className="text-start w-full block px-4 py-2 text-sm font-bold hover:bg-gray-400 hover:dark:bg-gray-500 text-red-500  dark:text-red-400 rounded-2xl"
                               >
                                 Logout
-                              </Link>
+                              </button>
                             ) : (
-                              <Link
-                                href="/login"
-                                className="block px-4 py-2 text-sm font-bold text-gray-900 dark:text-gray-200 rounded-2xl hover:bg-green-600/90 cursor-pointer bg-green-500"
-                              >
-                                Login
-                              </Link>
+                              <div>
+                                <button
+                                  className="text-start w-full block px-4 py-2 text-sm font-bold hover:bg-gray-400 hover:dark:bg-gray-500 text-green-500  dark:text-green-400 rounded-2xl"
+                                  onClick={() =>
+                                    (
+                                      document.getElementById(
+                                        "my_modal_2"
+                                      ) as HTMLDialogElement
+                                    ).showModal()
+                                  }
+                                >
+                                  Login
+                                </button>
+                                <dialog id="my_modal_2" className="modal">
+                                  <div className="modal-box max-w-fit">
+                                    <Login />
+                                  </div>
+                                  <form
+                                    method="dialog"
+                                    className="modal-backdrop"
+                                  >
+                                    <button>close</button>
+                                  </form>
+                                </dialog>
+                              </div>
                             )}
                           </div>
                         </Menu.Items>
@@ -525,22 +548,69 @@ const Navbar = () => {
                   role === "admin" ||
                   (!role && item.user) ||
                   (role === "user" && item.user) ? (
-                    <Link
-                      key={item.name}
-                      href={item.href}
-                      className={classNames(
-                        pathname === item.href
-                          ? "bg-gray-100 bg-opacity-90 md:rounded-lg dark:bg-gray-500 dark:bg-opacity-70 text-white"
-                          : "text-gray-300 dark:hover:bg-gray-600 dark:bg-opacity-95 hover:bg-gray-300 hover:bg-opacity-95",
-                        "flex items-center rounded-lg px-3 py-2 text-sm font-medium"
+                    <div key={item.name}>
+                      {item.submenu ? (
+                        <div
+                          tabIndex={0}
+                          className="collapse collapse-arrow bg-transparent"
+                        >
+                          <div className="collapse-title pl-0 py-0 flex items-center ">
+                            <Link
+                              key={item.name}
+                              href={item.href}
+                              className={classNames(
+                                pathname === item.href
+                                  ? "bg-gray-100 bg-opacity-90 md:rounded-lg dark:bg-gray-500 dark:bg-opacity-70 text-white rounded-lg px-3 py-2 text-sm font-medium w-full"
+                                  : "text-gray-300 dark:hover:bg-gray-600 dark:bg-opacity-95 hover:bg-gray-300 hover:bg-opacity-95 rounded-lg px-3 py-2 text-sm font-medium w-full",
+                                ""
+                              )}
+                              aria-current={
+                                pathname === item.href ? "page" : undefined
+                              }
+                            >
+                              <div className="dark:text-white flex space-x-1 text-black mr-2">
+                                <span className="my-auto">{item.icon}</span>
+                                <span>{item.name}</span>
+                              </div>
+                            </Link>
+                          </div>
+
+                          <div className="collapse-content">
+                            <ul>
+                              {item.submenu.map((subitem) => (
+                                <li
+                                  key={subitem.name}
+                                  className="font-semibold hover:bg-gray-400 dark:hover:bg-gray-400 px-2 hover:text-slate-900 active:text-slate-950 text-black dark:text-white rounded-box"
+                                >
+                                  <Link href={subitem.href}>
+                                    <span className="">{subitem.name}</span>
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                      ) : (
+                        <Link
+                          key={item.name}
+                          href={item.href}
+                          className={classNames(
+                            pathname === item.href
+                              ? "bg-gray-100 bg-opacity-90 md:rounded-lg dark:bg-gray-500 dark:bg-opacity-70 text-white"
+                              : "text-gray-300 dark:hover:bg-gray-600 dark:bg-opacity-95 hover:bg-gray-300 hover:bg-opacity-95",
+                            "flex items-center rounded-lg px-3 py-2 text-sm font-medium my-4"
+                          )}
+                          aria-current={
+                            pathname === item.href ? "page" : undefined
+                          }
+                        >
+                          <div className="dark:text-white flex space-x-1 text-black mr-2">
+                            <span className="my-auto">{item.icon}</span>
+                            <span>{item.name}</span>
+                          </div>
+                        </Link>
                       )}
-                      aria-current={pathname === item.href ? "page" : undefined}
-                    >
-                      <div className="dark:text-white flex space-x-1 text-black mr-2">
-                        <span className="my-auto">{item.icon}</span>
-                        <span>{item.name}</span>
-                      </div>
-                    </Link>
+                    </div>
                   ) : null
                 )}
               </div>
@@ -611,11 +681,32 @@ const Navbar = () => {
                       key={item.name}
                       as="a"
                       href={item.href}
-                      className="block rounded-md px-3 py-2 text-base font-medium text-gray-950 dark:text-gray-200 hover:bg-gray-700 hover:text-white"
+                      className="block rounded-md px-3 py-2 font-medium text-gray-950 dark:text-gray-200 hover:bg-gray-700 hover:text-white"
                     >
                       {item.name}
                     </Disclosure.Button>
                   ))}
+                </div>
+                <div className="mb-3 px-2">
+                  {user ? (
+                    <button
+                      onClick={() => {
+                        router.push("logout");
+                      }}
+                      className="text-start w-full block px-3 py-2 font-bold hover:bg-gray-700 text-red-500  dark:text-red-400 rounded-md"
+                    >
+                      Logout
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        router.push("/login");
+                      }}
+                      className="text-start w-full block px-3 py-2 font-bold hover:bg-gray-700 text-green-500  dark:text-green-400 rounded-md"
+                    >
+                      Login
+                    </button>
+                  )}
                 </div>
                 <Switcher />
               </div>

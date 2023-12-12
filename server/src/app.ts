@@ -26,6 +26,7 @@ import CategoryRouter from "./routes/category/category.routes.js"
 import UserRouter from "./routes/user/user.routes.js"
 import AuthRouter from "./routes/auth/auth.routes.js"
 import CartRouter from "./routes/cart/cart.routes.js"
+import OrderRouter from "./routes/order/order.routes.js"
 
 
 /*❗~~~~CONFIG~~~~❗*/
@@ -109,6 +110,8 @@ app.use("/api/v1/users", UserRouter)
 app.use("/api/v1/auth", AuthRouter)
 //Cart routes
 app.use("/api/v1/cart", CartRouter)
+//Order routes
+app.use("/api/v1/orders", OrderRouter)
 
 
 // Default route for the API - This will be used to test if the API is live

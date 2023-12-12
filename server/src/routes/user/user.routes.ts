@@ -6,7 +6,9 @@ import {fetchUserById, updateUser} from "../../controller/user/user.controller.j
 const router: Router = express.Router();
 
 
-router.get("/:id", fetchUserById).patch("/:id", updateUser);
+router
+    .get("/:id", fetchUserById)
+    .patch("/:id", updateUser);
 
 
 export default router;

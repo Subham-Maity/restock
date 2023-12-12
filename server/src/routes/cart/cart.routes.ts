@@ -7,7 +7,11 @@ import {addToCart, deleteFromCart, fetchCartByUser, updateCart} from "../../cont
 const router: Router = express.Router();
 
 
-router.post("/",addToCart).get("/", fetchCartByUser).delete("/:id", deleteFromCart).patch("/:id", updateCart);
+router
+    .post("/",addToCart)
+    .get("/", fetchCartByUser)
+    .delete("/:id", deleteFromCart)
+    .patch("/:id", updateCart);
 
 
 export default router;

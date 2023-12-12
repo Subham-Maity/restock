@@ -317,7 +317,11 @@ const router: Router = express.Router();
  *             example:
  *               message: "Product not found"
  */
-router.post('/', createProduct).get('/', fetchProduct).get('/:id', fetchProductById).patch('/:id',updateProduct)
+router
+    .post('/', createProduct)
+    .get('/', fetchProduct)
+    .get('/:id', fetchProductById)
+    .patch('/:id',updateProduct)
 
 
 export default router;
