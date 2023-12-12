@@ -306,8 +306,8 @@ function Checkout() {
                   </p>
                   <ul >
                     {user &&
-                      //@ts-ignore
-                      user.addresses.map((address: any, index: any) => (
+                        user.addresses &&
+                      user?.addresses.map((address: any, index: any) => (
                         <li
                           key={index}
                           className="mb-4 flex justify-between gap-x-6 px-5 py-5 border-solid border dark:border-gray-200/25 border-gray-900/25 rounded-md"

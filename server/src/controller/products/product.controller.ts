@@ -91,8 +91,11 @@ class ProductNotFoundError extends Error {
 export const fetchProduct = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     try {
         // Initialize the query without executing it
-        let query = Product.find({});
-        let totalProductsQuery = Product.find({});
+        //Purpose: Deleted false products won't show up on the frontend
+        let query = Product.find({deleted:{$ne:true}});
+
+        //same deleted false purpose for pagination
+        let totalProductsQuery = Product.find({deleted:{$ne:true}});
 
 
         //Filtering the products based on the query parameters

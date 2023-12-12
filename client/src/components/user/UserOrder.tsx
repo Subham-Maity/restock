@@ -15,6 +15,8 @@ export default function UserOrders() {
   const user = useSelector(selectLoggedInUser);
   const orders = useSelector(selectUserOrders);
 
+  console.log(orders?.selectedAddress , "orders")
+
   useEffect(() => {
     // @ts-ignore
     dispatch(fetchLoggedInUserOrderAsync(user.id));
@@ -59,7 +61,7 @@ export default function UserOrders() {
                             width={150}
                             height={150}
                             src={item.product.thumbnail}
-                            alt={item.producttitle}
+                            alt={item.product.title}
                             className="h-full w-full object-cover object-center"
                           />
                         </div>
@@ -98,11 +100,11 @@ export default function UserOrders() {
               <div className="border-t dark:border-gray-200 border-gray-800  px-4 py-6 sm:px-6">
                 <div className="flex text-gray-900 dark:text-gray-200 justify-between my-2 text-base font-medium ">
                   <p>Subtotal</p>
-                  <p>₹ {order.totalAmount}</p>
+                  <p>₹ {order?.totalAmount}</p>
                 </div>
                 <div className="flex justify-between my-2 text-base font-medium  text-gray-900 dark:text-gray-200">
                   <p>Total Items in Cart</p>
-                  <p>{order.totalItems} items</p>
+                  <p>{order?.totalItems} items</p>
                 </div>
                 <p className="mt-0.5 text-sm mb-4 text-gray-700 dark:text-gray-400">
                   Shipping Address :
@@ -112,17 +114,17 @@ export default function UserOrders() {
                     <div className="min-w-0 flex-auto">
                       {order.selectedAddress?.name && (
                         <p className="text-sm font-semibold leading-6 text-gray-900 dark:text-gray-200">
-                          {order.selectedAddress.name}
+                          {order.selectedAddress?.name}
                         </p>
                       )}
                       {order.selectedAddress?.street && (
                         <p className="mt-1 truncate text-xs leading-5 text-gray-900 dark:text-gray-200">
-                          {order.selectedAddress.street}
+                          {order.selectedAddress?.street}
                         </p>
                       )}
                       {order.selectedAddress?.pinCode && (
                         <p className="mt-1 truncate text-xs leading-5 text-gray-900 dark:text-gray-200">
-                          {order.selectedAddress.pinCode}
+                          {order.selectedAddress?.pinCode}
                         </p>
                       )}
                     </div>
@@ -130,12 +132,12 @@ export default function UserOrders() {
                   <div className="hidden sm:flex sm:flex-col sm:items-end">
                     {order.selectedAddress?.phone && (
                       <p className="text-sm leading-6 text-gray-900 dark:text-gray-200">
-                        Phone: {order.selectedAddress.phone}
+                        Phone: {order.selectedAddress?.phone}
                       </p>
                     )}
                     {order.selectedAddress?.city && (
                       <p className="text-sm leading-6 text-gray-900 dark:text-gray-200">
-                        {order.selectedAddress.city}
+                        {order.selectedAddress?.city}
                       </p>
                     )}
                   </div>
