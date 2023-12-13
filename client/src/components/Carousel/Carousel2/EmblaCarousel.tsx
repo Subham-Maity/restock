@@ -5,7 +5,7 @@ import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 import { flushSync } from "react-dom";
 import { useSelector, useDispatch } from 'react-redux'
-import {fetchApiAsync} from '@/lib/features/Banner/bannerSlice'
+import {fetchBannerApiAsync} from '@/lib/features/Banner/bannerSlice'
 
 const TWEEN_FACTOR = 1.2;
 type PropType = {
@@ -66,7 +66,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
 
   useEffect(()=>{
     // @ts-ignore
-    dispatch(fetchApiAsync());
+    dispatch(fetchBannerApiAsync());
   },[])
 
   useEffect(()=>{
@@ -98,8 +98,8 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
                   {/*{console.log("res",index)}*/}
                   {/*{image=0}*/}
                   {image[index].href?
-                      <Image className=" embla__slide__img embla__parallax__img" src={image[index].href} alt={"Banner Images 1"} fill/>:
-                      <Image className=" embla__slide__img embla__parallax__img" src={"https://github.com/Subham-Maity/restock/blob/main/client/public/BannerPoster/1.jpg?raw=true"} alt={"Banner Images 2"} fill/>}
+                      <Image className=" embla__slide__img embla__parallax__img" src={image[index].href} alt={"banner Images 1"} fill/>:
+                      <Image className=" embla__slide__img embla__parallax__img" src={"https://github.com/Subham-Maity/restock/blob/main/client/public/BannerPoster/1.jpg?raw=true"} alt={"banner Images 2"} fill/>}
 
 
                 </div>
