@@ -28,7 +28,7 @@ import { selectUserInfo } from "@/lib/features/RoleWise/userSlice";
 import {
   fetchAllStoreProductsAsync,
   selectAllProducts_,
-} from "@/lib/features/Product/productListSlice";
+} from "@/lib/features/Product/fetchProductsByFiltersAsync";
 import NavbarSearch from "@/components/Navbar/SearchBar/NavbarSearch";
 import { IoSearchOutline } from "react-icons/io5";
 import { AppDispatch } from "@/lib/redux/store";

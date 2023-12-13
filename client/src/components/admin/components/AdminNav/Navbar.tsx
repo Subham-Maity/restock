@@ -16,7 +16,7 @@ import AdminNavbarSearch from "@/components/admin/components/AdminNav/SearchBar/
 import {
   fetchAllStoreProductsAsync,
   selectAllProducts_,
-} from "@/lib/features/Product/productListSlice";
+} from "@/lib/features/Product/fetchProductsByFiltersAsync";
 import { IoSearchOutline } from "react-icons/io5";
 import NavbarSearch from "@/components/Navbar/SearchBar/NavbarSearch";
 

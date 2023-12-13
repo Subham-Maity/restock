@@ -103,7 +103,7 @@ app.use("/api/v1/products", ProductRouter)
 //Brand routes
 app.use("/api/v1/brands", BrandRouter)
 //Category routes
-app.use("/api/v1/category", CategoryRouter)
+app.use("/api/v1/categories", CategoryRouter)
 //User routes
 app.use("/api/v1/users", UserRouter)
 //Auth routes

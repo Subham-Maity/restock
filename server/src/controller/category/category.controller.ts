@@ -2,6 +2,7 @@ import {Request, Response, NextFunction} from 'express';
 import Category from "../../model/category/category.model.js";
 import ErrorHandler from "../../utils/errorHandler.js";
 import catchAsyncError from "../../middleware/catchAsyncError.js";
+import Brand from "../../model/brand/brand.model.js";
 
 
 /*CREATE PRODUCT*/
@@ -51,15 +52,15 @@ export const createCategory = catchAsyncError(async (req: Request, res: Response
 export const fetchCategory = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
         try {
 
-            //Fetch all categories from the database
-            const categories = await Category.find({}).exec();
+            //Fetch all brands from the database
+            const category = await Category.find({}).exec();
 
-            //Send an error message if no categories are found
-            if (!categories || categories.length === 0) {
-                throw new ErrorHandler('No categories found', 404);
+            //Send an error message if no brands are found
+            if (!category || category.length === 0) {
+                throw new ErrorHandler('No brands found', 404);
             }
 
-            res.status(200).json(categories);
+            res.status(200).json(category);
         } catch (err) {
             //CastError is thrown when an invalid ID is passed to findById()
             if (err.name === 'CastError') {

@@ -9,7 +9,7 @@ import {
   selectCategories,
   selectProductById,
   updateProductAsync,
-} from "@/lib/features/Product/productListSlice";
+} from "@/lib/features/Product/fetchProductsByFiltersAsync";
 import { useParams, useRouter } from "next/navigation";
 import { AppDispatch } from "@/lib/redux/store";
 import BgAdminTailwindWrapper from "@/lib/wrapper/AdminPannel/BgTailwindWrapper";

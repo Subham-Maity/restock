@@ -25,7 +25,7 @@ import {
   selectCategories,
   selectProductById,
   selectTotalItems,
-} from "@/lib/features/Product/productListSlice";
+} from "@/lib/features/Product/fetchProductsByFiltersAsync";
 import { AppDispatch } from "@/lib/redux/store";
 import { ITEMS_PER_PAGE } from "@/lib/constant/constants";
 import Carousel from "react-multi-carousel";
@@ -81,6 +81,8 @@ export const PcComponentProductList = () => {
   const products = useSelector(selectAllProducts);
   console.log(products, "all products");
 
+   console.log(categories, "all categories");
+    console.log(brands, "all brands");
   const { isGrid, setIsGrid } = useContext(Context);
   const totalItems = useSelector(selectTotalItems);
   const filters = [

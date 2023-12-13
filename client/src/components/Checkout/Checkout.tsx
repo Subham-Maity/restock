@@ -6,9 +6,12 @@ import { useForm } from "react-hook-form";
 import React, { useEffect, useState } from "react";
 import {
   selectLoggedInUser,
-  updateUserAsync,
-  // updateUserAsync,
+
 } from "@/lib/features/Auth/authSlice";
+import {
+  updateUserAsync,
+  selectUserInfo,
+} from "@/lib/features/RoleWise/userSlice";
 import {
   deleteItemFromCartAsync,
   selectItems,
@@ -39,7 +42,7 @@ function Checkout() {
 
   const currentOrder = useSelector(selectCurrentOrder);
 
-  const user = useSelector(selectLoggedInUser);
+  const user = useSelector(selectUserInfo);
   const items = useSelector(selectItems);
   const totalAmount = items.reduce(
     (amount: number, item: any) => discountedPrice(item.product) * item.quantity + amount,
@@ -84,10 +87,10 @@ function Checkout() {
       items,
       totalAmount,
       totalItems,
-      user:user?.id,
+      user: user.id,
       paymentMethod,
       selectedAddress,
-      status: "pending",
+      status: 'pending',
     };
 
     dispatch(createOrderAsync(order));

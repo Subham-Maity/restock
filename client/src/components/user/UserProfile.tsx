@@ -32,7 +32,7 @@ type Inputs = {
 };
 export default function UserProfile() {
   const dispatch: AppDispatch = useDispatch();
-  const user = useSelector(selectUserInfo);
+  const userInfo = useSelector(selectUserInfo);
   const [selectedEditIndex, setSelectedEditIndex] = useState(-1);
   const [showAddAddressForm, setShowAddAddressForm] = useState(false);
 
@@ -45,20 +45,20 @@ export default function UserProfile() {
   } = useForm<Inputs>();
 
   const handleEdit = (addressUpdate: any, index: any) => {
-    const newUser = { ...user, addresses: [...user.addresses] }; // for shallow copy issue
+    const newUser = { ...userInfo, addresses: [...userInfo.addresses] }; // for shallow copy issue
     newUser.addresses.splice(index, 1, addressUpdate);
     dispatch(updateUserAsync(newUser));
     setSelectedEditIndex(-1);
   };
   const handleRemove = (e: any, index: any) => {
-    const newUser = { ...user, addresses: [...user.addresses] }; // for shallow copy issue
+    const newUser = { ...userInfo, addresses: [...userInfo.addresses] }; // for shallow copy issue
     newUser.addresses.splice(index, 1);
     dispatch(updateUserAsync(newUser));
   };
 
   const handleEditForm = (index: any) => {
     setSelectedEditIndex(index);
-    const address = user.addresses[index];
+    const address = userInfo.addresses[index];
     setValue("name", address.name);
     setValue("email", address.email);
     setValue("city", address.city);
@@ -70,7 +70,7 @@ export default function UserProfile() {
   };
 
   const handleAdd = (address: any) => {
-    const newUser = { ...user, addresses: [...user.addresses, address] };
+    const newUser = { ...userInfo, addresses: [...userInfo.addresses, address] };
     dispatch(updateUserAsync(newUser));
     setShowAddAddressForm(false);
   };
@@ -82,8 +82,8 @@ export default function UserProfile() {
           <h1 className="text-4xl flex my-5 font-bold tracking-tight text-yellow-900 dark:text-yellow-200">
             <FaUserShield className="mt-0.5 mr-1.5" /> Name:{" "}
             <span className="ml-2 text-pink-900 dark:text-pink-200 break-all">
-              {user.addresses && user.addresses[0]
-                ? user.addresses[0].name
+              {userInfo.addresses && userInfo.addresses[0]
+                ? userInfo.addresses[0].name
                 : "No Name Provided"}
             </span>
           </h1>
@@ -93,18 +93,18 @@ export default function UserProfile() {
             Email Address :{" "}
             <span className="ml-2 text-blue-900 dark:text-blue-400 break-all">
               {" "}
-              {user?.email && user.email}
+              {userInfo?.email && userInfo.email}
             </span>
           </h3>
           <hr className="border-t dark:border-gray-600 mt-4 border-gray-600  mr-96 " />
         </div>
 
-        {user.role === "admin" && (
+        {userInfo.role === "admin" && (
           <h3 className="text-xl flex ml-6 mb-4 font-bold tracking-tight dark:text-green-500 text-gren-900">
             <FaUserCheck className="mt-1 mr-1.5" /> role :
             <span className="ml-2 text-emerald-900 dark:text-emerald-200 break-all">
               {" "}
-              {user.role}{" "}
+              {userInfo.role}{" "}
             </span>
           </h3>
         )}
@@ -359,8 +359,8 @@ export default function UserProfile() {
           ) : null}
 
           <p className="mt-0.5 text-sm text-gray-500">Your Addresses :</p>
-          {user?.addresses &&
-            user.addresses.map((address: any, index: any) => (
+          {userInfo?.addresses &&
+            userInfo.addresses.map((address: any, index: any) => (
               <div key={index}>
                 {selectedEditIndex === index ? (
                   <form
