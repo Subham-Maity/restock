@@ -3,7 +3,7 @@ import React, { useContext, useState } from "react";
 import { ConfigProvider, Space, Table, theme } from "antd";
 import type { ColumnsType, TableProps } from "antd/es/table";
 import { useSelector } from "react-redux";
-import { selectAllProducts_ } from "@/lib/features/Product/productListSlice";
+import { selectAllProducts_ } from "@/lib/features/Product/fetchProductsByFiltersAsync";
 import Context from "@/lib/context/Context";
 import Image from "next/image";
 import Link from "next/link";

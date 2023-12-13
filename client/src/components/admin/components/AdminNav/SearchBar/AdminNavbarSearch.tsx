@@ -7,7 +7,7 @@ import {
   fetchProductsByFiltersAsync,
   selectBrands,
   selectCategories,
-} from "@/lib/features/Product/productListSlice";
+} from "@/lib/features/Product/fetchProductsByFiltersAsync";
 import { useRouter } from "next/navigation";
 import Context from "@/lib/context/Context";
 import { ITEMS_PER_PAGE } from "@/lib/constant/constants";
@@ -101,8 +101,8 @@ export const AdminNavbarSearch = ({ items }: any) => {
           <div className="object-fill object-center">
             <Image
               className="w-full h-full object-fill object-center"
-              src={item.thumbnail}
-              alt={item.category}
+              src={item.product.thumbnail}
+              alt={item.product.category}
               height={100}
               width={80}
             />

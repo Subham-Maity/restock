@@ -9,7 +9,7 @@ import {
   selectCategories,
   selectProductById,
   updateProductAsync,
-} from "@/lib/features/Product/productListSlice";
+} from "@/lib/features/Product/fetchProductsByFiltersAsync";
 import { useForm } from "react-hook-form";
 import React, { useEffect, useState } from "react";
 import Modal from "@/app/common/Modal";

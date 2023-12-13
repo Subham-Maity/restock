@@ -29,7 +29,7 @@ import {
   fetchBrandsAsync,
   fetchCategoriesAsync,
   selectProductById,
-} from "@/lib/features/Product/productListSlice";
+} from "@/lib/features/Product/fetchProductsByFiltersAsync";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import { AppDispatch } from "@/lib/redux/store";
 import { ITEMS_PER_PAGE } from "@/lib/constant/constants";
@@ -147,7 +147,7 @@ export const AdminPcComponentProductList = () => {
 
   useEffect(() => {
     const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
-    dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination }));
+    dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination}));
   }, [dispatch, filter, sort, page]);
 
   useEffect(() => {

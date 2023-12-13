@@ -7,7 +7,7 @@ import { useParams } from "next/navigation";
 import {
   fetchAllProductByIdAsync,
   selectProductById,
-} from "@/lib/features/Product/productListSlice";
+} from "@/lib/features/Product/fetchProductsByFiltersAsync";
 import Image from "next/image";
 import Link from "next/link";
 import { AppDispatch } from "@/lib/redux/store";

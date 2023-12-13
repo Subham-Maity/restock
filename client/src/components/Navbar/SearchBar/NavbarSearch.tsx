@@ -7,7 +7,7 @@ import {
   fetchProductsByFiltersAsync,
   selectBrands,
   selectCategories,
-} from "@/lib/features/Product/productListSlice";
+} from "@/lib/features/Product/fetchProductsByFiltersAsync";
 import { useRouter } from "next/navigation";
 import Context from "@/lib/context/Context";
 import { ITEMS_PER_PAGE } from "@/lib/constant/constants";
