@@ -7,5 +7,4 @@ export default {
   host: process.env.HOST || "localhost",
   corsOrigin: process.env.CORS_ORIGIN || "http://localhost:3000",
   db: process.env.MONGO_URL,
-  
 };

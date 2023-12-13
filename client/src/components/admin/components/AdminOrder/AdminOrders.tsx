@@ -156,7 +156,7 @@ function AdminOrders() {
                             />
                           </div>
                           <span>
-                           {item.product.title} - #{item.quantity} - $
+                           {item.product.title} - #{item.product.quantity} - ₹
                             {discountedPrice(item)}
                           </span>
                         </div>
@@ -164,7 +164,7 @@ function AdminOrders() {
                     </td>
                     <td className="py-3 px-6 text-center">
                       <div className="flex items-center justify-center">
-                        ${order?.totalAmount}
+                        ₹{order?.totalAmount}
                       </div>
                     </td>
                     <td className="py-3 px-6 text-center">

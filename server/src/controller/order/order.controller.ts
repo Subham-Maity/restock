@@ -4,9 +4,9 @@ import catchAsyncError from "../../middleware/catchAsyncError.js";
 
 /*FETCH ALL ORDERS*/
 export const fetchOrdersByUser = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
-    const { id } = req.query;
+    const { userId } = req.params;
     try {
-        const orders = await Order.find({ user: id });
+        const orders = await Order.find({ user: userId });
 
         res.status(200).json(orders);
     } catch (err) {

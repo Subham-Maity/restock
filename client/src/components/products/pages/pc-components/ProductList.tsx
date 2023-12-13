@@ -139,7 +139,7 @@ export const PcComponentProductList = () => {
   useEffect(() => {
     const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
     console.log("here is ...", filter, sort, pagination);
-    dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination }));
+    dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination ,admin:false}));
   }, [dispatch, filter, sort, page]);
 
   useEffect(() => {

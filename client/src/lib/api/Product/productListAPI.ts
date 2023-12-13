@@ -60,6 +60,7 @@ export function fetchProductsByFilters(
   filter: Filter,
   sort: Sort,
   pagination: Pagination,
+  admin: boolean,
 ): Promise<{ data: { products: any; totalItems: number } }> {
   // filter = {"category":["smartphone","laptops"]}
   // sort = {_sort:"price",_order="desc"}
@@ -78,6 +79,9 @@ export function fetchProductsByFilters(
   console.log(pagination);
   for (let key in pagination) {
     queryString += `${key}=${pagination[key]}&`;
+  }
+  if(admin){
+    queryString += `admin=true`;
   }
 
   return new Promise(async (resolve) => {
