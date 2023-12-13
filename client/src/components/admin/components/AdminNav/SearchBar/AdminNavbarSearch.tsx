@@ -101,8 +101,8 @@ export const AdminNavbarSearch = ({ items }: any) => {
           <div className="object-fill object-center">
             <Image
               className="w-full h-full object-fill object-center"
-              src={item.product.thumbnail}
-              alt={item.product.category}
+              src={item.thumbnail}
+              alt={item.category}
               height={100}
               width={80}
             />
