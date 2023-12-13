@@ -3,7 +3,7 @@ import {BASE_URL} from "@/lib/constant/constants";
 
 export async function fetchLoggedInUserOrders(userId: any) {
   const response = await fetch(
-      `${BASE_URL}/orders/?user.id=` + userId,
+      `${BASE_URL}/orders/user/` + userId,
   );
   const data = await response.json();
   return { data };

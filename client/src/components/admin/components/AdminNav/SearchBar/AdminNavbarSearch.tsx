@@ -123,9 +123,9 @@ export const AdminNavbarSearch = ({ items }: any) => {
       let filter = { category: [latestArray[0].category] };
       router.push("/admin/");
 
-      dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination }));
-      dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination }));
-      dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination }));
+      dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination ,admin:true}));
+      dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination ,admin:true}));
+      dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination ,admin:true}));
     }
   };
 
@@ -162,10 +162,10 @@ export const AdminNavbarSearch = ({ items }: any) => {
                   let filter = { category: [e.target.textContent] };
                   router.push("/admin/");
                   dispatch(
-                    fetchProductsByFiltersAsync({ filter, sort, pagination }),
+                    fetchProductsByFiltersAsync({ filter, sort, pagination ,admin:true }),
                   );
                   dispatch(
-                    fetchProductsByFiltersAsync({ filter, sort, pagination }),
+                    fetchProductsByFiltersAsync({ filter, sort, pagination ,admin:true}),
                   );
                 }}
               >

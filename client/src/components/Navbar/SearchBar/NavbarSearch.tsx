@@ -108,9 +108,9 @@ export const NavbarSearch = ({ items }: any) => {
       let filter = { category: [latestArray[0].category] };
       router.push("/");
 
-      dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination }));
-      dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination }));
-      dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination }));
+      dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination ,admin:false}));
+      dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination ,admin:false}));
+      dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination ,admin:false}));
     }
   };
 
@@ -147,10 +147,10 @@ export const NavbarSearch = ({ items }: any) => {
                   let filter = { category: [e.target.textContent] };
                   router.push("/");
                   dispatch(
-                    fetchProductsByFiltersAsync({ filter, sort, pagination }),
+                    fetchProductsByFiltersAsync({ filter, sort, pagination,admin:false }),
                   );
                   dispatch(
-                    fetchProductsByFiltersAsync({ filter, sort, pagination }),
+                    fetchProductsByFiltersAsync({ filter, sort, pagination ,admin:false}),
                   );
                 }}
               >
