@@ -13,7 +13,7 @@ import helmet from "helmet";
 
 //Importing the widgets
 import moment from "moment-timezone";
-import { nanoid } from 'nanoid';
+import {nanoid} from 'nanoid';
 import morgan from "morgan";
 
 //Importing the error handler
@@ -28,12 +28,12 @@ import AuthRouter from "./routes/auth/auth.routes.js"
 import CartRouter from "./routes/cart/cart.routes.js"
 import OrderRouter from "./routes/order/order.routes.js"
 import BannerRouter from "./routes/banner/banner.routes.js"
+import passportSetup from "./utils/passport.js";
 
 
 /*❗~~~~CONFIG~~~~❗*/
 // Loading environment variables from .env file
 dotenv.config();
-
 
 
 /*❗~~~~APP SETUP~~~~❗*/
@@ -57,20 +57,20 @@ app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({policy: "cross-origin"}));
 
 // Middleware for logging HTTP requests - This will log HTTP requests to the console
-app.use((req:any, res, next) => {
+app.use((req: any, res, next) => {
     req.id = nanoid(); // Generates a unique ID for each request
     req.requestOrigin = req.headers.origin || req.headers.referer; // Retrieves the request origin from headers
     next(); // Passes control to the next middleware
 });
-morgan.token('id', function getId(req:any) {
+morgan.token('id', function getId(req: any) {
     return req.id;
 });
 
-morgan.token('date', function(req, res, tz) {
+morgan.token('date', function (req, res, tz) {
     return moment().tz(<string>tz).format('YYYY-MM-DD HH:mm:ss.SSS');
 });
 
-morgan.token('origin', function getOrigin(req:any) {
+morgan.token('origin', function getOrigin(req: any) {
     return req.requestOrigin;
 });
 
@@ -79,19 +79,15 @@ morgan.token('origin', function getOrigin(req:any) {
 // url - URL of the request , status - HTTP status code , response-time - Time taken to respond in milliseconds ,
 // res[content-length] - Content length of the response , date - Date and time of the request
 app.use(morgan(':id :origin :remote-addr :method :url :status :response-time ms - :res[content-length] :date[Asia/Kolkata]'));
-
+passportSetup(app);
 
 // Middleware for parsing application/x-www-form-urlencoded - This will parse incoming requests with urlencoded payloads
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 
-
-
 //Middleware for handling errors - This will handle all errors
 app.use(globalErrorHandler);
-
-
 
 
 /*❗~~~~ROUTES~~~~❗*/
@@ -113,6 +109,7 @@ app.use("/api/v1/auth", AuthRouter)
 app.use("/api/v1/cart", CartRouter)
 //Order routes
 app.use("/api/v1/orders", OrderRouter)
+//Banner routes
 app.use("/api/v1/banner", BannerRouter)
 
 

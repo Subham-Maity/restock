@@ -1,15 +1,38 @@
 import {NextFunction, Request, Response} from 'express';
 import User from '../../model/user/user.model.js';
-import {IUser} from '../../types/user/user.js';
+import * as crypto from "crypto";
 import catchAsyncError from '../../middleware/catchAsyncError.js';
+import jwt from "jsonwebtoken";
+import {sanitizeUser} from "../../utils/protected.js";
+import {SECRET_KEY} from "../../config.js";
+
 
 /* CREATE USER */
 
 export const createUser = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     const user = new User(req.body);
     try {
-        const doc = await user.save();
-        res.status(201).json({id: doc.id, role: doc.role});
+        const salt = crypto.randomBytes(16);
+        crypto.pbkdf2(
+            req.body.password,
+            salt,
+            310000,
+            32,
+            'sha256',
+            async function (err, hashedPassword) {
+                const user = new User({...req.body, password: hashedPassword, salt});
+                const doc = await user.save();
+
+                req.login(sanitizeUser(doc), (err) => {  // this also calls serializer and adds to session
+                    if (err) {
+                        res.status(400).json(err);
+                    } else {
+                        const token = jwt.sign(sanitizeUser(doc), SECRET_KEY);
+                        res.status(201).json(token);
+                    }
+                });
+            }
+        );
     } catch (err) {
         res.status(400).json(err);
     }
@@ -17,21 +40,10 @@ export const createUser = catchAsyncError(async (req: Request, res: Response, ne
 
 /* LOGIN USER */
 export const loginUser = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const user = await User.findOne(
-            {email: req.body.email},
-        ).exec();
-        // TODO: this is just temporary, we will use strong password auth
-        console.log({user})
-        if (!user) {
-            res.status(401).json({message: 'no such user email'});
-        } else if (user.password === req.body.password) {
-            // TODO: We will make addresses independent of login
-            res.status(200).json({id: user.id, role: user.role});
-        } else {
-            res.status(401).json({message: 'invalid credentials'});
-        }
-    } catch (err) {
-        res.status(400).json(err);
-    }
+    res.json(req.user);
+});
+
+/*CHECK USER*/
+export const checkUser = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
+    res.json({status: 'success', user: req.user});
 });
