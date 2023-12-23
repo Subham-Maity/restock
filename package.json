@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "@types/passport-local": "^1.0.38"
+  }
+}

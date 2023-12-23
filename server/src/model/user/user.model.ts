@@ -1,5 +1,5 @@
-import mongoose, { Schema, Model, model } from 'mongoose';
-import { IUser } from "../../types/user/user.js";
+import mongoose, { Schema, model } from 'mongoose';
+
 
 const userSchema: Schema = new mongoose.Schema({
     email: {
@@ -8,7 +8,7 @@ const userSchema: Schema = new mongoose.Schema({
         unique: true
     },
     password: {
-        type: String,
+        type: Buffer,
         required: true
     },
     role: {
@@ -24,6 +24,9 @@ const userSchema: Schema = new mongoose.Schema({
     },
     orders: {
         type: [Schema.Types.Mixed]
+    },
+    salt: {
+        type: Buffer
     }
 
 });
@@ -42,6 +45,6 @@ userSchema.set('toJSON', {
     },
 });
 
-const User: Model<IUser> = model<IUser>('User', userSchema);
+const User = model('User', userSchema);
 
 export default User;

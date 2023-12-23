@@ -1,7 +1,8 @@
 "use client";
+import { store } from "@/lib/redux/store";
 import React from "react";
 
-import { store } from "../../redux/store";
+
 /* Core */
 import { Provider } from "react-redux";
 

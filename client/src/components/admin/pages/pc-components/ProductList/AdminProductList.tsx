@@ -688,8 +688,15 @@ export const ProductGrid = ({ products }: { products: any }) => {
                       This Product {product.id} is deleted
                     </p>
                   )}
+                  {product.stock<=0 && (
+                      <div>
+                        <p className="text-sm font-bold text-center bg-orange-100 mb-2 p-1 mx-1 rounded-lg block dark:text-red-400 text-red-600">
+                          {product?.id} out Of stock
+                        </p>
+                      </div>
+                  )}
                   {product?.stock && (
-                    <p className="text-sm font-bold text-center bg-orange-100 mb-2 p-1 mx-1 rounded-lg block dark:text-red-400 text-red-600">
+                      <p className="text-sm font-bold text-center bg-orange-100 mb-2 p-1 mx-1 rounded-lg block dark:text-red-400 text-red-600">
                       {" "}
                       {product?.id} out Of stock
                     </p>

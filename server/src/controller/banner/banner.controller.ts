@@ -1,4 +1,4 @@
-import {Request, Response, NextFunction} from 'express';
+import {NextFunction, Request, Response} from 'express';
 import catchAsyncError from '../../middleware/catchAsyncError.js';
 import ErrorHandler from '../../utils/errorHandler.js'
 import Banner from '../../model/banner/banner.model.js';
@@ -13,6 +13,7 @@ class BannerNotFoundError extends Error {
         this.statusCode = 404;
     }
 }
+
 //Functions
 export const fetchBanner = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -32,40 +33,6 @@ export const fetchBanner = catchAsyncError(async (req: Request, res: Response, n
     } catch (error) {
         //Custom error handling
         if (error instanceof BannerNotFoundError) {
-            res.status(error.statusCode).json({message: error.message});
-        } else {
-            next(error);
-        }
-    }
-});
-
-
-/*FETCHING A SINGLE PRODUCT*/
-
-//custom error class for product not found*/
-class BannerNotFoundError2 extends Error {
-    statusCode: number;
-
-    constructor(message: string) {
-        super(message);
-        this.statusCode = 404;
-    }
-}
-
-//Fetching a single product
-export const fetchProductById = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const {id} = req.params;
-
-        const banner = await Banner.findById(id);
-
-        if (!banner) {
-            throw new BannerNotFoundError2('Product not found');
-        }
-
-        res.status(200).json(banner);
-    } catch (error) {
-        if (error instanceof BannerNotFoundError2) {
             res.status(error.statusCode).json({message: error.message});
         } else {
             next(error);
