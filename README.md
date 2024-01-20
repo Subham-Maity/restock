@@ -5,11 +5,11 @@
 - **Types Defined**:
     - Products
 - **Models Defined**:
-    - Products
+    - Products (Schema, Virtual ID,index)
 - **Controllers Defined**:
-    - ProductController(Create Products)
+    - ProductController(Create Products, Get Products (Filtering, Sorting, Pagination, Search))
 - **Validators Defined**:
     - Products
 - **Routes Defined**: (Check Swagger Docs)
-    - Products
+    - Products[Create Products , Get Products (Filtering, Sorting, Pagination , Search)]
         

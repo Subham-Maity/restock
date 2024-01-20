@@ -56,6 +56,7 @@ interface QueryParams {
   _order?: string;
   _page?: string;
   _limit?: string;
+  q?: string;
 }
 
 //Use for admin if admin is true then show all products including deleted products
@@ -67,6 +68,13 @@ const buildCondition = (req: Request<{}, {}, {}, QueryParams>) => {
   return condition;
 };
 
+//🔥 Searching the products
+const searchProducts = (query: any, req: Request<{}, {}, {}, QueryParams>) => {
+  if (req.query.q) {
+    query = query.where({ $text: { $search: req.query.q } });
+  }
+  return query;
+};
 //🔥 Filtering the products
 const filterProducts = (query: any, req: Request<{}, {}, {}, QueryParams>) => {
   if (req.query.category) {
@@ -134,6 +142,9 @@ export const fetchProduct = catchAsyncError(
 
       //pagination of the products based on the query parameters - pagination
       query = paginateProducts(query, req);
+
+      //searching the products based on the query parameters - searching
+      query = searchProducts(query, req);
 
       //executing the query and getting the products
       const docs = await query.exec();

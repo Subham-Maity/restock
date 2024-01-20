@@ -82,7 +82,7 @@ const Product: Router = express.Router();
  * @swagger
  * /api/v1/products:
  *   get:
- *     summary: Retrieve a list of products with optional filtering, sorting, and pagination
+ *     summary: Retrieve a list of products with optional filtering, sorting, pagination, and search
  *     tags: [Products]
  *     parameters:
  *       - in: query
@@ -120,6 +120,11 @@ const Product: Router = express.Router();
  *         schema:
  *           type: string
  *         description: Number of items per page for pagination (optional)
+ *       - in: query
+ *         name: q
+ *         schema:
+ *           type: string
+ *         description: Search query to filter products (optional)
  *     responses:
  *       200:
  *         description: A list of products with optional filtering, sorting, and pagination

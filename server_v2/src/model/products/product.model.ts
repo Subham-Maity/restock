@@ -71,6 +71,14 @@ virtualId.get(function () {
   return this._id;
 });
 
+//use the index method to define indexes for the collection to improve the performance of queries
+//The text index allows you to search for a string in multiple fields
+productSchema.index({
+  title: "text",
+  description: "text",
+  brand: "text",
+  category: "text",
+});
 // Set the schema options to enable the virtual fields and remove unwanted properties when converting a document to JSON
 productSchema.set("toJSON", {
   virtuals: true, // enable virtual fields
