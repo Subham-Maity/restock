@@ -1,82 +1,34 @@
 import { NextFunction, Request, Response } from "express";
 import catchAsyncError from "../../middleware/error/catchAsyncError";
 import ErrorHandler from "../../utils/errorHandler/errorHandler";
-import Product from "../../model/products/product.model";
+import Product, { saveProduct } from "../../model/products/product.model";
 import AppError from "../../middleware/error/appError";
+import { validationResult } from "express-validator";
 
-/*CREATE PRODUCT*/
+/*☑️ CREATE PRODUCT ☑️ */
 export const createProduct = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
     try {
-      // req.body does indeed typically refer to the data that's sent from the frontend as part of an HTTP POST or PUT request
-      const {
-        title,
-        description,
-        price,
-        discountPercentage,
-        rating,
-        stock,
-        brand,
-        category,
-        thumbnail,
-        images,
-        colors,
-        sizes,
-        highlights,
-        discountPrice,
-      } = req.body;
-
-      // Check if all required fields are filled
-      if (
-        !title ||
-        !description ||
-        !brand ||
-        !category ||
-        !thumbnail ||
-        !images
-      ) {
-        return next(new ErrorHandler("Please fill all required fields", 400));
-      }
-
-      const newProduct = new Product({
-        title,
-        description,
-        price,
-        discountPercentage,
-        rating,
-        stock,
-        brand,
-        category,
-        thumbnail,
-        images,
-        colors,
-        sizes,
-        highlights,
-        discountPrice,
+      //this save product function is in the product.model.ts
+      //it will check if the product is already in the database or not
+      const savedProduct = await saveProduct(req.body);
+      res.status(201).json({
+        message: "Product created successfully",
+        savedProduct,
       });
-
-      //save() means that we're saving the newProduct object to the database
-      await newProduct.save();
-
-      res.status(201).json({ message: "Product created successfully" });
     } catch (error) {
-      console.error("Error creating product:", error);
-
-      // Handle different types of errors with custom messages and status codes
-
-      if (error instanceof ErrorHandler) {
-        // If it's a known validation or custom error
-        res.status(error.statusCode).json({ message: error.message });
-      } else {
-        // For other unexpected errors
-        next(new ErrorHandler("Internal server error", 500));
-      }
+      next(error);
     }
   },
 );
 
-/*PRODUCT FETCHING & FILTERING & SORTING & PAGINATION*/
-//Testing URL: http://localhost:5050/products?category=fragrances&_sort=price&_order=asc&_page=1&_limit=2
+/*☑️ PRODUCT OPERATIONS ☑️ */
+//Testing URL: http://localhost:5050/products?category=fragrances&brand=Samsung&_sort=price&_order=asc&_page=1&_limit=2
 
 //custom error class for product not found*/
 class ProductNotFoundError extends Error {
@@ -88,96 +40,118 @@ class ProductNotFoundError extends Error {
   }
 }
 
-/*Filtering, Sorting, Pagination on Product*/
+/*☑️ Filtering, Sorting, Pagination on Product ☑️*/
 /**
  Filtering the products based on the query parameters
  Sort Example = {_sort: 'price', _order: 'asc'} or {_sort: 'price', _order: 'desc'}
  Filter Example  = {"category": ["smartphone", "laptop"]} or {"brand": ["apple", "samsung"]}
  Pagination Example = {_page: 1, _limit: 20} or {_page: 2, _limit: 20}
  */
-export const fetchProduct = catchAsyncError(
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      let condition: any = {};
-      if (!req.query.admin) {
-        condition.deleted = { $ne: true };
-      }
 
-      //🔥 Initialize the query without executing it
-      //Purpose: Deleted false products won't show up on the frontend
+interface QueryParams {
+  admin?: string;
+  category?: string;
+  brand?: string;
+  _sort?: string;
+  _order?: string;
+  _page?: string;
+  _limit?: string;
+}
+
+//Use for admin if admin is true then show all products including deleted products
+const buildCondition = (req: Request<{}, {}, {}, QueryParams>) => {
+  let condition: any = {};
+  if (!req.query.admin) {
+    condition.deleted = { $ne: true };
+  }
+  return condition;
+};
+
+//🔥 Filtering the products
+const filterProducts = (query: any, req: Request<{}, {}, {}, QueryParams>) => {
+  if (req.query.category) {
+    //example: query.where({category: ["smartphone", "laptop"]})
+    //if we get the category query parameter, we will filter the products based on the category
+    query = query.where({ category: req.query.category });
+  }
+  if (req.query.brand) {
+    query = query.where({ brand: req.query.brand });
+  }
+  return query;
+};
+
+//🔥 Sorting the products
+const sortProducts = (query: any, req: Request<{}, {}, {}, QueryParams>) => {
+  if (req.query._sort && req.query._order) {
+    const sortKey = req.query._sort as string;
+    const sortOrder = req.query._order as string;
+    const sortCriteria: { [key: string]: "asc" | "desc" } = {};
+    sortCriteria[sortKey] = sortOrder as "asc" | "desc";
+    query = query.sort(sortCriteria);
+  }
+  return query;
+};
+
+//🔥 Pagination of products
+const paginateProducts = (
+  query: any,
+  req: Request<{}, {}, {}, QueryParams>,
+) => {
+  if (req.query._page && req.query._limit) {
+    const pageSize = parseInt(req.query._limit as string);
+    const page = parseInt(req.query._page as string);
+    query = query.skip((page - 1) * pageSize).limit(pageSize);
+  }
+  return query;
+};
+
+//🔥 Fetching all products with filtering, sorting, pagination
+export const fetchProduct = catchAsyncError(
+  async (
+    req: Request<{}, {}, {}, QueryParams>,
+    res: Response,
+    next: NextFunction,
+  ) => {
+    try {
+      //filtering the products based on the query parameters
+      let condition = buildCondition(req);
+
+      // Initialize the query without executing it - Purpose: Deleted false products won't show up on the frontend
+      // It will be used for pagination, filtering and sorting
       let query = Product.find(condition);
 
-      //🔥 same deleted false purpose for pagination
+      //This will use it for pagination (X-Total-Count)
       let totalProductsQuery = Product.find(condition);
 
-      //✅ Filtering the products based on the category and brand
-      //Todo:✅ Multiple Cemeteries and Brands
-      if (req.query.category) {
-        //example: query.where({category: ["smartphone", "laptop"]})
-        //if we get the category query parameter, we will filter the products based on the category
-        query = query.where({ category: req.query.category });
-        //It will be used for pagination
-        totalProductsQuery = totalProductsQuery.where({
-          category: req.query.category,
-        });
-      }
+      //filtering the products based on the query parameters - filtering
+      query = filterProducts(query, req);
 
-      if (req.query.brand) {
-        //example: query.where({brand: ["apple", "samsung"]})
-        query = query.where({ brand: req.query.brand });
-        totalProductsQuery = totalProductsQuery.where({
-          brand: req.query.brand,
-        });
-      }
+      //sorting the products based on the query parameters - sorting
+      totalProductsQuery = filterProducts(totalProductsQuery, req);
 
-      //✅ Sorting the products based on the price
-      //If we get the _sort and _order query parameters, we will sort the products
-      if (req.query._sort && req.query._order) {
-        //We will store the sortKey and sortOrder in variables
-        //Example: sortKey = price, sortOrder = asc or desc
-        const sortKey = req.query._sort as string;
-        const sortOrder = req.query._order as string;
-        //We will create an object for sortCriteria, and we will use it in the query
-        //{ [key: string]: "asc" | "desc" } is a type for sortCriteria
-        const sortCriteria: { [key: string]: "asc" | "desc" } = {};
-        //we will add the sortKey and sortOrder to the sortCriteria object
-        sortCriteria[sortKey] = sortOrder as "asc" | "desc";
+      //sorting the products based on the query parameters - sorting
+      query = sortProducts(query, req);
 
-        //Format of sort example: query.sort({price: 'asc'})
-        //We can also use this format: query.sort({[sortKey] :sortOrder})
-        query = query.sort(sortCriteria);
-      }
+      //pagination of the products based on the query parameters - pagination
+      query = paginateProducts(query, req);
 
-      //✅ Pagination for products
-      //We will use the totalProductsQuery for pagination
-      //Pagination Example = {_page: 1, _limit: 20} or {_page: 2, _limit: 20}
-      //Math = pageSize = 5, page = 3  =>  skip((3-1)*5).limit(5) => skip(10).limit(5)
-      if (req.query._page && req.query._limit) {
-        const pageSize = parseInt(req.query._limit as string);
-        const page = parseInt(req.query._page as string);
-
-        //Formula for pagination
-        //Example: skip((3-1)*5).limit(5) => skip(10).limit(5)
-        query = query.skip((page - 1) * pageSize).limit(pageSize);
-      }
-
-      // Executing the query
+      //executing the query and getting the products
       const docs = await query.exec();
 
-      //We need it x-total-count for pagination in the frontend because we need to know the total number of products
-      //@ts-ignore
-      const totalDocs = await totalProductsQuery.count().exec();
+      //executing the query and getting the products - It will be used for pagination (X-Total-Count)
+      const totalDocs = await totalProductsQuery.countDocuments().exec();
+
+      //setting the header for pagination (X-Total-Count)
       res.set("X-Total-Count", totalDocs.toString());
 
-      //Addition check to see if the product array is empty
+      //if no products found then return error
       if (docs.length === 0) {
         return next(new AppError("No products found", 404));
       }
 
-      //Sending the products as a response
+      //returning the products
       res.status(200).json(docs);
     } catch (error) {
-      //Custom error handling
       if (error instanceof ProductNotFoundError) {
         res.status(error.statusCode).json({ message: error.message });
       } else {
