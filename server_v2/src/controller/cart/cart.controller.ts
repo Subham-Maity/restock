@@ -1,51 +1,122 @@
-import { Request, Response, NextFunction } from 'express';
+import { NextFunction, Request, Response } from "express";
 
 import catchAsyncError from "../../middleware/error/catchAsyncError";
-import Cart from "../../model/cart/cart.model";
+import { validationResult } from "express-validator";
+import ErrorHandler from "../../utils/errorHandler/errorHandler";
+import {
+  deleteCart,
+  fetchCartByUser,
+  saveCart,
+  updateCart,
+} from "./cart.model.controller";
 
-
-export const fetchCartByUser = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
-    const { user } = req.query;
-    try {
-        const cartItems = await Cart.find({ user: user }).populate('product');
-
-        res.status(200).json(cartItems);
-    } catch (err) {
-        res.status(400).json(err);
+/*☑️ GET CART BY USER ☑️ */
+export const getCartByUser = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return next(
+        new ErrorHandler(
+          errors
+            .array()
+            .map((err) => err.msg)
+            .join(", "),
+          400,
+        ),
+      );
     }
-});
-export const addToCart = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
-    const cart = new Cart(req.body);
-    try {
-        const doc = await cart.save();
-        const result = await doc.populate('product');
-        res.status(201).json(result);
-    } catch (err) {
-        res.status(400).json(err);
+
+    const user = req.query.user;
+    if (typeof user !== "string") {
+      return next(
+        new ErrorHandler("User query parameter must be a string", 400),
+      );
     }
-});
 
-export const deleteFromCart = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
-    const { id } = req.params;
     try {
-        const doc = await Cart.findByIdAndDelete(id);
-        res.status(200).json(doc);
-    } catch (err) {
-        res.status(400).json(err);
+      const cartItems = await fetchCartByUser(user);
+      res.status(200).json(cartItems);
+    } catch (error) {
+      next(error);
     }
-});
+  },
+);
 
+/*☑️ ADD TO CART ☑️ */
+export const addToCart = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return next(
+        new ErrorHandler(
+          errors
+            .array()
+            .map((err) => err.msg)
+            .join(", "),
+          400,
+        ),
+      );
+    }
 
-export const updateCart = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
-    const { id } = req.params;
     try {
-        const cart:any = await Cart.findByIdAndUpdate(id, req.body, {
-            new: true,
-        });
-        const result = await cart.populate('product');
-
-        res.status(200).json(result);
-    } catch (err) {
-        res.status(400).json(err);
+      const savedCart = await saveCart(req.body);
+      res.status(201).json(savedCart);
+    } catch (error) {
+      next(error);
     }
-});
+  },
+);
+
+/*☑️ DELETE FROM CART ☑️ */
+export const deleteFromCart = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return next(
+        new ErrorHandler(
+          errors
+            .array()
+            .map((err) => err.msg)
+            .join(", "),
+          400,
+        ),
+      );
+    }
+
+    const id = req.params.id;
+
+    try {
+      const deletedCart = await deleteCart(id);
+      res.status(200).json(deletedCart);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
+/*☑️ UPDATE CART BY ID ☑️ */
+export const updateCartById = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return next(
+        new ErrorHandler(
+          errors
+            .array()
+            .map((err) => err.msg)
+            .join(", "),
+          400,
+        ),
+      );
+    }
+
+    const id = req.params.id;
+
+    try {
+      const updatedCart = await updateCart(id, req.body);
+      res.status(200).json(updatedCart);
+    } catch (error) {
+      next(error);
+    }
+  },
+);

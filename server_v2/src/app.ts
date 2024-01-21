@@ -114,7 +114,7 @@ app.use("/api/v1/categories", restock.category);
 app.use("/api/v1/brands", restock.brand);
 app.use("/api/v1/banner", restock.banner);
 app.use("/api/v1/auth", restock.auth);
-
+app.use("/api/v1/cart", restock.cart);
 // Default route for the API - This will be used to test if the API is live
 app.get("/", (_: Request, res: Response) => {
   res.send("Yes you are connected to the app! 🚀");
