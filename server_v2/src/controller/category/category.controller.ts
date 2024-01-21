@@ -2,10 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import catchAsyncError from "../../middleware/error/catchAsyncError";
 import ErrorHandler from "../../utils/errorHandler/errorHandler";
 import { validationResult } from "express-validator";
-import {
-  fetchAllCategories,
-  saveCategory,
-} from "../../model/category/category.model.controller";
+import { fetchAllCategories, saveCategory } from "./category.model.controller";
 
 /*☑️ CREATE CATEGORY ☑️*/
 export const createCategory = catchAsyncError(
@@ -29,7 +26,7 @@ export const createCategory = catchAsyncError(
 
 //*☑️ GET ALL CATEGORIES ☑️*/
 export const fetchCategory = catchAsyncError(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (_: Request, res: Response, next: NextFunction) => {
     try {
       const categories = await fetchAllCategories();
       res.status(200).json(categories);

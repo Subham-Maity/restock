@@ -4,7 +4,13 @@ import ErrorHandler from "../../utils/errorHandler/errorHandler";
 import Product from "../../model/products/product.model";
 import AppError from "../../middleware/error/appError";
 import { validationResult } from "express-validator";
-import { saveProduct } from "../../model/products/product.model.controller";
+import {
+  findProductById,
+  saveProduct,
+  updateProductById,
+} from "./product.model.controller";
+import { QueryParams } from "../../types/products/QueryParam";
+import { IProduct } from "../../types/products/product";
 
 /*☑️ CREATE PRODUCT ☑️ */
 export const createProduct = catchAsyncError(
@@ -48,17 +54,6 @@ class ProductNotFoundError extends Error {
  Filter Example  = {"category": ["smartphone", "laptop"]} or {"brand": ["apple", "samsung"]}
  Pagination Example = {_page: 1, _limit: 20} or {_page: 2, _limit: 20}
  */
-
-interface QueryParams {
-  admin?: string;
-  category?: string;
-  brand?: string;
-  _sort?: string;
-  _order?: string;
-  _page?: string;
-  _limit?: string;
-  q?: string;
-}
 
 //Use for admin if admin is true then show all products including deleted products
 const buildCondition = (req: Request<{}, {}, {}, QueryParams>) => {
@@ -173,7 +168,7 @@ export const fetchProduct = catchAsyncError(
   },
 );
 
-/*FETCHING A SINGLE PRODUCT*/
+/*☑️ FETCHING A SINGLE PRODUCT ☑️ */
 
 //custom error class for product not found*/
 class ProductNotFoundError2 extends Error {
@@ -191,7 +186,7 @@ export const fetchProductById = catchAsyncError(
     try {
       const { id } = req.params;
 
-      const product = await Product.findById(id);
+      const product = await findProductById(id);
 
       if (!product) {
         throw new ProductNotFoundError2("Product not found");
@@ -208,7 +203,7 @@ export const fetchProductById = catchAsyncError(
   },
 );
 
-/* UPDATE PRODUCT */
+/*☑️ UPDATE PRODUCT ☑️ */
 
 // Helper function to check if ID is a valid ObjectId
 function isValidObjectId(id: string): boolean {
@@ -218,10 +213,19 @@ function isValidObjectId(id: string): boolean {
   return /^[0-9a-fA-F]{24}$/.test(id); // Simplified check (24-character hex string)
 }
 
+// Function to calculate the discount price
+export const calculateDiscountPrice = async (
+  product: IProduct,
+): Promise<number> => {
+  return Math.round(
+    product.price * (1 - (product.discountPercentage || 0) / 100),
+  );
+};
+
+// Update product
 export const updateProduct = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      // Get the ID from the request parameters
       const { id } = req.params;
 
       // Check if the provided ID is valid
@@ -229,9 +233,7 @@ export const updateProduct = catchAsyncError(
         return next(new ErrorHandler("Invalid product ID", 400));
       }
 
-      const updatedProduct = await Product.findByIdAndUpdate(id, req.body, {
-        new: true,
-      });
+      const updatedProduct = await updateProductById(id, req.body);
 
       if (!updatedProduct) {
         return next(new ErrorHandler("Product not found", 404));
@@ -239,17 +241,15 @@ export const updateProduct = catchAsyncError(
 
       // Calculate discountPrice if necessary
       if ("price" in req.body || "discountPercentage" in req.body) {
-        updatedProduct.discountPrice = Math.round(
-          updatedProduct.price *
-            (1 - (updatedProduct.discountPercentage || 0) / 100),
-        );
+        updatedProduct.discountPrice =
+          await calculateDiscountPrice(updatedProduct);
         await updatedProduct.save();
       }
 
       res.status(200).json(updatedProduct);
-    } catch (error: any) {
-      if (error.name === "CastError") {
-        return next(new ErrorHandler("Invalid product ID", 400));
+    } catch (error) {
+      if (error instanceof ErrorHandler) {
+        res.status(error.statusCode).json({ message: error.message });
       } else {
         next(new ErrorHandler("Internal server error", 500));
       }

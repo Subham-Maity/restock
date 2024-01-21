@@ -21,7 +21,8 @@
     - Brand
     - Category
 - **Routes Defined**: (Check Swagger Docs)
-    - Products[Create Products , Get Products (Filtering, Sorting, Pagination , Search)]
+    -
+    Products[Create Products , Get Products (Filtering, Sorting, Pagination , Search), Get Product By ID , Update Product By ID]
     - Brand[Create Brand, Get Brand]
     - Category[Create Category, Get Category]
         
