@@ -3,10 +3,7 @@ import { NextFunction, Request, Response } from "express";
 import catchAsyncError from "../../middleware/error/catchAsyncError";
 import ErrorHandler from "../../utils/errorHandler/errorHandler";
 import { validationResult } from "express-validator";
-import {
-  fetchAllBrands,
-  saveBrand,
-} from "../../model/brand/brand.model.controller"; /*☑️ CREATE BRAND ☑️ */
+import { fetchAllBrands, saveBrand } from "./brand.model.controller"; /*☑️ CREATE BRAND ☑️ */
 
 /*☑️ CREATE BRAND ☑️ */
 export const createBrand = catchAsyncError(

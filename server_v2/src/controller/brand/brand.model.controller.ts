@@ -1,4 +1,4 @@
-import Brand from "./brand.model";
+import Brand from "../../model/brand/brand.model";
 import ErrorHandler from "../../utils/errorHandler/errorHandler";
 import { IBrand } from "../../types/brand/brand";
 // 💾  Function to save brand data

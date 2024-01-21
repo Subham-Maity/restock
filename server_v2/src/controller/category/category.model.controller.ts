@@ -1,4 +1,4 @@
-import Category from "./category.model";
+import Category from "../../model/category/category.model";
 import { ICategory } from "../../types/category/category";
 import ErrorHandler from "../../utils/errorHandler/errorHandler";
 // 💾  Function to save category data
