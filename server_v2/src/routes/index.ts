@@ -23,6 +23,139 @@ export default {
   router,
 };
 
+// User
+/**
+ * @swagger
+ * /api/v1/users/{id}:
+ *   get:
+ *     summary: Fetch a user by ID
+ *     tags: [🔥 Users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of the user to fetch
+ *     responses:
+ *       200:
+ *         description: The fetched user
+ *         content:
+ *           application/json:
+ *             example:
+ *               id: "65870c4cfdff5cfa6ef4687a"
+ *               addresses: []
+ *               email: "abcd@gmail.com"
+ *               role: "user"
+ *       400:
+ *         description: Bad request. Invalid user ID.
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Invalid user ID"
+ *       404:
+ *         description: User not found
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "User not found"
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Internal server error"
+ */
+
+/**
+ * @swagger
+ * /api/v1/users/{id}:
+ *   patch:
+ *     summary: Update a user by ID
+ *     tags: [🔥 Users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of the user to update
+ *     requestBody:
+ *       description: Updated user details
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: object
+ *                 properties:
+ *                   type:
+ *                     type: string
+ *                   data:
+ *                     type: array
+ *                     items:
+ *                       type: number
+ *               role:
+ *                 type: string
+ *               addresses:
+ *                 type: array
+ *               orders:
+ *                 type: array
+ *               salt:
+ *                 type: object
+ *                 properties:
+ *                   type:
+ *                     type: string
+ *                   data:
+ *                     type: array
+ *                     items:
+ *                       type: number
+ *               id:
+ *                 type: string
+ *             example:
+ *               email: "abcd@gmail.com"
+ *               password: { "type": "Buffer", "data": [80, 147, ...] }
+ *               role: "user"
+ *               addresses: []
+ *               orders: []
+ *               salt: { "type": "Buffer", "data": [162, 242, ...] }
+ *               id: "65870c4cfdff5cfa6ef4687a"
+ *     responses:
+ *       200:
+ *         description: The updated user
+ *         content:
+ *           application/json:
+ *             example:
+ *               id: "65870c4cfdff5cfa6ef4687a"
+ *               email: "abcd@gmail.com"
+ *               role: "user"
+ *               addresses: []
+ *               orders: []
+ *               salt: { "type": "Buffer", "data": [162, 242, ...] }
+ *       400:
+ *         description: Bad request. Invalid user ID or request body.
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Invalid user ID"
+ *       404:
+ *         description: User not found
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "User not found"
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Internal server error"
+ */
+
 //Product
 /**
  * @swagger

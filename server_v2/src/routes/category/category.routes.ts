@@ -9,7 +9,7 @@ import { categoryValidationRules } from "../../validation/category/category.vali
 const category: Router = express.Router();
 
 category
-  .post("/categories", categoryValidationRules, createCategory)
-  .get("/categories", fetchCategory);
+  .post("/", categoryValidationRules, createCategory)
+  .get("/", fetchCategory);
 
 export default category;

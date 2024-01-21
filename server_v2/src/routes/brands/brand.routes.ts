@@ -7,8 +7,6 @@ import {
 import { brandValidationRules } from "../../validation/brand/brand.validation";
 
 const brand: Router = express.Router();
-brand
-  .post("/brands", brandValidationRules, createBrand)
-  .get("/brands", fetchBrand);
+brand.post("/", brandValidationRules, createBrand).get("/", fetchBrand);
 
 export default brand;
