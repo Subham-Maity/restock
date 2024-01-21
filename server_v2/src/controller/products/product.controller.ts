@@ -65,12 +65,63 @@ const buildCondition = (req: Request<{}, {}, {}, QueryParams>) => {
 };
 
 //🔥 Searching the products
-const searchProducts = (query: any, req: Request<{}, {}, {}, QueryParams>) => {
+//Faster than regex search but only works with text indexes
+const searchProducts_Text = (
+  query: any,
+  req: Request<{}, {}, {}, QueryParams>,
+) => {
   if (req.query.q) {
     query = query.where({ $text: { $search: req.query.q } });
   }
   return query;
 };
+
+//Slower than text search but works without text indexes and can search for partial words
+const searchProducts_Regex = (
+  query: any,
+  req: Request<{}, {}, {}, QueryParams>,
+) => {
+  if (req.query.q) {
+    const regex = new RegExp(req.query.q, "i"); // 'i' makes it case-insensitive
+    query = query.where({
+      $or: [
+        { title: regex },
+        { description: regex },
+        { brand: regex },
+        { category: regex },
+      ],
+    });
+  }
+  return query;
+};
+
+//Try $text search first, if no results then fall back to regex search
+//Slower than text search but better than regex search
+// and works without text indexes and can search for partial words
+const searchProducts_Text_Regex = (
+  query: any,
+  req: Request<{}, {}, {}, QueryParams>,
+) => {
+  if (req.query.q) {
+    // Try $text search first
+    const textSearchQuery = query
+      .clone()
+      .where({ $text: { $search: req.query.q } });
+
+    // If no results from $text search, fall back to regex search
+    const regex = new RegExp(req.query.q, "i"); // 'i' makes it case insensitive
+    query = query.where({
+      $or: [
+        { title: regex },
+        { description: regex },
+        { brand: regex },
+        { category: regex },
+      ],
+    });
+  }
+  return query;
+};
+
 //🔥 Filtering the products
 const filterProducts = (query: any, req: Request<{}, {}, {}, QueryParams>) => {
   if (req.query.category) {
@@ -140,7 +191,7 @@ export const fetchProduct = catchAsyncError(
       query = paginateProducts(query, req);
 
       //searching the products based on the query parameters - searching
-      query = searchProducts(query, req);
+      query = searchProducts_Text_Regex(query, req);
 
       //executing the query and getting the products
       const docs = await query.exec();
