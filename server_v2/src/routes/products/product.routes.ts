@@ -10,9 +10,9 @@ import { productValidationRules } from "../../validation/products/product.valida
 
 const Product: Router = express.Router();
 
-Product.post("/products", productValidationRules, createProduct)
-  .get("/products", fetchProduct)
-  .get("/products/:id", fetchProductById)
-  .patch("/products/:id", updateProduct);
+Product.post("/", productValidationRules, createProduct)
+  .get("/", fetchProduct)
+  .get("/:id", fetchProductById)
+  .patch("/:id", updateProduct);
 
 export default Product;

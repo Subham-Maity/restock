@@ -5,17 +5,16 @@ import {
   deleteOrder,
   fetchAllOrders,
   fetchOrdersByUser,
-  updateOrder
+  updateOrder,
 } from "../../controller/order/order.controller";
-
 
 const order: Router = express.Router();
 
 order
-  .post("/orders", createOrder)
-  .get("/orders/user/:userId", fetchOrdersByUser)
-  .delete("/orders/:id", deleteOrder)
-  .patch("/orders/:id", updateOrder)
-  .get("/orders", fetchAllOrders);
+  .post("/", createOrder)
+  .get("/user/:userId", fetchOrdersByUser)
+  .delete("/:id", deleteOrder)
+  .patch("/:id", updateOrder)
+  .get("/", fetchAllOrders);
 
 export default order;

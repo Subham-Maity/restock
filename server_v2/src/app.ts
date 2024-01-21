@@ -18,8 +18,6 @@ import morgan from "morgan";
 import {v4 as uuidv4} from "uuid";
 
 //Importing the error handler
-
-
 //Importing the routes
 import restock from "./routes";
 
@@ -109,13 +107,13 @@ app.use(globalErrorHandler);
 //v1 - useful for versioning without breaking the existing API we can have multiple versions of the API
 
 //Restock routes
-app.use("/api/v1", restock.Product);
-app.use("/api/v1", restock.user);
-app.use("/api/v1", restock.order);
-app.use("/api/v1", restock.category);
-app.use("/api/v1", restock.brand);
-app.use("/api/v1", restock.banner);
-app.use("/api/v1", restock.auth);
+app.use("/api/v1/products", restock.Product);
+app.use("/api/v1/users", restock.user);
+app.use("/api/v1/orders", restock.order);
+app.use("/api/v1/categories", restock.category);
+app.use("/api/v1/brands", restock.brand);
+app.use("/api/v1/banner", restock.banner);
+app.use("/api/v1/auth", restock.auth);
 
 // Default route for the API - This will be used to test if the API is live
 app.get("/", (_: Request, res: Response) => {
