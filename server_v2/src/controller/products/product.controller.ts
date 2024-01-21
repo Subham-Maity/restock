@@ -1,9 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 import catchAsyncError from "../../middleware/error/catchAsyncError";
 import ErrorHandler from "../../utils/errorHandler/errorHandler";
-import Product, { saveProduct } from "../../model/products/product.model";
+import Product from "../../model/products/product.model";
 import AppError from "../../middleware/error/appError";
 import { validationResult } from "express-validator";
+import { saveProduct } from "../../model/products/product.model.controller";
 
 /*☑️ CREATE PRODUCT ☑️ */
 export const createProduct = catchAsyncError(

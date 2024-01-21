@@ -1,78 +1,45 @@
-import {Request, Response, NextFunction} from 'express';
+import { NextFunction, Request, Response } from "express";
 
 import catchAsyncError from "../../middleware/error/catchAsyncError";
 import ErrorHandler from "../../utils/errorHandler/errorHandler";
-import Brand from "../../model/brand/brand.model";
+import { validationResult } from "express-validator";
+import {
+  fetchAllBrands,
+  saveBrand,
+} from "../../model/brand/brand.model.controller"; /*☑️ CREATE BRAND ☑️ */
 
+/*☑️ CREATE BRAND ☑️ */
+export const createBrand = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
 
-/*CREATE PRODUCT*/
-export const createBrand = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     try {
-        // req.body does indeed typically refer to the data that's sent from the frontend as part of an HTTP POST or PUT request
-        const {
-            label,
-            value
-        } = req.body;
-
-        // Check if all required fields are filled
-        if (!label || !value) {
-            return next(new ErrorHandler("Please fill all required fields", 400));
-        }
-
-        const newBrand = new Brand({
-            label,
-            value
-        });
-
-        //save() means that we're saving the newProduct object to the database
-        await newBrand.save();
-
-        res.status(201).json({message: "Brand created successfully"});
-
+      const savedBrand = await saveBrand(req.body);
+      res.status(201).json({
+        message: "Brand created successfully",
+        savedBrand,
+      });
     } catch (error) {
-
-        console.error("Error creating brand:", error);
-
-        // Handle different types of errors with custom messages and status codes
-
-        if (error instanceof ErrorHandler) {
-
-            // If it's a known validation or custom error
-            res.status(error.statusCode).json({message: error.message});
-
-        } else {
-
-            // For other unexpected errors
-            next(new ErrorHandler('Internal server error', 500));
-        }
+      next(error);
     }
-});
-
-
-/*GET ALL PRODUCTS*/
-export const fetchBrand = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
-        try {
-
-            //Fetch all brands from the database
-            const brands = await Brand.find({}).exec();
-
-            //Send an error message if no brands are found
-            if (!brands || brands.length === 0) {
-                throw new ErrorHandler('No brands found', 404);
-            }
-
-            res.status(200).json(brands);
-        } catch (err:any) {
-            //CastError is thrown when an invalid ID is passed to findById()
-            if (err.name === 'CastError') {
-                err = new ErrorHandler(`Invalid ID: ${err.value}`, 400);
-            }
-
-            next(err); // Pass the error to the global error handler
-        }
-    }
+  },
 );
 
-
-
-
+/*☑️ GET ALL BRANDS ☑️ */
+export const fetchBrand = catchAsyncError(
+  async (_, res: Response, next: NextFunction) => {
+    try {
+      const brands = await fetchAllBrands();
+      res.status(200).json(brands);
+    } catch (error) {
+      if (error instanceof ErrorHandler) {
+        res.status(error.statusCode).json({ message: error.message });
+      } else {
+        next(error);
+      }
+    }
+  },
+);
