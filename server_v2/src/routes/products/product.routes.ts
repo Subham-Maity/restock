@@ -9,12 +9,17 @@ import {
 import { productValidationRules } from "../../validation/products/product.validation";
 
 const Product: Router = express.Router();
+
+Product.post("/products", productValidationRules, createProduct)
+  .get("/products", fetchProduct)
+  .get("/products/:id", fetchProductById)
+  .patch("/products/:id", updateProduct);
 /**
  * @swagger
  * /api/v1/products:
  *   post:
  *     summary: Create a new product
- *     tags: [Products]
+ *     tags: [🔥 Products]
  *     requestBody:
  *       required: true
  *       content:
@@ -83,7 +88,7 @@ const Product: Router = express.Router();
  * /api/v1/products:
  *   get:
  *     summary: Retrieve a list of products with optional filtering, sorting, pagination, and search
- *     tags: [Products]
+ *     tags: [🔥 Products]
  *     parameters:
  *       - in: query
  *         name: admin
@@ -183,10 +188,4 @@ const Product: Router = express.Router();
  *             example:
  *               message: "Internal server error"
  */
-
-Product.post("/products", productValidationRules, createProduct)
-  .get("/products", fetchProduct)
-  .get("/products/:id", fetchProductById)
-  .patch("/products/:id", updateProduct);
-
 export default Product;
