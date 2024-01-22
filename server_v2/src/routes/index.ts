@@ -3,11 +3,11 @@ import { Router } from "express";
 import auth from "./auth/auth.routes";
 import banner from "./banner/banner.routes";
 import brand from "./brands/brand.routes";
-import card from "./cart/cart.routes";
 import category from "./category/category.routes";
 import order from "./order/order.routes";
 import Product from "./products/product.routes";
 import user from "./user/user.routes";
+import cart from "./cart/cart.routes";
 
 const router: Router = express.Router();
 
@@ -15,7 +15,7 @@ export default {
   auth,
   banner,
   brand,
-  card,
+  cart,
   category,
   order,
   Product,
@@ -23,13 +23,187 @@ export default {
   router,
 };
 
+// Cart
+
+/**
+ * @swagger
+ * /api/v1/cart:
+ *   get:
+ *     summary: Retrieve cart items for a user
+ *     tags: [🛒 Cart]
+ *     parameters:
+ *       - in: query
+ *         name: user
+ *         schema:
+ *           type: string
+ *         description: User ID to fetch the cart items
+ *     responses:
+ *       200:
+ *         description: Cart items successfully retrieved
+ *         content:
+ *           application/json:
+ *             example:
+ *               - productId: "12345"
+ *                 quantity: 2
+ *                 price: 25.99
+ *                 # ... (other cart item details)
+ *       400:
+ *         description: Bad request. Invalid user ID or validation errors.
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Invalid user ID"
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Internal server error"
+ */
+
+/**
+ * @swagger
+ * /api/v1/cart:
+ *   post:
+ *     summary: Add a product to the cart
+ *     tags: [🛒 Cart]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               productId:
+ *                 type: string
+ *               quantity:
+ *                 type: number
+ *             example:
+ *               productId: "12345"
+ *               quantity: 2
+ *     responses:
+ *       201:
+ *         description: Product successfully added to the cart
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Product added to the cart successfully"
+ *               cartItem:
+ *                 productId: "12345"
+ *                 quantity: 2
+ *                 price: 25.99
+ *                 # ... (other cart item details)
+ *       400:
+ *         description: Bad request. Validation errors in the request body.
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Invalid request body"
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Internal server error"
+ */
+
+/**
+ * @swagger
+ * /api/v1/cart/{id}:
+ *   delete:
+ *     summary: Remove a product from the cart by ID
+ *     tags: [🛒 Cart]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of the cart item to be deleted
+ *     responses:
+ *       200:
+ *         description: Product successfully removed from the cart
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Product removed from the cart successfully"
+ *               deletedCartItem:
+ *                 productId: "12345"
+ *                 quantity: 2
+ *                 price: 25.99
+ *                 # ... (other deleted cart item details)
+ *       400:
+ *         description: Bad request. Invalid cart item ID or validation errors.
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Invalid cart item ID"
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Internal server error"
+ */
+
+/**
+ * @swagger
+ * /api/v1/cart/{id}:
+ *   patch:
+ *     summary: Update the quantity of a product in the cart by ID
+ *     tags: [🛒 Cart]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of the cart item to be updated
+ *     requestBody:
+ *       description: Updated cart item details
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               quantity:
+ *                 type: number
+ *             example:
+ *               quantity: 3
+ *     responses:
+ *       200:
+ *         description: Cart item quantity successfully updated
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Cart item quantity updated successfully"
+ *               updatedCartItem:
+ *                 productId: "12345"
+ *                 quantity: 3
+ *                 price: 25.99
+ *                 # ... (other updated cart item details)
+ *       400:
+ *         description: Bad request. Invalid cart item ID or validation errors.
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Invalid cart item ID"
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Internal server error"
+ */
+
 // User
 /**
  * @swagger
  * /api/v1/users/{id}:
  *   get:
  *     summary: Fetch a user by ID
- *     tags: [🔥 Users]
+ *     tags: [👤 Users]
  *     parameters:
  *       - in: path
  *         name: id
@@ -72,7 +246,7 @@ export default {
  * /api/v1/users/{id}:
  *   patch:
  *     summary: Update a user by ID
- *     tags: [🔥 Users]
+ *     tags: [👤 Users]
  *     parameters:
  *       - in: path
  *         name: id
@@ -162,7 +336,7 @@ export default {
  * /api/v1/products:
  *   post:
  *     summary: Create a new product
- *     tags: [🔥 Products]
+ *     tags: [🧺 Products]
  *     requestBody:
  *       required: true
  *       content:
@@ -231,7 +405,7 @@ export default {
  * /api/v1/products:
  *   get:
  *     summary: Retrieve a list of products with optional filtering, sorting, pagination, and search
- *     tags: [🔥 Products]
+ *     tags: [🧺 Products]
  *     parameters:
  *       - in: query
  *         name: admin
@@ -337,7 +511,7 @@ export default {
  * /api/v1/products/{id}:
  *   get:
  *     summary: Retrieve a single product by ID
- *     tags: [🔥 Products]
+ *     tags: [🧺 Products]
  *     parameters:
  *       - in: path
  *         name: id
@@ -376,7 +550,7 @@ export default {
  * /api/v1/products/{id}:
  *   patch:
  *     summary: Update a product by ID
- *     tags: [🔥 Products]
+ *     tags: [🧺 Products]
  *     parameters:
  *       - in: path
  *         name: id
@@ -443,7 +617,7 @@ export default {
  * /api/v1/createCategory:
  *   post:
  *     summary: Create a new category
- *     tags: [🔥 Categories]
+ *     tags: [🧩 Categories]
  *     requestBody:
  *       required: true
  *       content:
@@ -479,7 +653,7 @@ export default {
  * /api/v1/fetchCategory:
  *   get:
  *     summary: Retrieve a list of all categories
- *     tags: [🔥 Categories]
+ *     tags: [🧩 Categories]
  *     responses:
  *       200:
  *         description: A list of all categories
@@ -511,7 +685,7 @@ export default {
  * /api/v1/brands:
  *   post:
  *     summary: Create a new brand
- *     tags: [🔥 Brands]
+ *     tags: [🧠 Brands]
  *     requestBody:
  *       description: Brand details to be created
  *       required: true
@@ -568,7 +742,7 @@ export default {
  * /api/v1/brands:
  *   get:
  *     summary: Retrieve a list of all brands
- *     tags: [🔥 Brands]
+ *     tags: [🧠 Brands]
  *     responses:
  *       200:
  *         description: A list of all brands

@@ -14,7 +14,6 @@ import cookieParser from "cookie-parser";
 //Importing the widgets
 import moment from "moment-timezone";
 import morgan from "morgan";
-
 import {v4 as uuidv4} from "uuid";
 
 //Importing the error handler
@@ -24,6 +23,7 @@ import restock from "./routes";
 //Importing the config
 import {corsUrl} from "./config/default";
 import globalErrorHandler from "./utils/errorHandler/globalErrorHandler";
+import passportSetup from "./utils/passport/passport.main";
 
 /*❗~~~~CONFIG~~~~❗*/
 // Loading environment variables from .env file
@@ -33,6 +33,9 @@ dotenv.config();
 
 // Initializing express app - This is the app object that will be used throughout the app
 const app: Application = express();
+
+//Passport setup for authentication
+passportSetup(app);
 
 //By using app.disable('x-powered-by'), the X-Powered-By header will not be sent with each HTTP response,
 // making it less explicit which technology is being used to serve the application.
@@ -114,7 +117,7 @@ app.use("/api/v1/categories", restock.category);
 app.use("/api/v1/brands", restock.brand);
 app.use("/api/v1/banner", restock.banner);
 app.use("/api/v1/auth", restock.auth);
-
+app.use("/api/v1/cart", restock.cart);
 // Default route for the API - This will be used to test if the API is live
 app.get("/", (_: Request, res: Response) => {
   res.send("Yes you are connected to the app! 🚀");
