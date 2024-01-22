@@ -29,6 +29,7 @@ const Navbar = ({ toggleSidebar, isSidebarOpen }: NavbarProps) => {
   const itemsForSearch = useSelector(selectAllProducts_);
   const [cartHoverTimeout, setCartHoverTimeout] = useState(null);
   const user = useSelector(selectUserInfo);
+  const role = user?.role;
   const items = useSelector(selectItems);
 
   const [isCartHoverOpen, setIsCartHoverOpen] = useState(false);

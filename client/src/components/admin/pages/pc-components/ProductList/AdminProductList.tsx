@@ -649,7 +649,6 @@ export const ProductGrid = ({ products }: { products: any }) => {
     const newItem = {
       ...product,
       quantity: 1,
-      user: user ? user.id : "anonymous",
     };
     delete newItem["id"];
 

@@ -9,7 +9,7 @@ import { userUpdateValidationRules } from "../../validation/user/user.validation
 const user: Router = express.Router();
 
 user
-  .get("/:id", fetchUserById)
+  .get("/own", fetchUserById)
   .patch("/:id", userUpdateValidationRules, updateUser);
 
 export default user;

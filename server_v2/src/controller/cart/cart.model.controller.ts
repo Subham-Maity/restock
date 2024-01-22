@@ -7,7 +7,7 @@ export const saveCart = async (cartData: Record<string, any>) => {
   try {
     const cart = new Cart(cartData);
     const savedCart = await cart.save();
-    return await Cart.findById(savedCart._id).populate("product");
+    return await savedCart.populate("product");
   } catch (error: any) {
     throw new ErrorHandler(`Error saving cart: ${error.message}`, 400);
   }
@@ -28,7 +28,6 @@ export const fetchCartByUser = async (userId: string) => {
     );
   }
 };
-
 //Delete cart item
 
 export const deleteCart = async (cartId: string) => {

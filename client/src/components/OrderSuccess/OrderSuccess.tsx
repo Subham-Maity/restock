@@ -15,9 +15,7 @@ function OrderSuccessPage() {
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
-    // @ts-ignore
-    dispatch(resetCartAsync(user.id));
-
+    dispatch(resetCartAsync());
     dispatch(resetOrder());
   }, [dispatch, user]);
 

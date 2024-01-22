@@ -9,9 +9,9 @@ export async function fetchLoggedInUserOrders(userId: any) {
   return { data };
 }
 
-export async function fetchLoggedInUser(userId: any) {
+export async function fetchLoggedInUser() {
   const response = await fetch(
-      `${BASE_URL}/users/` + userId,
+      `${BASE_URL}/users/own` ,
   );
   const data = await response.json();
   return { data };
