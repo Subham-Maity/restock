@@ -21,3 +21,13 @@ export const updateUserById = async (
     throw new Error(`Error updating user: ${error.message}`);
   }
 };
+
+//Use it for finding user by email
+export const findUserByEmail = async (email: string): Promise<IUser | null> => {
+  return User.findOne({ email: email });
+};
+
+//Use it for finding user by id
+export const findUserById_Token = async (id: string): Promise<IUser | null> => {
+  return User.findOne({ id: id });
+};

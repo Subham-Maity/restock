@@ -1,6 +1,6 @@
 // password.utils.ts
 import crypto from "crypto";
-import { IUser } from "../../../types/user/user";
+import { IUser } from "../../types/user/user";
 
 export const verifyPassword = async (password: string, user: IUser) => {
   return new Promise((resolve, reject) => {
