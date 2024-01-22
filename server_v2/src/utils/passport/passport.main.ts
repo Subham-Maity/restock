@@ -32,12 +32,18 @@ const passportSetup = (app: Application) => {
   const LocalStrategy = passportLocal.Strategy;
 
   //Passport for authentication and session management - JWT Strategy
+  //Passport for authentication and session management - JWT Strategy
   passport.use(
     "local", // name of the strategy (used to authenticate requests)
-    new LocalStrategy(async function (username, password, done) {
+    //we change the default usernameField from "username" to "email"
+    new LocalStrategy({ usernameField: "email" }, async function (
+      email,
+      password,
+      done,
+    ) {
       try {
         //Find the user associated with the email provided by the user
-        const user = await findUserByEmail(username);
+        const user = await findUserByEmail(email);
 
         //If the user isn't found in the database, return a message
         if (!user) {
