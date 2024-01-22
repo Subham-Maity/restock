@@ -1,11 +1,10 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 
 import { AuthState, User } from "@/lib/types/Auth/auth.type";
-import { updateUser } from "@/lib/api/RoleWiseFetch/userAPI";
 import {checkUser, createUser, signOut} from "@/lib/api/Auth/authAPI";
 
 const initialState: AuthState = {
-  loggedInUser: null,
+  loggedInUserToken: null,
   status: "idle",
   error: null,
 };
@@ -53,7 +52,7 @@ export const authSlice = createSlice({
       })
       .addCase(createUserAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.loggedInUser = action.payload;
+        state.loggedInUserToken = action.payload;
       })
       .addCase(checkUserAsync.pending, (state) => {
         state.status = "loading";
@@ -61,7 +60,7 @@ export const authSlice = createSlice({
       })
       .addCase(checkUserAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.loggedInUser = action.payload;
+        state.loggedInUserToken = action.payload;
       })
       .addCase(checkUserAsync.rejected, (state, action) => {
         state.status = "idle";
@@ -73,13 +72,13 @@ export const authSlice = createSlice({
       })
       .addCase(signOutAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.loggedInUser = null;
+        state.loggedInUserToken = null;
       });
   },
 });
 export const { increment } = authSlice.actions;
 export const selectLoggedInUser = (state: { auth: AuthState }) =>
-  state.auth.loggedInUser;
+  state.auth.loggedInUserToken;
 export const selectError = (state: { auth: AuthState }) => state.auth.error;
 
 export default authSlice.reducer;

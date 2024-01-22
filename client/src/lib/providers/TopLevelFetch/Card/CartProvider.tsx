@@ -11,7 +11,7 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const user: User | null = useSelector(selectLoggedInUser);
   useEffect(() => {
     if (user) {
-      dispatch(fetchItemsByUserIdAsync(user.id));
+      dispatch(fetchItemsByUserIdAsync());
     }
   }, [dispatch, user]);
 

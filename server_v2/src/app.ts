@@ -111,14 +111,14 @@ app.use(globalErrorHandler);
 //v1 - useful for versioning without breaking the existing API we can have multiple versions of the API
 
 //Restock routes
-app.use("/api/v1/products", isAuth, restock.Product);
+app.use("/api/v1/products", restock.Product);
 app.use("/api/v1/users", restock.user);
 app.use("/api/v1/orders", restock.order);
 app.use("/api/v1/categories", restock.category);
 app.use("/api/v1/brands", restock.brand);
 app.use("/api/v1/banner", restock.banner);
 app.use("/api/v1/auth", restock.auth);
-app.use("/api/v1/cart", restock.cart);
+app.use("/api/v1/cart", isAuth, restock.cart);
 // Default route for the API - This will be used to test if the API is live
 app.get("/", (_: Request, res: Response) => {
   res.send("Yes you are connected to the app! 🚀");

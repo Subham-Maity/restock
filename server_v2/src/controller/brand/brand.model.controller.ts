@@ -1,6 +1,8 @@
 import Brand from "../../model/brand/brand.model";
 import ErrorHandler from "../../utils/errorHandler/errorHandler";
 import { IBrand } from "../../types/brand/brand";
+import {ICart} from "../../types/cart/cart";
+import Cart from "../../model/cart/cart.model";
 // 💾  Function to save brand data
 export const saveBrand = async (brandData: Record<string, any>) => {
   try {
@@ -8,6 +10,14 @@ export const saveBrand = async (brandData: Record<string, any>) => {
     return await brand.save();
   } catch (error: any) {
     throw new Error(`Error saving brand: ${error.message}`);
+  }
+};
+
+export const fetchCartByUser = async (userId: string): Promise<ICart[]> => {
+  try {
+    return await Cart.find({user: userId}).populate('product');
+  } catch (error:any) {
+    throw new Error(`Error fetching cart: ${error.message}`);
   }
 };
 

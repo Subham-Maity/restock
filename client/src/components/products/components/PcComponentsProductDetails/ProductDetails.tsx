@@ -85,7 +85,6 @@ export default function ProductDetails() {
       const newItem = {
         product: product.id,
         quantity: 1,
-        user: user ? user.id : "anonymous",
       };
       dispatch(addToCartAsync(newItem))
         .then(() => {

@@ -1,8 +1,8 @@
 import * as express from "express";
 import { Router } from "express";
 import {
-  addToCart,
-  deleteFromCart,
+  addProductToCart,
+  deleteProductFromCart,
   getCartByUser,
   updateCartById,
 } from "../../controller/cart/cart.controller";
@@ -16,9 +16,9 @@ import {
 const cart: Router = express.Router();
 
 cart
-  .post("/", cartValidationRules, addToCart)
+  .post("/", cartValidationRules, addProductToCart)
   .get("/", cartUserValidationRules, getCartByUser)
-  .delete("/:id", cartIdValidationRules, deleteFromCart)
+  .delete("/:id", cartIdValidationRules, deleteProductFromCart)
   .patch("/:id", cartUpdateValidationRules, updateCartById);
 
 export default cart;

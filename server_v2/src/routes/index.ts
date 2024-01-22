@@ -29,35 +29,34 @@ export default {
  * @swagger
  * /api/v1/cart:
  *   get:
- *     summary: Retrieve cart items for a user
+ *     summary: Retrieve cart items for the authenticated user
  *     tags: [🛒 Cart]
- *     parameters:
- *       - in: query
- *         name: user
- *         schema:
- *           type: string
- *         description: User ID to fetch the cart items
  *     responses:
  *       200:
  *         description: Cart items successfully retrieved
  *         content:
  *           application/json:
  *             example:
- *               - productId: "12345"
- *                 quantity: 2
- *                 price: 25.99
- *                 # ... (other cart item details)
- *       400:
- *         description: Bad request. Invalid user ID or validation errors.
+ *               status: "success"
+ *               data:
+ *                 cartItems:
+ *                   - productId: "12345"
+ *                     quantity: 2
+ *                     price: 25.99
+ *                     # ... (other cart item details)
+ *       404:
+ *         description: No cart items found for the authenticated user
  *         content:
  *           application/json:
  *             example:
- *               message: "Invalid user ID"
+ *               status: "error"
+ *               message: "No cart items found for the user"
  *       500:
  *         description: Internal server error
  *         content:
  *           application/json:
  *             example:
+ *               status: "error"
  *               message: "Internal server error"
  */
 
@@ -65,8 +64,10 @@ export default {
  * @swagger
  * /api/v1/cart:
  *   post:
- *     summary: Add a product to the cart
+ *     summary: Add a product to the cart for the authenticated user
  *     tags: [🛒 Cart]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -87,62 +88,26 @@ export default {
  *         content:
  *           application/json:
  *             example:
- *               message: "Product added to the cart successfully"
- *               cartItem:
- *                 productId: "12345"
- *                 quantity: 2
- *                 price: 25.99
- *                 # ... (other cart item details)
+ *               status: "success"
+ *               data:
+ *                 cartItem:
+ *                   productId: "12345"
+ *                   quantity: 2
+ *                   price: 25.99
+ *                   # ... (other cart item details)
  *       400:
  *         description: Bad request. Validation errors in the request body.
  *         content:
  *           application/json:
  *             example:
+ *               status: "error"
  *               message: "Invalid request body"
  *       500:
  *         description: Internal server error
  *         content:
  *           application/json:
  *             example:
- *               message: "Internal server error"
- */
-
-/**
- * @swagger
- * /api/v1/cart/{id}:
- *   delete:
- *     summary: Remove a product from the cart by ID
- *     tags: [🛒 Cart]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: ID of the cart item to be deleted
- *     responses:
- *       200:
- *         description: Product successfully removed from the cart
- *         content:
- *           application/json:
- *             example:
- *               message: "Product removed from the cart successfully"
- *               deletedCartItem:
- *                 productId: "12345"
- *                 quantity: 2
- *                 price: 25.99
- *                 # ... (other deleted cart item details)
- *       400:
- *         description: Bad request. Invalid cart item ID or validation errors.
- *         content:
- *           application/json:
- *             example:
- *               message: "Invalid cart item ID"
- *       500:
- *         description: Internal server error
- *         content:
- *           application/json:
- *             example:
+ *               status: "error"
  *               message: "Internal server error"
  */
 
@@ -150,8 +115,10 @@ export default {
  * @swagger
  * /api/v1/cart/{id}:
  *   patch:
- *     summary: Update the quantity of a product in the cart by ID
+ *     summary: Update the quantity of a product in the cart by ID for the authenticated user
  *     tags: [🛒 Cart]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -177,30 +144,78 @@ export default {
  *         content:
  *           application/json:
  *             example:
+ *               status: "success"
  *               message: "Cart item quantity updated successfully"
- *               updatedCartItem:
- *                 productId: "12345"
- *                 quantity: 3
- *                 price: 25.99
- *                 # ... (other updated cart item details)
+ *               data:
+ *                 updatedCartItem:
+ *                   productId: "12345"
+ *                   quantity: 3
+ *                   price: 25.99
+ *                   # ... (other updated cart item details)
  *       400:
  *         description: Bad request. Invalid cart item ID or validation errors.
  *         content:
  *           application/json:
  *             example:
+ *               status: "error"
  *               message: "Invalid cart item ID"
  *       500:
  *         description: Internal server error
  *         content:
  *           application/json:
  *             example:
+ *               status: "error"
+ *               message: "Internal server error"
+ */
+/**
+ * @swagger
+ * /api/v1/cart/{id}:
+ *   delete:
+ *     summary: Remove a product from the cart by ID for the authenticated user
+ *     tags: [🛒 Cart]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of the cart item to be deleted
+ *     responses:
+ *       200:
+ *         description: Product successfully removed from the cart
+ *         content:
+ *           application/json:
+ *             example:
+ *               status: "success"
+ *               message: "Product removed from the cart successfully"
+ *               data:
+ *                 deletedCartItem:
+ *                   productId: "12345"
+ *                   quantity: 2
+ *                   price: 25.99
+ *                   # ... (other deleted cart item details)
+ *       400:
+ *         description: Bad request. Invalid cart item ID or validation errors.
+ *         content:
+ *           application/json:
+ *             example:
+ *               status: "error"
+ *               message: "Invalid cart item ID"
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             example:
+ *               status: "error"
  *               message: "Internal server error"
  */
 
 // User
 /**
  * @swagger
- * /api/v1/users/{id}:
+ * /api/v1/users/own:
  *   get:
  *     summary: Fetch a user by ID
  *     tags: [👤 Users]

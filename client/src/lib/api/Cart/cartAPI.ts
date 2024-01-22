@@ -12,10 +12,9 @@ export async function addToCart(item: CartItem): Promise<{ data: CartItem }> {
 }
 
 export async function fetchItemsByUserId(
-  userId: string,
 ): Promise<{ data: CartItem[] }> {
   const response = await fetch(
-      `${BASE_URL}/cart?user=${userId}`,
+      `${BASE_URL}/cart`,
   );
   const data = await response.json();
   return { data };
@@ -50,10 +49,10 @@ export async function deleteItemFromCart(
   return { data: { id: itemId } };
 }
 
-export function resetCart(userId: string): Promise<{ status: "success"; data: any }> {
+export function resetCart(): Promise<{ status: "success"; data: any }> {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await fetchItemsByUserId(userId);
+      const response = await fetchItemsByUserId();
       const items:any = response.data;
       for (let item of items) {
         await deleteItemFromCart(item.id);

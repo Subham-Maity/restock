@@ -8,7 +8,7 @@ import { findUserById, updateUserById } from "./user.model.controller";
 export const fetchUserById = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { id } = req.params;
+      const { id } = req.user as { id: string };
 
       // Check if the provided ID is valid
       if (!id || !isValidObjectId(id)) {
@@ -21,14 +21,12 @@ export const fetchUserById = catchAsyncError(
         return next(new ErrorHandler("User not found", 404));
       }
 
-      res
-        .status(200)
-        .json({
-          id: user.id,
-          addresses: user.addresses,
-          email: user.email,
-          role: user.role,
-        });
+      res.status(200).json({
+        id: user.id,
+        addresses: user.addresses,
+        email: user.email,
+        role: user.role,
+      });
     } catch (error) {
       if (error instanceof ErrorHandler) {
         res.status(error.statusCode).json({ message: error.message });

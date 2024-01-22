@@ -11,7 +11,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const user: User | null = useSelector(selectLoggedInUser);
   useEffect(() => {
     if (user) {
-      dispatch(fetchLoggedInUserAsync(user.id));
+      dispatch(fetchLoggedInUserAsync());
     }
   }, [dispatch, user]);
 
