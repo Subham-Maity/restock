@@ -23,7 +23,7 @@ import restock from "./routes";
 //Importing the config
 import {corsUrl} from "./config/default";
 import globalErrorHandler from "./utils/errorHandler/globalErrorHandler";
-import passportSetup from "./utils/passport/passport";
+import passportSetup from "./utils/passport/passport.main";
 
 /*❗~~~~CONFIG~~~~❗*/
 // Loading environment variables from .env file
