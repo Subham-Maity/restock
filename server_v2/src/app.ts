@@ -24,6 +24,7 @@ import restock from "./routes";
 import {corsUrl} from "./config/default";
 import globalErrorHandler from "./utils/errorHandler/globalErrorHandler";
 import passportSetup from "./utils/passport/passport.main";
+import {isAuth} from "./services/protect/protected";
 
 /*❗~~~~CONFIG~~~~❗*/
 // Loading environment variables from .env file
@@ -110,7 +111,7 @@ app.use(globalErrorHandler);
 //v1 - useful for versioning without breaking the existing API we can have multiple versions of the API
 
 //Restock routes
-app.use("/api/v1/products", restock.Product);
+app.use("/api/v1/products", isAuth, restock.Product);
 app.use("/api/v1/users", restock.user);
 app.use("/api/v1/orders", restock.order);
 app.use("/api/v1/categories", restock.category);

@@ -13,5 +13,6 @@ export default {
 export const port: string | number = process.env.PORT || 5050; // You can remove the default value
 export const corsUrl: string = process.env.CORS_URL || "http://localhost:3000"; // You can remove the default value
 
-export const sessionSecret = process.env.SESSION_SECRET || "keyboard cat";
-export const SECRET_KEY = process.env.SECRET_KEY || "SECRET_KEY";
+export const Passport_Session_Secret =
+  process.env.SESSION_SECRET || "keyboard cat";
+export const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY || "SECRET_KEY";
