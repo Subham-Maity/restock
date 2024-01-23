@@ -45,13 +45,10 @@ export const deleteItemFromCartAsync = createAsyncThunk(
   },
 );
 
-export const resetCartAsync = createAsyncThunk(
-  "cart/resetCart",
-  async () => {
-    const response = await resetCart();
-    return response.data;
-  },
-);
+export const resetCartAsync = createAsyncThunk("cart/resetCart", async () => {
+  const response = await resetCart();
+  return response.data;
+});
 
 export const cartSlice = createSlice({
   name: "cart",
@@ -83,7 +80,7 @@ export const cartSlice = createSlice({
       .addCase(updateCartAsync.fulfilled, (state, action) => {
         state.status = "idle";
         const index = state.items.findIndex(
-          (item:any) => item.id === action.payload.id,
+          (item: any) => item.id === action.payload.id,
         );
         state.items[index] = action.payload;
       })
@@ -93,7 +90,7 @@ export const cartSlice = createSlice({
       .addCase(deleteItemFromCartAsync.fulfilled, (state, action) => {
         state.status = "idle";
         const index = state.items.findIndex(
-          (item:any) => item.id === action.payload.id,
+          (item: any) => item.id === action.payload.id,
         );
         state.items.splice(index, 1);
       })

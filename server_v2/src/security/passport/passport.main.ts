@@ -8,9 +8,9 @@ import {
   JWT_SECRET_KEY,
   Passport_Session_Secret,
 } from "../../config/default";
-import { verifyPassword } from "../hash/verify.password.utils";
+import { verifyPassword } from "../hash/crypto/verify.password.utils";
 import { Application } from "express";
-import { opts } from "../jwt/option.utils";
+import { opts } from "../../services/extractor/jwt/option.utils";
 import { sanitizeUser } from "../../services/sanitize/sanitize.utils";
 import { IUser } from "../../types/user/user";
 import {
@@ -62,12 +62,12 @@ const passportSetup = (app: Application) => {
           return done(null, false, { message: "invalid credentials" });
         }
 
-        // If credentials are correct, pass user object to signPayload function
+        // If credentials are correct, pass a user object to signPayload function
         // to create a JWT token for the user and return the JWT token
         const token = signPayload(sanitizeUser(user), JWT_SECRET_KEY, {
           expiresIn: JWT_EXPIRATION_TIME,
         });
-        done(null, token);
+        done(null, { token });
       } catch (err) {
         done(err);
       }

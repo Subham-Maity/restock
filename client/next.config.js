@@ -1,13 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    images: {
-        remotePatterns:[
-            {
-                hostname: '**',
-            }
-        ]
-
-    },
+  distDir: "build",
+  images: {
+    remotePatterns: [
+      {
+        hostname: "**",
+      },
+    ],
+  },
 };
 
 module.exports = nextConfig;

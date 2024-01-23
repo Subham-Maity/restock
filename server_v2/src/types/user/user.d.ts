@@ -13,4 +13,5 @@ export interface IUser extends Document {
   createdAt?: Date;
   updatedAt?: Date;
   orders?: Array<any>;
+  token?: any;
 }
