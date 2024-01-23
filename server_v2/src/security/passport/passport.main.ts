@@ -3,8 +3,12 @@ import { Strategy as JwtStrategy } from "passport-jwt";
 import session from "express-session";
 import passport from "passport";
 import passportLocal from "passport-local";
-import { JWT_SECRET_KEY, Passport_Session_Secret } from "../../config/default";
-import { verifyPassword } from "../security/verify.password.utils";
+import {
+  JWT_EXPIRATION_TIME,
+  JWT_SECRET_KEY,
+  Passport_Session_Secret,
+} from "../../config/default";
+import { verifyPassword } from "../hash/verify.password.utils";
 import { Application } from "express";
 import { opts } from "../jwt/option.utils";
 import { sanitizeUser } from "../../services/sanitize/sanitize.utils";
@@ -61,7 +65,7 @@ const passportSetup = (app: Application) => {
         // If credentials are correct, pass user object to signPayload function
         // to create a JWT token for the user and return the JWT token
         const token = signPayload(sanitizeUser(user), JWT_SECRET_KEY, {
-          expiresIn: "1h",
+          expiresIn: JWT_EXPIRATION_TIME,
         });
         done(null, token);
       } catch (err) {
