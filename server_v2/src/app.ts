@@ -35,6 +35,9 @@ dotenv.config();
 // Initializing express app - This is the app object that will be used throughout the app
 const app: Application = express();
 
+// Serve static files from the React frontend app - This will serve the static files from the React app
+app.use(express.static("build/server/app"));
+
 //Passport setup for authentication
 passportSetup(app);
 

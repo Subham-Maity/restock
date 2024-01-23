@@ -7,7 +7,7 @@ import ErrorHandler from "../../utils/errorHandler/errorHandler";
 import {
   hashPassword,
   IHashedPassword,
-} from "../../security/hash/hash.password.util";
+} from "../../security/hash/crypto/hash.password.util";
 import { createUser } from "./auth.model.controller";
 import { cookieOptions } from "../../storage/cookie/cookie.config";
 import { setCookie } from "../../storage/cookie/cookie";
@@ -17,6 +17,7 @@ import {
   JWT_SECRET_KEY,
 } from "../../config/default";
 import { signPayload } from "../../security/jwt/sign.utils";
+import { IUser } from "../../types/user/user";
 
 /* CREATE USER */
 
@@ -38,6 +39,7 @@ export const registerUser = catchAsyncError(
     try {
       //Pass the password to the hashPassword function
       // Destructure the salt and hashedPassword from the returned object
+      //@ts-ignore
       const { salt, hashedPassword }: IHashedPassword = await hashPassword(
         req.body.password,
       );
@@ -57,13 +59,11 @@ export const registerUser = catchAsyncError(
             expiresIn: JWT_EXPIRATION_TIME,
           });
           setCookie(res, COOKIE_NAME, token, cookieOptions);
-          res
-            .status(201)
-            .json({
-              msg: "Login Successful...!",
-              id: user.id,
-              role: user.role,
-            });
+          res.status(201).json({
+            msg: "Login Successful...!",
+            id: user.id,
+            role: user.role,
+          });
         }
       });
     } catch (err) {
@@ -74,10 +74,21 @@ export const registerUser = catchAsyncError(
 /* LOGIN USER */
 export const loginUser = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
-    res.json(req.user);
+    //req from passport local strategy
+    const user = req.user as IUser;
+
+    try {
+      //token send by passport local strategy
+      setCookie(res, COOKIE_NAME, user.token, cookieOptions);
+      console.log(user.id);
+      res
+        .status(201)
+        .json({ msg: "Login Successful...!", id: user.id, role: user.role });
+    } catch (err) {
+      res.status(400).json(err);
+    }
   },
 );
-
 /*CHECK USER*/
 export const checkUser = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
