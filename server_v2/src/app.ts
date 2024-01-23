@@ -23,7 +23,7 @@ import restock from "./routes";
 //Importing the config
 import {corsUrl} from "./config/default";
 import globalErrorHandler from "./utils/errorHandler/globalErrorHandler";
-import passportSetup from "./utils/passport/passport.main";
+import passportSetup from "./security/passport/passport.main";
 import {isAuth} from "./services/protect/protected";
 
 /*❗~~~~CONFIG~~~~❗*/
@@ -112,7 +112,7 @@ app.use(globalErrorHandler);
 
 //Restock routes
 app.use("/api/v1/products", restock.Product);
-app.use("/api/v1/users", restock.user);
+app.use("/api/v1/users", isAuth, restock.user);
 app.use("/api/v1/orders", restock.order);
 app.use("/api/v1/categories", restock.category);
 app.use("/api/v1/brands", restock.brand);

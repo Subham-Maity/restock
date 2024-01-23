@@ -7,10 +7,16 @@ import ErrorHandler from "../../utils/errorHandler/errorHandler";
 import {
   hashPassword,
   IHashedPassword,
-} from "../../utils/security/hash.password.util";
+} from "../../security/hash/hash.password.util";
 import { createUser } from "./auth.model.controller";
-import { signPayload } from "../../utils/jwt/sign.utils";
-import { JWT_SECRET_KEY } from "../../config/default";
+import { cookieOptions } from "../../storage/cookie/cookie.config";
+import { setCookie } from "../../storage/cookie/cookie";
+import {
+  COOKIE_NAME,
+  JWT_EXPIRATION_TIME,
+  JWT_SECRET_KEY,
+} from "../../config/default";
+import { signPayload } from "../../security/jwt/sign.utils";
 
 /* CREATE USER */
 
@@ -43,13 +49,21 @@ export const registerUser = catchAsyncError(
       });
       //If the user is created successfully, sign the user and return the JWT token
       req.login(sanitizeUser(user), (err) => {
+        // this also calls serializer and adds to session
         if (err) {
           res.status(400).json(err);
         } else {
           const token = signPayload(sanitizeUser(user), JWT_SECRET_KEY, {
-            expiresIn: "1h",
+            expiresIn: JWT_EXPIRATION_TIME,
           });
-          res.status(201).json(token);
+          setCookie(res, COOKIE_NAME, token, cookieOptions);
+          res
+            .status(201)
+            .json({
+              msg: "Login Successful...!",
+              id: user.id,
+              role: user.role,
+            });
         }
       });
     } catch (err) {
