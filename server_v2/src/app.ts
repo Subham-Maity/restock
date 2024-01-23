@@ -21,7 +21,6 @@ import {v4 as uuidv4} from "uuid";
 import restock from "./routes";
 
 //Importing the config
-import {corsUrl} from "./config/default";
 import globalErrorHandler from "./utils/errorHandler/globalErrorHandler";
 import passportSetup from "./security/passport/passport.main";
 import {isAuth} from "./services/protect/protected";
@@ -35,9 +34,6 @@ dotenv.config();
 // Initializing express app - This is the app object that will be used throughout the app
 const app: Application = express();
 
-// Serve static files from the React frontend app - This will serve the static files from the React app
-app.use(express.static("build/server/app"));
-
 //Passport setup for authentication
 passportSetup(app);
 
@@ -48,7 +44,8 @@ app.disable("x-powered-by");
 // Middleware for handling CORS - This will handle CORS errors
 app.use(
   cors({
-    origin: corsUrl,
+    // origin: corsUrl,//Production url
+    origin: true, //It will allow all the origins
     optionsSuccessStatus: 200,
     exposedHeaders: ["X-Total-Count"], //for pagination
     credentials: true, //for cookies

@@ -10,7 +10,7 @@ import {
 } from "../../config/default";
 import { verifyPassword } from "../hash/crypto/verify.password.utils";
 import { Application } from "express";
-import { opts } from "../jwt/option.utils";
+import { opts } from "../../services/extractor/jwt/option.utils";
 import { sanitizeUser } from "../../services/sanitize/sanitize.utils";
 import { IUser } from "../../types/user/user";
 import {

@@ -80,7 +80,6 @@ export const loginUser = catchAsyncError(
     try {
       //token send by passport local strategy
       setCookie(res, COOKIE_NAME, user.token, cookieOptions);
-      console.log(user.id);
       res
         .status(201)
         .json({ msg: "Login Successful...!", id: user.id, role: user.role });
