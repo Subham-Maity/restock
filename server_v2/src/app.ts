@@ -45,7 +45,7 @@ app.disable("x-powered-by");
 app.use(
   cors({
     // origin: corsUrl,//Production url
-    origin: true, //It will allow all the origins
+    origin: "https://restock-peach.vercel.app", //Production url
     optionsSuccessStatus: 200,
     exposedHeaders: ["X-Total-Count"], //for pagination
     credentials: true, //for cookies
