@@ -14,7 +14,8 @@
     "preserve": "npm run build",
     "prod": "concurrently \"npm run build\" \"npm run start\"",
     "compile": "npx tsc",
-    "deploy": "nodemon src/server.ts"
+    "deploy": "nodemon src/server.ts",
+    "test": "concurrently \"npx tsc -w\"  \"nodemon dist/server.js\""
   },
   "keywords": [],
   "dependencies": {
