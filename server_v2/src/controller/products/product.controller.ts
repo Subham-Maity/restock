@@ -222,7 +222,7 @@ export const fetchProduct = catchAsyncError(
       // Store the result in Redis for future queries
       redisClient.set(queryKey, JSON.stringify(docs));
       //returning the products
-      res.status(200).json({ msg: "Products fetched successfully" });
+      res.status(200).json(docs);
     } catch (error) {
       if (error instanceof ProductNotFoundError) {
         res.status(error.statusCode).json({ message: error.message });

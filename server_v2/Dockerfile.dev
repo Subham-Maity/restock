@@ -17,7 +17,7 @@ COPY . .
 EXPOSE 3000
 
 # Define environment variable
-ENV NODE_ENV production
+ENV NODE_ENV development
 
-# Run npm start when the container launches
-CMD ["npm", "start"]
+# Run npm dev when the container launches
+CMD ["npm", "run", "dev"]
