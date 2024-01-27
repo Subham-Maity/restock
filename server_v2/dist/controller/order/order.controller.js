@@ -5,12 +5,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.fetchAllOrders = exports.updateOrder = exports.deleteOrder = exports.createOrder = exports.fetchOrdersByUser = void 0;
 const catchAsyncError_1 = __importDefault(require("../../middleware/error/catchAsyncError"));
-const order_model_1 = __importDefault(require("../../model/order/order.model"));
+const order_model_1 = __importDefault(require("../../model/order/order.model")); /*FETCH ALL ORDERS*/
 /*FETCH ALL ORDERS*/
 exports.fetchOrdersByUser = (0, catchAsyncError_1.default)(async (req, res, next) => {
-    const { userId } = req.params;
+    //@ts-ignore
+    const { id } = req.user;
     try {
-        const orders = await order_model_1.default.find({ user: userId });
+        const orders = await order_model_1.default.find({ user: id });
         res.status(200).json(orders);
     }
     catch (err) {
@@ -74,7 +75,7 @@ exports.fetchAllOrders = (0, catchAsyncError_1.default)(async (req, res, next) =
     }
     try {
         const docs = await query.exec();
-        res.set('X-Total-Count', totalDocs.toString());
+        res.set("X-Total-Count", totalDocs.toString());
         res.status(200).json(docs);
     }
     catch (err) {

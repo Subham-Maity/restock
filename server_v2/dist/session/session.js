@@ -22,14 +22,22 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const express = __importStar(require("express"));
-const order_controller_1 = require("../../controller/order/order.controller");
-const order = express.Router();
-order
-    .post("/", order_controller_1.createOrder)
-    .get("/own", order_controller_1.fetchOrdersByUser)
-    .delete("/:id", order_controller_1.deleteOrder)
-    .patch("/:id", order_controller_1.updateOrder)
-    .get("/", order_controller_1.fetchAllOrders);
-exports.default = order;
+exports.configureSession = void 0;
+const express_session_1 = __importDefault(require("express-session"));
+const connect_mongo_1 = __importDefault(require("connect-mongo"));
+const default_1 = __importStar(require("../config/default"));
+const configureSession = (app) => {
+    app.use((0, express_session_1.default)({
+        store: connect_mongo_1.default.create({
+            mongoUrl: default_1.default.db,
+        }),
+        secret: default_1.Passport_Session_Secret,
+        resave: false, // don't save session if unmodified
+        saveUninitialized: false, //don't create session until something stored
+    }));
+};
+exports.configureSession = configureSession;

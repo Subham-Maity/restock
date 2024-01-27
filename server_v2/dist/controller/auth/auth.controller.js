@@ -10,7 +10,7 @@ const express_validator_1 = require("express-validator");
 const errorHandler_1 = __importDefault(require("../../utils/errorHandler/errorHandler"));
 const hash_password_util_1 = require("../../security/hash/crypto/hash.password.util");
 const auth_model_controller_1 = require("./auth.model.controller");
-const cookie_config_1 = require("../../storage/cookie/cookie.config");
+const cookie_setting_1 = require("../../storage/cookie/cookie.setting");
 const cookie_1 = require("../../storage/cookie/cookie");
 const default_1 = require("../../config/default");
 const sign_utils_1 = require("../../security/jwt/sign.utils");
@@ -26,7 +26,6 @@ exports.registerUser = (0, catchAsyncError_1.default)(async (req, res, next) => 
     try {
         //Pass the password to the hashPassword function
         // Destructure the salt and hashedPassword from the returned object
-        //@ts-ignore
         const { salt, hashedPassword } = await (0, hash_password_util_1.hashPassword)(req.body.password);
         //Create the user in the database with the hashed password and salt
         const user = await (0, auth_model_controller_1.createUser)({
@@ -44,7 +43,7 @@ exports.registerUser = (0, catchAsyncError_1.default)(async (req, res, next) => 
                 const token = (0, sign_utils_1.signPayload)((0, sanitize_utils_1.sanitizeUser)(user), default_1.JWT_SECRET_KEY, {
                     expiresIn: default_1.JWT_EXPIRATION_TIME,
                 });
-                (0, cookie_1.setCookie)(res, default_1.COOKIE_NAME, token, cookie_config_1.cookieOptions);
+                (0, cookie_1.setCookie)(res, cookie_setting_1.COOKIE_NAME_SET, token, cookie_setting_1.cookieOptions);
                 res.status(201).json({
                     msg: "Login Successful...!",
                     id: user.id,
@@ -63,7 +62,7 @@ exports.loginUser = (0, catchAsyncError_1.default)(async (req, res, next) => {
     const user = req.user;
     try {
         //token send by passport local strategy
-        (0, cookie_1.setCookie)(res, default_1.COOKIE_NAME, user.token, cookie_config_1.cookieOptions);
+        (0, cookie_1.setCookie)(res, cookie_setting_1.COOKIE_NAME_SET, user.token, cookie_setting_1.cookieOptions);
         res
             .status(201)
             .json({ msg: "Login Successful...!", id: user.id, role: user.role });

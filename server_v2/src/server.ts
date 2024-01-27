@@ -1,28 +1,30 @@
-
 import log from "./utils/logger/logger";
 import http from "http";
 import app from "./app";
 import swaggerDocs from "./utils/documentation/swagger";
-import {port} from "./config/default";
+import "./logs";
 import connectDB from "./config/dbConnect";
+import config from "./config/default";
 
 const server = http.createServer(app);
 (async () => {
   try {
-    await connectDB(); // Wait for DB connection
+    // Wait for DB connection to be established
+    await connectDB();
     log.info("Connected to the database successfully.");
-
     server
-      .listen(port, () => {
-        swaggerDocs(app, port);
-        log.info(`Server live on: http://localhost:${port}`);
+      .listen(config.port, () => {
+        swaggerDocs(app, config.port);
+        log.info(`Server live on: http://localhost:${config.port}`);
       })
       .on("error", (e) => {
         log.error("Error occurred in the server:", e);
-        process.exit(1); // Exit the process with failure code
+        // Exit the process with failure code
+        process.exit(1);
       });
   } catch (error) {
     log.error("Error connecting to the database:", error);
-    process.exit(1); // Exit the process with failure code
+    // Exit the process with failure code
+    process.exit(1);
   }
 })();

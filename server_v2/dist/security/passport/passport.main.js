@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 // passport.ts
 const passport_jwt_1 = require("passport-jwt");
-const express_session_1 = __importDefault(require("express-session"));
 const passport_1 = __importDefault(require("passport"));
 const passport_local_1 = __importDefault(require("passport-local"));
 const default_1 = require("../../config/default");
@@ -15,12 +14,6 @@ const sanitize_utils_1 = require("../../services/sanitize/sanitize.utils");
 const user_model_controller_1 = require("../../controller/user/user.model.controller");
 const sign_utils_1 = require("../jwt/sign.utils");
 const passportSetup = (app) => {
-    //Passport for authentication and session management
-    app.use((0, express_session_1.default)({
-        secret: default_1.Passport_Session_Secret,
-        resave: false, // don't save session if unmodified
-        saveUninitialized: false, //don't create session until something stored
-    }));
     //Initialize passport and session
     app.use(passport_1.default.authenticate("session"));
     //Passport for authentication and session management - Local Strategy

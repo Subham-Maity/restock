@@ -2,21 +2,31 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+//❓ Check if the NODE_ENV is set, default to 'development'
+const env = process.env.NODE_ENV || "development";
+
+// Load environment variables from the corresponding .env file
+if (env === "production") {
+  dotenv.config({ path: ".env.prod" });
+} else {
+  dotenv.config({ path: ".env.dev" });
+}
+
+//✅ Port, Host, CORS Origin, and Database URL
 export default {
-  port: process.env.PORT || 5050, // You can remove the default value
-  host: process.env.HOST || "localhost", // You can remove the default value
-  corsOrigin: process.env.CORS_ORIGIN || "http://localhost:3000", // You can remove the default value
+  port: process.env.PORT || 5050,
+  host: process.env.HOST || "localhost",
+  corsOrigin: process.env.CORS_URL,
   db: process.env.MONGO_URL,
 };
-
-//✅ Port and CORS URL - Use in server.ts
-export const port: string | number = process.env.PORT || 5050; // You can remove the default value
-export const corsUrl: string = process.env.CORS_URL || "http://localhost:3000"; // You can remove the default value
-
+//✅ Passport Session Secret - Use in passport.ts
 export const Passport_Session_Secret =
   process.env.SESSION_SECRET || "keyboard cat";
+
+//✅ JWT Secret Key, JWT Expiration Time
 export const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY || "SECRET_KEY";
 
 export const JWT_EXPIRATION_TIME = process.env.JWT_EXPIRATION_TIME || "1h";
 
+//✅ Cookie Name - Use in cookie.config.ts
 export const COOKIE_NAME = process.env.COOKIE_NAME || "jwt";

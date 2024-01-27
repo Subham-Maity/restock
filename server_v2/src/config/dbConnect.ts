@@ -5,7 +5,7 @@ import log from "../utils/logger/logger";
 const connectDB = async (): Promise<void> => {
   try {
     const uri: string =
-      process.env.MONGO_URL || `mongodb://localhost:${config.port}/mydatabase`;
+      config.db || `mongodb://localhost:${config.port}/mydatabase`;
     //It is recommended to set useNewUrlParser, useUnifiedTopology, and useCreateIndex to true.
     mongoose.set("strictQuery", true);
     const con = await mongoose.connect(uri);
