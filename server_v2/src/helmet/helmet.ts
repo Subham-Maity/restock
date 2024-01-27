@@ -1,6 +1,11 @@
 import { Application } from "express";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
+import {
+  helmet_rate_limit_max,
+  helmet_rate_limit_message,
+  helmet_rate_limit_windowMs,
+} from "./helmet.setting";
 
 export const setupSecurity = (app: Application) => {
   // Use Helmet to set security-related HTTP headers
@@ -20,9 +25,9 @@ export const setupSecurity = (app: Application) => {
 
   // Rate limiting to limit repeated requests to API endpoints and/or endpoints such as login
   const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 500, // limit each IP to 100 requests per windowMs
-    message: "Too many requests from this IP, please try again in 15 minutes",
+    windowMs: helmet_rate_limit_windowMs, // 15 minutes
+    limit: helmet_rate_limit_max,
+    message: helmet_rate_limit_message,
   });
 
   //  apply to all requests
