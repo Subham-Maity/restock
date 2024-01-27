@@ -1,35 +1,21 @@
 /*❗~~~~IMPORTS~~~~❗*/
 
 // Importing the necessary modules
-import express, {Application, Request, Response} from "express";
+import express, {Application} from "express";
 import bodyParser from "body-parser";
 
 //Importing the Security
-import cors from "cors";
-import dotenv from "dotenv";
-import helmet from "helmet";
 import compression from "compression";
 import cookieParser from "cookie-parser";
-
-//Importing the widgets
-import moment from "moment-timezone";
-import morgan from "morgan";
-import {v4 as uuidv4} from "uuid";
-
-//Importing the error handler
-//Importing the routes
-import restock from "./routes";
 
 //Importing the config
 import globalErrorHandler from "./utils/errorHandler/globalErrorHandler";
 import passportSetup from "./security/passport/passport.main";
-import {isAuth} from "./services/protect/protected";
-import config from "./config/default";
 import {configureSession} from "./session/session";
-
-/*❗~~~~CONFIG~~~~❗*/
-// Loading environment variables from .env file
-dotenv.config();
+import configureCors from "./cors/cors";
+import {setupMorgan} from "./morgan/morgan";
+import {setupRouter} from "./router";
+import {setupSecurity} from "./helmet/helmet";
 
 /*❗~~~~APP SETUP~~~~❗*/
 
@@ -47,54 +33,16 @@ passportSetup(app);
 app.disable("x-powered-by");
 
 // Middleware for handling CORS - This will handle CORS errors
-app.use(
-  cors({
-    origin: config.corsOrigin,
-    optionsSuccessStatus: 200,
-    exposedHeaders: ["X-Total-Count"],
-    credentials: true,
-  }),
-);
+configureCors(app);
 
 // Middleware for parsing JSON - This will parse incoming requests with JSON payloads
 app.use(express.json());
 
 // Middleware for setting security-related HTTP headers - This will set HTTP headers to secure the app
-app.use(helmet());
-app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
-
-// Middleware for logging HTTP requests - This will log HTTP requests to the console
-app.use((req: any, _, next) => {
-  req.id = uuidv4(); // Generates a unique ID for each request
-  req.requestOrigin = req.headers.origin || req.headers.referer; // Retrieves the request origin from headers
-  next(); // Passes control to the next middleware
-});
-morgan.token("id", function getId(req: any) {
-  return req.id;
-});
+setupSecurity(app);
 
 //json payload
 app.use(express.json());
-
-morgan.token("date", function (_, _res, tz) {
-  return moment()
-    .tz(<string>tz)
-    .format("YYYY-MM-DD HH:mm:ss.SSS");
-});
-
-morgan.token("origin", function getOrigin(req: any) {
-  return req.requestOrigin;
-});
-
-//Example: [1] c9uzb_V76qrKkV0EB6Zo0 - ::1 GET /api/v1/docs/favicon-32x32.png 304 3.050 ms - - 2023-12-09 17:02:13.971
-//id-unique id , origin - origin of the request , remote-addr - IP address of the client , method - HTTP method ,
-// url - URL of the request , status - HTTP status code , response-time - Time taken to respond in milliseconds ,
-// res[content-length] - Content length of the response , date - Date and time of the request
-app.use(
-  morgan(
-    ":id :origin :remote-addr :method :url :status :response-time ms - :res[content-length] :date[Asia/Kolkata]",
-  ),
-);
 
 // Middleware for compressing HTTP responses - This will compress HTTP responses to improve performance
 app.use(compression());
@@ -102,31 +50,21 @@ app.use(compression());
 //Cookie parser used for cookies in the app - This will parse cookies in the app
 app.use(cookieParser());
 
+//Morgan for logging
+setupMorgan(app);
+
 // Middleware for parsing application/x-www-form-urlencoded - This will parse incoming requests with urlencoded payloads
 app.use(bodyParser.json());
+
+// Middleware for parsing application/json - This will parse incoming requests with JSON payloads
+//extended: false means you can parse strings or arrays only. extended: true means you can parse nested objects
 app.use(bodyParser.urlencoded({ extended: false }));
 
 //Middleware for handling errors - This will handle all errors
 app.use(globalErrorHandler);
 
-/*❗~~~~ROUTES~~~~❗*/
-
-//api - This signifies that the routes are part of the API (Application Programming Interface) of our application
-//v1 - useful for versioning without breaking the existing API we can have multiple versions of the API
-
-//Restock routes
-app.use("/api/v1/products", restock.Product);
-app.use("/api/v1/users", isAuth, restock.user);
-app.use("/api/v1/orders", restock.order);
-app.use("/api/v1/categories", restock.category);
-app.use("/api/v1/brands", restock.brand);
-app.use("/api/v1/banner", restock.banner);
-app.use("/api/v1/auth", restock.auth);
-app.use("/api/v1/cart", isAuth, restock.cart);
-// Default route for the API - This will be used to test if the API is live
-app.get("/", (_: Request, res: Response) => {
-  res.send("Yes you are connected to the app! 🚀");
-});
+// Routes setup
+setupRouter(app);
 
 /*❗~~~~EXPORTS~~~~❗*/
 export default app;
