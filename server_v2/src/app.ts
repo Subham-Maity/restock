@@ -115,7 +115,7 @@ app.use(globalErrorHandler);
 //v1 - useful for versioning without breaking the existing API we can have multiple versions of the API
 
 //Restock routes
-app.use("/api/v1/products", isAuth, restock.Product);
+app.use("/api/v1/products", restock.Product);
 app.use("/api/v1/users", isAuth, restock.user);
 app.use("/api/v1/orders", restock.order);
 app.use("/api/v1/categories", restock.category);

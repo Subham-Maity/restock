@@ -10,6 +10,7 @@ const product_model_1 = __importDefault(require("../../model/products/product.mo
 const appError_1 = __importDefault(require("../../middleware/error/appError"));
 const express_validator_1 = require("express-validator");
 const product_model_controller_1 = require("./product.model.controller");
+const redis_1 = __importDefault(require("../../storage/redis/redis"));
 /*☑️ CREATE PRODUCT ☑️ */
 exports.createProduct = (0, catchAsyncError_1.default)(async (req, res, next) => {
     const errors = (0, express_validator_1.validationResult)(req);
@@ -135,6 +136,15 @@ exports.fetchProduct = (0, catchAsyncError_1.default)(async (req, res, next) => 
     try {
         //filtering the products based on the query parameters
         let condition = buildCondition(req);
+        //Redis
+        // Generate a unique key for this query
+        const queryKey = JSON.stringify(condition) + JSON.stringify(req.query);
+        // Try to get the result from Redis
+        const cachedResult = await redis_1.default.get(queryKey);
+        if (cachedResult) {
+            // If the result is in Redis, parse it and return it
+            return res.status(200).json(JSON.parse(cachedResult));
+        }
         // Initialize the query without executing it - Purpose: Deleted false products won't show up on the frontend
         // It will be used for pagination, filtering and sorting
         let query = product_model_1.default.find(condition);
@@ -160,8 +170,10 @@ exports.fetchProduct = (0, catchAsyncError_1.default)(async (req, res, next) => 
         if (docs.length === 0) {
             return next(new appError_1.default("No products found", 404));
         }
+        // Store the result in Redis for future queries
+        redis_1.default.set(queryKey, JSON.stringify(docs));
         //returning the products
-        res.status(200).json(docs);
+        res.status(200).json({ msg: "Products fetched successfully" });
     }
     catch (error) {
         if (error instanceof ProductNotFoundError) {

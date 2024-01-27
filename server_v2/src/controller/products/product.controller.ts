@@ -11,6 +11,7 @@ import {
 } from "./product.model.controller";
 import { QueryParams } from "../../types/products/QueryParam";
 import { IProduct } from "../../types/products/product";
+import redisClient from "../../storage/redis/redis";
 
 /*☑️ CREATE PRODUCT ☑️ */
 export const createProduct = catchAsyncError(
@@ -171,6 +172,18 @@ export const fetchProduct = catchAsyncError(
       //filtering the products based on the query parameters
       let condition = buildCondition(req);
 
+      //Redis
+      // Generate a unique key for this query
+      const queryKey = JSON.stringify(condition) + JSON.stringify(req.query);
+
+      // Try to get the result from Redis
+      const cachedResult = await redisClient.get(queryKey);
+
+      if (cachedResult) {
+        // If the result is in Redis, parse it and return it
+        return res.status(200).json(JSON.parse(cachedResult));
+      }
+
       // Initialize the query without executing it - Purpose: Deleted false products won't show up on the frontend
       // It will be used for pagination, filtering and sorting
       let query = Product.find(condition);
@@ -206,9 +219,10 @@ export const fetchProduct = catchAsyncError(
       if (docs.length === 0) {
         return next(new AppError("No products found", 404));
       }
-
+      // Store the result in Redis for future queries
+      redisClient.set(queryKey, JSON.stringify(docs));
       //returning the products
-      res.status(200).json(docs);
+      res.status(200).json({ msg: "Products fetched successfully" });
     } catch (error) {
       if (error instanceof ProductNotFoundError) {
         res.status(error.statusCode).json({ message: error.message });

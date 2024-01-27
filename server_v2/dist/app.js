@@ -88,7 +88,7 @@ app.use(globalErrorHandler_1.default);
 //api - This signifies that the routes are part of the API (Application Programming Interface) of our application
 //v1 - useful for versioning without breaking the existing API we can have multiple versions of the API
 //Restock routes
-app.use("/api/v1/products", protected_1.isAuth, routes_1.default.Product);
+app.use("/api/v1/products", routes_1.default.Product);
 app.use("/api/v1/users", protected_1.isAuth, routes_1.default.user);
 app.use("/api/v1/orders", routes_1.default.order);
 app.use("/api/v1/categories", routes_1.default.category);
