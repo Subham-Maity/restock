@@ -173,7 +173,7 @@ exports.fetchProduct = (0, catchAsyncError_1.default)(async (req, res, next) => 
         // Store the result in Redis for future queries
         redis_1.default.set(queryKey, JSON.stringify(docs));
         //returning the products
-        res.status(200).json({ msg: "Products fetched successfully" });
+        res.status(200).json(docs);
     }
     catch (error) {
         if (error instanceof ProductNotFoundError) {
