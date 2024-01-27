@@ -9,13 +9,12 @@ import {
   IHashedPassword,
 } from "../../security/hash/crypto/hash.password.util";
 import { createUser } from "./auth.model.controller";
-import { cookieOptions } from "../../storage/cookie/cookie.config";
-import { setCookie } from "../../storage/cookie/cookie";
 import {
-  COOKIE_NAME,
-  JWT_EXPIRATION_TIME,
-  JWT_SECRET_KEY,
-} from "../../config/default";
+  COOKIE_NAME_SET,
+  cookieOptions,
+} from "../../storage/cookie/cookie.setting";
+import { setCookie } from "../../storage/cookie/cookie";
+import { JWT_EXPIRATION_TIME, JWT_SECRET_KEY } from "../../config/default";
 import { signPayload } from "../../security/jwt/sign.utils";
 import { IUser } from "../../types/user/user";
 
@@ -39,7 +38,6 @@ export const registerUser = catchAsyncError(
     try {
       //Pass the password to the hashPassword function
       // Destructure the salt and hashedPassword from the returned object
-      //@ts-ignore
       const { salt, hashedPassword }: IHashedPassword = await hashPassword(
         req.body.password,
       );
@@ -58,7 +56,7 @@ export const registerUser = catchAsyncError(
           const token = signPayload(sanitizeUser(user), JWT_SECRET_KEY, {
             expiresIn: JWT_EXPIRATION_TIME,
           });
-          setCookie(res, COOKIE_NAME, token, cookieOptions);
+          setCookie(res, COOKIE_NAME_SET, token, cookieOptions);
           res.status(201).json({
             msg: "Login Successful...!",
             id: user.id,
@@ -79,7 +77,7 @@ export const loginUser = catchAsyncError(
 
     try {
       //token send by passport local strategy
-      setCookie(res, COOKIE_NAME, user.token, cookieOptions);
+      setCookie(res, COOKIE_NAME_SET, user.token, cookieOptions);
       res
         .status(201)
         .json({ msg: "Login Successful...!", id: user.id, role: user.role });

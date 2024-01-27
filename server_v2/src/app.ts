@@ -24,6 +24,8 @@ import restock from "./routes";
 import globalErrorHandler from "./utils/errorHandler/globalErrorHandler";
 import passportSetup from "./security/passport/passport.main";
 import {isAuth} from "./services/protect/protected";
+import config from "./config/default";
+import {configureSession} from "./session/session";
 
 /*❗~~~~CONFIG~~~~❗*/
 // Loading environment variables from .env file
@@ -33,6 +35,9 @@ dotenv.config();
 
 // Initializing express app - This is the app object that will be used throughout the app
 const app: Application = express();
+
+//Session setup for authentication
+configureSession(app);
 
 //Passport setup for authentication
 passportSetup(app);
@@ -44,11 +49,10 @@ app.disable("x-powered-by");
 // Middleware for handling CORS - This will handle CORS errors
 app.use(
   cors({
-    // origin: corsUrl,//Production url
-    origin: "https://restock-peach.vercel.app", //Production url
+    origin: config.corsOrigin,
     optionsSuccessStatus: 200,
-    exposedHeaders: ["X-Total-Count"], //for pagination
-    credentials: true, //for cookies
+    exposedHeaders: ["X-Total-Count"],
+    credentials: true,
   }),
 );
 
@@ -111,7 +115,7 @@ app.use(globalErrorHandler);
 //v1 - useful for versioning without breaking the existing API we can have multiple versions of the API
 
 //Restock routes
-app.use("/api/v1/products", restock.Product);
+app.use("/api/v1/products", isAuth, restock.Product);
 app.use("/api/v1/users", isAuth, restock.user);
 app.use("/api/v1/orders", restock.order);
 app.use("/api/v1/categories", restock.category);

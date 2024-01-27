@@ -24,12 +24,16 @@ const routes_1 = __importDefault(require("./routes"));
 const globalErrorHandler_1 = __importDefault(require("./utils/errorHandler/globalErrorHandler"));
 const passport_main_1 = __importDefault(require("./security/passport/passport.main"));
 const protected_1 = require("./services/protect/protected");
+const default_1 = __importDefault(require("./config/default"));
+const session_1 = require("./session/session");
 /*❗~~~~CONFIG~~~~❗*/
 // Loading environment variables from .env file
 dotenv_1.default.config();
 /*❗~~~~APP SETUP~~~~❗*/
 // Initializing express app - This is the app object that will be used throughout the app
 const app = (0, express_1.default)();
+//Session setup for authentication
+(0, session_1.configureSession)(app);
 //Passport setup for authentication
 (0, passport_main_1.default)(app);
 //By using app.disable('x-powered-by'), the X-Powered-By header will not be sent with each HTTP response,
@@ -37,11 +41,10 @@ const app = (0, express_1.default)();
 app.disable("x-powered-by");
 // Middleware for handling CORS - This will handle CORS errors
 app.use((0, cors_1.default)({
-    // origin: corsUrl,//Production url
-    origin: true, //It will allow all the origins
+    origin: default_1.default.corsOrigin,
     optionsSuccessStatus: 200,
-    exposedHeaders: ["X-Total-Count"], //for pagination
-    credentials: true, //for cookies
+    exposedHeaders: ["X-Total-Count"],
+    credentials: true,
 }));
 // Middleware for parsing JSON - This will parse incoming requests with JSON payloads
 app.use(express_1.default.json());
@@ -85,7 +88,7 @@ app.use(globalErrorHandler_1.default);
 //api - This signifies that the routes are part of the API (Application Programming Interface) of our application
 //v1 - useful for versioning without breaking the existing API we can have multiple versions of the API
 //Restock routes
-app.use("/api/v1/products", routes_1.default.Product);
+app.use("/api/v1/products", protected_1.isAuth, routes_1.default.Product);
 app.use("/api/v1/users", protected_1.isAuth, routes_1.default.user);
 app.use("/api/v1/orders", routes_1.default.order);
 app.use("/api/v1/categories", routes_1.default.category);

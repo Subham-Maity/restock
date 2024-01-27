@@ -12,7 +12,7 @@ const order: Router = express.Router();
 
 order
   .post("/", createOrder)
-  .get("/user/:userId", fetchOrdersByUser)
+  .get("/own", fetchOrdersByUser)
   .delete("/:id", deleteOrder)
   .patch("/:id", updateOrder)
   .get("/", fetchAllOrders);

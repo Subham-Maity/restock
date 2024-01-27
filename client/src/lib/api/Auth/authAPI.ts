@@ -7,6 +7,7 @@ export async function createUser(userData: User): Promise<{ data: User }> {
       method: "POST",
       body: JSON.stringify(userData),
       headers: { "content-type": "application/json" },
+      credentials: "include", // Add this line
     });
 
     if (!response.ok) {

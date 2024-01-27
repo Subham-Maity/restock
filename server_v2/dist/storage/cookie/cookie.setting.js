@@ -23,13 +23,18 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express = __importStar(require("express"));
-const order_controller_1 = require("../../controller/order/order.controller");
-const order = express.Router();
-order
-    .post("/", order_controller_1.createOrder)
-    .get("/own", order_controller_1.fetchOrdersByUser)
-    .delete("/:id", order_controller_1.deleteOrder)
-    .patch("/:id", order_controller_1.updateOrder)
-    .get("/", order_controller_1.fetchAllOrders);
-exports.default = order;
+exports.COOKIE_NAME_SET = exports.cookieOptions = exports.domain = exports.isProduction = void 0;
+const default_1 = __importStar(require("../../config/default"));
+//❓ Determine if the environment is production
+exports.isProduction = process.env.NODE_ENV === "production";
+// Set the domain based on the environment
+exports.domain = exports.isProduction ? default_1.default.host : "localhost";
+exports.cookieOptions = {
+    expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+    httpOnly: true,
+    secure: exports.isProduction,
+    sameSite: exports.isProduction ? "none" : "lax",
+    maxAge: 1000 * 60 * 60 * 24 * 3,
+    domain: exports.domain,
+};
+exports.COOKIE_NAME_SET = default_1.COOKIE_NAME;

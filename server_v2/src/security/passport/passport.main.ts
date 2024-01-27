@@ -1,13 +1,8 @@
 // passport.ts
 import { Strategy as JwtStrategy } from "passport-jwt";
-import session from "express-session";
 import passport from "passport";
 import passportLocal from "passport-local";
-import {
-  JWT_EXPIRATION_TIME,
-  JWT_SECRET_KEY,
-  Passport_Session_Secret,
-} from "../../config/default";
+import { JWT_EXPIRATION_TIME, JWT_SECRET_KEY } from "../../config/default";
 import { verifyPassword } from "../hash/crypto/verify.password.utils";
 import { Application } from "express";
 import { opts } from "../../services/extractor/jwt/option.utils";
@@ -20,15 +15,6 @@ import {
 import { signPayload } from "../jwt/sign.utils";
 
 const passportSetup = (app: Application) => {
-  //Passport for authentication and session management
-  app.use(
-    session({
-      secret: Passport_Session_Secret,
-      resave: false, // don't save session if unmodified
-      saveUninitialized: false, //don't create session until something stored
-    }),
-  );
-
   //Initialize passport and session
   app.use(passport.authenticate("session"));
 
