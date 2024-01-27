@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.setupSecurity = void 0;
 const helmet_1 = __importDefault(require("helmet"));
 const express_rate_limit_1 = __importDefault(require("express-rate-limit"));
+const helmet_setting_1 = require("./helmet.setting");
 const setupSecurity = (app) => {
     // Use Helmet to set security-related HTTP headers
     app.use((0, helmet_1.default)());
@@ -19,9 +20,9 @@ const setupSecurity = (app) => {
     app.use(helmet_1.default.xssFilter());
     // Rate limiting to limit repeated requests to API endpoints and/or endpoints such as login
     const limiter = (0, express_rate_limit_1.default)({
-        windowMs: 15 * 60 * 1000, // 15 minutes
-        max: 500, // limit each IP to 100 requests per windowMs
-        message: "Too many requests from this IP, please try again in 15 minutes",
+        windowMs: helmet_setting_1.helmet_rate_limit_windowMs, // 15 minutes
+        limit: helmet_setting_1.helmet_rate_limit_max,
+        message: helmet_setting_1.helmet_rate_limit_message,
     });
     //  apply to all requests
     app.use(limiter);
