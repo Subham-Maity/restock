@@ -11,5 +11,5 @@ export function discountedPrice(item: Item): number {
   );
 }
 
-export const BASE_URL = "https://restock-server-v2.onrender.com/api/v1";
-// export const BASE_URL = "http://localhost:5050/api/v1";
+// export const BASE_URL = "https://restock-server-v2.onrender.com/api/v1";
+export const BASE_URL = "http://localhost:5050/api/v1";
