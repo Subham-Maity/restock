@@ -10,7 +10,8 @@ const product_model_1 = __importDefault(require("../../model/products/product.mo
 const appError_1 = __importDefault(require("../../middleware/error/appError"));
 const express_validator_1 = require("express-validator");
 const product_model_controller_1 = require("./product.model.controller");
-const redis_1 = __importDefault(require("../../storage/redis/redis"));
+const useRedis_1 = require("../../storage/redis/useRedis");
+const product_key_redis_1 = require("../../storage/redis/key/product-key-redis");
 /*☑️ CREATE PRODUCT ☑️ */
 exports.createProduct = (0, catchAsyncError_1.default)(async (req, res, next) => {
     const errors = (0, express_validator_1.validationResult)(req);
@@ -137,13 +138,19 @@ exports.fetchProduct = (0, catchAsyncError_1.default)(async (req, res, next) => 
         //filtering the products based on the query parameters
         let condition = buildCondition(req);
         //Redis
-        // Generate a unique key for this query
-        const queryKey = JSON.stringify(condition) + JSON.stringify(req.query);
-        // Try to get the result from Redis
-        const cachedResult = await redis_1.default.get(queryKey);
-        if (cachedResult) {
-            // If the result is in Redis, parse it and return it
-            return res.status(200).json(JSON.parse(cachedResult));
+        // Generate a unique key for this query based on the query parameters
+        console.log("condition", JSON.stringify(req.query));
+        // Generate a unique key for this query based on the query parameters
+        // in redis we will store the data based on this key and when we will
+        // fetch the data, we will use this key
+        const baseKey = (0, product_key_redis_1.generateBaseKey)(req.query);
+        // Generate a unique key for this query based on the query parameters
+        // in redis we will store the data based on this key and when we will
+        // fetch the data, we will use this key
+        const queryKey = (0, useRedis_1.generateUniqueKey)(condition, req.query, baseKey);
+        let docs = await (0, useRedis_1.getFromRedis)(queryKey);
+        if (docs) {
+            return res.status(200).json(docs);
         }
         // Initialize the query without executing it - Purpose: Deleted false products won't show up on the frontend
         // It will be used for pagination, filtering and sorting
@@ -161,7 +168,7 @@ exports.fetchProduct = (0, catchAsyncError_1.default)(async (req, res, next) => 
         //searching the products based on the query parameters - searching
         query = searchProducts_Text_Regex(query, req);
         //executing the query and getting the products
-        const docs = await query.exec();
+        docs = await query.exec();
         //executing the query and getting the products - It will be used for pagination (X-Total-Count)
         const totalDocs = await totalProductsQuery.countDocuments().exec();
         //setting the header for pagination (X-Total-Count)
@@ -171,7 +178,7 @@ exports.fetchProduct = (0, catchAsyncError_1.default)(async (req, res, next) => 
             return next(new appError_1.default("No products found", 404));
         }
         // Store the result in Redis for future queries
-        redis_1.default.set(queryKey, JSON.stringify(docs));
+        await (0, useRedis_1.setInRedis)(queryKey, docs, 3600); // 1 hour
         //returning the products
         res.status(200).json(docs);
     }

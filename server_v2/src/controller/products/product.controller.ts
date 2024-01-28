@@ -11,7 +11,12 @@ import {
 } from "./product.model.controller";
 import { QueryParams } from "../../types/products/QueryParam";
 import { IProduct } from "../../types/products/product";
-import redisClient from "../../storage/redis/redis";
+import {
+  generateUniqueKey,
+  getFromRedis,
+  setInRedis,
+} from "../../storage/redis/useRedis";
+import { generateBaseKey } from "../../storage/redis/key/product-key-redis";
 
 /*☑️ CREATE PRODUCT ☑️ */
 export const createProduct = catchAsyncError(
@@ -173,15 +178,24 @@ export const fetchProduct = catchAsyncError(
       let condition = buildCondition(req);
 
       //Redis
-      // Generate a unique key for this query
-      const queryKey = JSON.stringify(condition) + JSON.stringify(req.query);
+      // Generate a unique key for this query based on the query parameters
 
-      // Try to get the result from Redis
-      const cachedResult = await redisClient.get(queryKey);
+      console.log("condition", JSON.stringify(req.query));
 
-      if (cachedResult) {
-        // If the result is in Redis, parse it and return it
-        return res.status(200).json(JSON.parse(cachedResult));
+      // Generate a unique key for this query based on the query parameters
+      // in redis we will store the data based on this key and when we will
+      // fetch the data, we will use this key
+      const baseKey = generateBaseKey(req.query);
+
+      // Generate a unique key for this query based on the query parameters
+      // in redis we will store the data based on this key and when we will
+      // fetch the data, we will use this key
+      const queryKey = generateUniqueKey(condition, req.query, baseKey);
+
+      let docs = await getFromRedis(queryKey);
+
+      if (docs) {
+        return res.status(200).json(docs);
       }
 
       // Initialize the query without executing it - Purpose: Deleted false products won't show up on the frontend
@@ -207,7 +221,7 @@ export const fetchProduct = catchAsyncError(
       query = searchProducts_Text_Regex(query, req);
 
       //executing the query and getting the products
-      const docs = await query.exec();
+      docs = await query.exec();
 
       //executing the query and getting the products - It will be used for pagination (X-Total-Count)
       const totalDocs = await totalProductsQuery.countDocuments().exec();
@@ -219,8 +233,10 @@ export const fetchProduct = catchAsyncError(
       if (docs.length === 0) {
         return next(new AppError("No products found", 404));
       }
+
       // Store the result in Redis for future queries
-      redisClient.set(queryKey, JSON.stringify(docs));
+      await setInRedis(queryKey, docs, 3600); // 1 hour
+
       //returning the products
       res.status(200).json(docs);
     } catch (error) {
