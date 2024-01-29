@@ -1,6 +1,6 @@
 import Category from "../../model/category/category.model";
 import { ICategory } from "../../types/category/category";
-import ErrorHandler from "../../middleware/error/errorHandler";
+import ErrorHandler from "../../error/errorHandler";
 // 💾  Function to save category data
 export const saveCategory = async (categoryData: Record<string, any>) => {
   try {

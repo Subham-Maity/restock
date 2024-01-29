@@ -1,6 +1,6 @@
 import {NextFunction, Request, Response} from "express";
 import ErrorHandler from "./errorHandler";
-import log from "../../utils/logger/logger";
+import log from "../utils/logger/logger";
 
 /***How It Works**:
  The `globalErrorHandler` is registered as middleware using `app.use(globalErrorHandler)` in the main `app.ts` file after all other middleware and route handlers. When an error occurs anywhere in the application (either due to synchronous code throwing an error or an asynchronous error being caught), it's passed to the `next()` function with the error as an argument. The `globalErrorHandler` then intercepts this error and handles it uniformly by sending an appropriate error response back to the client.
