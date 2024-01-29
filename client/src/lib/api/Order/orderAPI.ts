@@ -1,15 +1,13 @@
 import { Order } from "@/lib/types/Order/order.type";
-import {
-  Pagination,
-  Sort,
-} from "@/lib/types/Product/productList.type";
-import {BASE_URL} from "@/lib/constant/constants";
+import { Pagination, Sort } from "@/lib/types/Product/productList.type";
+import { BASE_URL } from "@/lib/constant/constants";
 
 export async function createOrder(order: Order): Promise<{ data: Order }> {
   const response = await fetch(`${BASE_URL}/orders`, {
     method: "POST",
     body: JSON.stringify(order),
     headers: { "content-type": "application/json" },
+    credentials: "include", // Add this line
   });
   const data = await response.json();
   return { data };
@@ -21,6 +19,7 @@ export function updateOrder(order: Order): Promise<{ data: Order }> {
       method: "PATCH",
       body: JSON.stringify(order),
       headers: { "content-type": "application/json" },
+      credentials: "include", // Add this line
     });
     const data = await response.json();
     resolve({ data });
@@ -31,7 +30,7 @@ export function fetchAllOrders(
   sort: Sort,
   pagination: Pagination,
 ): Promise<{ data: any }> {
-  let queryString = '';
+  let queryString = "";
 
   for (let key in sort) {
     queryString += `${key}=${sort[key]}&`;
@@ -41,11 +40,11 @@ export function fetchAllOrders(
   }
 
   return new Promise(async (resolve) => {
-    const response = await fetch(
-        `${BASE_URL}/orders?` + queryString
-    );
+    const response = await fetch(`${BASE_URL}/orders?` + queryString, {
+      credentials: "include", // Add this line
+    });
     const data = await response.json();
-    const totalOrders:any = await response.headers.get('X-Total-Count');
+    const totalOrders: any = await response.headers.get("X-Total-Count");
     resolve({ data: { orders: data, totalOrders: +totalOrders } });
   });
 }

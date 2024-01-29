@@ -6,11 +6,12 @@ import {
   fetchProductById,
   updateProduct,
 } from "../../controller/products/product.controller";
-import { productValidationRules } from "../../validation/products/product.validation";
+import { productValidationRules } from "../../validation/zod-validation/products/product.validation";
+import { validate } from "../../middleware/zod/zod";
 
 const Product: Router = express.Router();
 
-Product.post("/", productValidationRules, createProduct)
+Product.post("/", validate(productValidationRules), createProduct)
   .get("/", fetchProduct)
   .get("/:id", fetchProductById)
   .patch("/:id", updateProduct);

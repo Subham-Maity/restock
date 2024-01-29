@@ -1,8 +1,7 @@
 "use client";
 import React from "react";
-import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
-import Link from "next/link";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -10,28 +9,29 @@ import {
   selectItems,
   updateCartAsync,
 } from "@/lib/features/Cart/cartSlice";
-import { CartItem } from "@/lib/types/Cart/cart.type";
 import { AppDispatch } from "@/lib/redux/store";
 import { useRouter } from "next/navigation";
 import CustomButton from "@/components/CustomButton/CustomButton";
-import {discountedPrice} from "@/lib/constant/constants";
 
 export default function Cart() {
-  const items: CartItem[] = useSelector(selectItems);
+  const items = useSelector(selectItems);
 
+  console.log(JSON.stringify(items) + "items back");
   const dispatch: AppDispatch = useDispatch();
   const totalAmount = items.reduce(
-      (amount: number, item: any) => discountedPrice(item.product) * item.quantity + amount,
-      0,
+    (amount: number, item: any) =>
+      item.product.discountPercentage * item.quantity + amount,
+    0,
   );
 
   const totalItems = items.reduce(
     (total: any, item: any) => item.quantity + total,
-    0
+    0,
   );
 
+  console.log(totalItems + "totalItems");
   const handleQuantity = (e: any, item: any) => {
-    dispatch(updateCartAsync({ id:item.id, quantity: +e.target.value }));
+    dispatch(updateCartAsync({ id: item.id, quantity: +e.target.value }));
   };
   const handleRemove = (e: any, id: any) => {
     dispatch(deleteItemFromCartAsync(id));
@@ -68,9 +68,7 @@ export default function Cart() {
             </h1>
             <div className="border-t border-gray-800 dark:border-gray-200 px-4 py-6 sm:px-6">
               <div className="flow-root">
-                <ul
-                  className="-my-6 divide-y divide-gray-800 dark:divide-gray-200"
-                >
+                <ul className="-my-6 divide-y divide-gray-800 dark:divide-gray-200">
                   {items.map((item: any) => (
                     <li key={item.id} className="flex py-6">
                       <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-2xl border ">

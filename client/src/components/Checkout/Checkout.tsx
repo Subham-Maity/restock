@@ -1,16 +1,12 @@
 "use client";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { useForm } from "react-hook-form";
 
 import React, { useEffect, useState } from "react";
 import {
-  selectLoggedInUser,
-
-} from "@/lib/features/Auth/authSlice";
-import {
-  updateUserAsync,
   selectUserInfo,
+  updateUserAsync,
 } from "@/lib/features/RoleWise/userSlice";
 import {
   deleteItemFromCartAsync,
@@ -28,8 +24,7 @@ import {
   createOrderAsync,
   selectCurrentOrder,
 } from "@/lib/features/Order/orderSlice";
-import {discountedPrice} from "@/lib/constant/constants";
-
+import { discountedPrice } from "@/lib/constant/constants";
 
 function Checkout() {
   const dispatch: AppDispatch = useDispatch();
@@ -44,8 +39,10 @@ function Checkout() {
 
   const user = useSelector(selectUserInfo);
   const items = useSelector(selectItems);
+
   const totalAmount = items.reduce(
-    (amount: number, item: any) => discountedPrice(item.product) * item.quantity + amount,
+    (amount: number, item: any) =>
+      discountedPrice(item.product) * item.quantity + amount,
     0,
   );
 
@@ -58,7 +55,7 @@ function Checkout() {
   const [paymentMethod, setPaymentMethod] = useState("cash");
   const router = useRouter();
   const handleQuantity = (e: any, item: any) => {
-    dispatch(updateCartAsync({ id:item.id, quantity: +e.target.value }));
+    dispatch(updateCartAsync({ id: item.id, quantity: +e.target.value }));
   };
 
   const handleRemove = (e: any, id: any) => {
@@ -90,7 +87,7 @@ function Checkout() {
       user: user.id,
       paymentMethod,
       selectedAddress,
-      status: 'pending',
+      status: "pending",
     };
 
     dispatch(createOrderAsync(order));
@@ -307,9 +304,9 @@ function Checkout() {
                   <p className="mt-1 mb-2 text-sm text-gray-500">
                     Choose from Existing addresses
                   </p>
-                  <ul >
+                  <ul>
                     {user &&
-                        user.addresses &&
+                      user.addresses &&
                       user?.addresses.map((address: any, index: any) => (
                         <li
                           key={index}
@@ -451,7 +448,6 @@ function Checkout() {
                                   <option value="4">4</option>
                                   <option value="5">5</option>
                                 </select>
-
                               </div>
 
                               <div className="flex item-center flex-row">

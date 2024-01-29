@@ -84,12 +84,7 @@ export const addProductToCart = async (
     const { id } = req.user as User;
     const cartItem = await saveCart({ ...req.body, user: id });
 
-    res.status(201).json({
-      status: "success",
-      data: {
-        cartItem,
-      },
-    });
+    res.status(201).json(cartItem);
   } catch (error: any) {
     res.status(400).json({
       status: "error",

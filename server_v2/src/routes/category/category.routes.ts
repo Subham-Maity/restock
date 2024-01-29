@@ -4,7 +4,7 @@ import {
   createCategory,
   fetchCategory,
 } from "../../controller/category/category.controller";
-import { categoryValidationRules } from "../../validation/category/category.validation";
+import { categoryValidationRules } from "../../validation/express-validation/category/category.validation";
 
 const category: Router = express.Router();
 

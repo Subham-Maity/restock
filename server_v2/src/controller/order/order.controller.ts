@@ -5,8 +5,9 @@ import Order from "../../model/order/order.model"; /*FETCH ALL ORDERS*/
 /*FETCH ALL ORDERS*/
 export const fetchOrdersByUser = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
-    //@ts-ignore
-    const { id } = req.user;
+    const { id } = req.user as { id: string };
+
+    console.log({ id });
     try {
       const orders = await Order.find({ user: id });
 

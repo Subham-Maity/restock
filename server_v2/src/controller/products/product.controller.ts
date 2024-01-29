@@ -3,7 +3,6 @@ import catchAsyncError from "../../middleware/error/catchAsyncError";
 import ErrorHandler from "../../utils/errorHandler/errorHandler";
 import Product from "../../model/products/product.model";
 import AppError from "../../middleware/error/appError";
-import { validationResult } from "express-validator";
 import {
   findProductById,
   saveProduct,
@@ -21,11 +20,6 @@ import { generateBaseKey } from "../../storage/redis/key/product-key-redis";
 /*☑️ CREATE PRODUCT ☑️ */
 export const createProduct = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-
     try {
       //this save product function is in the product.model.ts
       //it will check if the product is already in the database or not

@@ -2,8 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import catchAsyncError from "../../middleware/error/catchAsyncError";
 
 import { sanitizeUser } from "../../services/sanitize/sanitize.utils";
-import { validationResult } from "express-validator";
-import ErrorHandler from "../../utils/errorHandler/errorHandler";
 import {
   hashPassword,
   IHashedPassword,
@@ -17,25 +15,17 @@ import { setCookie } from "../../storage/cookie/cookie";
 import { JWT_EXPIRATION_TIME, JWT_SECRET_KEY } from "../../config/default";
 import { signPayload } from "../../security/jwt/sign.utils";
 import { IUser } from "../../types/user/user";
+import {
+  LoginSchema,
+  RegisterSchema,
+} from "../../validation/zod-validation/auth/auth.validation";
 
 /* CREATE USER */
 
 export const registerUser = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return next(
-        new ErrorHandler(
-          errors
-            .array()
-            .map((err) => err.msg)
-            .join(", "),
-          400,
-        ),
-      );
-    }
-
     try {
+      RegisterSchema.parse(req.body);
       //Pass the password to the hashPassword function
       // Destructure the salt and hashedPassword from the returned object
       const { salt, hashedPassword }: IHashedPassword = await hashPassword(
@@ -76,6 +66,7 @@ export const loginUser = catchAsyncError(
     const user = req.user as IUser;
 
     try {
+      LoginSchema.parse(req.body);
       //token send by passport local strategy
       setCookie(res, COOKIE_NAME_SET, user.token, cookieOptions);
       res
