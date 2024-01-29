@@ -1,7 +1,6 @@
-import {NextFunction, Request, Response} from 'express';
-import ErrorHandler from './errorHandler';
-import log from "../logger/logger";
-
+import {NextFunction, Request, Response} from "express";
+import ErrorHandler from "./errorHandler";
+import log from "../../utils/logger/logger";
 
 /***How It Works**:
  The `globalErrorHandler` is registered as middleware using `app.use(globalErrorHandler)` in the main `app.ts` file after all other middleware and route handlers. When an error occurs anywhere in the application (either due to synchronous code throwing an error or an asynchronous error being caught), it's passed to the `next()` function with the error as an argument. The `globalErrorHandler` then intercepts this error and handles it uniformly by sending an appropriate error response back to the client.
@@ -16,18 +15,27 @@ import log from "../logger/logger";
  Remember, while `globalErrorHandler` handles most errors, it's essential to have specific error handling within route handlers for finer-grained control and custom error messages based on different scenarios.
  */
 export const globalErrorHandler = (
-    err: ErrorHandler,
-    _req: Request,
-    res: Response,
-    _next: NextFunction
+  err: ErrorHandler,
+  _req: Request,
+  res: Response,
+  _next: NextFunction,
 ) => {
-    const statusCode = err.statusCode || 500;
-    const message = err.message || 'Internal Server Error';
-    log.info(`Error: ${err.message}`);
-    res.status(statusCode).json({
-        success: false,
-        error: message,
-    });
+  let statusCode = err.statusCode || 500;
+  let message = err.message || "Internal Server Error";
+
+  // Handle validation error
+  if (err.name === "ValidationError") {
+    statusCode = 400;
+    message = Object.values(err.errors)
+      .map((items: any) => items.message)
+      .join(",");
+  }
+
+  log.info(`Error: ${err.message}`);
+  res.status(statusCode).json({
+    success: false,
+    error: message,
+  });
 };
 
 export default globalErrorHandler;

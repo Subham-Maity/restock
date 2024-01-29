@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import catchAsyncError from "../../middleware/error/catchAsyncError";
-import ErrorHandler from "../../utils/errorHandler/errorHandler";
+import ErrorHandler from "../../middleware/error/errorHandler";
 import Product from "../../model/products/product.model";
-import AppError from "../../middleware/error/appError";
+
 import {
   findProductById,
   saveProduct,
@@ -16,36 +16,24 @@ import {
   setInRedis,
 } from "../../storage/redis/useRedis";
 import { generateBaseKey } from "../../storage/redis/key/product-key-redis";
+import { isValidObjectId } from "mongoose";
 
 /*☑️ CREATE PRODUCT ☑️ */
 export const createProduct = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      //this save product function is in the product.model.ts
-      //it will check if the product is already in the database or not
-      const savedProduct = await saveProduct(req.body);
-      res.status(201).json({
-        message: "Product created successfully",
-        savedProduct,
+    const savedProduct = await saveProduct(req.body);
+    if (!savedProduct) {
+      return res.status(400).json({
+        status: "fail",
+        message: "Failed to create product",
       });
-    } catch (error) {
-      next(error);
     }
+    res.status(201).json({
+      message: "Product created successfully",
+      savedProduct,
+    });
   },
 );
-
-/*☑️ PRODUCT OPERATIONS ☑️ */
-//Testing URL: http://localhost:5050/products?category=fragrances&brand=Samsung&_sort=price&_order=asc&_page=1&_limit=2
-
-//custom error class for product not found*/
-class ProductNotFoundError extends Error {
-  statusCode: number;
-
-  constructor(message: string) {
-    super(message);
-    this.statusCode = 404;
-  }
-}
 
 /*☑️ Filtering, Sorting, Pagination on Product ☑️*/
 /**
@@ -109,7 +97,7 @@ const searchProducts_Text_Regex = (
       .where({ $text: { $search: req.query.q } });
 
     // If no results from $text search, fall back to regex search
-    const regex = new RegExp(req.query.q, "i"); // 'i' makes it case insensitive
+    const regex = new RegExp(req.query.q, "i"); // 'i' makes it case-insensitive
     query = query.where({
       $or: [
         { title: regex },
@@ -167,126 +155,91 @@ export const fetchProduct = catchAsyncError(
     res: Response,
     next: NextFunction,
   ) => {
-    try {
-      //filtering the products based on the query parameters
-      let condition = buildCondition(req);
+    //filtering the products based on the query parameters
+    let condition = buildCondition(req);
 
-      //Redis
-      // Generate a unique key for this query based on the query parameters
+    //Redis
+    // Generate a unique key for this query based on the query parameters
+    // in redis we will store the data based on this key and when we will
+    // fetch the data, we will use this key
+    const baseKey = generateBaseKey(req.query);
 
-      console.log("condition", JSON.stringify(req.query));
+    // Generate a unique key for this query based on the query parameters
+    // in redis we will store the data based on this key and when we will
+    // fetch the data, we will use this key
+    const queryKey = generateUniqueKey(condition, req.query, baseKey);
 
-      // Generate a unique key for this query based on the query parameters
-      // in redis we will store the data based on this key and when we will
-      // fetch the data, we will use this key
-      const baseKey = generateBaseKey(req.query);
+    let docs = await getFromRedis(queryKey);
 
-      // Generate a unique key for this query based on the query parameters
-      // in redis we will store the data based on this key and when we will
-      // fetch the data, we will use this key
-      const queryKey = generateUniqueKey(condition, req.query, baseKey);
-
-      let docs = await getFromRedis(queryKey);
-
-      if (docs) {
-        return res.status(200).json(docs);
-      }
-
-      // Initialize the query without executing it - Purpose: Deleted false products won't show up on the frontend
-      // It will be used for pagination, filtering and sorting
-      let query = Product.find(condition);
-
-      //This will use it for pagination (X-Total-Count)
-      let totalProductsQuery = Product.find(condition);
-
-      //filtering the products based on the query parameters - filtering
-      query = filterProducts(query, req);
-
-      //sorting the products based on the query parameters - sorting
-      totalProductsQuery = filterProducts(totalProductsQuery, req);
-
-      //sorting the products based on the query parameters - sorting
-      query = sortProducts(query, req);
-
-      //pagination of the products based on the query parameters - pagination
-      query = paginateProducts(query, req);
-
-      //searching the products based on the query parameters - searching
-      query = searchProducts_Text_Regex(query, req);
-
-      //executing the query and getting the products
-      docs = await query.exec();
-
-      //executing the query and getting the products - It will be used for pagination (X-Total-Count)
-      const totalDocs = await totalProductsQuery.countDocuments().exec();
-
-      //setting the header for pagination (X-Total-Count)
-      res.set("X-Total-Count", totalDocs.toString());
-
-      //if no products found then return error
-      if (docs.length === 0) {
-        return next(new AppError("No products found", 404));
-      }
-
-      // Store the result in Redis for future queries
-      await setInRedis(queryKey, docs, 3600); // 1 hour
-
-      //returning the products
-      res.status(200).json(docs);
-    } catch (error) {
-      if (error instanceof ProductNotFoundError) {
-        res.status(error.statusCode).json({ message: error.message });
-      } else {
-        next(error);
-      }
+    if (docs) {
+      return res.status(200).json(docs);
     }
+
+    // Initialize the query without executing it - Purpose: Deleted false products won't show up on the frontend
+    // It will be used for pagination, filtering and sorting
+    let query = Product.find(condition);
+
+    //This will use it for pagination (X-Total-Count)
+    let totalProductsQuery = Product.find(condition);
+
+    //filtering the products based on the query parameters - filtering
+    query = filterProducts(query, req);
+
+    //sorting the products based on the query parameters - sorting
+    totalProductsQuery = filterProducts(totalProductsQuery, req);
+
+    //sorting the products based on the query parameters - sorting
+    query = sortProducts(query, req);
+
+    //pagination of the products based on the query parameters - pagination
+    query = paginateProducts(query, req);
+
+    //searching the products based on the query parameters - searching
+    query = searchProducts_Text_Regex(query, req);
+
+    //executing the query and getting the products
+    docs = await query.exec();
+
+    //executing the query and getting the products - It will be used for pagination (X-Total-Count)
+    const totalDocs = await totalProductsQuery.countDocuments().exec();
+
+    //setting the header for pagination (X-Total-Count)
+    res.set("X-Total-Count", totalDocs.toString());
+
+    //if no products found then return error
+    if (docs.length === 0) {
+      return next(new ErrorHandler("No products found", 404));
+    }
+
+    // Store the result in Redis for future queries
+    await setInRedis(queryKey, docs, 3600); // 1 hour
+
+    //returning the products
+    res.status(200).json(docs);
   },
 );
 
 /*☑️ FETCHING A SINGLE PRODUCT ☑️ */
 
-//custom error class for product not found*/
-class ProductNotFoundError2 extends Error {
-  statusCode: number;
-
-  constructor(message: string) {
-    super(message);
-    this.statusCode = 404;
-  }
-}
-
 //Fetching a single product
 export const fetchProductById = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const { id } = req.params;
-
-      const product = await findProductById(id);
-
-      if (!product) {
-        throw new ProductNotFoundError2("Product not found");
-      }
-
-      res.status(200).json(product);
-    } catch (error) {
-      if (error instanceof ProductNotFoundError2) {
-        res.status(error.statusCode).json({ message: error.message });
-      } else {
-        next(error);
-      }
+    const { id } = req.params as { id: string };
+    // Check if the provided ID is valid
+    if (!id || !isValidObjectId(id)) {
+      return next(new ErrorHandler("Invalid product ID", 400));
     }
+    const product = await findProductById(id);
+
+    if (!product) {
+      throw new ErrorHandler("Product not found", 404);
+    }
+
+    res.status(200).json(product);
   },
 );
 
 /*☑️ UPDATE PRODUCT ☑️ */
-
-// Helper function to check if ID is a valid ObjectId
-function isValidObjectId(id: string): boolean {
-  // Use your preferred method to validate ObjectId (e.g., using mongoose.Types.ObjectId.isValid)
-  // For example:
-  // return mongoose.Types.ObjectId.isValid(id);
-  return /^[0-9a-fA-F]{24}$/.test(id); // Simplified check (24-character hex string)
-}
 
 // Function to calculate the discount price
 export const calculateDiscountPrice = async (
@@ -300,34 +253,24 @@ export const calculateDiscountPrice = async (
 // Update product
 export const updateProduct = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const { id } = req.params;
-
-      // Check if the provided ID is valid
-      if (!id || !isValidObjectId(id)) {
-        return next(new ErrorHandler("Invalid product ID", 400));
-      }
-
-      const updatedProduct = await updateProductById(id, req.body);
-
-      if (!updatedProduct) {
-        return next(new ErrorHandler("Product not found", 404));
-      }
-
-      // Calculate discountPrice if necessary
-      if ("price" in req.body || "discountPercentage" in req.body) {
-        updatedProduct.discountPrice =
-          await calculateDiscountPrice(updatedProduct);
-        await updatedProduct.save();
-      }
-
-      res.status(200).json(updatedProduct);
-    } catch (error) {
-      if (error instanceof ErrorHandler) {
-        res.status(error.statusCode).json({ message: error.message });
-      } else {
-        next(new ErrorHandler("Internal server error", 500));
-      }
+    const { id } = req.params as { id: string };
+    // Check if the provided ID is valid
+    if (!id || !isValidObjectId(id)) {
+      return next(new ErrorHandler("Invalid product ID", 400));
     }
+    const updatedProduct = await updateProductById(id, req.body);
+
+    if (!updatedProduct) {
+      return next(new ErrorHandler("Product not found", 404));
+    }
+
+    // Calculate discountPrice if necessary
+    if ("price" in req.body || "discountPercentage" in req.body) {
+      updatedProduct.discountPrice =
+        await calculateDiscountPrice(updatedProduct);
+      await updatedProduct.save();
+    }
+
+    res.status(200).json(updatedProduct);
   },
 );

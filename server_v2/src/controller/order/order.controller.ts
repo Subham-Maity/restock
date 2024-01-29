@@ -1,20 +1,19 @@
 import { NextFunction, Request, Response } from "express";
 import catchAsyncError from "../../middleware/error/catchAsyncError";
-import Order from "../../model/order/order.model"; /*FETCH ALL ORDERS*/
+import Order from "../../model/order/order.model";
+import { isValidObjectId } from "mongoose";
+import ErrorHandler from "../../middleware/error/errorHandler"; /*FETCH ALL ORDERS*/
 
 /*FETCH ALL ORDERS*/
 export const fetchOrdersByUser = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.user as { id: string };
-
-    console.log({ id });
-    try {
-      const orders = await Order.find({ user: id });
-
-      res.status(200).json(orders);
-    } catch (err) {
-      res.status(400).json(err);
+    if (!id || !isValidObjectId(id)) {
+      return next(new ErrorHandler("Invalid Order ID", 400));
     }
+    const orders = await Order.find({ user: id });
+
+    res.status(200).json(orders);
   },
 );
 
@@ -80,7 +79,6 @@ export const fetchAllOrders = catchAsyncError(
 
     //@ts-ignore
     const totalDocs = await totalOrdersQuery.count().exec();
-    console.log({ totalDocs });
 
     if (req.query._page && req.query._limit) {
       const pageSize = parseInt(req.query._limit as string);

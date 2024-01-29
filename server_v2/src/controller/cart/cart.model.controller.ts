@@ -1,6 +1,6 @@
 // cart.model.controller.ts
 import Cart from "../../model/cart/cart.model";
-import ErrorHandler from "../../utils/errorHandler/errorHandler";
+import ErrorHandler from "../../middleware/error/errorHandler";
 
 //Save cart
 export const saveCart = async (cartData: Record<string, any>) => {
@@ -14,13 +14,9 @@ export const saveCart = async (cartData: Record<string, any>) => {
 };
 
 //Fetch cart by user
-export const fetchCartByUser = async (userId: string) => {
+export const fetchCartByUser = async (id: string) => {
   try {
-    const cartItems = await Cart.find({ user: userId }).populate("product");
-    if (!cartItems || cartItems.length === 0) {
-      throw new ErrorHandler("No cart items found for this user", 404);
-    }
-    return cartItems;
+    return await Cart.find({ user: id }).populate("product");
   } catch (error: any) {
     throw new ErrorHandler(
       `Error fetching cart by user: ${error.message}`,
