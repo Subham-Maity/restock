@@ -65,7 +65,7 @@ const passportSetup = (app: Application) => {
     "jwt",
     new JwtStrategy(opts, async function (jwt_payload, done) {
       try {
-        const user = await findUserById_Token(jwt_payload.sub);
+        const user = await findUserById_Token(jwt_payload.id);
         if (user) {
           return done(null, sanitizeUser(user));
         } else {
