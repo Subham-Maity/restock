@@ -1,42 +1,34 @@
 import { NextFunction, Request, Response } from "express";
 
 import catchAsyncError from "../../middleware/error/catchAsyncError";
-import ErrorHandler from "../../utils/errorHandler/errorHandler";
-import { validationResult } from "express-validator";
+import ErrorHandler from "../../middleware/error/errorHandler";
 import { fetchAllBrands, saveBrand } from "./brand.model.controller"; /*☑️ CREATE BRAND ☑️ */
 
 /*☑️ CREATE BRAND ☑️ */
 export const createBrand = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-
-    try {
-      const savedBrand = await saveBrand(req.body);
-      res.status(201).json({
-        message: "Brand created successfully",
-        savedBrand,
+    const savedBrand = await saveBrand(req.body);
+    if (!savedBrand) {
+      return res.status(400).json({
+        status: "fail",
+        message: "Failed to create brand",
       });
-    } catch (error) {
-      next(error);
     }
+    res.status(201).json({
+      message: "Brand created successfully",
+      savedBrand,
+    });
   },
 );
 
 /*☑️ GET ALL BRANDS ☑️ */
 export const fetchBrand = catchAsyncError(
   async (_, res: Response, next: NextFunction) => {
-    try {
-      const brands = await fetchAllBrands();
-      res.status(200).json(brands);
-    } catch (error) {
-      if (error instanceof ErrorHandler) {
-        res.status(error.statusCode).json({ message: error.message });
-      } else {
-        next(error);
-      }
+    const brands = await fetchAllBrands();
+
+    if (!brands) {
+      return next(new ErrorHandler("No brands found", 404));
     }
+    res.status(200).json(brands);
   },
 );

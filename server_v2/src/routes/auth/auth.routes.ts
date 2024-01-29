@@ -7,14 +7,22 @@ import {
   loginUser,
   registerUser,
 } from "../../controller/auth/auth.controller";
-import { RegisterSchema } from "../../validation/zod-validation/auth/auth.validation";
+import {
+  LoginSchema,
+  RegisterSchema,
+} from "../../validation/zod-validation/auth/auth.validation";
 import { validate } from "../../middleware/zod/zod";
 
 const auth: Router = express.Router();
 
 auth
   .post("/signup", validate(RegisterSchema), registerUser)
-  .post("/login", passport.authenticate("local"), loginUser)
+  .post(
+    "/login",
+    validate(LoginSchema),
+    passport.authenticate("local"),
+    loginUser,
+  )
   .get("/check", passport.authenticate("jwt"), checkUser);
 
 export default auth;
