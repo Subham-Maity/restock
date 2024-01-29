@@ -29,5 +29,5 @@ export const findUserByEmail = async (email: string): Promise<IUser | null> => {
 
 //Use it for finding user by id
 export const findUserById_Token = async (id: string): Promise<IUser | null> => {
-  return User.findOne({ id: id });
+  return User.findById(id);
 };

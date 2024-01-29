@@ -7,6 +7,7 @@ import Image from "next/image";
 import { selectLoggedInUser } from "@/lib/features/Auth/authSlice";
 import {
   fetchLoggedInUserOrderAsync,
+  selectUserInfoStatus,
   selectUserOrders,
 } from "@/lib/features/RoleWise/userSlice";
 
@@ -14,29 +15,10 @@ export default function UserOrders() {
   const dispatch: AppDispatch = useDispatch();
   const user = useSelector(selectLoggedInUser);
   const orders = useSelector(selectUserOrders);
-  console.log(user, "backend items 1");
-  console.log(orders, "backend items 2");
-
-  console.log(orders?.selectedAddress, "orders");
-
+  const status = useSelector(selectUserInfoStatus);
   useEffect(() => {
     dispatch(fetchLoggedInUserOrderAsync());
   }, [dispatch, user]);
-  if (!user) {
-    return (
-      <div className="flex flex-col items-center justify-center h-screen">
-        <h1 className="text-4xl font-bold">You are not logged in</h1>
-      </div>
-    );
-  }
-
-  if (orders.length === 0) {
-    return (
-      <div className="flex flex-col items-center justify-center h-screen">
-        <h1 className="text-4xl font-bold">You have no orders</h1>
-      </div>
-    );
-  }
 
   return (
     <div>
@@ -149,6 +131,11 @@ export default function UserOrders() {
             </div>
           </div>
         ))}
+      {status === "loading" && (
+        <div className="flex flex-col items-center justify-center h-screen">
+          <h1 className="text-4xl font-bold">Loading...</h1>
+        </div>
+      )}
     </div>
   );
 }
