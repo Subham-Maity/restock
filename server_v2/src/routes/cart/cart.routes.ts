@@ -11,7 +11,7 @@ import {
   cartUpdateValidationRules,
   cartUserValidationRules,
   cartValidationRules,
-} from "../../validation/carts/cart.validation";
+} from "../../validation/express-validation/carts/cart.validation";
 
 const cart: Router = express.Router();
 

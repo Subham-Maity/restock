@@ -6,7 +6,7 @@ export async function addToCart(item: CartItem): Promise<{ data: CartItem }> {
     method: "POST",
     body: JSON.stringify(item),
     headers: { "content-type": "application/json" },
-    credentials: "include", // Add this line
+    credentials: "include",
   });
   const data = await response.json();
   return { data };
@@ -14,7 +14,7 @@ export async function addToCart(item: CartItem): Promise<{ data: CartItem }> {
 
 export async function fetchItemsByUserId(): Promise<{ data: CartItem[] }> {
   const response = await fetch(`${BASE_URL}/cart`, {
-    credentials: "include", // Add this line
+    credentials: "include",
   });
   const data = await response.json();
   return { data };
@@ -25,7 +25,7 @@ export async function updateCart(update: any): Promise<{ data: any }> {
     method: "PATCH",
     body: JSON.stringify(update),
     headers: { "content-type": "application/json" },
-    credentials: "include", // Add this line
+    credentials: "include",
   });
   const data = await response.json();
   return { data };
@@ -37,7 +37,7 @@ export async function deleteItemFromCart(
   const response = await fetch(`${BASE_URL}/cart/${itemId}`, {
     method: "DELETE",
     headers: { "content-type": "application/json" },
-    credentials: "include", // Add this line
+    credentials: "include",
   });
   const data = await response.json();
   return { data: { id: itemId } };

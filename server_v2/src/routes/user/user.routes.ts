@@ -4,7 +4,7 @@ import {
   fetchUserById,
   updateUser,
 } from "../../controller/user/user.controller";
-import { userUpdateValidationRules } from "../../validation/user/user.validation";
+import { userUpdateValidationRules } from "../../validation/express-validation/user/user.validation";
 
 const user: Router = express.Router();
 

@@ -1,8 +1,8 @@
 import { User } from "@/lib/types/Auth/auth.type";
 import { BASE_URL } from "@/lib/constant/constants";
 
-export async function fetchLoggedInUserOrders(userId: any) {
-  const response = await fetch(`${BASE_URL}/orders/user/` + userId, {
+export async function fetchLoggedInUserOrders() {
+  const response = await fetch(`${BASE_URL}/orders/own/`, {
     credentials: "include", // Add this line
   });
   const data = await response.json();

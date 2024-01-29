@@ -1,14 +1,11 @@
-import {
-  Filter,
-  Id,
-  Pagination,
-  Sort,
-} from "@/lib/types/Product/productList.type";
-import {BASE_URL} from "@/lib/constant/constants";
+import { Filter, Pagination, Sort } from "@/lib/types/Product/productList.type";
+import { BASE_URL } from "@/lib/constant/constants";
 
 export function fetchAllProducts(): Promise<{ data: any }> {
   return new Promise(async (resolve) => {
-    const response = await fetch(`${BASE_URL}/products`);
+    const response = await fetch(`${BASE_URL}/products`, {
+      credentials: "include",
+    });
     const data = await response.json();
     resolve({ data });
   });
@@ -16,46 +13,43 @@ export function fetchAllProducts(): Promise<{ data: any }> {
 
 export function fetchProductById(id: any): Promise<{ data: any }> {
   return new Promise(async (resolve) => {
-    const response = await fetch(
-      `${BASE_URL}/products/` + id,
-    );
+    const response = await fetch(`${BASE_URL}/products/` + id, {
+      credentials: "include",
+    });
     const data = await response.json();
     resolve({ data });
   });
 }
-
 
 export function createProduct(product: any): Promise<{ data: any }> {
   return new Promise(async (resolve) => {
-    const response = await fetch(
-        `${BASE_URL}/products/`,
-      {
-        method: "POST",
-        body: JSON.stringify(product),
-        headers: {
-          "Content-Type": "application/json",
-        },
+    const response = await fetch(`${BASE_URL}/products/`, {
+      method: "POST",
+      body: JSON.stringify(product),
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
+      credentials: "include",
+    });
     const data = await response.json();
     resolve({ data });
   });
 }
-export function updateProduct(update:any): Promise<{ data: any }> {
+
+export function updateProduct(update: any): Promise<{ data: any }> {
   return new Promise(async (resolve) => {
-    const response = await fetch(
-        `${BASE_URL}/products/` + update.id,
-        {
-          method: 'PATCH',
-          body: JSON.stringify(update),
-          headers: { 'content-type': 'application/json' },
-        }
-    );
+    const response = await fetch(`${BASE_URL}/products/` + update.id, {
+      method: "PATCH",
+      body: JSON.stringify(update),
+      headers: { "content-type": "application/json" },
+      credentials: "include",
+    });
     const data = await response.json();
-    // TODO: on server it will only return some info of user (not password)
+    // TODO: on the server, it will only return some info of the user (not password)
     resolve({ data });
   });
 }
+
 export function fetchProductsByFilters(
   filter: Filter,
   sort: Sort,
@@ -80,14 +74,14 @@ export function fetchProductsByFilters(
   for (let key in pagination) {
     queryString += `${key}=${pagination[key]}&`;
   }
-  if(admin){
+  if (admin) {
     queryString += `admin=true`;
   }
 
   return new Promise(async (resolve) => {
-    const response = await fetch(
-        `${BASE_URL}/products?` + queryString,
-    );
+    const response = await fetch(`${BASE_URL}/products?` + queryString, {
+      credentials: "include",
+    });
     const data = await response.json();
     const totalItems = response.headers.get("X-Total-Count");
     resolve({
@@ -98,7 +92,9 @@ export function fetchProductsByFilters(
 
 export function fetchCategories(): Promise<{ data: any }> {
   return new Promise(async (resolve) => {
-    const response = await fetch(`${BASE_URL}/categories`);
+    const response = await fetch(`${BASE_URL}/categories`, {
+      credentials: "include",
+    });
     const data = await response.json();
     resolve({ data });
   });
@@ -106,7 +102,9 @@ export function fetchCategories(): Promise<{ data: any }> {
 
 export function fetchBrands(): Promise<{ data: any }> {
   return new Promise(async (resolve) => {
-    const response = await fetch(`${BASE_URL}/brands`);
+    const response = await fetch(`${BASE_URL}/brands`, {
+      credentials: "include",
+    });
     const data = await response.json();
     resolve({ data });
   });

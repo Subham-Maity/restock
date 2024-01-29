@@ -5,9 +5,9 @@ import { isAuth } from "../services/protect/protected";
 export const setupRouter = (app: Application) => {
   app.use("/api/v1/products", restock.Product);
   app.use("/api/v1/users", isAuth, restock.user);
-  app.use("/api/v1/orders", restock.order);
-  app.use("/api/v1/categories", restock.category);
-  app.use("/api/v1/brands", restock.brand);
+  app.use("/api/v1/orders", isAuth, restock.order);
+  app.use("/api/v1/categories", isAuth, restock.category);
+  app.use("/api/v1/brands", isAuth, restock.brand);
   app.use("/api/v1/banner", restock.banner);
   app.use("/api/v1/auth", restock.auth);
   app.use("/api/v1/cart", isAuth, restock.cart);
