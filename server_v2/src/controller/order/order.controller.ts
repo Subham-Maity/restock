@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import catchAsyncError from "../../middleware/error/catchAsyncError";
+import catchAsyncError from "../../error/catchAsyncError";
 import Order from "../../model/order/order.model";
 import { isValidObjectId } from "mongoose";
-import ErrorHandler from "../../middleware/error/errorHandler"; /*FETCH ALL ORDERS*/
+import ErrorHandler from "../../error/errorHandler"; /*FETCH ALL ORDERS*/
 
 /*FETCH ALL ORDERS*/
 export const fetchOrdersByUser = catchAsyncError(

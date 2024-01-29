@@ -1,6 +1,6 @@
 // cart.model.controller.ts
 import Cart from "../../model/cart/cart.model";
-import ErrorHandler from "../../middleware/error/errorHandler";
+import ErrorHandler from "../../error/errorHandler";
 
 //Save cart
 export const saveCart = async (cartData: Record<string, any>) => {

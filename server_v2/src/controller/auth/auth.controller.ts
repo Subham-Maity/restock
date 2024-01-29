@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import catchAsyncError from "../../middleware/error/catchAsyncError";
+import catchAsyncError from "../../error/catchAsyncError";
 import { sanitizeUser } from "../../services/sanitize/sanitize.utils";
 import {
   hashPassword,

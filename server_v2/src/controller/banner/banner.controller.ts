@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 
-import catchAsyncError from "../../middleware/error/catchAsyncError";
-import ErrorHandler from "../../middleware/error/errorHandler";
+import catchAsyncError from "../../error/catchAsyncError";
+import ErrorHandler from "../../error/errorHandler";
 import Banner from "../../model/banner/banner.model"; //custom error class for product not found*/
 
 //custom error class for product not found*/

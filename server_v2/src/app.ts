@@ -9,7 +9,7 @@ import compression from "compression";
 import cookieParser from "cookie-parser";
 
 //Importing the config
-import globalErrorHandler from "./middleware/error/globalErrorHandler";
+import globalErrorHandler from "./error/globalErrorHandler";
 import passportSetup from "./security/passport/passport.main";
 import {configureSession} from "./session/session";
 import configureCors from "./cors/cors";

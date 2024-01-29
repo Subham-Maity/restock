@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
-import catchAsyncError from "../../middleware/error/catchAsyncError";
+import catchAsyncError from "../../error/catchAsyncError";
 
 import {
   deleteCart,
@@ -9,7 +9,7 @@ import {
   updateCart,
 } from "./cart.model.controller";
 import { IUser } from "../../types/user/user";
-import ErrorHandler from "../../middleware/error/errorHandler";
+import ErrorHandler from "../../error/errorHandler";
 import { isValidObjectId } from "mongoose";
 
 /*☑️ GET CART BY USER ☑️ */
