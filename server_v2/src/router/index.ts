@@ -12,6 +12,6 @@ export const setupRouter = (app: Application) => {
   app.use("/api/v1/auth", restock.auth);
   app.use("/api/v1/cart", isAuth, restock.cart);
   app.get("/", (_, res) => {
-    res.send("Yes you are connected to the app! 🚀🚀");
+    res.send("Yes you are connected to the app! 🚀");
   });
 };
