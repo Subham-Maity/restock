@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 
 import React, { useEffect, useState } from "react";
-import { selectUserInfo, updateUserAsync } from "@/lib/features/own/userSlice";
+
 import { selectItems } from "@/lib/features/cart/cart-slice";
 
 import { useRouter } from "next/navigation";
@@ -20,6 +20,7 @@ import {
   updateCartAsync,
 } from "@/lib/features/cart/cart-async-thunk";
 import { createOrderAsync } from "@/lib/features/order/order-async-thunk";
+import { selectUserInfo } from "@/lib/features/own/own-details/own-details-slice";
 
 function Checkout() {
   const dispatch: AppDispatch = useDispatch();
