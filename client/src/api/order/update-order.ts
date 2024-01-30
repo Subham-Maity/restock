@@ -1,5 +1,5 @@
-import { Order } from "@/types/data/order/order.type";
 import { BASE_URL } from "@/constant/constants";
+import { Order } from "@/types/redux-slice/order/order.slice.type";
 
 export function updateOrder(order: Order): Promise<{ data: Order }> {
   return new Promise(async (resolve) => {

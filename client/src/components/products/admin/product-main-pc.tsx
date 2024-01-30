@@ -41,7 +41,6 @@ import Context from "@/store/context/context";
 import { FaListUl } from "react-icons/fa";
 import { motion } from "framer-motion";
 
-import AdminProductEditModal from "@/components/admin/pages/pc-components/ProductFrom/ProductEditModal";
 import { Pagination } from "@/components/core/pagination/pagination";
 import ProductListSkeleton from "@/loader/skeleton/product-main-pc-skeleton";
 import { selectBrands } from "@/lib/features/brand/brand-slice";
@@ -51,6 +50,7 @@ import { fetchCategoriesAsync } from "@/lib/features/category/category-async-thu
 import { productPcSlice } from "@/lib/features/product/product-pc-async-thunk";
 import { addToCartAsync } from "@/lib/features/cart/cart-async-thunk";
 import ProductForm from "@/components/update/update-pc-product-form";
+import AdminProductEditModal from "@/components/update/update-pc-product-modal";
 
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
