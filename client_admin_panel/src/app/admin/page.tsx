@@ -1,7 +1,7 @@
 import React from "react";
-import DefaultNav from "@/components/admin/components/AdminNav/DefaultNav";
-import { AdminPcComponentProductList } from "@/components/admin/pages/pc-components/ProductList/AdminProductList";
+import { AdminPcComponentProductList } from "@/components/products/product-main-pc";
 import dynamic from "next/dynamic";
+import DefaultNav from "@/components/layout/layout";
 
 const Page = () => {
   return (

@@ -1,15 +1,14 @@
 import React from "react";
-import DefaultNav from "@/components/admin/components/AdminNav/DefaultNav";
-import AdminOrders from "@/components/admin/components/AdminOrder/AdminOrders";
+import OrderTable from "@/components/order/order-table";
 import dynamic from "next/dynamic";
-
+import DefaultNav from "@/components/layout/layout";
 
 const Page = () => {
   return (
     <div>
       {/*<AdminProtected>*/}
       <DefaultNav>
-        <AdminOrders />
+        <OrderTable />
       </DefaultNav>
       {/*</AdminProtected>*/}
     </div>

@@ -1,7 +1,8 @@
 import React from "react";
-import DefaultNav from "@/components/admin/components/AdminNav/DefaultNav";
-import AntTable from "@/components/admin/components/Table/AntTable";
+
+import ProductPcTable from "@/components/details/pc-product-tables/product-pc-table";
 import dynamic from "next/dynamic";
+import DefaultNav from "@/components/layout/layout";
 
 function Page() {
   return (
@@ -9,7 +10,7 @@ function Page() {
       {/*<AdminProtected>*/}
       <DefaultNav>
         <div className="w-screen">
-          <AntTable />
+          <ProductPcTable />
         </div>
       </DefaultNav>
       {/*</AdminProtected>*/}

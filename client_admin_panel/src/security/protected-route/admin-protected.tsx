@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { selectLoggedInUser } from "@/lib/features/auth/auth-slice";
 import { redirect } from "next/navigation";
 import { User } from "@/types/data/auth/auth.type";
-import { selectUserInfo } from "@/lib/features/own/userSlice";
+import { selectUserInfo } from "@/lib/features/own/own-details/own-details-slice";
 
 export default function AdminProtected({
   children,

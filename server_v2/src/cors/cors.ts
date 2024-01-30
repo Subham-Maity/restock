@@ -8,13 +8,23 @@ import {
 } from "./cors.setting";
 
 function configureCors(app: Application): void {
-  const corsSettings = {
-    origin: cors_origin,
-    optionsSuccessStatus: optionsSuccessStatus,
-    exposedHeaders: exposedHeaders,
-    credentials: credentials,
-  };
+  let corsSettings;
 
+  if (process.env.NODE_ENV === "development") {
+    corsSettings = {
+      origin: true,
+      optionsSuccessStatus: optionsSuccessStatus,
+      exposedHeaders: exposedHeaders,
+      credentials: credentials,
+    };
+  } else {
+    corsSettings = {
+      origin: cors_origin,
+      optionsSuccessStatus: optionsSuccessStatus,
+      exposedHeaders: exposedHeaders,
+      credentials: credentials,
+    };
+  }
   app.use(cors(corsSettings));
 }
 

@@ -2,7 +2,10 @@ import { NextFunction, Request, Response } from "express";
 import catchAsyncError from "../../error/catchAsyncError";
 import { isValidObjectId } from "mongoose";
 import ErrorHandler from "../../error/errorHandler";
-import { findUserById, updateUserById } from "./user.model.controller";
+import {
+  findUserById,
+  updateUserById,
+} from "./model-control/user.model.controller";
 
 /*☑️ Fetch User By Id ☑️*/
 export const fetchUserById = catchAsyncError(

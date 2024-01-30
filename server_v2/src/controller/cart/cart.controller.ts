@@ -7,7 +7,7 @@ import {
   fetchCartByUser,
   saveCart,
   updateCart,
-} from "./cart.model.controller";
+} from "./model-control/cart.model.controller";
 import { IUser } from "../../types/user/user";
 import ErrorHandler from "../../error/errorHandler";
 import { isValidObjectId } from "mongoose";

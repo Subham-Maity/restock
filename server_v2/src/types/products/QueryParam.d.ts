@@ -8,3 +8,11 @@ export interface QueryParams {
   _limit?: string;
   q?: string;
 }
+
+type GenericType<T> = {
+  property: T;
+};
+
+export interface RequestWithQueryParams extends Request {
+  query: QueryParams;
+}

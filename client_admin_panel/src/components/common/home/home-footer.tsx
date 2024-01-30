@@ -36,7 +36,7 @@ import {
 } from "react-icons/fa";
 import { motion } from "framer-motion";
 
-const HomeFooter = () => {
+const AdminHomeFooter = () => {
   return (
     <div className="">
       <footer className="mt-12 bg-gradient-to-r from-[#e5e5e7] via-neutral-[#e5e5e7] to-[#e5e5e7] dark:from-zinc-900 dark:via-neutral-1000 dark:to-slate-900 rounded-t-2xl">
@@ -569,4 +569,4 @@ const HomeFooter = () => {
   );
 };
 
-export default HomeFooter;
+export default AdminHomeFooter;

@@ -11,7 +11,7 @@ import { IUser } from "../../types/user/user";
 import {
   findUserByEmail,
   findUserById_Token,
-} from "../../controller/user/user.model.controller";
+} from "../../controller/user/model-control/user.model.controller";
 import { signPayload } from "../jwt/sign.utils";
 
 const passportSetup = (app: Application) => {
