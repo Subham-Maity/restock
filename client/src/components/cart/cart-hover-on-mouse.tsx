@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { CartItem } from "@/types/data/cart/cart.type";
 import { AppDispatch } from "@/store/redux/store";
 import { selectItems } from "@/lib/features/cart/cart-slice";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,6 +14,7 @@ import {
   deleteItemFromCartAsync,
   updateCartAsync,
 } from "@/lib/features/cart/cart-async-thunk";
+import { CartItem } from "@/types/redux-slice/cart/cart.slice.type";
 
 const CartHoverOnMouse = () => {
   const items: CartItem[] = useSelector(selectItems);

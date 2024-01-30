@@ -1,5 +1,5 @@
-import { Order } from "@/types/data/order/order.type";
 import { BASE_URL } from "@/constant/constants";
+import { Order } from "@/types/redux-slice/order/order.slice.type";
 
 export async function createOrder(order: Order): Promise<{ data: Order }> {
   const response = await fetch(`${BASE_URL}/orders`, {

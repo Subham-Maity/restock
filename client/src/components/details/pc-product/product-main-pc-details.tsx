@@ -19,10 +19,10 @@ import { FaCartPlus } from "react-icons/fa";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import { AiOutlineZoomIn, AiOutlineZoomOut } from "react-icons/ai";
 import { IoClose } from "react-icons/io5";
-import { CartItem } from "@/types/data/cart/cart.type";
 import ProductDetailsSkeleton from "@/loader/skeleton/product-main-pc-details-skeleton";
 import { fetchAllProductByIdAsync } from "@/lib/features/product/product-pc-async-thunk";
 import { addToCartAsync } from "@/lib/features/cart/cart-async-thunk";
+import { CartItem } from "@/types/redux-slice/cart/cart.slice.type";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
