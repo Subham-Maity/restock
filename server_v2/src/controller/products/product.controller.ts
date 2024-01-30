@@ -141,9 +141,9 @@ const paginateProducts = (
   req: Request<{}, {}, {}, QueryParams>,
 ) => {
   if (req.query._page && req.query._limit) {
-    const pageSize = parseInt(req.query._limit as string);
-    const page = parseInt(req.query._page as string);
-    query = query.skip((page - 1) * pageSize).limit(pageSize);
+    const pageSize = Number(req.query._limit);
+    const page = Number(req.query._page);
+    query = query.skip(pageSize * (page - 1)).limit(pageSize);
   }
   return query;
 };
@@ -160,7 +160,7 @@ export const fetchProduct = catchAsyncError(
 
     //Redis
     // Generate a unique key for this query based on the query parameters
-    // in redis we will store the data based on this key and when we will
+    // in redis we will store the data based on this key, and when we will
     // fetch the data, we will use this key
     const baseKey = generateBaseKey(req.query);
 
