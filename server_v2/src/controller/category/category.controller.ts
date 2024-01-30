@@ -1,7 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 import catchAsyncError from "../../error/catchAsyncError";
 import ErrorHandler from "../../error/errorHandler";
-import { fetchAllCategories, saveCategory } from "./category.model.controller";
+import {
+  fetchAllCategories,
+  saveCategory,
+} from "./model-control/category.model.controller";
 
 /*☑️ CREATE CATEGORY ☑️*/
 export const createCategory = catchAsyncError(

@@ -1,5 +1,5 @@
-import { CartItem } from "@/types/data/cart/cart.type";
 import { BASE_URL } from "@/constant/constants";
+import { CartItem } from "@/types/redux-slice/cart/cart.slice.type";
 
 export async function fetchItemsByUserId(): Promise<{ data: CartItem[] }> {
   const response = await fetch(`${BASE_URL}/cart`, {

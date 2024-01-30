@@ -6,7 +6,7 @@ import { signOut } from "@/api/auth/logout";
 
 export const createUserAsync = createAsyncThunk(
   "auth/createUser",
-  async (userData: User) => {
+  async (userData: any) => {
     const response = await createUser(userData);
     return response.data as User;
   },

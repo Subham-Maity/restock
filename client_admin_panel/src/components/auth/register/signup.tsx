@@ -81,7 +81,7 @@ const Signup = () => {
   // console.log(errors.email, errors.confirmPassword, 'lmao');
   return (
     <>
-      {user && router.push("/")}
+      {user && router.push("/admin")}
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 md:w-[32rem] mx-3 md:mx-auto default-card">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <p className="font-bold text-2xl dark:text-gray-400 text-neutral-900">

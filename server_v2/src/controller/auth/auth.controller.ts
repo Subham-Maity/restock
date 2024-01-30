@@ -5,7 +5,7 @@ import {
   hashPassword,
   IHashedPassword,
 } from "../../security/hash/crypto/hash.password.util";
-import { createUser } from "./auth.model.controller";
+import { createUser } from "./model-control/auth.model.controller";
 import {
   COOKIE_NAME_SET,
   cookieOptions,

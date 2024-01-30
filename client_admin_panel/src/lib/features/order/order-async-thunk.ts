@@ -1,9 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { Order } from "@/types/data/order/order.type";
 import { Pagination, Sort } from "@/types/data/product/product-main-pc.type";
 import { createOrder } from "@/api/order/create-order";
 import { updateOrder } from "@/api/order/update-order";
 import { fetchAllOrders } from "@/api/order/fetch-all-orders";
+import { Order } from "@/types/redux-slice/order/order.slice.type";
 
 export const createOrderAsync = createAsyncThunk(
   "order/createOrder",

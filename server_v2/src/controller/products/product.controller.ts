@@ -7,7 +7,7 @@ import {
   findProductById,
   saveProduct,
   updateProductById,
-} from "./product.model.controller";
+} from "./model-control/product.model.controller";
 import { QueryParams } from "../../types/products/QueryParam";
 import { IProduct } from "../../types/products/product";
 import {
@@ -17,6 +17,11 @@ import {
 } from "../../storage/redis/useRedis";
 import { generateBaseKey } from "../../storage/redis/key/product-key-redis";
 import { isValidObjectId } from "mongoose";
+import { paginateProducts } from "./product-control/paginate";
+import { searchProducts_Text_Regex } from "./product-control/search-text-regex";
+import { sortProducts } from "./product-control/sort";
+import { filterProducts } from "./product-control/filter";
+import { buildCondition } from "./product-control/admin-only";
 
 /*☑️ CREATE PRODUCT ☑️ */
 export const createProduct = catchAsyncError(
@@ -42,111 +47,6 @@ export const createProduct = catchAsyncError(
  Filter Example  = {"category": ["smartphone", "laptop"]} or {"brand": ["apple", "samsung"]}
  Pagination Example = {_page: 1, _limit: 20} or {_page: 2, _limit: 20}
  */
-
-//Use for admin if admin is true then show all products including deleted products
-const buildCondition = (req: Request<{}, {}, {}, QueryParams>) => {
-  let condition: any = {};
-  if (!req.query.admin) {
-    condition.deleted = { $ne: true };
-  }
-  return condition;
-};
-
-//🔥 Searching the products
-//Faster than regex search but only works with text indexes
-const searchProducts_Text = (
-  query: any,
-  req: Request<{}, {}, {}, QueryParams>,
-) => {
-  if (req.query.q) {
-    query = query.where({ $text: { $search: req.query.q } });
-  }
-  return query;
-};
-
-//Slower than text search but works without text indexes and can search for partial words
-const searchProducts_Regex = (
-  query: any,
-  req: Request<{}, {}, {}, QueryParams>,
-) => {
-  if (req.query.q) {
-    const regex = new RegExp(req.query.q, "i"); // 'i' makes it case-insensitive
-    query = query.where({
-      $or: [
-        { title: regex },
-        { description: regex },
-        { brand: regex },
-        { category: regex },
-      ],
-    });
-  }
-  return query;
-};
-
-//Try $text search first, if no results then fall back to regex search
-//Slower than text search but better than regex search
-// and works without text indexes and can search for partial words
-const searchProducts_Text_Regex = (
-  query: any,
-  req: Request<{}, {}, {}, QueryParams>,
-) => {
-  if (req.query.q) {
-    // Try $text search first
-    const textSearchQuery = query
-      .clone()
-      .where({ $text: { $search: req.query.q } });
-
-    // If no results from $text search, fall back to regex search
-    const regex = new RegExp(req.query.q, "i"); // 'i' makes it case-insensitive
-    query = query.where({
-      $or: [
-        { title: regex },
-        { description: regex },
-        { brand: regex },
-        { category: regex },
-      ],
-    });
-  }
-  return query;
-};
-
-//🔥 Filtering the products
-const filterProducts = (query: any, req: Request<{}, {}, {}, QueryParams>) => {
-  if (req.query.category) {
-    //example: query.where({category: ["smartphone", "laptop"]})
-    //if we get the category query parameter, we will filter the products based on the category
-    query = query.where({ category: req.query.category });
-  }
-  if (req.query.brand) {
-    query = query.where({ brand: req.query.brand });
-  }
-  return query;
-};
-
-//🔥 Sorting the products
-const sortProducts = (query: any, req: Request<{}, {}, {}, QueryParams>) => {
-  if (req.query._sort && req.query._order) {
-    const sortKey = req.query._sort as string;
-    const sortOrder = req.query._order as string;
-    const sortCriteria: { [key: string]: "asc" | "desc" } = {};
-    sortCriteria[sortKey] = sortOrder as "asc" | "desc";
-    query = query.sort(sortCriteria);
-  }
-  return query;
-};
-
-//🔥 Pagination of products
-const paginateProducts = (
-  query: any,
-  req: Request<{}, {}, {}, QueryParams>,
-) => {
-  if (req.query._page && req.query._limit) {
-    const pageSize = Number(req.query._limit);
-    const page = Number(req.query._page);
-    query = query.skip(pageSize * (page - 1)).limit(pageSize);
-  }
-  return query;
-};
 
 //🔥 Fetching all products with filtering, sorting, pagination
 export const fetchProduct = catchAsyncError(

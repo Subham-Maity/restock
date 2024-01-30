@@ -2,7 +2,10 @@ import { NextFunction, Request, Response } from "express";
 
 import catchAsyncError from "../../error/catchAsyncError";
 import ErrorHandler from "../../error/errorHandler";
-import { fetchAllBrands, saveBrand } from "./brand.model.controller"; /*☑️ CREATE BRAND ☑️ */
+import {
+  fetchAllBrands,
+  saveBrand,
+} from "./model-control/brand.model.controller"; /*☑️ CREATE BRAND ☑️ */
 
 /*☑️ CREATE BRAND ☑️ */
 export const createBrand = catchAsyncError(
