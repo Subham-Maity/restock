@@ -1,9 +1,6 @@
 import React from "react";
-
-import AdminProtected from "@/lib/providers/Protected/Admin/protectedAdmin";
-import DefaultNav from "@/components/admin/components/AdminNav/DefaultNav";
-import ProductForm from "@/components/admin/pages/pc-components/ProductFrom/ProductForm";
-
+import ProductForm from "@/components/update/update-pc-product-form";
+import DefaultNav from "@/components/layout/layout";
 
 const Page = () => {
   return (

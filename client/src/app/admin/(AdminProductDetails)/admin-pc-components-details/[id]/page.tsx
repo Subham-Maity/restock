@@ -1,20 +1,17 @@
 import React from "react";
 
-import TailwindWrapper from "@/lib/wrapper/UserPannel/TailwindWrapper";
-import AdminProtected from "@/lib/providers/Protected/Admin/protectedAdmin";
-
-import AdminProductDetail from "@/components/admin/components/PcComponentsProductDetails/AdminProductDetail";
-import DefaultNav from "@/components/admin/components/AdminNav/DefaultNav";
-
+import MarginWrapper from "@/wrapper/margin-wrapper";
+import DefaultNav from "@/components/layout/layout";
+import ProductMainPcDetails from "@/components/details/pc-product/product-main-pc-details";
 
 const page = () => {
   return (
     <div>
       {/*<AdminProtected>*/}
       <DefaultNav>
-        <TailwindWrapper>
-          <AdminProductDetail />
-        </TailwindWrapper>
+        <MarginWrapper>
+          <ProductMainPcDetails />
+        </MarginWrapper>
       </DefaultNav>
       {/*</AdminProtected>*/}
     </div>

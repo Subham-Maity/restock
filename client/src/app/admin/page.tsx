@@ -1,9 +1,7 @@
 import React from "react";
-import AdminProtected from "@/lib/providers/Protected/Admin/protectedAdmin";
-import DefaultNav from "@/components/admin/components/AdminNav/DefaultNav";
-import {AdminPcComponentProductList} from "@/components/admin/pages/pc-components/ProductList/AdminProductList";
+import { AdminPcComponentProductList } from "@/components/products/admin/product-main-pc";
 import dynamic from "next/dynamic";
-
+import DefaultNav from "@/components/layout/layout";
 
 const Page = () => {
   return (

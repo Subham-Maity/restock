@@ -1,17 +1,15 @@
-import React from 'react';
+import React from "react";
 
-import Footer from "@/components/Footer/Footer";
-import ProductDetailsSkeleton
-    from "@/components/admin/components/PcComponentsProductDetails/skeleton/ProductDetailsSkeleton";
+import HomeFooter from "@/components/common/home/home-footer";
+import ProductDetailsSkeleton from "@/loader/skeleton/product-main-pc-details-skeleton";
 
 const Loading = () => {
-    return (
-        <div>
-
-            <ProductDetailsSkeleton />
-            <Footer/>
-        </div>
-    );
+  return (
+    <div>
+      <ProductDetailsSkeleton />
+      <HomeFooter />
+    </div>
+  );
 };
 
 export default Loading;
