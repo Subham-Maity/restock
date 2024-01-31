@@ -11,10 +11,10 @@ export function discountedPrice(item: Item): number {
   );
 }
 
-export const BASE_URL = "https://webcrack.online:6060/api/v1";
-// export const BASE_URL = "http://localhost:5050/api/v1";
+// export const BASE_URL = "https://webcrack.online:6060/api/v1";
+export const BASE_URL = "http://localhost:5050/api/v1";
 
 export const bannerImages =
   "https://github.com/Subham-Maity/restock/blob/main/client/public/BannerPoster/4.jpg?raw=true";
 
-export const admin_panel_url = "http://localhost:5050/admin";
+export const admin_panel_url = "https://restock-admin.vercel.app";

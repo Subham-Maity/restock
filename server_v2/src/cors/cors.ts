@@ -1,10 +1,11 @@
 import { Application } from "express";
 import cors from "cors";
 import {
-  cors_origin,
   credentials,
+  development_domain_whitelist,
   exposedHeaders,
   optionsSuccessStatus,
+  production_domain_whitelist,
 } from "./cors.setting";
 
 function configureCors(app: Application): void {
@@ -12,14 +13,24 @@ function configureCors(app: Application): void {
 
   if (process.env.NODE_ENV === "development") {
     corsSettings = {
-      origin: true,
+      origin: development_domain_whitelist,
       optionsSuccessStatus: optionsSuccessStatus,
       exposedHeaders: exposedHeaders,
       credentials: credentials,
     };
   } else {
+    const whitelist = production_domain_whitelist;
     corsSettings = {
-      origin: cors_origin,
+      origin: function (
+        origin: string | undefined,
+        callback: (err: Error | null, allow?: boolean) => void,
+      ) {
+        if (origin && whitelist.indexOf(origin) !== -1) {
+          callback(null, true);
+        } else {
+          callback(new Error("Not allowed by CORS"));
+        }
+      },
       optionsSuccessStatus: optionsSuccessStatus,
       exposedHeaders: exposedHeaders,
       credentials: credentials,

@@ -29,7 +29,7 @@ BrandSchema.set("toJSON", {
   versionKey: false, // remove __v property
 
   //Define a custom transform function to delete the _id property
-  transform: function (doc, ret) {
+  transform: function (_, ret) {
     delete ret._id;
   },
 });
