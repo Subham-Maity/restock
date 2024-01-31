@@ -51,15 +51,14 @@ This component is used for the chat service of both the web app and the admin pa
 #### 💻 Server Chat Service
 
 The server chat service is used for the chat service of both the web app and the admin panel. Here are the technologies we use:
-
+- NestJs
+- GraphQL
+- Apollo
 - Prisma
 - PostgresSQL
 - TypeScript
 - Redis
-- Express
 - Socket.io
-- GraphQL
-- Apollo
 - Docker
 - AWS
 - NodeMailer
