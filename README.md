@@ -1,43 +1,69 @@
-### Info
+#### 🌐 Client User
 
-#### **Server_v2**
+The client user is the version of the client that is currently running on our production server. It's used for the front-end of our web app. Here are the technologies we use:
 
-- **API Documentation**:
-    - Swagger Docs(`/api/v1/docs`)
-- **Types Defined**:
-    - Products
-    - Brand
-    - Category
-    - User
-    - Auth
-    - Cart
-- **Models Defined**:
-    - Products (Schema, Virtual ID,index)
-    - Brand (Schema, Virtual ID)
-    - Category (Schema, Virtual ID)
-    - User (Schema, Virtual ID)
-    - Cart (Schema, Virtual ID)
-- **Controllers Defined**:
-    - ProductController(Create Products, Get Products (Filtering, Sorting, Pagination, Search))
-    - BrandController(Create Brand, Get Brand)
-    - CategoryController(Create Category, Get Category)
-    - UserController(Fetch User Details, Update User Details)
-    - AuthController(Login, Register, Check Auth)
-    - CartController(Add To Cart, Get Cart, Delete Cart, Update Cart)
-- **Validators Defined**:
-    - Products
-    - Brand
-    - Category
-    - User
-    - Auth
-    - Cart
-- **Routes Defined**: (Check Swagger Docs)
-  -Products[Create Products , Get Products (Filtering, Sorting, Pagination , Search), Get Product By ID , Update Product By ID]
-    - Brand[Create Brand, Get Brand]
-    - Category[Create Category, Get Category]
-    - User[Fetch User Details, Update User Details]
-    - Auth[Login, Register,Chech Auth]
-    - Cart[Add To Cart, Get Cart, Delete Cart, Update Cart]#
-- **Authentication**:
-    - JWT(Passport)
-        
+- Redux
+- Next.js
+- TypeScript
+- Material-UI
+- Axios
+- Formik
+- Yup
+- React Hook Form
+- React Query
+- Async Thunk
+- RTK Query
+- Shadcn
+- Headless UI
+- React Icons
+- React Toastify
+- Context API
+- more...
+
+#### 🎛️ Client Admin Panel
+
+The client admin panel is also running on our production server. It's used for the front-end of our admin panel. We use the same technologies as the client user.
+
+#### 🖥️ Server v2
+
+Server v2 is the version of the server that's currently running on our production server. It's used for both the admin panel and the web app. Here are the technologies we use:
+
+- Express
+- Redis
+- MongoDB
+- Mongoose
+- Passport
+- JWT
+- TypeScript
+- AWS
+- Docker
+- Sharp
+- NodeMailer
+- Zod
+- more...
+
+You can check out our API documentation on Swagger.
+
+#### 💬 Client Chat Service
+
+This component is used for the chat service of both the web app and the admin panel.
+
+#### 💻 Server Chat Service
+
+The server chat service is used for the chat service of both the web app and the admin panel. Here are the technologies we use:
+
+- Prisma
+- PostgresSQL
+- TypeScript
+- Redis
+- Express
+- Socket.io
+- GraphQL
+- Apollo
+- Docker
+- AWS
+- NodeMailer
+- Sharp
+- more...
+
+

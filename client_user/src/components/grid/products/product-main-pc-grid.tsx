@@ -234,7 +234,7 @@ export const ProductMainPcGrid = ({
                                 }`}
                               >
                                 <span className="text-white text-sm">
-                                  {product.rating.toFixed(1)}
+                                  {product.rating}
                                 </span>
                                 <StarIcon className="w-3.5 text-sm text-gray-200" />
                               </div>

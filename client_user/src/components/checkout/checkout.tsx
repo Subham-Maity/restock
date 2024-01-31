@@ -21,6 +21,7 @@ import {
 } from "@/lib/features/cart/cart-async-thunk";
 import { createOrderAsync } from "@/lib/features/order/order-async-thunk";
 import { selectUserInfo } from "@/lib/features/own/own-details/own-details-slice";
+import {updateUserAsync} from "@/lib/features/own/own-details/own-details-async-thunk";
 
 function Checkout() {
   const dispatch: AppDispatch = useDispatch();
@@ -60,7 +61,6 @@ function Checkout() {
 
   const handleAddress = (e: any) => {
     console.log(e.target.value);
-    // @ts-ignore
     setSelectedAddress(user.addresses[e.target.value]);
   };
 
@@ -71,7 +71,7 @@ function Checkout() {
 
   useEffect(() => {
     if (currentOrder) {
-      router.push(`/OrderSuccess/${currentOrder.id}`);
+      router.push(`/order-success/${currentOrder.id}`);
     }
   }, [currentOrder]);
 
@@ -119,10 +119,8 @@ function Checkout() {
               onSubmit={handleSubmit((data) => {
                 console.log(data);
                 dispatch(
-                  // @ts-ignore
                   updateUserAsync({
                     ...user,
-                    // @ts-ignore
                     addresses: [...user.addresses, data],
                   }),
                 );
