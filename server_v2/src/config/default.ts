@@ -16,9 +16,14 @@ if (env === "production") {
 export default {
   port: process.env.PORT || 5050,
   host: process.env.HOST || "localhost",
-  corsOrigin: process.env.CORS_URL,
   db: process.env.MONGO_URL,
 };
+//✅ Cors
+export const CORS_ORIGIN_Domain_1: string =
+  process.env.CORS_URL_1 || "http://localhost:3000";
+export const CORS_ORIGIN_Domain_2: string =
+  process.env.CORS_URL_2 || "http://localhost:3001";
+
 //✅ Passport Session Secret - Use in passport.ts
 export const Passport_Session_Secret =
   process.env.SESSION_SECRET || "keyboard cat";
