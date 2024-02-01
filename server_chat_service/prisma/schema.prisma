@@ -8,17 +8,18 @@ datasource db {
 }
 
 model User {
-  id            Int             @id @default(autoincrement())
-  fullname      String
-  avatarUrl     String?
-  email         String          @unique
-  password      String
-  rememberToken String?
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
-  chatrooms     Chatroom[]      @relation("ChatroomUsers")
-  messages      Message[]
-  ChatroomUsers ChatroomUsers[]
+  id              Int             @id @default(autoincrement())
+  fullname        String
+  avatarUrl       String?
+  email           String          @unique
+  emailVerifiedAt DateTime?
+  password        String
+  rememberToken   String?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  chatrooms       Chatroom[]      @relation("ChatroomUsers")
+  messages        Message[]
+  ChatroomUsers   ChatroomUsers[]
 }
 
 model Chatroom {
