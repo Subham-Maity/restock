@@ -8,8 +8,8 @@ services:
       - "5432:5432"
     environment:
       POSTGRES_USER: subham
-      POSTGRES_PASSWORD: 123
-      POSTGRES_DB: chat_service
+      POSTGRES_PASSWORD: subham123
+      POSTGRES_DB: chatapp
     volumes:
       - my_postgres_data:/var/lib/postgresql/data
 
