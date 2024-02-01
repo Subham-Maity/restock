@@ -9,7 +9,7 @@ services:
     environment:
       POSTGRES_USER: subham
       POSTGRES_PASSWORD: 123
-      POSTGRES_DB: chat
+      POSTGRES_DB: chat_service
     volumes:
       - my_postgres_data:/var/lib/postgresql/data
 
