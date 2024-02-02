@@ -28,5 +28,14 @@ npx prisma migrate dev --name init
 npx prisma studio
 ```
 
-r
+Some Cheat Sheet
+
+```bash
+nest g module user # Generate a module named user 
+
+nest g controller user # Generate a controller named user
+
+nest g service user # Generate a service named user
+
+```
 
