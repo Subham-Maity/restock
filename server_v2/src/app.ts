@@ -10,12 +10,12 @@ import cookieParser from "cookie-parser";
 
 //Importing the config
 import globalErrorHandler from "./error/globalErrorHandler";
-import passportSetup from "./security/passport/passport.main";
+import passportSetup from "./auth/passport/passport.main";
 import {configureSession} from "./session/session";
-import configureCors from "./cors/cors";
+import configureCors from "./security/cors/cors";
 import {setupMorgan} from "./morgan/morgan";
 import {setupRouter} from "./router";
-import {setupSecurity} from "./helmet/helmet";
+import {setupSecurity} from "./security/helmet/helmet";
 
 /*❗~~~~APP SETUP~~~~❗*/
 

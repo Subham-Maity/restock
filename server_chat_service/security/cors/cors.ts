@@ -9,7 +9,7 @@ import {
 } from './cors.setting';
 import { INestApplication } from '@nestjs/common';
 
-export function configureCors(app: INestApplication<any>): void {
+export function configureCors(app: INestApplication): void {
   let corsSettings: CorsOptions;
 
   if (process.env.NODE_ENV === 'development') {
