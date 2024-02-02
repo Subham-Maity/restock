@@ -14,6 +14,10 @@
 docker-compose up
 ```
 
+```bash
+npm run start:dev
+```
+
 ## Start the server in production mode
 
 > Before that, npm installed prisma globally `npm install prisma --save-dev`
