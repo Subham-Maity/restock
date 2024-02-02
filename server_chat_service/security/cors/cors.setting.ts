@@ -1,5 +1,7 @@
-export const CORS_ORIGIN_Domain_1 = 'http://localhost:5173';
-export const CORS_ORIGIN_Domain_2 = 'http://localhost:5173';
+import {
+  CORS_ORIGIN_Domain_1,
+  CORS_ORIGIN_Domain_2,
+} from '../../config/config';
 
 export const production_domain_whitelist: string[] = [
   CORS_ORIGIN_Domain_1,

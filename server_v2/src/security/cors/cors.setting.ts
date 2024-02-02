@@ -1,4 +1,7 @@
-import { CORS_ORIGIN_Domain_1, CORS_ORIGIN_Domain_2 } from "../config/default";
+import {
+  CORS_ORIGIN_Domain_1,
+  CORS_ORIGIN_Domain_2,
+} from "../../config/default";
 
 export const production_domain_whitelist: string[] = [
   CORS_ORIGIN_Domain_1,
