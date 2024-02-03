@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import {
-  checkUserAsync,
   createUserAsync,
+  loginUserAsync,
   signOutAsync,
 } from "@/lib/features/auth/auth-async-thunk";
 import { AuthState } from "@/types/redux-slice/auth/auth.slice.type";
@@ -28,15 +28,15 @@ export const authSlice = createSlice({
         state.status = "idle";
         state.loggedInUserToken = action.payload;
       })
-      .addCase(checkUserAsync.pending, (state) => {
+      .addCase(loginUserAsync.pending, (state) => {
         state.status = "loading";
         state.error = null;
       })
-      .addCase(checkUserAsync.fulfilled, (state, action) => {
+      .addCase(loginUserAsync.fulfilled, (state, action) => {
         state.status = "idle";
         state.loggedInUserToken = action.payload;
       })
-      .addCase(checkUserAsync.rejected, (state, action) => {
+      .addCase(loginUserAsync.rejected, (state, action) => {
         state.status = "idle";
         state.error = action.payload;
       })

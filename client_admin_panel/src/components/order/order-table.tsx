@@ -15,7 +15,7 @@ import {
   selectTotalOrders,
 } from "@/lib/features/order/order-slice";
 import { AppDispatch } from "@/store/redux/store";
-import { ITEMS_PER_PAGE } from "@/constant/constants";
+import { discountedPrice, ITEMS_PER_PAGE } from "@/constant/constants";
 import Image from "next/image";
 import { Order } from "@/types/redux-slice/order/order.slice.type";
 import {
@@ -152,8 +152,8 @@ function OrderTable() {
                             />
                           </div>
                           <span>
-                            {item.product.title} - #{item.product.quantity}
-                            {/* - ₹{discountedPrice(item)}*/}
+                            {item.product.title} - #{item.product.quantity}- ₹
+                            {discountedPrice(item.product)}
                           </span>
                         </div>
                       ))}

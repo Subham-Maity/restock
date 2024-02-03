@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { User } from "@/types/data/auth/auth.type";
 import { createUser } from "@/api/auth/create-user";
-import { checkUser } from "@/api/auth/check-user";
+import { loginUser } from "@/api/auth/login-user";
 import { signOut } from "@/api/auth/logout";
 
 export const createUserAsync = createAsyncThunk(
@@ -11,14 +11,14 @@ export const createUserAsync = createAsyncThunk(
     return response.data as User;
   },
 );
-export const checkUserAsync = createAsyncThunk(
+export const loginUserAsync = createAsyncThunk(
   "auth/checkUser",
   async (
     loginInfo: { email: string; password: string },
     { rejectWithValue },
   ) => {
     try {
-      const response = await checkUser(loginInfo);
+      const response = await loginUser(loginInfo);
       return response.data as User;
     } catch (error: any) {
       console.log(error);

@@ -1,7 +1,7 @@
 import { LoginInfo, UserResponse } from "@/types/data/auth/auth.type";
 import { BASE_URL } from "@/constant/constants";
 
-export async function checkUser(loginInfo: LoginInfo): Promise<UserResponse> {
+export async function loginUser(loginInfo: LoginInfo): Promise<UserResponse> {
   return new Promise(async (resolve, reject) => {
     try {
       const response = await fetch(`${BASE_URL}/auth/login`, {
