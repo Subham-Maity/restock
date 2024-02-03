@@ -4,4 +4,5 @@ export interface AuthState {
   loggedInUserToken: User | null;
   status: "idle" | "loading";
   error: any;
+  userChecked: boolean;
 }

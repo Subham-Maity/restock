@@ -85,7 +85,11 @@ export const loginUser = catchAsyncError(
 
 /*☑️ CHECK USER ☑️*/
 export const checkUser = catchAsyncError(
-  async (req: Request, res: Response, next: NextFunction) => {
-    res.json({ status: "success", user: req.user });
+  async (req: Request, res: Response, _: NextFunction) => {
+    if (req.user) {
+      res.json(req.user);
+    } else {
+      res.sendStatus(401);
+    }
   },
 );

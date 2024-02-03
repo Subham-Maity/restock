@@ -3,17 +3,18 @@ import React from "react";
 import ProductPcTable from "@/components/details/pc-product-tables/product-pc-table";
 import dynamic from "next/dynamic";
 import DefaultNav from "@/components/layout/layout";
+import AdminProtected from "@/security/protected-route/admin-protected";
 
 function Page() {
   return (
     <>
-      {/*<AdminProtected>*/}
-      <DefaultNav>
-        <div className="w-screen">
-          <ProductPcTable />
-        </div>
-      </DefaultNav>
-      {/*</AdminProtected>*/}
+      <AdminProtected>
+        <DefaultNav>
+          <div className="w-screen">
+            <ProductPcTable />
+          </div>
+        </DefaultNav>
+      </AdminProtected>
     </>
   );
 }

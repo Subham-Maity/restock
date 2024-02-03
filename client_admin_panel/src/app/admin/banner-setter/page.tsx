@@ -1,12 +1,15 @@
 import React from "react";
 import UpdateBanner from "@/components/update/banner/update-banner";
+import AdminProtected from "@/security/protected-route/admin-protected";
 
-function Page(props: any) {
+const Page = () => {
   return (
     <div>
-      <UpdateBanner />
+      <AdminProtected>
+        <UpdateBanner />
+      </AdminProtected>
     </div>
   );
-}
+};
 
 export default Page;

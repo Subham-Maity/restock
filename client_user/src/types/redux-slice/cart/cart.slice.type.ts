@@ -8,4 +8,5 @@ export interface CartState {
   status: "idle" | "loading";
   items: CartItem[];
   value: number;
+  cartLoaded: boolean;
 }

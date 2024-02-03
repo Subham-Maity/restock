@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import {
+  checkAuthAsync,
   createUserAsync,
   loginUserAsync,
   signOutAsync,
@@ -11,6 +12,7 @@ const initialState: AuthState = {
   loggedInUserToken: null,
   status: "idle",
   error: null,
+  userChecked: false,
 };
 
 export const authSlice = createSlice({
@@ -47,12 +49,28 @@ export const authSlice = createSlice({
       .addCase(signOutAsync.fulfilled, (state, action) => {
         state.status = "idle";
         state.loggedInUserToken = null;
+      })
+      .addCase(checkAuthAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(checkAuthAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.loggedInUserToken = action.payload;
+        //it will hold for the user to be checked
+        state.userChecked = true;
+      })
+      .addCase(checkAuthAsync.rejected, (state, action) => {
+        state.status = "idle";
+        state.userChecked = true;
       });
   },
 });
 export const { increment } = authSlice.actions;
 export const selectLoggedInUser = (state: { auth: AuthState }) =>
   state.auth.loggedInUserToken;
+
+export const selectUserChecked = (state: { auth: AuthState }) =>
+  state.auth.userChecked;
 export const selectError = (state: { auth: AuthState }) => state.auth.error;
 
 export default authSlice.reducer;
