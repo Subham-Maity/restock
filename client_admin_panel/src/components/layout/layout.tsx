@@ -11,7 +11,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="overflow-hidden">
       <div className=" dark:bg-[#202329] bg-stone-400/25 select-animate bg-cover bg-no-repeat bg-center h-screen">
-        {/*<div className=" overflow-hidden max-h-screen "> this is for restricting overflow*/}
         <div className="max-h-screen ">
           <div className="flex">
             <div className="lg:flex lg:mt-16 lg:mr-2">
@@ -21,7 +20,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
               />
             </div>
             <div>
-              {/* eslint-disable-next-line react/jsx-no-undef */}
               <AdminHomeTopNav
                 isSidebarOpen={isSidebarOpen}
                 toggleSidebar={toggleSidebar}
