@@ -1,6 +1,6 @@
 import Order from "../../../model/order/order.model";
 import { isValidObjectId } from "mongoose";
-import ErrorHandler from "../../../error/errorHandler";
+import ErrorHandler from "../../../../error/errorHandler";
 import Product from "../../../model/products/product.model";
 import { IOrder } from "../../../types/order/order";
 

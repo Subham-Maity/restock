@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import catchAsyncError from "../../error/catchAsyncError";
+import catchAsyncError from "../../../error/catchAsyncError";
 import { isValidObjectId } from "mongoose";
-import ErrorHandler from "../../error/errorHandler";
+import ErrorHandler from "../../../error/errorHandler";
 import {
   findUserById,
   updateUserById,

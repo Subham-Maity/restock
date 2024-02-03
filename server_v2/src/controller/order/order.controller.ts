@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import catchAsyncError from "../../error/catchAsyncError";
+import catchAsyncError from "../../../error/catchAsyncError";
 import {
   createNewOrder,
   deleteOrderById,

@@ -11,7 +11,7 @@ import {
   LoginSchema,
   RegisterSchema,
 } from "../../validation/zod-validation/auth/auth.validation";
-import { validate } from "../../middleware/zod/zod";
+import { validate } from "../../../middleware/zod/zod";
 
 const auth: Router = express.Router();
 

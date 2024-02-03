@@ -7,7 +7,7 @@ import {
   updateProduct,
 } from "../../controller/products/product.controller";
 import { productValidationRules } from "../../validation/zod-validation/products/product.validation";
-import { validate } from "../../middleware/zod/zod";
+import { validate } from "../../../middleware/zod/zod";
 
 const Product: Router = express.Router();
 

@@ -1,18 +1,18 @@
 import { NextFunction, Request, Response } from "express";
-import catchAsyncError from "../../error/catchAsyncError";
-import { sanitizeUser } from "../../services/sanitize/sanitize.utils";
+import catchAsyncError from "../../../error/catchAsyncError";
+import { sanitizeUser } from "../../../helper/sanitize/sanitize.utils";
 import {
   hashPassword,
   IHashedPassword,
-} from "../../auth/hash/crypto/hash.password.util";
+} from "../../../auth/hash/crypto/hash.password.util";
 import { createUser } from "./model-control/auth.model.controller";
 import {
   COOKIE_NAME_SET,
   cookieOptions,
-} from "../../storage/cookie/cookie.setting";
-import { setCookie } from "../../storage/cookie/cookie";
-import { JWT_EXPIRATION_TIME, JWT_SECRET_KEY } from "../../config/default";
-import { signPayload } from "../../auth/jwt/sign.utils";
+} from "../../../storage/cookie/cookie.setting";
+import { setCookie } from "../../../storage/cookie/cookie";
+import { JWT_EXPIRATION_TIME, JWT_SECRET_KEY } from "../../../config/default";
+import { signPayload } from "../../../auth/jwt/sign.utils";
 import { IUser } from "../../types/user/user";
 import {
   LoginSchema,

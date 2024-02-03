@@ -1,5 +1,5 @@
 import Brand from "../../../model/brand/brand.model";
-import ErrorHandler from "../../../error/errorHandler";
+import ErrorHandler from "../../../../error/errorHandler";
 import { IBrand } from "../../../types/brand/brand";
 // 💾  Function to save brand data
 export const saveBrand = async (brandData: Record<string, any>) => {

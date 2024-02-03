@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import catchAsyncError from "../../error/catchAsyncError";
-import ErrorHandler from "../../error/errorHandler";
+import catchAsyncError from "../../../error/catchAsyncError";
+import ErrorHandler from "../../../error/errorHandler";
 import Product from "../../model/products/product.model";
 
 import {
@@ -14,8 +14,8 @@ import {
   generateUniqueKey,
   getFromRedis,
   setInRedis,
-} from "../../storage/redis/useRedis";
-import { generateBaseKey } from "../../storage/redis/key/product-key-redis";
+} from "../../../storage/redis/useRedis";
+import { generateBaseKey } from "../../../storage/redis/key/product-key-redis";
 import { isValidObjectId } from "mongoose";
 import { paginateProducts } from "./product-control/paginate";
 import { searchProducts_Text_Regex } from "./product-control/search-text-regex";

@@ -1,6 +1,6 @@
 import { Application } from "express";
 import restock from "../routes";
-import { isAuth } from "../services/protect/protected";
+import { isAuth } from "../../helper/protect/protected";
 
 export const setupRouter = (app: Application) => {
   app.use("/api/v1/products", restock.Product);

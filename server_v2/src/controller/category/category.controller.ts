@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import catchAsyncError from "../../error/catchAsyncError";
-import ErrorHandler from "../../error/errorHandler";
+import catchAsyncError from "../../../error/catchAsyncError";
+import ErrorHandler from "../../../error/errorHandler";
 import {
   fetchAllCategories,
   saveCategory,
