@@ -5,7 +5,7 @@ import { Menu, Transition } from "@headlessui/react";
 
 import { FunnelIcon } from "@heroicons/react/20/solid";
 
-import "@/app/globals.css";
+import "@/styles/globals.css";
 
 function ProductListSkeleton() {
   let placeholder = () => {

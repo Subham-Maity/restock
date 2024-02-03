@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { redirect } from "next/navigation";
 import { selectUserInfo } from "@/lib/features/own/own-details/own-details-slice";
 
-export default function AdminProtected({
+export default function IfAdminRedirect({
   children,
 }: {
   children: React.ReactNode;
@@ -12,7 +12,7 @@ export default function AdminProtected({
   const userInfo = useSelector(selectUserInfo);
 
   if (userInfo && userInfo.role !== "admin") {
-    redirect("/login");
+    redirect("/");
   }
 
   return <>{children}</>;

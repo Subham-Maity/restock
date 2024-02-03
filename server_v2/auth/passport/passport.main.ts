@@ -53,7 +53,8 @@ const passportSetup = (app: Application) => {
         const token = signPayload(sanitizeUser(user), JWT_SECRET_KEY, {
           expiresIn: JWT_EXPIRATION_TIME,
         });
-        done(null, { token });
+        //If the user is found and the password matches, return the user
+        done(null, { id: user.id, role: user.role, token });
       } catch (err) {
         done(err);
       }

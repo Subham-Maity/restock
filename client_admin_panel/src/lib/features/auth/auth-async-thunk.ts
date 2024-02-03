@@ -3,6 +3,7 @@ import { User } from "@/types/data/auth/auth.type";
 import { createUser } from "@/api/auth/create-user";
 import { loginUser } from "@/api/auth/login-user";
 import { signOut } from "@/api/auth/logout";
+import { checkAuth } from "@/api/auth/check-auth";
 
 export const createUserAsync = createAsyncThunk(
   "auth/createUser",
@@ -26,7 +27,14 @@ export const loginUserAsync = createAsyncThunk(
     }
   },
 );
-
+export const checkAuthAsync = createAsyncThunk("user/checkAuth", async () => {
+  try {
+    const response: any = await checkAuth();
+    return response.data as any;
+  } catch (error) {
+    console.log(error);
+  }
+});
 export const signOutAsync = createAsyncThunk(
   "user/signOut",
   async (loginInfo) => {
