@@ -16,7 +16,7 @@ import {
 } from "react-icons/ai";
 import CustomButton from "@/components/ui/custom-button/custom-button";
 import { TbLogin2 } from "react-icons/tb";
-import { checkUserAsync } from "@/lib/features/auth/auth-async-thunk";
+import { loginUserAsync } from "@/lib/features/auth/auth-async-thunk";
 
 type Inputs = {
   email: string;
@@ -53,7 +53,7 @@ const Login = () => {
             className="space-y-6"
             onSubmit={handleSubmit((data) => {
               dispatch(
-                checkUserAsync({
+                loginUserAsync({
                   email: data.email,
                   password: data.password,
                 }),
