@@ -27,17 +27,17 @@ const navConfig: NavItem[] = [
     subNav: [
       {
         title: "Products List",
-        href: "/admin",
+        href: "/",
         icon: <FaCaretRight />,
       },
       {
         title: "Table View",
-        href: "/admin/table",
+        href: "/table",
         icon: <FaCaretRight />,
       },
       {
         title: "Order Page",
-        href: "/admin/orders",
+        href: "/orders",
         icon: <FaCaretRight />,
       },
     ],

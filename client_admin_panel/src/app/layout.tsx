@@ -31,8 +31,12 @@ const pacifico = Pacifico({
 
 export default function RootLayout({
   children,
+  productEditModal,
+  authModal,
 }: {
   children: React.ReactNode;
+  productEditModal: React.ReactNode;
+  authModal: React.ReactNode;
 }) {
   return (
     <html lang="en" className="h-full">
@@ -46,7 +50,10 @@ export default function RootLayout({
                 <ProductProvider>
                   <UserProvider>
                     <CartProvider>
-                      {children} <Analytics />
+                      {children}
+                      {productEditModal}
+                      {authModal}
+                      <Analytics />
                     </CartProvider>
                   </UserProvider>
                 </ProductProvider>
