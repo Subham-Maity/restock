@@ -782,3 +782,404 @@ export default {
  *             example:
  *               message: "Internal server error"
  */
+// Todo: Create a new order with Email
+/* ☑️ Create a new order ☑️ */
+
+/**
+ * @swagger
+ * /api/v1/orders:
+ *   post:
+ *     summary: Create a new order
+ *     tags: [📦 Orders]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           example:
+ *             items:
+ *               -
+ *                 quantity: 1
+ *                 product:
+ *                   id: "657483b37ebcb47acc9407c8"
+ *             totalAmount: 60.49
+ *             totalItems: 1
+ *             user:
+ *               id: "65b618b5e9a9eb06fc5c5416"
+ *             paymentMethod: "cash"
+ *             paymentStatus: "pending"
+ *             status: "pending"
+ *             selectedAddress:
+ *               name: "Subham Maity"
+ *               email: "maitysubham4041@gmail.com"
+ *               phone: "9933515901"
+ *               street: "kolkata"
+ *               city: "kolkata"
+ *               state: "wb"
+ *               pinCode: "700041"
+ *     responses:
+ *       201:
+ *         description: The order was successfully created
+ *         content:
+ *           application/json:
+ *             example:
+ *               items:
+ *                 -
+ *                   quantity: 1
+ *                   product:
+ *                     id: "657483b37ebcb47acc9407c8"
+ *               totalAmount: 60.49
+ *               totalItems: 1
+ *               user:
+ *                 id: "65b618b5e9a9eb06fc5c5416"
+ *               paymentMethod: "cash"
+ *               paymentStatus: "pending"
+ *               status: "pending"
+ *               selectedAddress:
+ *                 name: "Subham Maity"
+ *                 email: "maitysubham4041@gmail.com"
+ *                 phone: "9933515901"
+ *                 street: "kolkata"
+ *                 city: "kolkata"
+ *                 state: "wb"
+ *                 pinCode: "700041"
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Internal server error"
+ */
+// Todo: Fetch All Orders
+/* ☑️ FETCH ALL ORDERS ☑️ */
+
+/**
+ * @swagger
+ * /api/v1/orders/own:
+ *   get:
+ *     summary: Fetch all orders for the authenticated user
+ *     tags: [📦 Orders]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: A list of orders for the authenticated user
+ *         content:
+ *           application/json:
+ *             examples:
+ *               multipleExamples:
+ *                 summary: Multiple Examples of User's Orders
+ *                 value:
+ *                   -
+ *                     items:
+ *                       -
+ *                         quantity: 1
+ *                         product:
+ *                           id: "657483b37ebcb47acc9407c8"
+ *                     totalAmount: 60.49
+ *                     totalItems: 1
+ *                     user:
+ *                       id: "65b618b5e9a9eb06fc5c5416"
+ *                     paymentMethod: "cash"
+ *                     paymentStatus: "pending"
+ *                     status: "pending"
+ *                     selectedAddress:
+ *                       name: "Subham Maity"
+ *                       email: "maitysubham4041@gmail.com"
+ *                       phone: "9933515901"
+ *                       street: "kolkata"
+ *                       city: "kolkata"
+ *                       state: "wb"
+ *                       pinCode: "700041"
+ *                   - ... (remaining orders)
+ *               specificExample:
+ *                 summary: Example of User's Order
+ *                 value:
+ *                   -
+ *                     items:
+ *                       -
+ *                         quantity: 1
+ *                         product:
+ *                           id: "657483b37ebcb47acc9407c8"
+ *                     totalAmount: 60.49
+ *                     totalItems: 1
+ *                     user:
+ *                       id: "65b618b5e9a9eb06fc5c5416"
+ *                     paymentMethod: "cash"
+ *                     paymentStatus: "pending"
+ *                     status: "pending"
+ *                     selectedAddress:
+ *                       name: "Subham Maity"
+ *                       email: "maitysubham4041@gmail.com"
+ *                       phone: "9933515901"
+ *                       street: "kolkata"
+ *                       city: "kolkata"
+ *                       state: "wb"
+ *                       pinCode: "700041"
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Internal server error"
+ */
+// Todo: Delete an Order
+/* ☑️ Delete an order ☑️ */
+
+/**
+ * @swagger
+ * /api/v1/orders/{id}:
+ *   delete:
+ *     summary: Delete an order by ID
+ *     tags: [📦 Orders]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of the order to delete
+ *     responses:
+ *       200:
+ *         description: The order was successfully deleted
+ *         content:
+ *           application/json:
+ *             example:
+ *               items:
+ *                 -
+ *                   quantity: 1
+ *                   product:
+ *                     id: "657483b37ebcb47acc9407c8"
+ *               totalAmount: 60.49
+ *               totalItems: 1
+ *               user:
+ *                 id: "65b618b5e9a9eb06fc5c5416"
+ *               paymentMethod: "cash"
+ *               paymentStatus: "pending"
+ *               status: "pending"
+ *               selectedAddress:
+ *                 name: "Subham Maity"
+ *                 email: "maitysubham4041@gmail.com"
+ *                 phone: "9933515901"
+ *                 street: "kolkata"
+ *                 city: "kolkata"
+ *                 state: "wb"
+ *                 pinCode: "700041"
+ *       404:
+ *         description: Order not found
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Order not found"
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Internal server error"
+ */
+
+// Todo: Update an Order
+/* ☑️ Update an order ☑️ */
+
+/**
+ * @swagger
+ * /api/v1/orders/{id}:
+ *   patch:
+ *     summary: Update an order by ID
+ *     tags: [📦 Orders]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of the order to update
+ *     requestBody:
+ *       description: Updated order details
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               items:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     quantity:
+ *                       type: number
+ *                     product:
+ *                       type: object
+ *                       properties:
+ *                         id:
+ *                           type: string
+ *               totalAmount:
+ *                 type: number
+ *               totalItems:
+ *                 type: number
+ *               user:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: string
+ *               paymentMethod:
+ *                 type: string
+ *               paymentStatus:
+ *                 type: string
+ *               status:
+ *                 type: string
+ *               selectedAddress:
+ *                 type: object
+ *                 properties:
+ *                   name:
+ *                     type: string
+ *                   email:
+ *                     type: string
+ *                   phone:
+ *                     type: string
+ *                   street:
+ *                     type: string
+ *                   city:
+ *                     type: string
+ *                   state:
+ *                     type: string
+ *                   pinCode:
+ *                     type: string
+ *     responses:
+ *       200:
+ *         description: The updated order
+ *         content:
+ *           application/json:
+ *             example:
+ *               items:
+ *                 -
+ *                   quantity: 1
+ *                   product:
+ *                     id: "657483b37ebcb47acc9407c8"
+ *               totalAmount: 60.49
+ *               totalItems: 1
+ *               user:
+ *                 id: "65b618b5e9a9eb06fc5c5416"
+ *               paymentMethod: "cash"
+ *               paymentStatus: "pending"
+ *               status: "pending"
+ *               selectedAddress:
+ *                 name: "Subham Maity"
+ *                 email: "maitysubham4041@gmail.com"
+ *                 phone: "9933515901"
+ *                 street: "kolkata"
+ *                 city: "kolkata"
+ *                 state: "wb"
+ *                 pinCode: "700041"
+ *       400:
+ *         description: Bad request. Invalid order ID or request body.
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Invalid order ID"
+ *       404:
+ *         description: Order not found
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Order not found"
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Internal server error"
+ */
+/* ☑️ Fetch all orders with optional sorting and pagination ☑️ */
+
+/**
+ * @swagger
+ * /api/v1/orders:
+ *   get:
+ *     summary: Fetch all orders with optional sorting and pagination
+ *     tags: [📦 Orders]
+ *     parameters:
+ *       - in: query
+ *         name: _sort
+ *         schema:
+ *           type: string
+ *         description: Sort orders by a specified attribute (optional)
+ *       - in: query
+ *         name: _order
+ *         schema:
+ *           type: string
+ *         description: Specify the sorting order (asc or desc) (optional)
+ *       - in: query
+ *         name: _page
+ *         schema:
+ *           type: string
+ *         description: Current page for pagination (optional)
+ *       - in: query
+ *         name: _limit
+ *         schema:
+ *           type: string
+ *         description: Number of items per page for pagination (optional)
+ *     responses:
+ *       200:
+ *         description: A list of orders with optional sorting and pagination
+ *         content:
+ *           application/json:
+ *             examples:
+ *               multipleExamples:
+ *                 summary: Multiple Examples of Orders Listing
+ *                 value:
+ *                   -
+ *                     items:
+ *                       -
+ *                         quantity: 1
+ *                         product:
+ *                           id: "657483b37ebcb47acc9407c8"
+ *                     totalAmount: 60.49
+ *                     totalItems: 1
+ *                     user:
+ *                       id: "65b618b5e9a9eb06fc5c5416"
+ *                     paymentMethod: "cash"
+ *                     paymentStatus: "pending"
+ *                     status: "pending"
+ *                     selectedAddress:
+ *                       name: "Subham Maity"
+ *                       email: "maitysubham4041@gmail.com"
+ *                       phone: "9933515901"
+ *                       street: "kolkata"
+ *                       city: "kolkata"
+ *                       state: "wb"
+ *                       pinCode: "700041"
+ *                   - ... (remaining orders)
+ *               specificExample:
+ *                 summary: Example with specific parameters
+ *                 value:
+ *                   -
+ *                     items:
+ *                       -
+ *                         quantity: 1
+ *                         product:
+ *                           id: "657483b37ebcb47acc9407c8"
+ *                     totalAmount: 60.49
+ *                     totalItems: 1
+ *                     user:
+ *                       id: "65b618b5e9a9eb06fc5c5416"
+ *                     paymentMethod: "cash"
+ *                     paymentStatus: "pending"
+ *                     status: "pending"
+ *                     selectedAddress:
+ *                       name: "Subham Maity"
+ *                       email: "maitysubham4041@gmail.com"
+ *                       phone: "9933515901"
+ *                       street: "kolkata"
+ *                       city: "kolkata"
+ *                       state: "wb"
+ *                       pinCode: "700041"
+ *                   - ... (remaining orders)
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Internal server error"
+ */
