@@ -2,7 +2,7 @@
 
 import { useContext, useEffect, useState } from "react";
 import { FunnelIcon, Squares2X2Icon } from "@heroicons/react/20/solid";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   selectAllProducts,
   selectProductListStatus,
@@ -26,16 +26,17 @@ import { selectCategories } from "@/lib/features/category/category-slice";
 import { productPcSlice } from "@/lib/features/product/product-pc-async-thunk";
 import { fetchBrandsAsync } from "@/lib/features/brand/brand-async-thunk";
 import { fetchCategoriesAsync } from "@/lib/features/category/category-async-thunk";
+import { useAppSelector } from "@/store/redux/useSelector";
 
 export const PcComponentProductList = () => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const dispatch: AppDispatch = useDispatch();
-  const brands = useSelector(selectBrands);
-  const status = useSelector(selectProductListStatus);
-  const categories = useSelector(selectCategories);
-  const products = useSelector(selectAllProducts);
+  const brands = useAppSelector(selectBrands);
+  const status = useAppSelector(selectProductListStatus);
+  const categories = useAppSelector(selectCategories);
+  const products = useAppSelector(selectAllProducts);
   const { isGrid, setIsGrid } = useContext(Context);
-  const totalItems = useSelector(selectTotalItems);
+  const totalItems = useAppSelector(selectTotalItems);
   const filters: IFilter[] = [
     {
       id: "category",

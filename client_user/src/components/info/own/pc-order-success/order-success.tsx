@@ -1,16 +1,17 @@
 "use client";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/redux/store";
 import { useEffect } from "react";
 import { selectLoggedInUser } from "@/lib/features/auth/auth-slice";
 import { resetOrder } from "@/lib/features/order/order-slice";
 import { resetCartAsync } from "@/lib/features/cart/cart-async-thunk";
+import { useAppSelector } from "@/store/redux/useSelector";
 
 function OrderSuccessPage() {
   const params = useParams();
-  const user = useSelector(selectLoggedInUser);
+  const user = useAppSelector(selectLoggedInUser);
 
   const dispatch: AppDispatch = useDispatch();
 

@@ -2,7 +2,7 @@
 import React, { useContext, useState } from "react";
 import { ConfigProvider, Space, Table, theme } from "antd";
 import type { ColumnsType, TableProps } from "antd/es/table";
-import { useSelector } from "react-redux";
+
 import { selectAllProducts_ } from "@/lib/features/product/product-pc-slice";
 import Context from "@/store/context/context";
 import Image from "next/image";
@@ -10,6 +10,7 @@ import Link from "next/link";
 import CustomButton from "@/components/ui/custom-button/custom-button";
 import { FaArrowLeft } from "react-icons/fa";
 import BgAdminTailwindWrapper from "@/wrapper/admin-bg-wrapper";
+import { useAppSelector } from "@/store/redux/useSelector";
 
 interface DataType {
   id: number;
@@ -26,7 +27,7 @@ interface DataType {
 }
 
 const ProductPcTable: React.FC = () => {
-  const data = useSelector(selectAllProducts_);
+  const data = useAppSelector(selectAllProducts_);
   const { isDarkTheme, setIsDarkTheme } = useContext(Context);
   const columns: ColumnsType<DataType> = [
     {

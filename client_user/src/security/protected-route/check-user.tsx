@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/redux/store";
 import { checkAuthAsync } from "@/lib/features/auth/auth-async-thunk";
 import { selectUserChecked } from "@/lib/features/auth/auth-slice";
@@ -13,6 +13,7 @@ import CartSkeleton from "@/loader/skeleton/cart-skeleton";
 import ProductCheckoutSkeleton from "@/loader/skeleton/product-checkout-skeleton";
 import ProductDetailsSkeleton from "@/loader/skeleton/product-main-pc-details-skeleton";
 import ProductListSkeleton from "@/loader/skeleton/product-main-pc-skeleton";
+import { useAppSelector } from "@/store/redux/useSelector";
 
 const routes = [
   { path: "order", Loader: ProductMainPcOrderSkeleton },
@@ -28,7 +29,7 @@ const CheckUser = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const [isReady, setIsReady] = useState(false);
   const dispatch: AppDispatch = useDispatch();
-  const userChecked = useSelector(selectUserChecked);
+  const userChecked = useAppSelector(selectUserChecked);
 
   useEffect(() => {
     dispatch(checkAuthAsync());

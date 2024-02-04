@@ -6,7 +6,7 @@ import {
   selectError,
   selectLoggedInUser,
 } from "@/lib/features/auth/auth-slice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/redux/store";
 import {
   AiFillEye,
@@ -17,6 +17,7 @@ import {
 import CustomButton from "@/components/ui/custom-button/custom-button";
 import { TbLogin2 } from "react-icons/tb";
 import { loginUserAsync } from "@/lib/features/auth/auth-async-thunk";
+import { useAppSelector } from "@/store/redux/useSelector";
 
 type Inputs = {
   email: string;
@@ -30,8 +31,8 @@ const Login = () => {
     formState: { errors },
   } = useForm<Inputs>();
   const dispatch: AppDispatch = useDispatch();
-  const error = useSelector(selectError);
-  const user = useSelector(selectLoggedInUser);
+  const error = useAppSelector(selectError);
+  const user = useAppSelector(selectLoggedInUser);
   const router = useRouter();
   const [passType, setPassType] = useState("password");
 

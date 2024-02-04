@@ -5,7 +5,7 @@ import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { selectLoggedInUser } from "@/lib/features/auth/auth-slice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/redux/store";
 import CustomButton from "@/components/ui/custom-button/custom-button";
 import {
@@ -17,6 +17,7 @@ import {
   AiOutlineUser,
 } from "react-icons/ai";
 import { createUserAsync } from "@/lib/features/auth/auth-async-thunk";
+import { useAppSelector } from "@/store/redux/useSelector";
 
 type Inputs = {
   email: string;
@@ -32,7 +33,7 @@ const Signup = () => {
   } = useForm<Inputs>();
 
   const dispatch: AppDispatch = useDispatch();
-  const user = useSelector(selectLoggedInUser);
+  const user = useAppSelector(selectLoggedInUser);
   const router = useRouter();
 
   const [passType, setPassType] = useState("password");

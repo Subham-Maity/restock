@@ -2,7 +2,7 @@
 import { RiMenu2Fill } from "react-icons/ri";
 
 import ThemeSwitcher from "@/components/theme/theme-switcher";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { selectItems } from "@/lib/features/cart/cart-slice";
 import Link from "next/link";
@@ -18,6 +18,7 @@ import { selectUserInfo } from "@/lib/features/own/own-details/own-details-slice
 import Search from "@/components/core/search/search";
 import { fetchAllStoreProductsAsync } from "@/lib/features/product/product-pc-async-thunk";
 import { AppDispatch } from "@/store/redux/store";
+import { useAppSelector } from "@/store/redux/useSelector";
 
 interface NavbarProps {
   isSidebarOpen: boolean;
@@ -25,11 +26,11 @@ interface NavbarProps {
 }
 
 const AdminHomeTopNav = ({ toggleSidebar, isSidebarOpen }: NavbarProps) => {
-  const itemsForSearch = useSelector(selectAllProducts_);
+  const itemsForSearch = useAppSelector(selectAllProducts_);
   const [cartHoverTimeout, setCartHoverTimeout] = useState(null);
-  const user = useSelector(selectUserInfo);
+  const user = useAppSelector(selectUserInfo);
   const role = user?.role;
-  const items = useSelector(selectItems);
+  const items = useAppSelector(selectItems);
 
   const [isCartHoverOpen, setIsCartHoverOpen] = useState(false);
   const [isSearchHoverOpen, setIsSearchHoverOpen] = useState(false);

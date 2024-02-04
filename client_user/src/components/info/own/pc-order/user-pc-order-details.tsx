@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { AppDispatch } from "@/store/redux/store";
 import Image from "next/image";
@@ -8,12 +8,13 @@ import { selectLoggedInUser } from "@/lib/features/auth/auth-slice";
 import { selectUserOrders } from "@/lib/features/own/own-orders/own-orders-slice";
 import { selectUserInfoStatus } from "@/lib/features/own/own-details/own-details-slice";
 import { fetchLoggedInUserOrderAsync } from "@/lib/features/own/own-orders/own-orders-async-thunk";
+import { useAppSelector } from "@/store/redux/useSelector";
 
 export default function UserOrders() {
   const dispatch: AppDispatch = useDispatch();
-  const user = useSelector(selectLoggedInUser);
-  const orders = useSelector(selectUserOrders);
-  const status = useSelector(selectUserInfoStatus);
+  const user = useAppSelector(selectLoggedInUser);
+  const orders = useAppSelector(selectUserOrders);
+  const status = useAppSelector(selectUserInfoStatus);
   useEffect(() => {
     dispatch(fetchLoggedInUserOrderAsync());
   }, [dispatch, user]);

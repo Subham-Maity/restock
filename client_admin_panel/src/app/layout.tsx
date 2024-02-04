@@ -9,7 +9,7 @@ import UserProvider from "@/providers/user-provider";
 import ProductProvider from "@/providers/product-provider";
 import { Analytics } from "@vercel/analytics/react";
 import ContextProvider from "@/providers/context-provider";
-import CheckUser from "@/security/protected-route/check-user";
+import CheckUserProvider from "@/providers/check-user";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -42,7 +42,7 @@ export default function RootLayout({
     <html lang="en" className="h-full">
       <ReduxProvider>
         <ContextProvider>
-          <CheckUser>
+          <CheckUserProvider>
             <ThemeProviders>
               <body
                 className={`${inter.className} ${comfortaa.variable}  ${pacifico.variable} box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25) h-fit bg-gradient-to-r from-zinc-300 via-neutral-300 to-slate-300 dark:from-zinc-700 dark:via-neutral-700 dark:to-slate-700`}
@@ -59,7 +59,7 @@ export default function RootLayout({
                 </ProductProvider>
               </body>
             </ThemeProviders>
-          </CheckUser>
+          </CheckUserProvider>
         </ContextProvider>
       </ReduxProvider>
     </html>

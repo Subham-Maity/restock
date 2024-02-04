@@ -1,5 +1,5 @@
 "use client";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { useForm } from "react-hook-form";
 
@@ -21,7 +21,8 @@ import {
 } from "@/lib/features/cart/cart-async-thunk";
 import { createOrderAsync } from "@/lib/features/order/order-async-thunk";
 import { selectUserInfo } from "@/lib/features/own/own-details/own-details-slice";
-import {updateUserAsync} from "@/lib/features/own/own-details/own-details-async-thunk";
+import { updateUserAsync } from "@/lib/features/own/own-details/own-details-async-thunk";
+import { useAppSelector } from "@/store/redux/useSelector";
 
 function Checkout() {
   const dispatch: AppDispatch = useDispatch();
@@ -32,10 +33,10 @@ function Checkout() {
     formState: { errors },
   } = useForm();
 
-  const currentOrder = useSelector(selectCurrentOrder);
+  const currentOrder = useAppSelector(selectCurrentOrder);
 
-  const user = useSelector(selectUserInfo);
-  const items = useSelector(selectItems);
+  const user = useAppSelector(selectUserInfo);
+  const items = useAppSelector(selectItems);
 
   const totalAmount = items.reduce(
     (amount: number, item: any) =>
