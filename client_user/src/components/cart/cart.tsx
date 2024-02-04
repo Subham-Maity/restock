@@ -4,7 +4,7 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
-import { selectItems } from "@/lib/features/cart/cart-slice";
+import { selectCartLoaded, selectItems } from "@/lib/features/cart/cart-slice";
 import { AppDispatch } from "@/store/redux/store";
 import { useRouter } from "next/navigation";
 import CustomButton from "@/components/ui/custom-button/custom-button";
@@ -15,7 +15,7 @@ import {
 
 export default function Cart() {
   const items = useSelector(selectItems);
-
+  const cartLoaded = useSelector(selectCartLoaded);
   console.log(JSON.stringify(items) + "items back");
   const dispatch: AppDispatch = useDispatch();
   const totalAmount = items.reduce(
@@ -39,7 +39,7 @@ export default function Cart() {
 
   const router = useRouter();
   console.log(items + "items");
-  if (items.length === 0) {
+  if (cartLoaded && items.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center h-screen">
         <h1 className="text-4xl font-bold">Your Cart is Empty</h1>

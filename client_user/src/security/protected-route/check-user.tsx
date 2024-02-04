@@ -12,6 +12,7 @@ import AntdDefaultSpin from "@/loader/spin/antd-default-spin";
 import CartSkeleton from "@/loader/skeleton/cart-skeleton";
 import ProductCheckoutSkeleton from "@/loader/skeleton/product-checkout-skeleton";
 import ProductDetailsSkeleton from "@/loader/skeleton/product-main-pc-details-skeleton";
+import ProductListSkeleton from "@/loader/skeleton/product-main-pc-skeleton";
 
 const routes = [
   { path: "order", Loader: ProductMainPcOrderSkeleton },
@@ -19,6 +20,7 @@ const routes = [
   { path: "cart", Loader: CartSkeleton },
   { path: "checkout", Loader: ProductCheckoutSkeleton },
   { path: "details", Loader: ProductDetailsSkeleton },
+  { path: "components", Loader: ProductListSkeleton },
 ];
 
 const CheckUser = ({ children }: { children: React.ReactNode }) => {
