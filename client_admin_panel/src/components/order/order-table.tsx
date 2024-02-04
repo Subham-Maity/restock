@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import {
   ArrowDownIcon,
@@ -24,12 +24,13 @@ import {
 } from "@/lib/features/order/order-async-thunk";
 import { Pagination } from "@/components/core/pagination/pagination";
 import { SortOption } from "@/types/utility/core/sort/sort.type";
+import { useAppSelector } from "@/store/redux/useSelector";
 
 function OrderTable() {
   const [page, setPage] = useState(1);
   const dispatch: AppDispatch = useDispatch();
-  const orders: Order[] = useSelector(selectOrders);
-  const totalOrders = useSelector(selectTotalOrders);
+  const orders: Order[] = useAppSelector(selectOrders);
+  const totalOrders = useAppSelector(selectTotalOrders);
   const [editableOrderId, setEditableOrderId] = useState(-1);
   const [sort, setSort] = useState<SortOption>({
     _sort: "rating",

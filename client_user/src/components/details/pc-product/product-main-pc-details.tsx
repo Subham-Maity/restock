@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useParams } from "next/navigation";
 import { selectProductById } from "@/lib/features/product/product-pc-slice";
 import Image from "next/image";
@@ -23,17 +23,18 @@ import ProductDetailsSkeleton from "@/loader/skeleton/product-main-pc-details-sk
 import { fetchAllProductByIdAsync } from "@/lib/features/product/product-pc-async-thunk";
 import { addToCartAsync } from "@/lib/features/cart/cart-async-thunk";
 import { CartItem } from "@/types/redux-slice/cart/cart.slice.type";
+import { useAppSelector } from "@/store/redux/useSelector";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function ProductMainPcDetails() {
-  const product = useSelector(selectProductById);
+  const product = useAppSelector(selectProductById);
   const dispatch: AppDispatch = useDispatch();
   const params = useParams();
-  const user: User | null = useSelector(selectLoggedInUser);
-  const items: CartItem[] = useSelector(selectItems);
+  const user: User | null = useAppSelector(selectLoggedInUser);
+  const items: CartItem[] = useAppSelector(selectItems);
   const [isCartHoverVisible, setCartHoverVisible] = useState(false);
   const [currentImage, setCurrentImage] = useState("/");
   const handleMouseEnter = (src: any) => {

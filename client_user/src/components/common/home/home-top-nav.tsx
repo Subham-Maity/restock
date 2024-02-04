@@ -17,7 +17,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import ThemeSwitcher from "@/components/theme/theme-switcher";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { selectItems } from "@/lib/features/cart/cart-slice";
 import CartHoverOnMouse from "@/components/cart/cart-hover-on-mouse";
 
@@ -29,6 +29,7 @@ import Login from "@/components/auth/login/login";
 import { fetchAllStoreProductsAsync } from "@/lib/features/product/product-pc-async-thunk";
 import { selectUserInfo } from "@/lib/features/own/own-details/own-details-slice";
 import { admin_panel_url } from "@/constant/constants";
+import { useAppSelector } from "@/store/redux/useSelector";
 
 const navigation = [
   {
@@ -172,9 +173,9 @@ const HomeTopNav = () => {
   const [isSearchHoverOpen, setIsSearchHoverOpen] = useState(false);
   const [cartHoverTimeout, setCartHoverTimeout] = useState(null);
   const pathname = usePathname();
-  const user = useSelector(selectUserInfo);
+  const user = useAppSelector(selectUserInfo);
   const role = user?.role;
-  const itemsForSearch = useSelector(selectAllProducts_);
+  const itemsForSearch = useAppSelector(selectAllProducts_);
 
   console.log("pathname", pathname);
 
@@ -212,7 +213,7 @@ const HomeTopNav = () => {
     setCartHoverTimeout(timeoutId);
   };
 
-  const items = useSelector(selectItems);
+  const items = useAppSelector(selectItems);
 
   return (
     <>

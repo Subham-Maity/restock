@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { useForm } from "react-hook-form";
 import { AppDispatch } from "@/store/redux/store";
@@ -16,6 +16,7 @@ import { FaUserCheck, FaUserShield } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { updateUserAsync } from "@/lib/features/own/own-details/own-details-async-thunk";
 import { selectUserInfo } from "@/lib/features/own/own-details/own-details-slice";
+import { useAppSelector } from "@/store/redux/useSelector";
 
 type Inputs = {
   email: string;
@@ -30,7 +31,7 @@ type Inputs = {
 };
 export default function UserProfile() {
   const dispatch: AppDispatch = useDispatch();
-  const userInfo = useSelector(selectUserInfo);
+  const userInfo = useAppSelector(selectUserInfo);
   const [selectedEditIndex, setSelectedEditIndex] = useState(-1);
   const [showAddAddressForm, setShowAddAddressForm] = useState(false);
 

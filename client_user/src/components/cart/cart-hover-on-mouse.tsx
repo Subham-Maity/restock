@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { AppDispatch } from "@/store/redux/store";
 import { selectItems } from "@/lib/features/cart/cart-slice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import CustomButton from "@/components/ui/custom-button/custom-button";
 import { MdDeleteForever } from "react-icons/md";
@@ -15,9 +15,10 @@ import {
   updateCartAsync,
 } from "@/lib/features/cart/cart-async-thunk";
 import { CartItem } from "@/types/redux-slice/cart/cart.slice.type";
+import { useAppSelector } from "@/store/redux/useSelector";
 
 const CartHoverOnMouse = () => {
-  const items: CartItem[] = useSelector(selectItems);
+  const items: CartItem[] = useAppSelector(selectItems);
   const [isUserClosed, setIsUserClosed] = useState(false);
 
   const dispatch: AppDispatch = useDispatch();

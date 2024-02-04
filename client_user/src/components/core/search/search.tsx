@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import Link from "next/link";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import Context from "@/store/context/context";
 import { ITEMS_PER_PAGE } from "@/constant/constants";
@@ -10,6 +10,7 @@ import { AppDispatch } from "@/store/redux/store";
 import { selectBrands } from "@/lib/features/brand/brand-slice";
 import { selectCategories } from "@/lib/features/category/category-slice";
 import { productPcSlice } from "@/lib/features/product/product-pc-async-thunk";
+import { useAppSelector } from "@/store/redux/useSelector";
 
 interface Filter {
   [key: string]: string[];
@@ -51,8 +52,8 @@ export const Search = ({ items }: any) => {
 
   const [showComponent, setShowComponent] = useState(false);
 
-  const brands = useSelector(selectBrands);
-  const categories = useSelector(selectCategories);
+  const brands = useAppSelector(selectBrands);
+  const categories = useAppSelector(selectCategories);
 
   useEffect(() => {
     // This will be executed after the initial render

@@ -1,17 +1,10 @@
 "use client";
 
-import React, {
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { useContext, useEffect, useState } from "react";
 
-import {
-  FunnelIcon,
-  Squares2X2Icon,
-} from "@heroicons/react/20/solid";
+import { FunnelIcon, Squares2X2Icon } from "@heroicons/react/20/solid";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   selectAllProducts,
   selectProductListStatus,
@@ -32,10 +25,11 @@ import { fetchCategoriesAsync } from "@/lib/features/category/category-async-thu
 import { productPcSlice } from "@/lib/features/product/product-pc-async-thunk";
 import ProductForm from "@/components/update/products/update-pc-product-form";
 import { DesktopFilter } from "../core/filter/product-filter/desktop/product-filter";
-import {MobileFilter} from "@/components/core/filter/product-filter/mobile/product-filter";
-import {ProductMainPcGrid} from "@/components/grid/products/product-main-pc-grid";
+import { MobileFilter } from "@/components/core/filter/product-filter/mobile/product-filter";
+import { ProductMainPcGrid } from "@/components/grid/products/product-main-pc-grid";
 import Sort from "@/components/core/sort/sort";
-import {IFilter} from "@/types/utility/core/filter/filter.type";
+import { IFilter } from "@/types/utility/core/filter/filter.type";
+import { useAppSelector } from "@/store/redux/useSelector";
 
 interface Filter {
   [key: string]: string[];
@@ -51,13 +45,13 @@ interface SortOption {
 export const AdminPcComponentProductList = () => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const dispatch: AppDispatch = useDispatch();
-  const brands = useSelector(selectBrands);
-  const categories = useSelector(selectCategories);
-  const products = useSelector(selectAllProducts);
-  const status = useSelector(selectProductListStatus);
-  const totalItems = useSelector(selectTotalItems);
+  const brands = useAppSelector(selectBrands);
+  const categories = useAppSelector(selectCategories);
+  const products = useAppSelector(selectAllProducts);
+  const status = useAppSelector(selectProductListStatus);
+  const totalItems = useAppSelector(selectTotalItems);
   const { isGrid, setIsGrid } = useContext(Context);
-  const filters:IFilter[] = [
+  const filters: IFilter[] = [
     {
       id: "category",
       name: "Category",
@@ -218,7 +212,7 @@ export const AdminPcComponentProductList = () => {
             </BgAdminTailwindWrapper>
 
             <div className="lg:col-span-3">
-              <ProductMainPcGrid  products={products} status={status}/>
+              <ProductMainPcGrid products={products} status={status} />
             </div>
           </div>
         </section>
@@ -234,5 +228,3 @@ export const AdminPcComponentProductList = () => {
     </div>
   );
 };
-
-

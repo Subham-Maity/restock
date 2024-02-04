@@ -2,16 +2,17 @@
 import React, { useEffect } from "react";
 
 import BgAdminTailwindWrapper from "@/wrapper/admin-bg-wrapper";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchBannerApiAsync } from "@/lib/features/banner/banner-async-thunk";
 import { AppDispatch } from "@/store/redux/store";
+import { useAppSelector } from "@/store/redux/useSelector";
 
 function UpdateBanner(props: any) {
   const dispatch: AppDispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchBannerApiAsync());
   }, []);
-  let image = useSelector((state: any) => state.banner.images);
+  let image = useAppSelector((state: any) => state.banner.images);
   return (
     <BgAdminTailwindWrapper>
       {image}

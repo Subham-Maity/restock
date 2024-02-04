@@ -1,5 +1,5 @@
 "use client";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { motion } from "framer-motion";
 import {
   clearSelectedProduct,
@@ -20,6 +20,7 @@ import {
 } from "@/lib/features/product/product-pc-async-thunk";
 import { selectCategories } from "@/lib/features/category/category-slice";
 import { selectBrands } from "@/lib/features/brand/brand-slice";
+import { useAppSelector } from "@/store/redux/useSelector";
 
 function ProductForm() {
   const {
@@ -29,12 +30,12 @@ function ProductForm() {
     reset,
     formState: { errors },
   } = useForm();
-  const brands = useSelector(selectBrands);
-  const categories = useSelector(selectCategories);
+  const brands = useAppSelector(selectBrands);
+  const categories = useAppSelector(selectCategories);
   const router = useRouter();
   const dispatch: AppDispatch = useDispatch();
   const params = useParams();
-  const selectedProduct = useSelector(selectProductById);
+  const selectedProduct = useAppSelector(selectProductById);
   const [openModal, setOpenModal] = useState(null);
 
   useEffect(() => {

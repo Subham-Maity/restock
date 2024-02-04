@@ -3,7 +3,7 @@ import React from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import Image from "next/image";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { selectCartLoaded, selectItems } from "@/lib/features/cart/cart-slice";
 import { AppDispatch } from "@/store/redux/store";
 import { useRouter } from "next/navigation";
@@ -12,10 +12,11 @@ import {
   deleteItemFromCartAsync,
   updateCartAsync,
 } from "@/lib/features/cart/cart-async-thunk";
+import { useAppSelector } from "@/store/redux/useSelector";
 
 export default function Cart() {
-  const items = useSelector(selectItems);
-  const cartLoaded = useSelector(selectCartLoaded);
+  const items = useAppSelector(selectItems);
+  const cartLoaded = useAppSelector(selectCartLoaded);
   console.log(JSON.stringify(items) + "items back");
   const dispatch: AppDispatch = useDispatch();
   const totalAmount = items.reduce(
