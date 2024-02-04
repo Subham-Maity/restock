@@ -5,17 +5,18 @@ import Cart from "@/components/cart/cart";
 import HomeFooter from "@/components/common/home/home-footer";
 import MarginWrapper from "@/wrapper/margin-wrapper";
 import HomeTopNav from "@/components/common/home/home-top-nav";
+import UserProtected from "@/security/protected-route/user-protected";
 
-const Page = () => {
+const CartPage = () => {
   return (
-    <div>
+    <UserProtected>
       <HomeTopNav />
       <MarginWrapper>
         <Cart />
       </MarginWrapper>
       <HomeFooter />
-    </div>
+    </UserProtected>
   );
 };
 
-export default Page;
+export default CartPage;
