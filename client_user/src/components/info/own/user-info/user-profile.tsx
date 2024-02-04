@@ -83,7 +83,7 @@ export default function UserProfile() {
           <h1 className="text-4xl flex my-5 font-bold tracking-tight text-yellow-900 dark:text-yellow-200">
             <FaUserShield className="mt-0.5 mr-1.5" /> Name:{" "}
             <span className="ml-2 text-pink-900 dark:text-pink-200 break-all">
-              {userInfo.addresses && userInfo.addresses[0]
+              {userInfo && userInfo.addresses[0]
                 ? userInfo.addresses[0].name
                 : "No Name Provided"}
             </span>
@@ -100,7 +100,7 @@ export default function UserProfile() {
           <hr className="border-t dark:border-gray-600 mt-4 border-gray-600  mr-96 " />
         </div>
 
-        {userInfo.role === "admin" && (
+        {userInfo && userInfo.role === "admin" && (
           <h3 className="text-xl flex ml-6 mb-4 font-bold tracking-tight dark:text-green-500 text-gren-900">
             <FaUserCheck className="mt-1 mr-1.5" /> role :
             <span className="ml-2 text-emerald-900 dark:text-emerald-200 break-all">
