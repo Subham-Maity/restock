@@ -1,5 +1,5 @@
 "use client";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 import {
   Bars3Icon,
   ShoppingCartIcon,
@@ -16,17 +16,14 @@ import { BsGpuCard } from "react-icons/bs";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import ThemeSwitcher from "@/components/theme/theme-switcher";
-import { useDispatch } from "react-redux";
+import ThemeSwitcher from "@/theme/theme-switcher";
 import { selectItems } from "@/lib/features/cart/cart-slice";
 import CartHoverOnMouse from "@/components/cart/cart-hover-on-mouse";
 
 import { selectAllProducts_ } from "@/lib/features/product/product-pc-slice";
 import Search from "@/components/core/search/search";
 import { IoSearchOutline } from "react-icons/io5";
-import { AppDispatch } from "@/store/redux/store";
 import Login from "@/components/auth/login/login";
-import { fetchAllStoreProductsAsync } from "@/lib/features/product/product-pc-async-thunk";
 import { selectUserInfo } from "@/lib/features/own/own-details/own-details-slice";
 import { admin_panel_url } from "@/constant/constants";
 import { useAppSelector } from "@/store/redux/useSelector";
@@ -164,11 +161,6 @@ function classNames(...classes: any[]) {
 
 const HomeTopNav = () => {
   const router = useRouter();
-  const dispatch: AppDispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchAllStoreProductsAsync);
-  }, []);
-
   const [isCartHoverOpen, setIsCartHoverOpen] = useState(false);
   const [isSearchHoverOpen, setIsSearchHoverOpen] = useState(false);
   const [cartHoverTimeout, setCartHoverTimeout] = useState(null);

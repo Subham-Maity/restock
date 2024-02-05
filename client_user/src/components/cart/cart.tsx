@@ -17,7 +17,6 @@ import { useAppSelector } from "@/store/redux/useSelector";
 export default function Cart() {
   const items = useAppSelector(selectItems);
   const cartLoaded = useAppSelector(selectCartLoaded);
-  console.log(JSON.stringify(items) + "items back");
   const dispatch: AppDispatch = useDispatch();
   const totalAmount = items.reduce(
     (amount: number, item: any) =>
@@ -30,7 +29,6 @@ export default function Cart() {
     0,
   );
 
-  console.log(totalItems + "totalItems");
   const handleQuantity = (e: any, item: any) => {
     dispatch(updateCartAsync({ id: item.id, quantity: +e.target.value }));
   };

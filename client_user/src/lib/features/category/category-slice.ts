@@ -10,7 +10,16 @@ const initialState: CategoryState = {
 export const categorySlice = createSlice({
   name: "category",
   initialState,
-  reducers: {},
+  reducers: {
+    //we will use this when we use react-query hook
+    setCategories: (state, action) => {
+      state.categories = action.payload;
+      state.status = "idle";
+    },
+    setLoading: (state) => {
+      state.status = "loading";
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchCategoriesAsync.pending, (state) => {
@@ -22,6 +31,9 @@ export const categorySlice = createSlice({
       });
   },
 });
+
+//We will use this when we use react-query hook
+export const { setCategories, setLoading } = categorySlice.actions;
 
 export const selectCategories = (state: any) => state.category.categories;
 export const selectCategoryListStatus = (state: any) => state.category.status;
