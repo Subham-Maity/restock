@@ -6,9 +6,11 @@ import { FunnelIcon, Squares2X2Icon } from "@heroicons/react/20/solid";
 
 import { useDispatch } from "react-redux";
 import {
+  fetchProductsByFilters,
   selectAllProducts,
   selectProductListStatus,
   selectTotalItems,
+  setLoading,
 } from "@/lib/features/product/product-pc-slice";
 import { AppDispatch } from "@/store/redux/store";
 import { ITEMS_PER_PAGE } from "@/constant/constants";
@@ -18,18 +20,22 @@ import Context from "@/store/context/context";
 import { FaListUl } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { Pagination } from "@/components/core/pagination/pagination";
-import { selectBrands } from "@/lib/features/brand/brand-slice";
-import { selectCategories } from "@/lib/features/category/category-slice";
-import { fetchBrandsAsync } from "@/lib/features/brand/brand-async-thunk";
-import { fetchCategoriesAsync } from "@/lib/features/category/category-async-thunk";
-import { productPcSlice } from "@/lib/features/product/product-pc-async-thunk";
+import { selectBrands, setBrands } from "@/lib/features/brand/brand-slice";
+import {
+  selectCategories,
+  setCategories,
+} from "@/lib/features/category/category-slice";
+import { fetchProductsByFiltersAsync } from "@/lib/features/product/product-pc-async-thunk";
 import ProductForm from "@/components/update/products/update-pc-product-form";
 import { DesktopFilter } from "../core/filter/product-filter/desktop/product-filter";
 import { MobileFilter } from "@/components/core/filter/product-filter/mobile/product-filter";
 import { ProductMainPcGrid } from "@/components/grid/products/product-main-pc-grid";
 import Sort from "@/components/core/sort/sort";
-import { IFilter } from "@/types/utility/core/filter/filter.type";
+import { IFilter, KeyFilter } from "@/types/utility/core/filter/filter.type";
 import { useAppSelector } from "@/store/redux/useSelector";
+import { useProductsByFilters } from "@/lib/features/product/product-react-query";
+import { useBrands } from "@/lib/features/brand/brand-react-query";
+import { useCategory } from "@/lib/features/category/category-react-query";
 
 interface Filter {
   [key: string]: string[];
@@ -45,12 +51,20 @@ interface SortOption {
 export const AdminPcComponentProductList = () => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const dispatch: AppDispatch = useDispatch();
+
+  //react query
   const brands = useAppSelector(selectBrands);
+  const status = useAppSelector(selectProductListStatus);
+
+  //react query
   const categories = useAppSelector(selectCategories);
   const products = useAppSelector(selectAllProducts);
-  const status = useAppSelector(selectProductListStatus);
-  const totalItems = useAppSelector(selectTotalItems);
   const { isGrid, setIsGrid } = useContext(Context);
+  const totalItems = useAppSelector(selectTotalItems);
+  const { data: brandsData, status: brandsStatus } = useBrands();
+  const { data: categoryData, status: categoryStatus } = useCategory();
+
+  console.log("brands", brands);
   const filters: IFilter[] = [
     {
       id: "category",
@@ -63,16 +77,21 @@ export const AdminPcComponentProductList = () => {
       options: brands,
     },
   ];
-
-  const [filter, setFilter] = useState<Filter>({});
+  const [filter, setFilter] = useState<KeyFilter>({});
   const [sort, setSort] = useState<SortOption>({
     _sort: "rating",
     _order: "desc",
   } as SortOption);
 
   const [page, setPage] = useState(1);
+  const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
+
+  const {
+    data: productsData,
+    status: productsStatus,
+    isFetching,
+  } = useProductsByFilters({ filter, sort, pagination, admin: true });
   const handleFilter = (e: any, section: any, option: any) => {
-    console.log(e.target.checked);
     const newFilter = { ...filter };
     if (e.target.checked) {
       if (newFilter[section.id]) {
@@ -86,35 +105,56 @@ export const AdminPcComponentProductList = () => {
       );
       newFilter[section.id].splice(index, 1);
     }
-    console.log({ newFilter });
-
     setFilter(newFilter);
   };
 
   const handleSort = (option: any) => {
     const sort = { _sort: option.sort, _order: option.order };
-    console.log({ sort });
     setSort(sort);
   };
 
   const handlePage = (page: number) => {
-    console.log({ page });
     setPage(page);
   };
 
   useEffect(() => {
     const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
-    dispatch(productPcSlice({ filter, sort, pagination, admin: true }));
-  }, [dispatch, filter, sort, page]);
+    dispatch(
+      fetchProductsByFiltersAsync({ filter, sort, pagination, admin: true }),
+    );
+  }, [dispatch]);
 
   useEffect(() => {
     setPage(1);
   }, [totalItems, sort]);
 
+  //If we use a React query, then we will use this useEffect
   useEffect(() => {
-    dispatch(fetchBrandsAsync());
-    dispatch(fetchCategoriesAsync());
-  }, [dispatch]);
+    if (productsStatus === "loading") {
+      dispatch(setLoading());
+    }
+    if (productsStatus === "success") {
+      dispatch(fetchProductsByFilters(productsData.products));
+    }
+  }, [dispatch, productsData, productsStatus, filter, sort, page]);
+
+  useEffect(() => {
+    if (brandsStatus === "loading") {
+      dispatch(setLoading());
+    }
+    if (brandsStatus === "success") {
+      dispatch(setBrands(brandsData));
+    }
+  }, [dispatch, brandsData, brandsStatus]);
+
+  useEffect(() => {
+    if (categoryStatus === "loading") {
+      dispatch(setLoading());
+    }
+    if (categoryStatus === "success") {
+      dispatch(setCategories(categoryData));
+    }
+  }, [dispatch, categoryData, categoryStatus]);
   const handleButtonClick = () => {
     setIsGrid(!isGrid);
   };

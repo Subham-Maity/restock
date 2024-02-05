@@ -4,7 +4,7 @@ import {
   createProductAsync,
   fetchAllProductByIdAsync,
   fetchAllStoreProductsAsync,
-  productPcSlice,
+  fetchProductsByFiltersAsync,
   updateProductAsync,
 } from "@/lib/features/product/product-pc-async-thunk";
 import { ProductState } from "@/types/redux-slice/product/pc-product.slice.type";
@@ -24,6 +24,32 @@ export const productSlice = createSlice({
     clearSelectedProduct: (state) => {
       state.selectedProduct = null;
     },
+    fetchProductsByFilters: (state, action) => {
+      state.products = action.payload;
+      state.status = "idle";
+    },
+    fetchAllStoreProducts: (state, action) => {
+      state.allProducts = action.payload;
+      state.status = "idle";
+    },
+    fetchAllProductById: (state, action) => {
+      state.selectedProduct = action.payload;
+      state.status = "idle";
+    },
+    createProduct: (state, action) => {
+      state.products.push(action.payload);
+      state.status = "idle";
+    },
+    updateProduct: (state, action) => {
+      const index = state.products.findIndex(
+        (product) => product.id === action.payload.id,
+      );
+      state.products[index] = action.payload;
+      state.status = "idle";
+    },
+    setLoading: (state) => {
+      state.status = "loading";
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -32,10 +58,10 @@ export const productSlice = createSlice({
         state.status = "idle";
         state.allProducts = action.payload;
       })
-      .addCase(productPcSlice.pending, (state) => {
+      .addCase(fetchProductsByFiltersAsync.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(productPcSlice.fulfilled, (state, action) => {
+      .addCase(fetchProductsByFiltersAsync.fulfilled, (state, action) => {
         state.status = "idle";
         state.products = action.payload.products;
         state.totalItems = action.payload.totalItems;
@@ -67,12 +93,22 @@ export const productSlice = createSlice({
   },
 });
 
-export const { clearSelectedProduct } = productSlice.actions;
-
+// We will use this when we use react-query hook
+export const {
+  clearSelectedProduct,
+  fetchProductsByFilters,
+  fetchAllStoreProducts,
+  fetchAllProductById,
+  createProduct,
+  updateProduct,
+  setLoading,
+} = productSlice.actions;
 export const selectAllProducts = (state: any) => state.product.products;
 export const selectAllProducts_ = (state: any) => state.product.allProducts;
 export const selectTotalItems = (state: any) => state.product.totalItems;
 export const selectProductById = (state: any) => state.product.selectedProduct;
+
+// We will use this when we use react-query hook
 export const selectProductListStatus = (state: any) => state.product.status;
 
 export default productSlice.reducer;

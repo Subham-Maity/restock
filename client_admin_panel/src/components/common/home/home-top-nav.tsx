@@ -1,8 +1,7 @@
 "use client";
 import { RiMenu2Fill } from "react-icons/ri";
 
-import ThemeSwitcher from "@/components/theme/theme-switcher";
-import { useDispatch } from "react-redux";
+import ThemeSwitcher from "@/theme/theme-switcher";
 
 import { selectItems } from "@/lib/features/cart/cart-slice";
 import Link from "next/link";
@@ -10,14 +9,12 @@ import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import CartHoverOnMouse from "@/components/cart/cart-hover-on-mouse";
 import { Menu, Transition } from "@headlessui/react";
 import Image from "next/image";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 
 import { selectAllProducts_ } from "@/lib/features/product/product-pc-slice";
 import { IoSearchOutline } from "react-icons/io5";
 import { selectUserInfo } from "@/lib/features/own/own-details/own-details-slice";
 import Search from "@/components/core/search/search";
-import { fetchAllStoreProductsAsync } from "@/lib/features/product/product-pc-async-thunk";
-import { AppDispatch } from "@/store/redux/store";
 import { useAppSelector } from "@/store/redux/useSelector";
 
 interface NavbarProps {
@@ -56,12 +53,6 @@ const AdminHomeTopNav = ({ toggleSidebar, isSidebarOpen }: NavbarProps) => {
     // Store the timeout ID in state for future reference
     setCartHoverTimeout(timeoutId);
   };
-
-  //This is important for fetching all products category needed for search bar
-  const dispatch: AppDispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchAllStoreProductsAsync);
-  }, []);
 
   function classNames(...classes: any[]) {
     return classes.filter(Boolean).join(" ");
