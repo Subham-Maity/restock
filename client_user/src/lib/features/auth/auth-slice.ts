@@ -20,6 +20,18 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     increment: (state) => {},
+    checkAuthLoading: (state) => {
+      state.status = "loading";
+    },
+    checkAuthSuccess: (state, action) => {
+      state.status = "idle";
+      state.loggedInUserToken = action.payload;
+      state.userChecked = true;
+    },
+    checkAuthFailed: (state) => {
+      state.status = "idle";
+      state.userChecked = true;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -66,6 +78,13 @@ export const authSlice = createSlice({
   },
 });
 export const { increment } = authSlice.actions;
+
+export const selectAuthStatus = (state: { auth: AuthState }) =>
+  state.auth.status;
+
+export const { checkAuthLoading, checkAuthSuccess, checkAuthFailed } =
+  authSlice.actions;
+
 export const selectLoggedInUser = (state: { auth: AuthState }) =>
   state.auth.loggedInUserToken;
 
