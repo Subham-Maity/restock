@@ -9,3 +9,14 @@ export function fetchBrands(): Promise<{ data: any }> {
     resolve({ data });
   });
 }
+
+//We only use this for react-query hook
+export async function fetchBrandsQuery() {
+  const response = await fetch(`${BASE_URL}/brands`, {
+    credentials: "include",
+  });
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+  return response.json();
+}

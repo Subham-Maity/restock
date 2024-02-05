@@ -9,7 +9,7 @@ import { ITEMS_PER_PAGE } from "@/constant/constants";
 import { AppDispatch } from "@/store/redux/store";
 import { selectBrands } from "@/lib/features/brand/brand-slice";
 import { selectCategories } from "@/lib/features/category/category-slice";
-import { productPcSlice } from "@/lib/features/product/product-pc-async-thunk";
+import { fetchAllProductByIdAsync } from "@/lib/features/product/product-pc-async-thunk";
 import { useAppSelector } from "@/store/redux/useSelector";
 
 interface Filter {
@@ -105,9 +105,15 @@ export const Search = ({ items }: any) => {
       let filter = { category: [latestArray[0].category] };
       router.push("/");
 
-      dispatch(productPcSlice({ filter, sort, pagination, admin: false }));
-      dispatch(productPcSlice({ filter, sort, pagination, admin: false }));
-      dispatch(productPcSlice({ filter, sort, pagination, admin: false }));
+      dispatch(
+        fetchAllProductByIdAsync({ filter, sort, pagination, admin: false }),
+      );
+      dispatch(
+        fetchAllProductByIdAsync({ filter, sort, pagination, admin: false }),
+      );
+      dispatch(
+        fetchAllProductByIdAsync({ filter, sort, pagination, admin: false }),
+      );
     }
   };
 
@@ -144,7 +150,7 @@ export const Search = ({ items }: any) => {
                   let filter = { category: [e.target.textContent] };
                   router.push("/");
                   dispatch(
-                    productPcSlice({
+                    fetchAllProductByIdAsync({
                       filter,
                       sort,
                       pagination,
@@ -152,7 +158,7 @@ export const Search = ({ items }: any) => {
                     }),
                   );
                   dispatch(
-                    productPcSlice({
+                    fetchAllProductByIdAsync({
                       filter,
                       sort,
                       pagination,

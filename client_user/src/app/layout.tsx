@@ -2,14 +2,15 @@ import "../styles/globals.css";
 import type { Metadata } from "next";
 import { Comfortaa, Inter, Pacifico } from "next/font/google";
 import React from "react";
-import ThemeProviders from "@/providers/theme-provider";
-import { ReduxProvider } from "@/providers/redux-provider";
-import CartProvider from "@/providers/cart-provider";
-import UserProvider from "@/providers/user-provider";
-import ProductProvider from "@/providers/product-provider";
+import ThemeProviders from "@/providers/theme/theme-provider";
+import { ReduxProvider } from "@/providers/store/redux-provider";
+import CartProvider from "@/providers/components/cart-provider";
+import UserProvider from "@/providers/components/user-provider";
+import ProductProvider from "@/providers/components/product-provider";
 import { Analytics } from "@vercel/analytics/react";
-import ContextProvider from "@/providers/context-provider";
-import CheckUserProvider from "@/providers/check-user";
+import ContextProvider from "@/providers/store/context-provider";
+import CheckUserProvider from "@/providers/components/check-user";
+import ReactQueryProvider from "@/providers/react-query/react-query-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -36,25 +37,27 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="h-full">
-      <ReduxProvider>
-        <ContextProvider>
-          <ThemeProviders>
-            <body
-              className={`${inter.className} ${comfortaa.variable}  ${pacifico.variable} box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25) h-fit bg-gradient-to-r  from-zinc-300 via-neutral-300 to-slate-300 dark:from-zinc-700 dark:via-neutral-700 dark:to-slate-700`}
-            >
-              <CheckUserProvider>
-                <ProductProvider>
-                  <UserProvider>
-                    <CartProvider>
-                      {children} <Analytics />
-                    </CartProvider>
-                  </UserProvider>
-                </ProductProvider>
-              </CheckUserProvider>
-            </body>
-          </ThemeProviders>
-        </ContextProvider>
-      </ReduxProvider>
+      <ReactQueryProvider>
+        <ReduxProvider>
+          <ContextProvider>
+            <ThemeProviders>
+              <body
+                className={`${inter.className} ${comfortaa.variable}  ${pacifico.variable} box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25) h-fit bg-gradient-to-r  from-zinc-300 via-neutral-300 to-slate-300 dark:from-zinc-700 dark:via-neutral-700 dark:to-slate-700`}
+              >
+                <CheckUserProvider>
+                  <ProductProvider>
+                    <UserProvider>
+                      <CartProvider>
+                        {children} <Analytics />
+                      </CartProvider>
+                    </UserProvider>
+                  </ProductProvider>
+                </CheckUserProvider>
+              </body>
+            </ThemeProviders>
+          </ContextProvider>
+        </ReduxProvider>
+      </ReactQueryProvider>
     </html>
   );
 }

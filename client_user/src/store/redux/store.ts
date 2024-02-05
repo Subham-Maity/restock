@@ -18,7 +18,7 @@ export const store = configureStore({
     order: orderReducer,
     userInfo: userReducer,
     userOrder: userOrderReducer,
-    brand: brandReducer,
+    brands: brandReducer,
     category: categoryReducer,
   },
 });

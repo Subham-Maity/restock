@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
@@ -6,37 +6,71 @@ import Link from "next/link";
 import { MdDeleteForever } from "react-icons/md";
 
 import { AppDispatch } from "@/store/redux/store";
-import { selectItems } from "@/lib/features/cart/cart-slice";
+import {
+  deleteItemFromCart,
+  fetchItemsByUserId,
+  selectCartLoaded,
+  selectItems,
+  updateCart,
+} from "@/lib/features/cart/cart-slice";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
-import {
-  deleteItemFromCartAsync,
-  updateCartAsync,
-} from "@/lib/features/cart/cart-async-thunk";
-import { CartItem } from "@/types/redux-slice/cart/cart.slice.type";
 import { useAppSelector } from "@/store/redux/useSelector";
+import {
+  useDeleteItemFromCart,
+  useFetchItemsByUserId,
+  useUpdateCart,
+} from "@/lib/features/cart/cart-react-query";
 
 const CartHover = () => {
   const [open, setOpen] = useState(true);
-  const items: CartItem[] = useAppSelector(selectItems);
   const [isUserClosed, setIsUserClosed] = useState(false);
-
+  const router = useRouter();
+  const items = useAppSelector(selectItems);
+  const cartLoaded = useAppSelector(selectCartLoaded);
   const dispatch: AppDispatch = useDispatch();
+  const deleteItemFromCartMutation = useDeleteItemFromCart();
+  const fetchItemsByUserIdQuery = useFetchItemsByUserId();
+  const updateCartMutation = useUpdateCart();
+  useEffect(() => {
+    if (fetchItemsByUserIdQuery.isSuccess) {
+      dispatch(fetchItemsByUserId(fetchItemsByUserIdQuery.data));
+    }
+  }, [
+    fetchItemsByUserIdQuery.isSuccess,
+    fetchItemsByUserIdQuery.data,
+    dispatch,
+  ]);
+
   const totalAmount = items.reduce(
-    (amount: any, item: any) => item.price * item.quantity + amount,
+    (amount: number, item: any) =>
+      item.product.discountPercentage * item.quantity + amount,
+    0,
+  );
+
+  const totalItems = items.reduce(
+    (total: any, item: any) => item.quantity + total,
     0,
   );
 
   const handleQuantityChange = (e: any, item: any) => {
-    if (isUserClosed) return;
-    dispatch(updateCartAsync({ ...item, quantity: +e.target.value }));
+    updateCartMutation.mutate(
+      { id: item.id, quantity: +e.target.value },
+      {
+        onSuccess: (updatedItem) => {
+          dispatch(updateCart(updatedItem));
+        },
+      },
+    );
   };
   const handleRemove = (e: any, id: any) => {
-    if (isUserClosed) return;
-    dispatch(deleteItemFromCartAsync(id));
+    deleteItemFromCartMutation.mutate(id, {
+      onSuccess: () => {
+        dispatch(deleteItemFromCart(id));
+      },
+    });
   };
 
-  const router = useRouter();
   return (
     <div>
       <Transition.Root show={open} as={Fragment}>
