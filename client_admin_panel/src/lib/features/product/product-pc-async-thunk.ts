@@ -25,14 +25,6 @@ export const updateProductAsync = createAsyncThunk(
   },
 );
 
-export const fetchAllProductsAsync = createAsyncThunk(
-  "product/fetchAllProducts",
-  async () => {
-    const response = await fetchAllProducts();
-    return response.data;
-  },
-);
-
 export const fetchAllStoreProductsAsync = createAsyncThunk(
   "product/fetchAllStoreProductsAsync",
   async () => {
@@ -49,7 +41,7 @@ export const fetchAllProductByIdAsync = createAsyncThunk(
   },
 );
 
-export const productPcSlice = createAsyncThunk(
+export const fetchProductsByFiltersAsync = createAsyncThunk(
   "product/fetchProductsByFilters",
   async ({
     filter,

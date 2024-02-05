@@ -1,16 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchBrandsAsync } from "@/lib/features/brand/brand-async-thunk";
-import { BrandState } from "@/types/redux-slice/brand/brand.slice.type";
 
-const initialState: BrandState = {
+const initialState = {
   brands: [],
   status: "idle",
 };
 
-export const brandSlice = createSlice({
-  name: "brand",
+const brandsSlice = createSlice({
+  name: "brands",
   initialState,
-  reducers: {},
+  reducers: {
+    //we will use this when we use react-query hook
+    setBrands: (state, action) => {
+      state.brands = action.payload;
+      state.status = "idle";
+    },
+    setLoading: (state) => {
+      state.status = "loading";
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchBrandsAsync.pending, (state) => {
@@ -23,7 +31,12 @@ export const brandSlice = createSlice({
   },
 });
 
-export const selectBrands = (state: any) => state.brand.brands;
-export const selectBrandListStatus = (state: any) => state.brand.status;
+//We will use this when we use react-query hook
+export const { setBrands, setLoading } = brandsSlice.actions;
 
-export default brandSlice.reducer;
+export const selectBrands = (state: any) => state.brands.brands;
+
+//We will use this when we use react-query hook
+export const selectBrandListStatus = (state: any) => state.brands.status;
+
+export default brandsSlice.reducer;

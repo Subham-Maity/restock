@@ -1,44 +1,73 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { AppDispatch } from "@/store/redux/store";
-import { selectItems } from "@/lib/features/cart/cart-slice";
+import {
+  deleteItemFromCart,
+  fetchItemsByUserId,
+  selectCartLoaded,
+  selectItems,
+  updateCart,
+} from "@/lib/features/cart/cart-slice";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import CustomButton from "@/components/ui/custom-button/custom-button";
 import { MdDeleteForever } from "react-icons/md";
 import { TbShoppingCartUp } from "react-icons/tb";
 import { PiLightningFill } from "react-icons/pi";
-import { discountedPrice } from "@/constant/constants";
-import {
-  deleteItemFromCartAsync,
-  updateCartAsync,
-} from "@/lib/features/cart/cart-async-thunk";
-import { CartItem } from "@/types/redux-slice/cart/cart.slice.type";
 import { useAppSelector } from "@/store/redux/useSelector";
+import {
+  useDeleteItemFromCart,
+  useFetchItemsByUserId,
+  useUpdateCart,
+} from "@/lib/features/cart/cart-react-query";
 
 const CartHoverOnMouse = () => {
-  const items: CartItem[] = useAppSelector(selectItems);
-  const [isUserClosed, setIsUserClosed] = useState(false);
-
+  const router = useRouter();
+  const items = useAppSelector(selectItems);
+  const cartLoaded = useAppSelector(selectCartLoaded);
   const dispatch: AppDispatch = useDispatch();
+  const deleteItemFromCartMutation = useDeleteItemFromCart();
+  const fetchItemsByUserIdQuery = useFetchItemsByUserId();
+  const updateCartMutation = useUpdateCart();
+  useEffect(() => {
+    if (fetchItemsByUserIdQuery.isSuccess) {
+      dispatch(fetchItemsByUserId(fetchItemsByUserIdQuery.data));
+    }
+  }, [
+    fetchItemsByUserIdQuery.isSuccess,
+    fetchItemsByUserIdQuery.data,
+    dispatch,
+  ]);
+
   const totalAmount = items.reduce(
     (amount: number, item: any) =>
-      discountedPrice(item.product) * item.quantity + amount,
+      item.product.discountPercentage * item.quantity + amount,
     0,
   );
-  const handleRemove = (e: any, id: any) => {
-    if (isUserClosed) return;
-    dispatch(deleteItemFromCartAsync(id));
-  };
-  const handleQuantity = (e: any, item: any) => {
-    dispatch(updateCartAsync({ id: item.id, quantity: +e.target.value }));
-  };
+
   const totalItems = items.reduce(
-    (total: number, item: any) => item.quantity + total,
+    (total: any, item: any) => item.quantity + total,
     0,
   );
-  const router = useRouter();
+
+  const handleQuantity = (e: any, item: any) => {
+    updateCartMutation.mutate(
+      { id: item.id, quantity: +e.target.value },
+      {
+        onSuccess: (updatedItem) => {
+          dispatch(updateCart(updatedItem));
+        },
+      },
+    );
+  };
+  const handleRemove = (e: any, id: any) => {
+    deleteItemFromCartMutation.mutate(id, {
+      onSuccess: () => {
+        dispatch(deleteItemFromCart(id));
+      },
+    });
+  };
 
   if (items.length === 0) {
     return (

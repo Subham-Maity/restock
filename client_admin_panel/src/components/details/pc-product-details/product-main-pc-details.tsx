@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { useDispatch } from "react-redux";
 import { useParams } from "next/navigation";
-import { selectProductById } from "@/lib/features/product/product-pc-slice";
+import { fetchAllProductById } from "@/lib/features/product/product-pc-slice";
 import Image from "next/image";
 import Link from "next/link";
 import { AppDispatch } from "@/store/redux/store";
@@ -20,23 +20,25 @@ import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import { AiOutlineZoomIn, AiOutlineZoomOut } from "react-icons/ai";
 import { IoClose } from "react-icons/io5";
 import ProductDetailsSkeleton from "@/loader/skeleton/product-main-pc-details-skeleton";
-import { fetchAllProductByIdAsync } from "@/lib/features/product/product-pc-async-thunk";
 import { addToCartAsync } from "@/lib/features/cart/cart-async-thunk";
 import { CartItem } from "@/types/redux-slice/cart/cart.slice.type";
 import { useAppSelector } from "@/store/redux/useSelector";
+import { useProductById } from "@/lib/features/product/product-react-query";
+import { setLoading } from "@/lib/features/brand/brand-slice";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function ProductMainPcDetails() {
-  const product = useAppSelector(selectProductById);
   const dispatch: AppDispatch = useDispatch();
-  const params = useParams();
+  const params: any = useParams();
   const user: User | null = useAppSelector(selectLoggedInUser);
   const items: CartItem[] = useAppSelector(selectItems);
   const [isCartHoverVisible, setCartHoverVisible] = useState(false);
   const [currentImage, setCurrentImage] = useState("/");
+  const { data: product, status: productsStatus } = useProductById(params.id);
+
   const handleMouseEnter = (src: any) => {
     setCurrentImage(src);
   };
@@ -48,8 +50,14 @@ export default function ProductMainPcDetails() {
   }, [product]);
 
   useEffect(() => {
-    dispatch(fetchAllProductByIdAsync(params.id));
-  }, [dispatch, params.id]);
+    if (productsStatus === "loading") {
+      dispatch(setLoading());
+    }
+
+    if (productsStatus === "success") {
+      dispatch(fetchAllProductById(params.id));
+    }
+  }, [dispatch, productsStatus, params.id]);
 
   if (!product) {
     return <ProductDetailsSkeleton />;
