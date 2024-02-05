@@ -2,9 +2,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/redux/store";
-import { checkAuthAsync } from "@/lib/features/auth/auth-async-thunk";
-import { selectUserChecked } from "@/lib/features/auth/auth-slice";
-import { usePathname, useRouter } from "next/navigation";
+import {
+  checkAuthFailed,
+  checkAuthLoading,
+  checkAuthSuccess,
+  selectUserChecked,
+} from "@/lib/features/auth/auth-slice";
+import { redirect, usePathname } from "next/navigation";
 // Import your loader components
 import ProductMainPcOrderSkeleton from "@/loader/skeleton/product-main-pc-order-skeleton";
 import UserInfoSkeleton from "@/loader/skeleton/user-info-skeleton";
@@ -14,6 +18,7 @@ import ProductCheckoutSkeleton from "@/loader/skeleton/product-checkout-skeleton
 import ProductDetailsSkeleton from "@/loader/skeleton/product-main-pc-details-skeleton";
 import ProductListSkeleton from "@/loader/skeleton/product-main-pc-skeleton";
 import { useAppSelector } from "@/store/redux/useSelector";
+import { useCheckAuth } from "@/lib/features/auth/auth-react-query";
 
 const routes = [
   { path: "order", Loader: ProductMainPcOrderSkeleton },
@@ -26,15 +31,26 @@ const routes = [
 
 const CheckUser = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
-  const router = useRouter();
   const [isReady, setIsReady] = useState(false);
   const dispatch: AppDispatch = useDispatch();
   const userChecked = useAppSelector(selectUserChecked);
 
+  const { data: user, status: isLoading } = useCheckAuth();
+
   useEffect(() => {
-    dispatch(checkAuthAsync());
+    if (isLoading === "loading") {
+      dispatch(checkAuthLoading());
+    }
+
+    if (isLoading === "success") {
+      dispatch(checkAuthSuccess(user));
+    }
+
+    if (isLoading === "error") {
+      dispatch(checkAuthFailed());
+    }
     setIsReady(true);
-  }, [dispatch]);
+  }, [dispatch, isLoading, user]);
 
   if (!userChecked) {
     // Wait for the router to be ready before checking pathname
@@ -53,8 +69,7 @@ const CheckUser = ({ children }: { children: React.ReactNode }) => {
   }
 
   if (!userChecked) {
-    router.push("/login"); // Redirect to login page
-    return null;
+    redirect("/login"); // Redirect to login page
   }
 
   return children;

@@ -18,3 +18,14 @@ export function checkAuth() {
     }
   });
 }
+
+//We only use this for react-query hook
+export async function checkAuthQuery() {
+  const response = await fetch(`${BASE_URL}/auth/check`, {
+    credentials: "include",
+  });
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+  return response.json();
+}
