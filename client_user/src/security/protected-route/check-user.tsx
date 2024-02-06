@@ -35,6 +35,8 @@ const CheckUser = ({ children }: { children: React.ReactNode }) => {
   const dispatch: AppDispatch = useDispatch();
   const userChecked = useAppSelector(selectUserChecked);
 
+  console.log("userChecked", userChecked);
+
   const { data: user, status: isLoading } = useCheckAuth();
 
   useEffect(() => {

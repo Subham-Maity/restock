@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { AppDispatch } from "@/store/redux/store";
@@ -9,18 +9,21 @@ import { selectUserOrders } from "@/lib/features/own/own-orders/own-orders-slice
 import { selectUserInfoStatus } from "@/lib/features/own/own-details/own-details-slice";
 import { fetchLoggedInUserOrderAsync } from "@/lib/features/own/own-orders/own-orders-async-thunk";
 import { useAppSelector } from "@/store/redux/useSelector";
+import TopLoader from "@/loader/top-loader/top-loader";
 
 export default function UserOrders() {
   const dispatch: AppDispatch = useDispatch();
   const user = useAppSelector(selectLoggedInUser);
   const orders = useAppSelector(selectUserOrders);
   const status = useAppSelector(selectUserInfoStatus);
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
-    dispatch(fetchLoggedInUserOrderAsync());
+    dispatch(fetchLoggedInUserOrderAsync()).finally(() => setIsLoading(false));
   }, [dispatch, user]);
 
   return (
-    <div>
+    <TopLoader isLoading={isLoading}>
       {orders &&
         orders.map((order: any) => (
           <div key={order.id}>
@@ -135,6 +138,6 @@ export default function UserOrders() {
           <h1 className="text-4xl font-bold">Loading...</h1>
         </div>
       )}
-    </div>
+    </TopLoader>
   );
 }
