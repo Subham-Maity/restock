@@ -2,10 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import {
-  selectError,
-  selectLoggedInUser,
-} from "@/lib/features/auth/auth-slice";
+import { selectError } from "@/lib/features/auth/auth-slice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/redux/store";
 import {
@@ -32,13 +29,11 @@ const Login = () => {
   } = useForm<Inputs>();
   const dispatch: AppDispatch = useDispatch();
   const error = useAppSelector(selectError);
-  const user = useAppSelector(selectLoggedInUser);
   const router = useRouter();
   const [passType, setPassType] = useState("password");
 
   return (
     <>
-      {user && router.push("/")}
       <div className="flex min-h-full flex-1 shadow-lg shadow-gray-700 flex-col justify-center px-6 py-12 lg:px-8 md:w-[32rem] mx-3 md:mx-auto default-card">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm ">
           <h1 className="text-center border border-gray-600/30 rounded-xl p-4 text-4xl font-bold leading-9 tracking-tight text-gray-600 dark:text-gray-500">
