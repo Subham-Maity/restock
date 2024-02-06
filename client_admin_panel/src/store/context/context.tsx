@@ -8,12 +8,14 @@ export interface ContextState {
   infoData: InfoData;
   isDarkTheme: Boolean;
   isGrid: Boolean;
+  prevPath: string;
 }
 
 export interface ContextDispatch {
   setInfoData: React.Dispatch<React.SetStateAction<InfoData>>;
   setIsDarkTheme: React.Dispatch<React.SetStateAction<Boolean>>;
   setIsGrid: React.Dispatch<React.SetStateAction<Boolean>>;
+  setPrevPath: React.Dispatch<React.SetStateAction<string>>;
 }
 
 type ContextProps = ContextState & ContextDispatch;
@@ -26,6 +28,7 @@ const defaultDispatch: ContextDispatch = {
   setInfoData: () => {},
   setIsDarkTheme: () => {},
   setIsGrid: () => {},
+  setPrevPath: () => {},
 };
 
 const defaultFormContext: ContextProps = {
@@ -33,6 +36,7 @@ const defaultFormContext: ContextProps = {
   infoData: defaultInfoData,
   isDarkTheme: false,
   isGrid: true,
+  prevPath: "",
 };
 
 const Context = React.createContext<ContextProps>(defaultFormContext);
