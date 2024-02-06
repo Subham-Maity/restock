@@ -9,8 +9,9 @@ import UserProvider from "@/providers/components/user-provider";
 import ProductProvider from "@/providers/components/product-provider";
 import { Analytics } from "@vercel/analytics/react";
 import ContextProvider from "@/providers/store/context-provider";
-import CheckUserProvider from "@/providers/components/check-user";
+import CheckUserProvider from "@/providers/security/check-user";
 import ReactQueryProvider from "@/providers/react-query/react-query-provider";
+import RouteTracker from "@/security/path-track/path-track";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -48,7 +49,9 @@ export default function RootLayout({
                   <ProductProvider>
                     <UserProvider>
                       <CartProvider>
-                        {children} <Analytics />
+                        <RouteTracker>
+                          {children} <Analytics />
+                        </RouteTracker>
                       </CartProvider>
                     </UserProvider>
                   </ProductProvider>
