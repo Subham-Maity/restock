@@ -1,14 +1,12 @@
 import React from "react";
 import UpdateBanner from "@/components/update/banner/update-banner";
-import AdminProtected from "@/security/protected-route/admin-protected";
+import IfUserThenIfAdmin from "@/providers/security/if-user-then-if-admin";
 
 const Page = () => {
   return (
-    <div>
-      <AdminProtected>
-        <UpdateBanner />
-      </AdminProtected>
-    </div>
+    <IfUserThenIfAdmin>
+      <UpdateBanner />
+    </IfUserThenIfAdmin>
   );
 };
 

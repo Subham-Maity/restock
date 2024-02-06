@@ -2,17 +2,15 @@ import React from "react";
 import OrderTable from "@/components/order/order-table";
 import dynamic from "next/dynamic";
 import DefaultNav from "@/components/layout/layout";
-import AdminProtected from "@/security/protected-route/admin-protected";
+import IfUserThenIfAdmin from "@/providers/security/if-user-then-if-admin";
 
 const Page = () => {
   return (
-    <div>
-      <AdminProtected>
-        <DefaultNav>
-          <OrderTable />
-        </DefaultNav>
-      </AdminProtected>
-    </div>
+    <IfUserThenIfAdmin>
+      <DefaultNav>
+        <OrderTable />
+      </DefaultNav>
+    </IfUserThenIfAdmin>
   );
 };
 

@@ -1,17 +1,15 @@
 import React from "react";
 import DefaultNav from "@/components/layout/layout";
 import ProductForm from "@/components/update/products/update-pc-product-form";
-import AdminProtected from "@/security/protected-route/admin-protected";
+import IfUserThenIfAdmin from "@/providers/security/if-user-then-if-admin";
 
 const Page = () => {
   return (
-    <div>
-      <AdminProtected>
-        <DefaultNav>
-          <ProductForm />
-        </DefaultNav>
-      </AdminProtected>
-    </div>
+    <IfUserThenIfAdmin>
+      <DefaultNav>
+        <ProductForm />
+      </DefaultNav>
+    </IfUserThenIfAdmin>
   );
 };
 

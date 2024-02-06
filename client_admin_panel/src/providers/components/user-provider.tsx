@@ -10,6 +10,7 @@ import { useAppSelector } from "@/store/redux/useSelector";
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const dispatch: AppDispatch = useDispatch();
   const user: User | null = useAppSelector(selectLoggedInUser);
+
   useEffect(() => {
     if (user) {
       dispatch(fetchLoggedInUserAsync());

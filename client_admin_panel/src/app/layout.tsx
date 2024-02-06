@@ -9,8 +9,9 @@ import UserProvider from "@/providers/components/user-provider";
 import ProductProvider from "@/providers/components/product-provider";
 import { Analytics } from "@vercel/analytics/react";
 import ContextProvider from "@/providers/store/context-provider";
-import CheckUserProvider from "@/providers/components/check-user";
 import ReactQueryProvider from "@/providers/react-query/react-query-provider";
+import CheckUserProvider from "@/providers/security/check-user";
+import RouteTracker from "@/security/path-track/path-track";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,11 +34,9 @@ const pacifico = Pacifico({
 export default function RootLayout({
   children,
   productEditModal,
-  authModal,
 }: {
   children: React.ReactNode;
   productEditModal: React.ReactNode;
-  authModal: React.ReactNode;
 }) {
   return (
     <html lang="en" className="h-full">
@@ -52,9 +51,10 @@ export default function RootLayout({
                   <ProductProvider>
                     <UserProvider>
                       <CartProvider>
-                        {children}
-                        {productEditModal}
-                        {authModal}
+                        <RouteTracker>
+                          {children}
+                          {productEditModal}
+                        </RouteTracker>
                         <Analytics />
                       </CartProvider>
                     </UserProvider>

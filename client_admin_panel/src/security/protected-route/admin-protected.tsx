@@ -1,9 +1,8 @@
 "use client";
 import React from "react";
-
-import { redirect } from "next/navigation";
 import { selectUserInfo } from "@/lib/features/own/own-details/own-details-slice";
 import { useAppSelector } from "@/store/redux/useSelector";
+import { redirect } from "next/navigation";
 
 export default function AdminProtected({
   children,
