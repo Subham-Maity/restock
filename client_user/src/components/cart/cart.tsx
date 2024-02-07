@@ -14,13 +14,15 @@ import {
 } from "@/lib/features/cart/cart-async-thunk";
 import { useAppSelector } from "@/store/redux/useSelector";
 import TopLoader from "@/loader/top-loader/top-loader";
+import DangerModal from "@/components/ui/custom-modal/danger-modal";
+import { CiWarning } from "react-icons/ci";
 
 export default function Cart() {
   const items = useAppSelector(selectItems);
   const cartLoaded = useAppSelector(selectCartLoaded);
   const dispatch: AppDispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
-
+  const [openModal, setOpenModal] = useState(null);
   const totalAmount = items.reduce(
     (amount: number, item: any) =>
       item.product.discountPercentage * item.quantity + amount,
@@ -120,10 +122,22 @@ export default function Cart() {
                             </div>
 
                             <div className="flex item-center flex-row">
+                              <DangerModal
+                                title={`Delete ${item.product.title}`}
+                                message="Are you sure you want to delete this Cart item ?"
+                                dangerOption="Delete"
+                                cancelOption="Cancel"
+                                dangerAction={(e) => handleRemove(e, item.id)}
+                                cancelAction={() => setOpenModal(null)}
+                                showModal={openModal === item.id}
+                                icon={<CiWarning />}
+                              />
                               <button
                                 type="button"
                                 className="md:font-semibold text-sm md:text-base text-red-600 hover:text-red-500 flex items-center"
-                                onClick={(e) => handleRemove(e, item.id)}
+                                onClick={(e) => {
+                                  setOpenModal(item.id);
+                                }}
                               >
                                 <MdDeleteForever />
                                 Remove
