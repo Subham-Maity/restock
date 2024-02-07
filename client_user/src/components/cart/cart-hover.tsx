@@ -21,6 +21,9 @@ import {
   useFetchItemsByUserId,
   useUpdateCart,
 } from "@/lib/features/cart/cart-react-query";
+import { updateCartAsync } from "@/lib/features/cart/cart-async-thunk";
+import CustomButton from "@/components/ui/custom-button/custom-button";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 const CartHover = () => {
   const [open, setOpen] = useState(true);
@@ -32,6 +35,8 @@ const CartHover = () => {
   const deleteItemFromCartMutation = useDeleteItemFromCart();
   const fetchItemsByUserIdQuery = useFetchItemsByUserId();
   const updateCartMutation = useUpdateCart();
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     if (fetchItemsByUserIdQuery.isSuccess) {
       dispatch(fetchItemsByUserId(fetchItemsByUserIdQuery.data));
@@ -69,6 +74,11 @@ const CartHover = () => {
         dispatch(deleteItemFromCart(id));
       },
     });
+  };
+  const handleQuantity = (e: any, item: any) => {
+    dispatch(
+      updateCartAsync({ id: item.id, quantity: +e.target.value }),
+    ).finally(() => setIsLoading(false));
   };
 
   return (
@@ -128,15 +138,15 @@ const CartHover = () => {
                         <div className="mt-8">
                           <div className="flow-root">
                             <ul className="-my-6 divide-y divide-gray-200">
-                              {items.map((product: any) => (
-                                <li key={product.id} className="flex py-6">
+                              {items.map((item: any) => (
+                                <li key={item.id} className="flex py-6">
                                   <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                     <Image
-                                      src={product.thumbnail}
-                                      alt={product.title}
+                                      src={item.product?.thumbnail}
+                                      alt={item.product?.title}
                                       className="h-full w-full object-cover object-center"
-                                      width={200}
-                                      height={200}
+                                      width={384}
+                                      height={384}
                                     />
                                   </div>
 
@@ -144,14 +154,16 @@ const CartHover = () => {
                                     <div>
                                       <div className="flex justify-between text-base font-medium text-gray-900 dark:text-gray-200 ">
                                         <h3>
-                                          <a href={product.href}>
-                                            {product.title}
+                                          <a href={item.href}>
+                                            {item.product?.title}
                                           </a>
                                         </h3>
-                                        <p className="">₹{product.price}</p>
+                                        <p className="ml-4">
+                                          ₹{item.product?.price}
+                                        </p>
                                       </div>
                                       <p className="mt-1 text-sm text-gray-500">
-                                        {product.color}
+                                        {item.product?.brand}
                                       </p>
                                     </div>
                                     <div className="flex flex-1 items-end justify-between text-sm">
@@ -164,9 +176,9 @@ const CartHover = () => {
                                         </label>
                                         <select
                                           onChange={(e) =>
-                                            handleQuantityChange(e, product)
+                                            handleQuantity(e, item)
                                           }
-                                          value={product.quantity}
+                                          value={item.quantity}
                                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         >
                                           <option value="1">1</option>
@@ -180,9 +192,9 @@ const CartHover = () => {
                                       <div className="flex item-center flex-row">
                                         <button
                                           type="button"
-                                          className="font-semibold text-sm text-red-600 hover:text-red-500 flex items-center"
+                                          className="md:font-semibold text-sm md:text-base text-red-600 hover:text-red-500 flex items-center"
                                           onClick={(e) =>
-                                            handleRemove(e, product.id)
+                                            handleRemove(e, item.id)
                                           }
                                         >
                                           <MdDeleteForever />
@@ -208,18 +220,32 @@ const CartHover = () => {
                           </p>
                         </div>
                         <p className="mt-0.5 text-sm text-gray-500">
-                          Shipping and taxes calculated at checkout.
+                          * Shipping and taxes calculated at checkout.
                         </p>
                         <div className="mt-6">
-                          <button
-                            onClick={() => {
-                              router.push("/checkout");
-                            }}
-                            type="submit"
-                            className="buyNow w-full flex items-center justify-center rounded-xl border border-transparent bg-indigo-600 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                          >
-                            Checkout
-                          </button>
+                          <div className="mt-6 flex justify-between ">
+                            <CustomButton
+                              className="relative inline-flex items-center text-lg font-bold justify-center sm:w-40 md:w-48 bg-gray-400/5 dark:bg-gray-500/5 sm:ml-7 p-4 py-3 overflow-hidden text-indigo-500 transition duration-100 ease-out border-2 dark:border-indigo-500/30 rounded-xl shadow-xl group"
+                              title="Browse More"
+                              type="submit"
+                              animated
+                              icon={<FaArrowLeft />}
+                              onClick={() => {
+                                router.push("/");
+                              }}
+                            />
+
+                            <CustomButton
+                              className="relative inline-flex items-center text-lg font-bold justify-center sm:w-40 md:w-48 bg-gray-400/5 dark:bg-gray-500/5 sm:ml-7 p-4 py-3 overflow-hidden text-indigo-500 transition duration-100 ease-out border-2 dark:border-indigo-500/30 rounded-xl shadow-xl group"
+                              title="Checkout"
+                              type="submit"
+                              animated
+                              icon={<FaArrowRight />}
+                              onClick={() => {
+                                router.push("/checkout");
+                              }}
+                            />
+                          </div>
                         </div>
                         <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                           <p>

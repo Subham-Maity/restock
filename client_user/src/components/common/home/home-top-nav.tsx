@@ -357,6 +357,7 @@ const HomeTopNav = () => {
                             aria-hidden="true"
                           />
                         </Link>
+
                         {isCartHoverOpen && <CartHoverOnMouse />}
                       </button>
                       {items.length > 0 && (

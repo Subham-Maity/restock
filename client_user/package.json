@@ -11,8 +11,12 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@gsap/react": "^2.1.0",
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
+    "@radix-ui/react-alert-dialog": "^1.0.5",
+    "@radix-ui/react-icons": "^1.3.0",
+    "@radix-ui/react-slot": "^1.0.2",
     "@reduxjs/toolkit": "^1.9.7",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.7",
@@ -23,6 +27,7 @@
     "antd": "^5.12.1",
     "autoprefixer": "10.4.14",
     "axios": "^1.6.2",
+    "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "embla-carousel-autoplay": "8.0.0-rc14",
     "embla-carousel-react": "8.0.0-rc14",
@@ -53,6 +58,7 @@
     "slick-carousel": "^1.8.1",
     "tailwind-merge": "^1.14.0",
     "tailwindcss": "3.3.3",
+    "tailwindcss-animate": "^1.0.7",
     "typescript": "5.1.6"
   },
   "devDependencies": {
