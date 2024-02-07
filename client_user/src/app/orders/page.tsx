@@ -8,7 +8,7 @@ import HomeTopNav from "@/components/common/home/home-top-nav";
 
 const Page = () => {
   return (
-    <div>
+    <>
       <HomeTopNav />
       <UserProtected>
         <MarginWrapper>
@@ -16,7 +16,7 @@ const Page = () => {
         </MarginWrapper>
       </UserProtected>
       <HomeFooter />
-    </div>
+    </>
   );
 };
 

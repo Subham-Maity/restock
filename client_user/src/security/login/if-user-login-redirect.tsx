@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import Context from "@/store/context/context";
 import { selectUserInfo } from "@/lib/features/own/own-details/own-details-slice"; // Update this with your actual path
 
-export default function IfUserAdminLoginRedirect({
+export default function IfUserLoginRedirect({
   children,
 }: {
   children: React.ReactNode;

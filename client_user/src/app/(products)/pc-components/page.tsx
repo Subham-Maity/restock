@@ -5,16 +5,17 @@ import HomeFooter from "@/components/common/home/home-footer";
 import MarginWrapper from "@/wrapper/margin-wrapper";
 import HomeTopNav from "@/components/common/home/home-top-nav";
 import { PcComponentProductList } from "@/components/products/product-main-pc";
+import TopLoader from "@/loader/top-loader/top-loader";
 
 const page = () => {
   return (
     <>
-      <div className="">
+      <TopLoader>
         <HomeTopNav />
         <MarginWrapper>
           <PcComponentProductList />
         </MarginWrapper>
-      </div>
+      </TopLoader>
       <HomeFooter />
     </>
   );

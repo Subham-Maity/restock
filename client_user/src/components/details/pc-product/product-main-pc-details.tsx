@@ -92,6 +92,7 @@ export default function ProductMainPcDetails() {
       dispatch(addToCartAsync(newItem))
         .then(() => {
           setCartHoverVisible(true); // Show the cart popup after a successful dispatch
+          //TODO: backend verification for the product in the cart and then show the toast
           toast.success(`${product.title} is added to your cart`, {
             position: "bottom-right",
             autoClose: 1000,

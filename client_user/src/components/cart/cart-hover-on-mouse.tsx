@@ -1,11 +1,10 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { AppDispatch } from "@/store/redux/store";
 import {
   deleteItemFromCart,
   fetchItemsByUserId,
-  selectCartLoaded,
   selectItems,
   updateCart,
 } from "@/lib/features/cart/cart-slice";
@@ -21,15 +20,17 @@ import {
   useFetchItemsByUserId,
   useUpdateCart,
 } from "@/lib/features/cart/cart-react-query";
+import DangerModal from "@/components/ui/custom-modal/danger-modal";
+import { CiWarning } from "react-icons/ci";
 
 const CartHoverOnMouse = () => {
   const router = useRouter();
   const items = useAppSelector(selectItems);
-  const cartLoaded = useAppSelector(selectCartLoaded);
   const dispatch: AppDispatch = useDispatch();
   const deleteItemFromCartMutation = useDeleteItemFromCart();
   const fetchItemsByUserIdQuery = useFetchItemsByUserId();
   const updateCartMutation = useUpdateCart();
+  const [openModal, setOpenModal] = useState(null);
   useEffect(() => {
     if (fetchItemsByUserIdQuery.isSuccess) {
       dispatch(fetchItemsByUserId(fetchItemsByUserIdQuery.data));
@@ -141,10 +142,22 @@ const CartHoverOnMouse = () => {
                           </div>
 
                           <div className="flex item-center flex-row">
+                            <DangerModal
+                              title={`Delete ${item.product.title}`}
+                              message="Are you sure you want to delete this Cart item ?"
+                              dangerOption="Delete"
+                              cancelOption="Cancel"
+                              dangerAction={(e) => handleRemove(e, item.id)}
+                              cancelAction={() => setOpenModal(null)}
+                              showModal={openModal === item.id}
+                              icon={<CiWarning />}
+                            />
                             <button
                               type="button"
                               className="md:font-semibold text-xs text-red-600 hover:text-red-500 flex items-center"
-                              onClick={(e) => handleRemove(e, item.id)}
+                              onClick={(e) => {
+                                setOpenModal(item.id);
+                              }}
                             >
                               <MdDeleteForever />
                               Remove
