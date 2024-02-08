@@ -7,8 +7,12 @@ import {
 } from "@/lib/features/product/product-pc-slice";
 import { useForm } from "react-hook-form";
 import React, { useEffect, useState } from "react";
-import Modal from "@/components/ui/custom-modal/Modal";
-import { useParams, useRouter } from "next/navigation";
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from "next/navigation";
 import { FaSave, FaTrashAlt } from "react-icons/fa";
 
 import { AiFillCloseSquare } from "react-icons/ai";
@@ -21,6 +25,8 @@ import {
 import { selectCategories } from "@/lib/features/category/category-slice";
 import { selectBrands } from "@/lib/features/brand/brand-slice";
 import { useAppSelector } from "@/store/redux/useSelector";
+import DangerModal from "@/components/ui/custom-modal/danger-modal";
+import { Card, CardHeader, CardTitle } from "@/components/ui/shadcn/card";
 
 function ProductForm() {
   const {
@@ -28,7 +34,7 @@ function ProductForm() {
     handleSubmit,
     setValue,
     reset,
-    formState: { errors },
+    formState: {},
   } = useForm();
   const brands = useAppSelector(selectBrands);
   const categories = useAppSelector(selectCategories);
@@ -36,7 +42,10 @@ function ProductForm() {
   const dispatch: AppDispatch = useDispatch();
   const params = useParams();
   const selectedProduct = useAppSelector(selectProductById);
-  const [openModal, setOpenModal] = useState(null);
+  const [openModal, setOpenModal] = useState<boolean | null>(false);
+  const searchParams = useSearchParams();
+  const prevPath = usePathname();
+  const showDialog = searchParams.get("showDialog");
 
   useEffect(() => {
     if (params.id) {
@@ -63,9 +72,13 @@ function ProductForm() {
   }, [selectedProduct, params.id, setValue]);
 
   const handleDelete = () => {
-    const product = { ...selectedProduct };
-    product.deleted = true;
-    dispatch(updateProductAsync(product));
+    if (showDialog === "y") {
+      window.location.href = `${prevPath}`;
+    } else {
+      const product = { ...selectedProduct };
+      product.deleted = true;
+      dispatch(updateProductAsync(product));
+    }
   };
 
   return (
@@ -73,7 +86,6 @@ function ProductForm() {
       <form
         noValidate
         onSubmit={handleSubmit((data) => {
-          console.log(data);
           const product: { [p: string]: any } = { ...data };
           product.images = [
             product?.image1,
@@ -88,7 +100,6 @@ function ProductForm() {
           product.price = +product?.price;
           product.stock = +product?.stock;
           product.discountPercentage = +product?.discountPercentage;
-          console.log(product);
 
           if (params.id) {
             product.id = params?.id;
@@ -111,10 +122,18 @@ function ProductForm() {
               <div className="border-t mt-4 mb-2 border-gray-800 py-2 dark:border-gray-200  "></div>
               <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                 {selectedProduct && selectedProduct.deleted && (
-                  <p className="text-sm font-bold text-center bg-orange-100/25 dark:bg-orange-400/25 mx-2 w-full py-2 rounded-lg block dark:text-white  text-black  whitespace-nowrap">
-                    {" "}
-                    This Product {selectedProduct.id} is deleted
-                  </p>
+                  <Card className="bg-red-500/25 border-gray-600">
+                    <CardHeader>
+                      <CardTitle
+                        className="text-sm font-bold text-center
+                                             w-20 l  rounded-lg block dark:text-gray-400
+                                                text-black break-words"
+                      >
+                        This Product {selectedProduct?.title}#
+                        {selectedProduct?.id} is deleted
+                      </CardTitle>
+                    </CardHeader>
+                  </Card>
                 )}
 
                 <div className="sm:col-span-6">
@@ -479,7 +498,14 @@ function ProductForm() {
                 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ duration: 0.2 }}
-                onClick={() => handleDelete()}
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (showDialog !== "y") {
+                    setOpenModal(true);
+                  } else {
+                    handleDelete();
+                  }
+                }}
               >
                 <motion.span
                   initial={{ rotate: 0 }}
@@ -503,9 +529,6 @@ function ProductForm() {
                   duration: 0.2,
                 },
               }}
-              onClick={() => {
-                router.push("/admin");
-              }}
             >
               <motion.span
                 initial={{ rotate: 0 }}
@@ -525,19 +548,20 @@ function ProductForm() {
           </div>
         </div>
       </form>
-      <Modal
-        title={`Delete ${selectedProduct?.title}`}
-        message="Are you sure you want to delete this Product ?"
-        dangerOption="Delete"
-        cancelOption="Cancel"
-        // dangerAction={handleDelete}
-        dangerAction={
-          //@ts-ignore
-          () => setOpenModal(null)
-        }
-        cancelAction={() => setOpenModal(null)}
-        showModal={openModal}
-      ></Modal>
+      {selectedProduct && (
+        <DangerModal
+          title={`Delete ${selectedProduct?.title}`}
+          message="Are you sure you want to delete this Product ?"
+          dangerOption="Delete"
+          cancelOption="Cancel"
+          dangerAction={handleDelete}
+          cancelAction={() => setOpenModal(null)}
+          showModal={openModal}
+          icon={
+            <FaTrashAlt className="h-6 w-6 text-red-600" aria-hidden="true" />
+          }
+        />
+      )}
     </div>
   );
 }

@@ -11,7 +11,7 @@ const BgAdminTailwindWrapper = ({
   return (
     <div
       className={cn(
-        "dark:bg-[#2b313a] bg-stone-200/25 rounded-lg p-4 z-10 shadow-md shadow-black/25 opacity-95 w-full",
+        "dark:bg-[#2b313a] bg-stone-200/25 rounded-lg p-4 shadow-md shadow-black/25 opacity-95 w-full",
         className,
       )}
     >
