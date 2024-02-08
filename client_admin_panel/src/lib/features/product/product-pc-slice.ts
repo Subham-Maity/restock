@@ -46,6 +46,7 @@ export const productSlice = createSlice({
       );
       state.products[index] = action.payload;
       state.status = "idle";
+      state.selectedProduct = action.payload;
     },
     setLoading: (state) => {
       state.status = "loading";
@@ -53,7 +54,6 @@ export const productSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Add your existing extra reducers related to products here
       .addCase(fetchAllStoreProductsAsync.fulfilled, (state, action) => {
         state.status = "idle";
         state.allProducts = action.payload;
@@ -89,6 +89,7 @@ export const productSlice = createSlice({
           (product) => product.id === action.payload.id,
         );
         state.products[index] = action.payload;
+        state.selectedProduct = action.payload;
       });
   },
 });

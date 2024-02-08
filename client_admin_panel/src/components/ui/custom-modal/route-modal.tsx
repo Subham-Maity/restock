@@ -1,20 +1,29 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect, useMemo, useRef } from "react";
+import React, {
+  memo,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+} from "react"; // Import memo and useCallback
 import { motion } from "framer-motion";
+import { RxCross2 } from "react-icons/rx";
 
 type Props = {
   title?: string;
   onClose?: () => void;
   onOk?: () => void;
-  children: React.ReactNode;
+  children: ReactNode;
   bg?: boolean;
   bgClass?: string;
   buttonClass?: string;
   animation?: boolean;
+  closeButtonAlign?: "left" | "right";
 };
 
-export default function Dialog({
+const Dialog = ({
   title,
   onClose,
   onOk,
@@ -23,7 +32,8 @@ export default function Dialog({
   bgClass = "",
   buttonClass = "",
   animation = true,
-}: Props) {
+  closeButtonAlign = "right",
+}: Props) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const dialogRef = useRef<null | HTMLDialogElement>(null);
@@ -31,6 +41,19 @@ export default function Dialog({
     () => searchParams.get("showDialog"),
     [searchParams],
   );
+
+  const closeDialog = useCallback(() => {
+    // Use useCallback
+    dialogRef.current?.close();
+    router.back();
+    onClose && onClose();
+  }, [router, onClose]);
+
+  const clickOk = useCallback(() => {
+    // Use useCallback
+    onOk && onOk();
+    closeDialog();
+  }, [onOk, closeDialog]);
 
   useEffect(() => {
     if (showDialog === "y") {
@@ -40,20 +63,13 @@ export default function Dialog({
     }
   }, [showDialog]);
 
-  const closeDialog = () => {
-    dialogRef.current?.close();
-    router.back();
-    onClose && onClose();
-  };
+  const dialogClass = useMemo(() => {
+    // Use useMemo
+    return bg
+      ? `fixed top-50 left-50 -translate-x-50 -translate-y-50 z-5 rounded-xl backdrop:bg-gray-800/50  bg-transparent ${bgClass}`
+      : `fixed top-50 left-50 -translate-x-50 -translate-y-50 z-5 rounded-xl`;
+  }, [bg, bgClass]);
 
-  const clickOk = () => {
-    onOk && onOk();
-    closeDialog();
-  };
-
-  const dialogClass = bg
-    ? `fixed top-50 left-50 -translate-x-50 -translate-y-50 z-10 rounded-xl backdrop:bg-gray-800/50  bg-transparent ${bgClass}`
-    : `fixed top-50 left-50 -translate-x-50 -translate-y-50 z-10 rounded-xl`;
   return showDialog === "y" ? (
     animation ? (
       <motion.dialog
@@ -65,20 +81,24 @@ export default function Dialog({
         transition={{ type: "spring", stiffness: 260, damping: 20 }}
       >
         <div className="w-full max-w-full flex flex-col">
-          <div className="flex flex-row justify-between mb-4 pt-2 px-5 bg-transparent">
+          <div
+            className={`flex flex-row justify-between mb-4 pt-2 px-5 bg-transparent sticky top-0 z-10 ${
+              closeButtonAlign === "left" ? "flex-row-reverse" : ""
+            }`}
+          >
             {title && <h1 className="text-2xl">{title}</h1>}
             {onClose && (
               <motion.button
                 onClick={closeDialog}
-                className={`mb-2 py-1 px-2 cursor-pointer rounded border-none w-8 h-8 font-bold ${buttonClass}`}
+                className={`mb-2 cursor-pointer bg-red-600/25 rounded border-none w-4 h-4 font-bold ${buttonClass}`}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
-                x
+                <RxCross2 className="text-2xl font-bold" />
               </motion.button>
             )}
           </div>
-          <div>
+          <div className="overflow-auto">
             {children}
             {onOk && (
               <div className="flex flex-row justify-end mt-2">
@@ -98,7 +118,11 @@ export default function Dialog({
     ) : (
       <dialog ref={dialogRef} className={dialogClass}>
         <div className="w-full max-w-full flex flex-col">
-          <div className="flex flex-row justify-between mb-4 pt-2 px-5 bg-transparent">
+          <div
+            className={`flex flex-row justify-between mb-4 pt-2 px-5 bg-transparent ${
+              closeButtonAlign === "left" ? "flex-row-reverse" : ""
+            }`}
+          >
             {title && <h1 className="text-2xl">{title}</h1>}
             {onClose && (
               <button
@@ -126,4 +150,6 @@ export default function Dialog({
       </dialog>
     )
   ) : null;
-}
+};
+
+export default memo(Dialog);
