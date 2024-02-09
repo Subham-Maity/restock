@@ -12,7 +12,7 @@ import Order from "../../model/order/order.model"; /*FETCH ALL ORDERS*/
 
 /*☑️ FETCH ALL ORDERS ☑️*/
 export const fetchOrdersByUser = catchAsyncError(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req: Request, res: Response, _: NextFunction) => {
     const { id } = req.user as { id: string };
     const orders = await findOrdersByUser(id);
     res.status(200).json(orders);
@@ -41,32 +41,24 @@ export const deleteOrder = catchAsyncError(
 export const updateOrder = catchAsyncError(
   async (req: Request, res: Response) => {
     const { id } = req.params;
-    try {
-      const order = await Order.findByIdAndUpdate(id, req.body, {
-        new: true,
-      });
-      res.status(200).json(order);
-    } catch (err) {
-      res.status(400).json(err);
-    }
+    const order = await Order.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+    res.status(200).json(order);
   },
 );
 
 /*☑️ Fetch all orders ☑️*/
 export const fetchAllOrders = catchAsyncError(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req: Request, res: Response, _: NextFunction) => {
     let query = buildBaseQuery(req);
     let totalOrdersQuery = buildBaseQuery(req);
 
     query = paginateQuery(query, req);
 
-    try {
-      const docs = await query.exec();
-      const totalDocs = await totalOrdersQuery.countDocuments().exec();
-      res.set("X-Total-Count", totalDocs.toString());
-      res.status(200).json(docs);
-    } catch (err) {
-      next(err);
-    }
+    const docs = await query.exec();
+    const totalDocs = await totalOrdersQuery.countDocuments().exec();
+    res.set("X-Total-Count", totalDocs.toString());
+    res.status(200).json(docs);
   },
 );

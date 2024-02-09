@@ -8,12 +8,13 @@ import {
 } from "../../controller/products/product.controller";
 import { productValidationRules } from "../../validation/zod-validation/products/product.validation";
 import { validate } from "../../../middleware/zod/zod";
+import { isAdmin } from "../../../helper/protect/isAdmin";
 
 const Product: Router = express.Router();
 
-Product.post("/", validate(productValidationRules), createProduct)
+Product.post("/", isAdmin, validate(productValidationRules), createProduct)
   .get("/", fetchProduct)
   .get("/:id", fetchProductById)
-  .patch("/:id", updateProduct);
+  .patch("/:id", isAdmin, updateProduct);
 
 export default Product;

@@ -9,7 +9,7 @@ import {
 
 /*☑️ CREATE BRAND ☑️ */
 export const createBrand = catchAsyncError(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req: Request, res: Response, _: NextFunction) => {
     const savedBrand = await saveBrand(req.body);
     if (!savedBrand) {
       return res.status(400).json({
