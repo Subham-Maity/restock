@@ -1,7 +1,7 @@
 import React from "react";
-import OrderTable from "@/components/order/order-table";
+import OrderTable from "@/components/table/order/order-table";
 import dynamic from "next/dynamic";
-import DefaultNav from "@/components/layout/layout";
+import DefaultNav from "@/app/layout/layout";
 import IfUserThenIfAdmin from "@/providers/security/if-user-then-if-admin";
 
 const Page = () => {

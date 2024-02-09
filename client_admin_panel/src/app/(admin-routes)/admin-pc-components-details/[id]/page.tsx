@@ -1,21 +1,17 @@
 import React from "react";
 
-import Dialog from "@/components/ui/custom-modal/route-modal";
-import ProductForm from "@/components/update/products/update-pc-product-form";
+import MarginWrapper from "@/wrapper/margin-wrapper";
+import ProductMainPcDetails from "@/components/details/pc-product-details/product-main-pc-details";
 import IfUserThenIfAdmin from "@/providers/security/if-user-then-if-admin";
+import Dialog from "@/components/ui/custom-modal/route-modal";
 
-const Page = () => {
-  //Route Name
-  // login/?showDialog=y
-
+const page = () => {
   async function onClose() {
     "use server";
-    console.log("Ok was clicked");
   }
 
   return (
     <IfUserThenIfAdmin>
-      {/*<Dialog title="Example Modal" onClose={onClose} onOk={onOk}>*/}
       <Dialog
         onClose={onClose}
         bg={true}
@@ -23,10 +19,12 @@ const Page = () => {
         bgClass="bg-white dark:bg-stone-800 rounded-2xl"
         closeButtonAlign="left"
       >
-        <ProductForm />
+        <MarginWrapper>
+          <ProductMainPcDetails />
+        </MarginWrapper>
       </Dialog>
     </IfUserThenIfAdmin>
   );
 };
 
-export default Page;
+export default page;

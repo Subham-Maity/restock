@@ -184,7 +184,7 @@ const ProductPcTable: React.FC = () => {
       title: "View",
       key: "ViewPage",
       render: (data) => (
-        <Link href={`/admin/admin-pc-components-details/${data.id}`}>
+        <Link href={`/admin-pc-components-details/${data.id}`}>
           <CustomButton
             className="animated-btn px-4 py-2 font-bold"
             title="Details"

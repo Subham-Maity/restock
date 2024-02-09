@@ -33,10 +33,10 @@ const pacifico = Pacifico({
 
 export default function RootLayout({
   children,
-  productEditModal,
+  modal,
 }: {
   children: React.ReactNode;
-  productEditModal: React.ReactNode;
+  modal: React.ReactNode;
 }) {
   return (
     <html lang="en" className="h-full">
@@ -53,7 +53,7 @@ export default function RootLayout({
                       <CartProvider>
                         <RouteTracker>
                           {children}
-                          {productEditModal}
+                          {modal}
                         </RouteTracker>
                         <Analytics />
                       </CartProvider>
