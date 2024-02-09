@@ -7,22 +7,14 @@ import { fetchAllProductById } from "@/lib/features/product/product-pc-slice";
 import Image from "next/image";
 import Link from "next/link";
 import { AppDispatch } from "@/store/redux/store";
-import { selectItems } from "@/lib/features/cart/cart-slice";
-import { selectLoggedInUser } from "@/lib/features/auth/auth-slice";
-import { User } from "@/types/data/auth/auth.type";
 import { LineWave } from "react-loader-spinner";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { PiLightningFill } from "react-icons/pi";
-import { FaCartPlus } from "react-icons/fa";
 
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import { AiOutlineZoomIn, AiOutlineZoomOut } from "react-icons/ai";
 import { IoClose } from "react-icons/io5";
 import ProductDetailsSkeleton from "@/loader/skeleton/product-main-pc-details-skeleton";
-import { addToCartAsync } from "@/lib/features/cart/cart-async-thunk";
-import { CartItem } from "@/types/redux-slice/cart/cart.slice.type";
-import { useAppSelector } from "@/store/redux/useSelector";
 import { useProductById } from "@/lib/features/product/product-react-query";
 import { setLoading } from "@/lib/features/brand/brand-slice";
 
@@ -33,9 +25,7 @@ function classNames(...classes: any) {
 export default function ProductMainPcDetails() {
   const dispatch: AppDispatch = useDispatch();
   const params: any = useParams();
-  const user: User | null = useAppSelector(selectLoggedInUser);
-  const items: CartItem[] = useAppSelector(selectItems);
-  const [isCartHoverVisible, setCartHoverVisible] = useState(false);
+
   const [currentImage, setCurrentImage] = useState("/");
   const { data: product, status: productsStatus } = useProductById(params.id);
 
@@ -81,32 +71,6 @@ export default function ProductMainPcDetails() {
       </div>
     );
   }
-
-  const handleCart = (e: any) => {
-    e.preventDefault();
-    if (items.findIndex((item) => item?.product?.id === product?.id) < 0) {
-      const newItem = {
-        product: product.id,
-        quantity: 1,
-      };
-      dispatch(addToCartAsync(newItem))
-        .then(() => {
-          setCartHoverVisible(true); // Show the cart popup after a successful dispatch
-          toast.success(`${product.title} is added to your cart`, {
-            position: "bottom-right",
-            autoClose: 1000,
-          });
-        })
-        .catch((error) => {
-          console.error("Error adding to cart:", error);
-        });
-    } else {
-      toast.warning(`${product.title} is already in your cart`, {
-        position: "bottom-right",
-        autoClose: 1000,
-      });
-    }
-  };
 
   return (
     <div className="mx-auto 2xl:mx-10 max-w-8xl px-5 sm:px-6 xl:px-8 py-2 sm:py-2 lg:py-2">
@@ -176,7 +140,7 @@ export default function ProductMainPcDetails() {
               </div>
               <div className="main-image w-fit h-fit lg:w-[400px] xl:w-[500px] my-auto">
                 <TransformWrapper>
-                  {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
+                  {({ zoomIn, zoomOut, resetTransform }) => (
                     <React.Fragment>
                       <TransformComponent>
                         <Image
@@ -251,25 +215,6 @@ export default function ProductMainPcDetails() {
                   <p className="text-3xl tracking-tight text-gray-900 dark:text-gray-300">
                     ₹ {product.price} /-
                   </p>
-
-                  <div className="w-full lg:mx-0 lg:mr-auto lg:w-fit flex space-x-5 mt-0 lg:mt-10 justify-center lg:justify-start fixed bottom-0 left-0 right-0 z-40 h-16 lg:bg-transparent lg:dark:bg-transparent bg-gray-200 dark:bg-gray-800 p-2 rounded-xl backdrop-blur lg:relative">
-                    <button
-                      type="submit"
-                      className="addToCart w-full lg:w-44 xl:w-52 flex items-center justify-center rounded-xl border-2 border-indigo-600 py-3 text-base font-medium text-indigo-600 dark:text-white hover:bg-indigo-200 dark:hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 gap-3"
-                      onClick={handleCart}
-                    >
-                      <FaCartPlus className="text-lg" />
-                      Add to Cart
-                    </button>
-
-                    <button
-                      type="submit"
-                      className="buyNow w-full lg:w-44 xl:w-52 flex items-center justify-center rounded-xl border border-transparent bg-indigo-600 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 gap-3"
-                    >
-                      <PiLightningFill className="text-lg" />
-                      Buy Now
-                    </button>
-                  </div>
                 </div>
               </div>
             </div>

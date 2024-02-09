@@ -166,7 +166,7 @@ export const ProductMainPcGrid = ({
                         </div>
                       </Link>
                       <Link
-                        href={`admin-pc-components-details/${product.id}`}
+                        href={`/admin-pc-components-details/${product.id}`}
                         key={product.id}
                       >
                         <div className="price my-4">
@@ -209,7 +209,7 @@ export const ProductMainPcGrid = ({
                 <BgAdminTailwindWrapper key={index}>
                   <div key={index}>
                     <Link
-                      href={`admin/admin-pc-components-details/${product.id}`}
+                      href={`/admin-pc-components-details/${product.id}?showDialog=y`}
                       key={product.id}
                     >
                       {product.deleted && (
