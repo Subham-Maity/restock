@@ -1,7 +1,8 @@
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import { Application } from "express";
-import config, { Passport_Session_Secret } from "../config/default";
+import config from "../config/default";
+import { Passport_Session_Secret } from "../auth/passport/passport.setting";
 
 export const configureSession = (app: Application) => {
   app.use(
