@@ -2,7 +2,6 @@
 import { Strategy as JwtStrategy } from "passport-jwt";
 import passport from "passport";
 import passportLocal from "passport-local";
-import { JWT_EXPIRATION_TIME, JWT_SECRET_KEY } from "../../config/default";
 import { verifyPassword } from "../hash/crypto/verify.password.utils";
 import { Application } from "express";
 import { opts } from "../../helper/extractor/jwt/option.utils";
@@ -13,6 +12,7 @@ import {
   findUserById_Token,
 } from "../../src/controller/user/model-control/user.model.controller";
 import { signPayload } from "../jwt/sign.utils";
+import { JWT_EXPIRATION_TIME, JWT_SECRET_KEY } from "../jwt/jwt-setting";
 
 const passportSetup = (app: Application) => {
   //Initialize passport and session

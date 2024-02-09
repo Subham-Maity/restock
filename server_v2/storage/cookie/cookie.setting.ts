@@ -1,5 +1,5 @@
 import { CookieOptions } from "express";
-import config, { COOKIE_NAME } from "../../config/default";
+import config from "../../config/default";
 
 //❓ Determine if the environment is production
 export const isProduction = process.env.NODE_ENV === "production";
@@ -16,4 +16,4 @@ export const cookieOptions: CookieOptions = {
   domain,
 };
 
-export const COOKIE_NAME_SET = COOKIE_NAME;
+export const COOKIE_NAME_SET = process.env.COOKIE_NAME || "jwt";

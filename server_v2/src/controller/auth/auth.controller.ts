@@ -11,13 +11,16 @@ import {
   cookieOptions,
 } from "../../../storage/cookie/cookie.setting";
 import { setCookie } from "../../../storage/cookie/cookie";
-import { JWT_EXPIRATION_TIME, JWT_SECRET_KEY } from "../../../config/default";
 import { signPayload } from "../../../auth/jwt/sign.utils";
 import { IUser } from "../../types/user/user";
 import {
   LoginSchema,
   RegisterSchema,
 } from "../../validation/zod-validation/auth/auth.validation";
+import {
+  JWT_EXPIRATION_TIME,
+  JWT_SECRET_KEY,
+} from "../../../auth/jwt/jwt-setting";
 
 /*☑️  CREATE USER ️ ☑️*/
 export const registerUser = catchAsyncError(
