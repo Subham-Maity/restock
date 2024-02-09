@@ -1,11 +1,12 @@
 import { Application, Request, Response } from "express";
 import swaggerJsdoc from "swagger-jsdoc";
 import * as swaggerUi from "swagger-ui-express";
-import log from "../utils/logger/logger";
+import log from "../../utils/logger/logger";
 import {
   authorName,
   contact,
   description,
+  doc_api_location,
   license,
   title,
   url,
@@ -43,7 +44,7 @@ const options: swaggerJsdoc.Options = {
       },
     ],
   },
-  apis: ["./src/routes/**/*.ts"],
+  apis: doc_api_location,
 };
 
 const swaggerSpec = swaggerJsdoc(options);

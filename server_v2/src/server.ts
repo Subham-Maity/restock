@@ -1,7 +1,7 @@
 import log from "../utils/logger/logger";
 import http from "http";
 import app from "./app";
-import swaggerDocs from "../documentation/swagger";
+import swaggerDocs from "../services/swagger/swagger";
 import "../logs";
 import connectDB from "../config/dbConnect";
 import config from "../config/default";
