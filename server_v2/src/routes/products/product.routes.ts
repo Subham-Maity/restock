@@ -8,7 +8,7 @@ import {
 } from "../../controller/products/product.controller";
 import { productValidationRules } from "../../validation/zod-validation/products/product.validation";
 import { validate } from "../../../middleware/zod/zod";
-import { isAdmin } from "../../../helper/protect/isAdmin";
+import { isAdmin } from "../../../protect/access/isAdmin";
 
 const Product: Router = express.Router();
 

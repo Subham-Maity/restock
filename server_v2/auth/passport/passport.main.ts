@@ -4,8 +4,8 @@ import passport from "passport";
 import passportLocal from "passport-local";
 import { verifyPassword } from "../hash/crypto/verify.password.utils";
 import { Application } from "express";
-import { opts } from "../../helper/extractor/jwt/option.utils";
-import { sanitizeUser } from "../../helper/sanitize/sanitize.utils";
+import { opts } from "../../helper/jwt-opt/option.utils";
+import { sanitizeUser } from "../../protect/sanitize/sanitize.utils";
 import { IUser } from "../../src/types/user/user";
 import {
   findUserByEmail,
