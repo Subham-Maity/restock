@@ -18,3 +18,5 @@ export const license = {
   name: "MIT",
   url: "https://opensource.org/licenses/MIT",
 };
+
+export const doc_api_location = ["./documentation/**/*.ts"];
