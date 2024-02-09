@@ -16,6 +16,7 @@ import configureCors from "../security/cors/cors";
 import {setupMorgan} from "../morgan/morgan";
 import {setupRouter} from "./router";
 import {setupSecurity} from "../security/helmet/helmet";
+import {configureStripe} from "../payments/stripe/stripe";
 
 /*❗~~~~APP SETUP~~~~❗*/
 
@@ -28,6 +29,8 @@ configureSession(app);
 //Passport setup for authentication
 passportSetup(app);
 
+//Stripe setup for payments
+configureStripe(app);
 //By using app.disable('x-powered-by'), the X-Powered-By header will not be sent with each HTTP response,
 // making it less explicit which technology is being used to serve the application.
 app.disable("x-powered-by");
