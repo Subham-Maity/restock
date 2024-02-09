@@ -2,7 +2,7 @@
 import "@/styles/globals.css";
 import React from "react";
 import { AdminPcComponentProductList } from "@/components/products/product-main-pc";
-import Layout from "@/components/layout/layout";
+import Layout from "@/app/layout/layout";
 import IfUserThenIfAdmin from "@/providers/security/if-user-then-if-admin";
 
 export default function Home() {

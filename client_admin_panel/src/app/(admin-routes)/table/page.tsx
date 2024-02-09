@@ -1,8 +1,8 @@
 import React from "react";
 
-import ProductPcTable from "@/components/details/pc-product-tables/product-pc-table";
+import ProductPcTable from "@/components/table/pc-product-tables/product-pc-table";
 import dynamic from "next/dynamic";
-import DefaultNav from "@/components/layout/layout";
+import DefaultNav from "@/app/layout/layout";
 import IfUserThenIfAdmin from "@/providers/security/if-user-then-if-admin";
 
 function Page() {
