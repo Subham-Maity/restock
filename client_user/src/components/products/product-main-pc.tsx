@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useEffect, useState } from "react";
+import {useCallback, useContext, useEffect, useState} from "react";
 import { FunnelIcon, Squares2X2Icon } from "@heroicons/react/20/solid";
 import { useDispatch } from "react-redux";
 import {
@@ -38,6 +38,7 @@ import { ITEMS_PER_PAGE } from "@/constant/constants";
 import { fetchProductsByFiltersAsync } from "@/lib/features/product/product-pc-async-thunk";
 import { fetchBrandsAsync } from "@/lib/features/brand/brand-async-thunk";
 import { fetchCategoriesAsync } from "@/lib/features/category/category-async-thunk";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export const PcComponentProductList = () => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
@@ -75,13 +76,23 @@ export const PcComponentProductList = () => {
   } as SortOption);
 
   const [page, setPage] = useState(1);
-  const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
 
-  const {
-    data: productsData,
-    status: productsStatus,
-    isFetching,
-  } = useProductsByFilters({ filter, sort, pagination, admin: false });
+  const path = usePathname();
+
+  const router = useRouter();
+
+  //This will give us the page number from the url if it exists
+  const searchParams = useSearchParams();
+  const pageFromUrl = Number(searchParams.get("_page")) || 1;
+  const pagination = { _page: pageFromUrl, _limit: ITEMS_PER_PAGE };
+  //For fetching products according to the filters, sort and pagination
+  const { data: productsData, status: productsStatus } = useProductsByFilters({
+    filter,
+    sort,
+    pagination,
+    admin: false,
+  });
+  //Purpose: Filter the products according to the filters
   const handleFilter = (e: any, section: any, option: any) => {
     const newFilter = { ...filter };
     if (e.target.checked) {
@@ -98,22 +109,40 @@ export const PcComponentProductList = () => {
     }
     setFilter(newFilter);
   };
-
+  //Purpose: Sort the products according to the sort option
   const handleSort = (option: any) => {
     const sort = { _sort: option.sort, _order: option.order };
     setSort(sort);
   };
 
-  const handlePage = (page: number) => {
+  //Purpose: Prevent the page from flickering when the page is changed
+  // and not properly showing the correct page number in the pagination component
+  useEffect(() => {
+    setPage(pageFromUrl);
+  }, [pageFromUrl]);
+
+  const handlePage = useCallback((page: number) => {
     setPage(page);
-  };
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.set("_page", page.toString());
+    newSearchParams.set("_limit", ITEMS_PER_PAGE.toString());
+    router.push(`${path}?${newSearchParams.toString()}`);
+  }, [searchParams, path, router]);
 
   useEffect(() => {
-    const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
+    const searchParams = new URLSearchParams(window.location.search);
+    const pageFromUrl = Number(searchParams.get("_page")) || 1;
+    setPage(pageFromUrl);
+
+    const pagination = { _page: pageFromUrl, _limit: ITEMS_PER_PAGE };
     dispatch(
         fetchProductsByFiltersAsync({ filter, sort, pagination, admin: false }),
     );
-  }, [dispatch]);
+    //Purpose: After reload, the page number is not reset to 1,
+    // but the page number is still the same so pass the page
+  }, [dispatch, filter, sort, page]);
+
+
 
   useEffect(() => {
     dispatch(fetchBrandsAsync());
@@ -131,8 +160,8 @@ export const PcComponentProductList = () => {
   }, [dispatch, productsData, productsStatus, filter, sort, page]);
 
   useEffect(() => {
-    setPage(1);
-  }, [totalItems, sort]);
+    setPage(0);
+  }, [sort, filter]);
 
   useEffect(() => {
     if (brandsStatus === "loading") {
@@ -151,8 +180,6 @@ export const PcComponentProductList = () => {
       dispatch(setCategories(categoryData));
     }
   }, [dispatch, categoryData, categoryStatus]);
-
-  console.log("products", products);
 
   const handleButtonClick = () => {
     setIsGrid(!isGrid);
