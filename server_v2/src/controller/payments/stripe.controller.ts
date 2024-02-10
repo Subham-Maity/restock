@@ -2,20 +2,16 @@ import { stripe } from "../../../payments/stripe/stripe";
 import catchAsyncError from "../../../error/catchAsyncError";
 import { NextFunction, Request, Response } from "express";
 
-const calculateOrderAmount = (items: any[]): number => {
-  return 1400;
-};
-
 export const createPaymentIntent = catchAsyncError(
   async (req: Request, res: Response, _: NextFunction) => {
-    const { items } = req.body;
+    const { totalAmount } = req.body;
 
     //Create a PaymentIntent with the order amount and currency to confirm the payment
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: calculateOrderAmount(items),
-      currency: "inr",
+      amount: totalAmount * 100, //amount in cents
+      currency: "inr", //currency code
       automatic_payment_methods: {
-        enabled: true,
+        enabled: true, //This is to enable automatic confirmation of the payment intent
       },
     });
 
