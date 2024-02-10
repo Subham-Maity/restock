@@ -54,8 +54,7 @@ export const orderSlice = createSlice({
   },
 });
 export const { resetOrder } = orderSlice.actions;
-export const selectCurrentOrder = (state: { order: OrderState }) =>
-  state.order.currentOrder;
+export const selectCurrentOrder = (state: any) => state.order.currentOrder;
 export const selectOrders = (state: { order: OrderState }) =>
   state.order.orders;
 export const selectTotalOrders = (state: { order: OrderState }) =>

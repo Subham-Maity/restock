@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 
 import { useForm } from "react-hook-form";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { selectItems } from "@/lib/features/cart/cart-slice";
 
@@ -35,7 +35,7 @@ function Checkout() {
   } = useForm();
   const [isLoading, setIsLoading] = useState(true);
   const currentOrder = useAppSelector(selectCurrentOrder);
-
+  const router = useRouter();
   const user = useAppSelector(selectUserInfo);
   const items = useAppSelector(selectItems);
 
@@ -52,7 +52,7 @@ function Checkout() {
 
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState("cash");
-  const router = useRouter();
+
   const handleQuantity = (e: any, item: any) => {
     dispatch(updateCartAsync({ id: item.id, quantity: +e.target.value }));
   };
@@ -62,20 +62,21 @@ function Checkout() {
   };
 
   const handleAddress = (e: any) => {
-    console.log(e.target.value);
     setSelectedAddress(user.addresses[e.target.value]);
   };
 
   const handlePayment = (e: any) => {
-    console.log(e.target.value);
     setPaymentMethod(e.target.value);
   };
 
-  useEffect(() => {
-    if (currentOrder) {
+  //Stripe Payment
+  if (currentOrder) {
+    if (currentOrder?.paymentMethod === "card") {
+      router.push(`/stripe-checkout/`);
+    } else if (currentOrder?.paymentMethod === "cash") {
       router.push(`/order-success/${currentOrder.id}`);
     }
-  }, [currentOrder]);
+  }
 
   const handleOrder = (e: any) => {
     setIsLoading(true);

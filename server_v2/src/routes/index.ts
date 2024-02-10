@@ -8,6 +8,7 @@ import order from "./order/order.routes";
 import Product from "./products/product.routes";
 import user from "./user/user.routes";
 import cart from "./cart/cart.routes";
+import stripe from "./payments/stripe.routes";
 
 const router: Router = express.Router();
 
@@ -20,5 +21,6 @@ export default {
   order,
   Product,
   user,
+  stripe,
   router,
 };
