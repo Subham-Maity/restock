@@ -1,6 +1,6 @@
 import { BASE_URL } from "@/constant/constants";
 
-export const createPaymentIntent = async (intentBody: { items: any }) => {
+export const createPaymentIntent = async (intentBody: any) => {
   const response = await fetch(
     `${BASE_URL}/payments/stripe/create-payment-intent`,
     {

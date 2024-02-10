@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "react-query";
 import { createPaymentIntent } from "@/api/stripe/stripe-fetch";
 
-export const useCreatePaymentIntent = (intentBody: { items: any }) => {
+export const useCreatePaymentIntent = (intentBody: any) => {
   const queryClient = useQueryClient();
 
   return useMutation(() => createPaymentIntent(intentBody), {
