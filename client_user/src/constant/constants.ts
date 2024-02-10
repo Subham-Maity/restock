@@ -23,5 +23,5 @@ export const admin_panel_url = "https://restock-admin.vercel.app";
 
 //Strope payment
 
-// export const baseurl_stripe_redirect = "https://restock-commerce.vercel.app";
-export const baseurl_stripe_redirect = "http://http://localhost:3000";
+export const baseurl_stripe_redirect = "https://restock-commerce.vercel.app";
+// export const baseurl_stripe_redirect = "http://http://localhost:3000";
