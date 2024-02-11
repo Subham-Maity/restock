@@ -16,6 +16,7 @@ export default function StripeCheckout() {
   const currentOrder = useAppSelector(selectCurrentOrder);
   const createPaymentIntent = useCreatePaymentIntent({
     totalAmount: currentOrder.totalAmount,
+    orderId: currentOrder.id,
   });
 
   useEffect(() => {

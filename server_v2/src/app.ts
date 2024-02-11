@@ -16,6 +16,7 @@ import configureCors from "../security/cors/cors";
 import {setupMorgan} from "../morgan/morgan";
 import {setupRouter} from "./router";
 import {setupSecurity} from "../security/helmet/helmet";
+import {webhookPermission} from "../webhook/wh-permission";
 
 /*❗~~~~APP SETUP~~~~❗*/
 
@@ -34,6 +35,9 @@ setupSecurity(app);
 
 // Static files setup
 app.use(express.static("public"));
+
+// This will use it for webhooks
+webhookPermission(app);
 
 // Middleware for parsing JSON - This will parse incoming requests with JSON payloads
 app.use(express.json());

@@ -10,6 +10,7 @@ import user from "./user/user.routes";
 import cart from "./cart/cart.routes";
 import stripe from "./payments/stripe.routes";
 import swagger from "./doc/swagger.routes";
+import stripeWebhook from "./webhooks/stripe.webhook.routes";
 
 const router: Router = express.Router();
 
@@ -23,6 +24,7 @@ export default {
   Product,
   user,
   stripe,
+  stripeWebhook,
   swagger,
   router,
 };

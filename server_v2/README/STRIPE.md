@@ -11,6 +11,13 @@
 
 4. make a file name `stripe.ts` in the payment folder
 
+> Note before this you need to add this
+
+```ts
+app.use(express.static("public"));
+app.use(express.json());
+```
+
 ```ts
 import {Application} from "express";
 import Stripe from "stripe";
@@ -83,7 +90,7 @@ export const stripe = new Stripe(stripe_api_key as string, {
 });
 ```
 
-- Payments/stripe-setting.ts
+- Payments/stripe-wh-setting.ts
 
 ```ts
 export const stripe_api_key =
@@ -287,6 +294,14 @@ export default function StripeCheckoutForm() {
 }
 ```
 
+- /src/utils/stripe/get-stripejs.ts
+
+```ts
+export const stripePromise = loadStripe(
+    "pk_test_51Oh....",
+);
+```
+
 ```tsx
 "use client";
 
@@ -464,3 +479,170 @@ export default function StripeCheckout() {
 
 - Now try to set up a webhook to listen to the events from stripe to our server and update the order status accordingly
 
+- First go to https://dashboard.stripe.com/webhooks/create but it will not work because we are using localhost
+- So go to https://dashboard.stripe.com/test/webhooks/create?endpoint_location=local and create a new webhook
+- First download the stripe cli from https://stripe.com/docs/stripe-cli
+- Select your os for assume windows and follow the instructions I prefer to use docker you can use it too
+
+Because you are just testing I prefer to use docker
+like this
+Source: https://stripe.com/docs/cli/docker
+
+```bash
+docker run --rm -it stripe/stripe-cli:latest listen --api-key sk_test_XXXXXX --forward-to localhost/stripe_hook
+```
+
+Example
+
+```bash
+stripe-cli:latest listen --api-key sk_test_51Ohoo --forward-to http://localhost:5050/api/v1/webhooks/stripe
+```
+
+Output
+
+```bash
+Your webhook signing secret is whsec_40bf3980e248a4b964b05bb483...
+```
+
+- Now if you want to Trigger events with the CLI
+- You can trigger events with the CLI to test your webhook endpoint. For example, you can trigger a
+  payment_intent.succeeded event with the following command:
+
+```bash
+docker run --rm -it stripe/stripe-cli:latest trigger payment_intent.succeeded --api-key sk_test_XXXXXX
+``` 
+
+Output
+
+```bash
+Setting up fixture for: payment_intent
+Running fixture for: payment_intent
+Trigger succeeded! Check dashboard for event details.
+```
+
+Another Better way if you are using windows
+> Scoop is a command-line installer for Windows. It's like Homebrew, but for Windows. You can use it to install tools
+> like Git, Node.js, and more.
+
+> Before this you need to install scoop from https://scoop.sh/
+
+```bash
+> Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+> Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+```
+
+Now install stripe-cli
+
+```bash
+brew install stripe/stripe-cli/stripe
+```
+
+```bash
+stripe login
+```
+
+#### Now make a file `stripe-webhook.ts` in the `webhooks` folder
+
+> In your app.ts file add this line
+
+```ts
+// Static files setup
+app.use(express.static("public"));
+// This will use it for webhooks
+app.use((req, res, next) => {
+    if (req.path === "/api/v1/webhooks/stripe") {
+        // replace with your actual webhook endpoint
+        express.raw({type: "application/json"})(req, res, next);
+    } else {
+        next();
+    }
+});
+
+// Middleware for parsing JSON - This will parse incoming requests with JSON payloads
+app.use(express.json());
+
+```
+
+```ts
+
+
+import {Request, Response} from "express";
+import {stripe} from "../payments/stripe/stripe";
+
+const endpointSecret =
+    "whsec_40bf3980....";
+
+export const handleStripeWebhook = async (req: Request, res: Response) => {
+    const sig: any = req.headers["stripe-signature"];
+
+    let event;
+
+    try {
+        event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+    } catch (err) {
+        res.status(400).send(`Webhook Error: ${(err as Error).message}`);
+        return;
+    }
+
+    // Handle the event
+    switch (event.type) {
+        case "payment_intent.succeeded":
+            const paymentIntentSucceeded = event.data.object;
+
+            console.log("PaymentIntent was successful!" + paymentIntentSucceeded);
+            // Then define and call a function to handle the event payment_intent.succeeded
+            break;
+        // ... handle other event types
+        default:
+            console.log(`Unhandled event type ${event.type}`);
+    }
+
+    // Return a response to acknowledge receipt of the event
+    res.send();
+};
+```
+
+Make a route for this in the `routes` folder
+
+```ts
+import * as express from "express";
+import {Router} from "express";
+import {handleStripeWebhook} from "../../webhooks/stripe-webhook";
+
+const webhooks: Router = express.Router();
+
+webhooks.post("/stripe", handleStripeWebhook);
+
+export default webhooks;
+```
+
+Now use it in the `app.ts` file
+
+```ts
+
+//Stripe setup for payments
+
+configureStripe(app);
+
+//Webhooks for stripe
+
+app.use("/api/v1/webhooks", webhooks);
+```
+
+Now int the terminal Forward events to your webhook endpoint
+
+```bash
+stripe listen --forward-to http://localhost:5050/api/v1/webhooks/stripe
+```
+
+- Go to https://dashboard.stripe.com/test/webhooks you will see the webhook you created status will be Listening for
+  events
+
+- Open another terminal and trigger events with the CLI to test your webhook endpoint. For example, you can trigger a
+  payment_intent.succeeded event with the following command:
+
+```bash
+stripe trigger payment_intent.succeeded 
+```
+
+- Now you can see the logs in the terminal where you are running the stripe listen command

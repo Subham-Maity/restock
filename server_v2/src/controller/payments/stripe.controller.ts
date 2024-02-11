@@ -4,7 +4,7 @@ import { NextFunction, Request, Response } from "express";
 
 export const createPaymentIntent = catchAsyncError(
   async (req: Request, res: Response, _: NextFunction) => {
-    const { totalAmount } = req.body;
+    const { totalAmount, orderId } = req.body;
 
     //Create a PaymentIntent with the order amount and currency to confirm the payment
     const paymentIntent = await stripe.paymentIntents.create({
@@ -12,6 +12,9 @@ export const createPaymentIntent = catchAsyncError(
       currency: "inr", //currency code
       automatic_payment_methods: {
         enabled: true, //This is to enable automatic confirmation of the payment intent
+      },
+      metadata: {
+        orderId,
       },
     });
 
