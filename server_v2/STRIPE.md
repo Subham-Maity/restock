@@ -1,3 +1,5 @@
+# Steps to integrate stripe in your app
+
 - Prebuild Checkout Page: Easy to use and integrate but less control over UI
 - We will use custom payment flow to have more control over UI and to have more flexibility
 
@@ -55,3 +57,410 @@ configureStripe(app);
 > - click on the api keys
 > - copy the secret key(reveal it first)
 > - paste it in the stripe.ts file
+
+- Some Useful Links
+    - Testing Cards—https://stripe.com/docs/testing?testing-method=card-numbers#international-cards
+    - Stripe documentation—https://stripe.com/docs
+    - Setup for react-https://stripe.com/docs/payments/quickstart?client=react&lang=node
+    - dashboard-https://dashboard.stripe.com/test/payments
+
+### Actual Implementation
+
+You can modify this according to your needs
+
+- Payments/stripe.ts
+
+```ts
+import Stripe from "stripe";
+import {stripe_api_key, stripe_api_version} from "./stripe-setting";
+
+export const stripe = new Stripe(stripe_api_key as string, {
+    apiVersion: stripe_api_version,
+    appInfo: {
+        name: "restock",
+        url: "https://restock.app",
+    },
+});
+```
+
+- Payments/stripe-setting.ts
+
+```ts
+export const stripe_api_key =
+    process.env.STRIPE_API_KEY || "sk_test_51J3J3wSFS";
+export const stripe_api_version = "2023-10-16";
+
+export const appInfo = {
+    name: "restock",
+    url: "https://restock.app",
+};
+```
+
+- Now you have to create a payment intent on the server side
+- src/controller/payments/stripe.controller.ts
+
+```ts
+import {stripe} from "../../../payments/stripe/stripe";
+import catchAsyncError from "../../../error/catchAsyncError";
+import {NextFunction, Request, Response} from "express";
+
+export const createPaymentIntent = catchAsyncError(
+    async (req: Request, res: Response, _: NextFunction) => {
+        const {totalAmount} = req.body;
+
+        //Create a PaymentIntent with the order amount and currency to confirm the payment
+        const paymentIntent = await stripe.paymentIntents.create({
+            amount: totalAmount * 100, //amount in cents
+            currency: "inr", //currency code
+            automatic_payment_methods: {
+                enabled: true, //This is to enable automatic confirmation of the payment intent
+            },
+        });
+
+        //This is the client secret that will be used in the frontend to confirm the payment intent
+        res.send({
+            clientSecret: paymentIntent.client_secret,
+        });
+    },
+);
+```
+
+- Now define the route in the routes file
+- src/routes/payments/stripe.routes.ts
+
+```ts
+import * as express from "express";
+import {Router} from "express";
+import {createPaymentIntent} from "../../controller/payments/stripe.controller";
+
+const stripe: Router = express.Router();
+
+stripe.post("/create-payment-intent", createPaymentIntent);
+
+export default stripe;
+```
+
+- Go to frontend
+- Make a api first to create payment intent
+- /src/api/stripe/stripe-fetch.ts
+
+```ts
+import {BASE_URL} from "@/constant/constants";
+
+export const createPaymentIntent = async (intentBody: any) => {
+    const response = await fetch(
+        `${BASE_URL}/payments/stripe/create-payment-intent`,
+        {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(intentBody),
+        },
+    );
+
+    if (!response.ok) {
+        throw new Error("Network response was not ok");
+    }
+
+    const data = await response.json();
+    return data.clientSecret;
+};
+```
+
+- react query setup
+- /src/lib/stripe/react-query-stripe.ts
+
+```ts
+import {useMutation, useQueryClient} from "react-query";
+import {createPaymentIntent} from "@/api/stripe/stripe-fetch";
+
+export const useCreatePaymentIntent = (intentBody: any) => {
+    const queryClient = useQueryClient();
+
+    return useMutation(() => createPaymentIntent(intentBody), {
+        onSuccess: (clientSecret) => {
+            queryClient.setQueryData("clientSecret", clientSecret);
+        },
+    });
+};
+```
+
+- Now make a stripe form and another one for processing the form
+
+- /src/components/payments/stripe/stripe-form-checkout.tsx
+
+```tsx
+import React, {useEffect, useState} from "react";
+import {
+    PaymentElement,
+    useElements,
+    useStripe,
+} from "@stripe/react-stripe-js";
+import {selectCurrentOrder} from "@/lib/features/order/order-slice";
+import {useAppSelector} from "@/store/redux/useSelector";
+import {baseurl_stripe_redirect} from "@/constant/constants";
+
+export default function StripeCheckoutForm() {
+    const stripe = useStripe();
+    const elements = useElements();
+    const currentOrder = useAppSelector(selectCurrentOrder);
+
+    const [message, setMessage] = useState<any>(null);
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        if (!stripe) {
+            return;
+        }
+
+        const clientSecret: any = new URLSearchParams(window.location.search).get(
+            "payment_intent_client_secret",
+        );
+
+        if (!clientSecret) {
+            return;
+        }
+
+        stripe
+            .retrievePaymentIntent(clientSecret)
+            .then(({paymentIntent}: any) => {
+                switch (paymentIntent.status) {
+                    case "succeeded":
+                        setMessage("Payment succeeded!");
+                        break;
+                    case "processing":
+                        setMessage("Your payment is processing.");
+                        break;
+                    case "requires_payment_method":
+                        setMessage("Your payment was not successful, please try again.");
+                        break;
+                    default:
+                        setMessage("Something went wrong.");
+                        break;
+                }
+            });
+    }, [stripe]);
+
+    const handleSubmit = async (e: any) => {
+        e.preventDefault();
+
+        if (!stripe || !elements) {
+            // Stripe.js hasn't yet loaded.
+            // Make sure to disable form submission until Stripe.js has loaded.
+            return;
+        }
+
+        setIsLoading(true);
+
+        const {error}: any = await stripe.confirmPayment({
+            elements,
+            confirmParams: {
+                // Make sure to change this to your payment completion page
+                return_url: `${baseurl_stripe_redirect}/order-success/${currentOrder.id}`,
+            },
+        });
+
+        if (error.type === "card_error" || error.type === "validation_error") {
+            setMessage(error.message);
+        } else {
+            setMessage("An unexpected error occurred.");
+        }
+
+        setIsLoading(false);
+    };
+
+    const paymentElementOptions: any = {
+        layout: "tabs",
+    };
+
+    return (
+        <form id="payment-form" onSubmit={handleSubmit}>
+            <PaymentElement id="payment-element" options={paymentElementOptions}/>
+            <button disabled={isLoading || !stripe || !elements} id="submit">
+        <span id="button-text">
+          {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
+        </span>
+            </button>
+            {/* Show any error or success messages */}
+            {message && <div id="payment-message">{message}</div>}
+        </form>
+    );
+}
+```
+
+```tsx
+"use client";
+
+import React, {useEffect, useState} from "react";
+import {Elements} from "@stripe/react-stripe-js";
+
+import "./Stripe.css";
+
+import StripeCheckoutForm from "@/components/payments/stripe/stripe-form-checkout";
+import {selectCurrentOrder} from "@/lib/features/order/order-slice";
+import {useAppSelector} from "@/store/redux/useSelector";
+import {stripePromise} from "@/utils/stripe/get-stripejs";
+import {useCreatePaymentIntent} from "@/lib/stripe/react-query-stripe";
+
+export default function StripeCheckout() {
+    const [clientSecret, setClientSecret] = useState("");
+    const currentOrder = useAppSelector(selectCurrentOrder);
+    const createPaymentIntent = useCreatePaymentIntent({
+        totalAmount: currentOrder.totalAmount,
+    });
+
+    useEffect(() => {
+        if (createPaymentIntent.isSuccess) {
+            setClientSecret(createPaymentIntent.data);
+        }
+    }, [createPaymentIntent.isSuccess, createPaymentIntent.data]);
+
+    useEffect(() => {
+        createPaymentIntent.mutate();
+    }, []);
+
+    const appearance = {
+        theme: "stripe",
+    };
+    const options: any = {
+        clientSecret,
+        appearance,
+    };
+
+    return (
+        <div className="Stripe">
+            {clientSecret && (
+                <Elements options={options} stripe={stripePromise}>
+                    <StripeCheckoutForm/>
+                </Elements>
+            )}
+        </div>
+    );
+}
+```
+
+```css
+
+.Stripe form {
+    width: 30vw;
+    min-width: 500px;
+    align-self: center;
+    box-shadow: 0px 0px 0px 0.5px rgba(50, 50, 93, 0.1),
+    0px 2px 5px 0px rgba(50, 50, 93, 0.1), 0px 1px 1.5px 0px rgba(0, 0, 0, 0.07);
+    border-radius: 7px;
+    padding: 40px;
+}
+
+#payment-message {
+    color: rgb(105, 115, 134);
+    font-size: 16px;
+    line-height: 20px;
+    padding-top: 12px;
+    text-align: center;
+}
+
+#payment-element {
+    margin-bottom: 24px;
+}
+
+/* Buttons and links */
+.Stripe button {
+    background: #5469d4;
+    font-family: Arial, sans-serif;
+    color: #ffffff;
+    border-radius: 4px;
+    border: 0;
+    padding: 12px 16px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: block;
+    transition: all 0.2s ease;
+    box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
+    width: 100%;
+}
+
+.Stripe button:hover {
+    filter: contrast(115%);
+}
+
+.Stripe button:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+/* spinner/processing state, errors */
+.spinner,
+.spinner:before,
+.spinner:after {
+    border-radius: 50%;
+}
+
+.spinner {
+    color: #ffffff;
+    font-size: 22px;
+    text-indent: -99999px;
+    margin: 0px auto;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    box-shadow: inset 0 0 0 2px;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+.spinner:before,
+.spinner:after {
+    position: absolute;
+    content: '';
+}
+
+.spinner:before {
+    width: 10.4px;
+    height: 20.4px;
+    background: #5469d4;
+    border-radius: 20.4px 0 0 20.4px;
+    top: -0.2px;
+    left: -0.2px;
+    -webkit-transform-origin: 10.4px 10.2px;
+    transform-origin: 10.4px 10.2px;
+    -webkit-animation: loading 2s infinite ease 1.5s;
+    animation: loading 2s infinite ease 1.5s;
+}
+
+.spinner:after {
+    width: 10.4px;
+    height: 10.2px;
+    background: #5469d4;
+    border-radius: 0 10.2px 10.2px 0;
+    top: -0.1px;
+    left: 10.2px;
+    -webkit-transform-origin: 0px 10.2px;
+    transform-origin: 0px 10.2px;
+    -webkit-animation: loading 2s infinite ease;
+    animation: loading 2s infinite ease;
+}
+
+@keyframes loading {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    form {
+        width: 80vw;
+        min-width: initial;
+    }
+}
+```
+
+### Webhooks for stripe
+
+- Now try to set up a webhook to listen to the events from stripe to our server and update the order status accordingly
+
