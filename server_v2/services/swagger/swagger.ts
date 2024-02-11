@@ -1,6 +1,5 @@
 import { Application, Request, Response } from "express";
 import swaggerJsdoc from "swagger-jsdoc";
-import * as swaggerUi from "swagger-ui-express";
 import log from "../../utils/logger/logger";
 import {
   authorName,
@@ -47,12 +46,9 @@ const options: swaggerJsdoc.Options = {
   apis: doc_api_location,
 };
 
-const swaggerSpec = swaggerJsdoc(options);
+export const swaggerSpec = swaggerJsdoc(options);
 
 function swaggerDocs(app: Application, port: number | string): void {
-  // Swagger page
-  app.use("/api/v1/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
   // Docs in JSON format
   app.get("/docs.json", (_req: Request, res: Response) => {
     res.setHeader("Content-Type", "application/json");

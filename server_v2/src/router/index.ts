@@ -1,4 +1,4 @@
-import { Application } from "express";
+import { Application, Request, Response } from "express";
 import restock from "../routes";
 import { isAuth } from "../../protect/access/isAuth";
 
@@ -12,7 +12,8 @@ export const setupRouter = (app: Application) => {
   app.use("/api/v1/auth", restock.auth);
   app.use("/api/v1/cart", isAuth, restock.cart);
   app.use("/api/v1/payments/stripe", restock.stripe);
-  app.get("/", (_, res) => {
+  app.use("/api/v1/docs", restock.swagger);
+  app.get("/", (_: Request, res: Response) => {
     res.send("Yes you are connected to the app! 🚀");
   });
 };
