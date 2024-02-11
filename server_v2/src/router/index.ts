@@ -3,6 +3,7 @@ import restock from "../routes";
 import { isAuth } from "../../protect/access/isAuth";
 
 export const setupRouter = (app: Application) => {
+  app.use("/api/v1/webhooks/stripe", restock.stripeWebhook);
   app.use("/api/v1/products", restock.Product);
   app.use("/api/v1/users", isAuth, restock.user);
   app.use("/api/v1/orders", restock.order);

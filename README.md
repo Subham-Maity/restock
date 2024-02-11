@@ -47,6 +47,12 @@ You can check out our API documentation on [Swagger](https://webcrack.online:606
 > - **Start the server in docker development mode** : `docker-compose -f docker-compose.dev.yml up -d`
 >
 > - **Start the server in docker production mode** : `docker-compose -f docker-compose.prod.yml up -d`
+
+#### 📃 Documentation of codebase
+
+- [**REDIS SETUP**](https://github.com/Subham-Maity/fullstack_advance/blob/main/README/NOTE.md#5-redis)
+- [**STRIPE SETUP**](server_v2/README/STRIPE.md)
+
 ---
 
 > ### Chat Service
