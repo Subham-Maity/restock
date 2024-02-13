@@ -14,6 +14,7 @@ import CheckUserProvider from "@/providers/security/check-user";
 import RouteTracker from "@/security/path-track/path-track";
 import Layout from "@/app/layout/layout";
 import "tw-elements-react/dist/css/tw-elements-react.min.css";
+import { globalBgConfig } from "@/app/global-bg-config";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -47,7 +48,7 @@ export default function RootLayout({
           <ContextProvider>
             <ThemeProviders>
               <body
-                className={`${inter.className} ${comfortaa.variable}  ${pacifico.variable}  min-h-screen bg-[url('/layout/admin-bg-white.svg')] dark:bg-[url('/layout/admin-bg.svg')] bg-no-repeat bg-cover bg-fixed `}
+                className={`${inter.className} ${comfortaa.variable}  ${pacifico.variable} ${globalBgConfig}  min-h-screen bg-no-repeat bg-cover bg-fixed `}
               >
                 <CheckUserProvider>
                   <ProductProvider>

@@ -4,15 +4,17 @@ import { useContext, useEffect, useState } from "react";
 import { BsFillSunFill, BsMoonFill } from "react-icons/bs";
 import { motion } from "framer-motion";
 import Context from "@/store/context/context";
+import DayNightToggle from "react-day-and-night-toggle";
 
 const ThemeSwitcher = () => {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
   const { setIsDarkTheme } = useContext(Context);
+  const isDarkMode = theme === "dark";
 
   useEffect(() => {
     setMounted(true);
-    setIsDarkTheme(theme === "dark");
+    setIsDarkTheme(isDarkMode);
   }, [theme]);
 
   // useEffect only runs on the client, so now we can safely show the UI
@@ -24,21 +26,11 @@ const ThemeSwitcher = () => {
   }
   return (
     <div>
-      <motion.button
-        id="theme-btn"
-        aria-label="Toggle Dark Mode"
-        className="text-2xl ml-auto rounded-full bg-gray-500 hover:bg-gray-600 p-2 text-white dark:bg-gray-700
-                      dark:hover:text-white dark:hover:bg-gray-600 drop hover:cursor-pointer cursor-pointer"
-        whileTap={{
-          scale: 1,
-          rotate: 360,
-          transition: { duration: 0.4 },
-        }}
-        whileHover={{ scale: 1.1 }}
-        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      >
-        {theme === "dark" ? <BsMoonFill /> : <BsFillSunFill />}
-      </motion.button>
+      <DayNightToggle
+        className="w-3 h-1"
+        onChange={() => setTheme(isDarkMode ? "light" : "dark")}
+        checked={isDarkMode}
+      />
     </div>
   );
 };
