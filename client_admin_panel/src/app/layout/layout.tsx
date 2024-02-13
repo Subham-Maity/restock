@@ -1,36 +1,40 @@
 "use client";
-import React, { useState } from "react";
-import SideNavbar from "@/components/common/home/home-side-nav";
+
+// Components import
+import React, { useState } from "react"; // Libraries import
+import { motion } from "framer-motion";
+import SideNavbar from "@/components/common/home/home-side-nav/desktop-side-nav";
 import AdminHomeTopNav from "@/components/common/home/home-top-nav";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
+
   return (
-    <div className="overflow-hidden">
-      <div className=" dark:bg-[#202329] bg-stone-400/25 select-animate bg-cover bg-no-repeat bg-center h-screen">
-        <div className="max-h-screen ">
-          <div className="flex">
-            <div className="lg:flex lg:mt-16 lg:mr-2">
-              <SideNavbar
-                isSidebarOpen={isSidebarOpen}
-                toggleSidebar={toggleSidebar}
-              />
-            </div>
-            <div>
-              <AdminHomeTopNav
-                isSidebarOpen={isSidebarOpen}
-                toggleSidebar={toggleSidebar}
-              />
-              <div className=" lg:max-h-[90vh] max-h-screen lg:pb-0 pb-16 h-screen overflow-y-scroll rounded-4xl mt-20">
-                {children}
-              </div>
-            </div>
-          </div>
+    <div className="">
+      <SideNavbar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+      <motion.div
+        className={`${" m-0"} w-auto  dark:border-0   lg:rounded-lg flex flex-col items-center justify-center`}
+        transition={{ duration: 0.3 }}
+        animate={
+          isSidebarOpen
+            ? { marginLeft: "16.5rem", transition: { duration: 0.3 } }
+            : typeof window !== "undefined" && window.innerWidth > 1024
+              ? { marginLeft: "4.5rem", transition: { duration: 0.3 } }
+              : { marginLeft: "0rem", transition: { duration: 0.3 } }
+        }
+      >
+        <div className="w-full justify-center items-center">
+          <div className="w-full hidden lg:flex bg-transparent backdrop-blur-sm fixed top-0 z-50 "></div>
+          <AdminHomeTopNav
+            isSidebarOpen={isSidebarOpen}
+            toggleSidebar={toggleSidebar}
+          />
         </div>
-      </div>
+        <div className={` w-full min-h-full `}>{children}</div>
+      </motion.div>
     </div>
   );
 };

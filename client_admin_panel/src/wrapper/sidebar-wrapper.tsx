@@ -1,14 +1,14 @@
 import { ReactNode } from "react";
 import { cn } from "@/utils/tw-merge/tw";
 
-const MarginWrapper = ({
+const SidebarWrapper = ({
   className,
   children,
 }: {
   className?: string;
   children: ReactNode;
 }) => {
-  return <div className={cn("", className)}>{children}</div>;
+  return <div className={cn("pt-0", className)}>{children}</div>;
 };
 
-export default MarginWrapper;
+export default SidebarWrapper;

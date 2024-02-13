@@ -2,15 +2,14 @@
 import "@/styles/globals.css";
 import React from "react";
 import { AdminPcComponentProductList } from "@/components/products/product-main-pc";
-import Layout from "@/app/layout/layout";
 import IfUserThenIfAdmin from "@/providers/security/if-user-then-if-admin";
+import { TERipple } from "tw-elements-react";
 
 export default function Home() {
   return (
     <IfUserThenIfAdmin>
-      <Layout>
-        <AdminPcComponentProductList />
-      </Layout>
+      <TERipple>Button</TERipple>
+      <AdminPcComponentProductList />
     </IfUserThenIfAdmin>
   );
 }

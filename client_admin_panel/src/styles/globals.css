@@ -1,6 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.bg-admin {
+    background: radial-gradient(#224646, #182828) repeat;
+    width: 1020px;
+    height: 510px;
+}
 
 @layer base {
     :root {

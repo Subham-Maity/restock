@@ -12,6 +12,8 @@ import ContextProvider from "@/providers/store/context-provider";
 import ReactQueryProvider from "@/providers/react-query/react-query-provider";
 import CheckUserProvider from "@/providers/security/check-user";
 import RouteTracker from "@/security/path-track/path-track";
+import Layout from "@/app/layout/layout";
+import "tw-elements-react/dist/css/tw-elements-react.min.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -45,14 +47,14 @@ export default function RootLayout({
           <ContextProvider>
             <ThemeProviders>
               <body
-                className={`${inter.className} ${comfortaa.variable}  ${pacifico.variable} box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25) h-fit bg-gradient-to-r from-zinc-300 via-neutral-300 to-slate-300 dark:from-zinc-700 dark:via-neutral-700 dark:to-slate-700`}
+                className={`${inter.className} ${comfortaa.variable}  ${pacifico.variable}  min-h-screen bg-[url('/layout/admin-bg-white.svg')] dark:bg-[url('/layout/admin-bg.svg')] bg-no-repeat bg-cover bg-fixed `}
               >
                 <CheckUserProvider>
                   <ProductProvider>
                     <UserProvider>
                       <CartProvider>
                         <RouteTracker>
-                          {children}
+                          <Layout>{children}</Layout>
                           {modal}
                         </RouteTracker>
                         <Analytics />
