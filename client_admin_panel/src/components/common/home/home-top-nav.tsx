@@ -16,6 +16,7 @@ import { IoSearchOutline } from "react-icons/io5";
 import { selectUserInfo } from "@/lib/features/own/own-details/own-details-slice";
 import Search from "@/components/core/search/search";
 import { useAppSelector } from "@/store/redux/useSelector";
+import MobileSidebar from "@/components/common/home/home-side-nav/mobile-side-nav";
 
 interface NavbarProps {
   isSidebarOpen: boolean;
@@ -26,9 +27,8 @@ const AdminHomeTopNav = ({ toggleSidebar, isSidebarOpen }: NavbarProps) => {
   const itemsForSearch = useAppSelector(selectAllProducts_);
   const [cartHoverTimeout, setCartHoverTimeout] = useState(null);
   const user = useAppSelector(selectUserInfo);
-  const role = user?.role;
   const items = useAppSelector(selectItems);
-
+  const [openMobileNav, setOpenMobileNav] = useState(false);
   const [isCartHoverOpen, setIsCartHoverOpen] = useState(false);
   const [isSearchHoverOpen, setIsSearchHoverOpen] = useState(false);
 
@@ -74,15 +74,21 @@ const AdminHomeTopNav = ({ toggleSidebar, isSidebarOpen }: NavbarProps) => {
     setCartHoverTimeout(timeoutId);
   };
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 backdrop-blur-3xl  px-4 sm:px-6 lg:px-4 py-2 sm:py-2 lg:py-2 dark:bg-[#2b3039] bg-stone-200/25 border-b lg:border lg:dark:border-gray-400/25 lg:border-gray-800/25 ">
+    <div className="">
       <div className="flex h-12 items-center justify-between ">
         <div className=" flex items-center space-x-4 gap-0 lg:gap-0">
-          <div>
+          <div className="flex mt-2  items-start">
+            {openMobileNav && (
+              <MobileSidebar
+                onClose={(value) => setOpenMobileNav(value)}
+                isSidebarOpen={openMobileNav}
+              />
+            )}
             <RiMenu2Fill
               size={25}
-              className={`hover:cursor-pointer lg:hidden `}
+              className="hover:cursor-pointer text-white lg:hidden"
               onClick={() => {
-                toggleSidebar();
+                setOpenMobileNav(true);
               }}
             />
           </div>
@@ -182,7 +188,7 @@ const AdminHomeTopNav = ({ toggleSidebar, isSidebarOpen }: NavbarProps) => {
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95"
                 >
-                  <Menu.Items className="absolute right-0 z-50 mt-8 w-48 origin-top-right bg-slate-200 dark:bg-slate-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none rounded-2xl">
+                  <Menu.Items className="absolute right-0  mt-8 w-48 origin-top-right bg-slate-200 dark:bg-slate-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none rounded-2xl">
                     <div>
                       <div className="text-sm ml-4 mb-2 mt-4 font-medium leading-none text-gray-800 dark:text-gray-300">
                         {user?.addresses && user.addresses[0]
