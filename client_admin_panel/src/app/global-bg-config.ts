@@ -1,2 +1,2 @@
 export const globalBgConfig =
-  "bg-[url('/layout/admin-bg-white.svg')] dark:bg-[url('/layout/admin-bg.svg')]";
+  "bg-[#d9dadb] dark:bg-[url('/layout/admin-bg.svg')]";

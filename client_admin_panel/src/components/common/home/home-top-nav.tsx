@@ -8,6 +8,7 @@ import { useAppSelector } from "@/store/redux/useSelector";
 import MobileSidebar from "@/components/common/home/home-side-nav/mobile-side-nav";
 import { DropdownMenuCustom } from "@/components/ui/custom-dropdown/nav-custom-dropdown";
 import { motion } from "framer-motion";
+import { globalBgConfig } from "@/app/global-bg-config";
 
 const AdminHomeTopNav = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
   const user = useAppSelector(selectUserInfo);
@@ -16,12 +17,12 @@ const AdminHomeTopNav = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
     <motion.div
       animate={
         isSidebarOpen
-          ? { width: "88vw", transition: { duration: 0.3 } }
+          ? { width: "85vw", transition: { duration: 0.3 } }
           : typeof window !== "undefined" && window.innerWidth > 1024
             ? { width: "97vw", transition: { duration: 0.3 } }
             : { width: "100vw", transition: { duration: 0.3 } }
       }
-      className={`fixed lg:top-0 top-0 z-40 w-full dark:shadow-sm shadow-lg h-16 lg:bg-transparent lg:backdrop-blur-2xl border-b border-dotted border-[#0ac31c]/20 dark:border-[#7BFE88]/20`}
+      className={`fixed lg:top-0 top-0 z-40 w-full dark:shadow-sm shadow-lg h-16 bg-[url('/sidebar/sidebar-bg2.svg')]  bg-no-repeat bg-cover bg-fixed border-b border-dotted border-[#0ac31c]/20 dark:border-[#7BFE88]/20`}
     >
       <div className="flex h-12 items-end justify-between ">
         <div className=" flex items-center space-x-4 gap-0 lg:gap-0">

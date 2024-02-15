@@ -7,12 +7,7 @@ import {
 } from "@/lib/features/product/product-pc-slice";
 import { useForm } from "react-hook-form";
 import React, { useEffect, useState } from "react";
-import {
-  useParams,
-  usePathname,
-  useRouter,
-  useSearchParams,
-} from "next/navigation";
+import { useParams, usePathname, useSearchParams } from "next/navigation";
 import { FaSave, FaTrashAlt } from "react-icons/fa";
 
 import { AiFillCloseSquare } from "react-icons/ai";
@@ -28,7 +23,7 @@ import { useAppSelector } from "@/store/redux/useSelector";
 import DangerModal from "@/components/ui/custom-modal/danger-modal";
 import { Card, CardHeader, CardTitle } from "@/components/ui/shadcn/card";
 
-function ProductForm() {
+function AddNewProductForm() {
   const {
     register,
     handleSubmit,
@@ -38,7 +33,6 @@ function ProductForm() {
   } = useForm();
   const brands = useAppSelector(selectBrands);
   const categories = useAppSelector(selectCategories);
-  const router = useRouter();
   const dispatch: AppDispatch = useDispatch();
   const params = useParams();
   const selectedProduct = useAppSelector(selectProductById);
@@ -82,7 +76,7 @@ function ProductForm() {
   };
 
   return (
-    <div>
+    <Card className="dark:bg-[#232425] bg-[#edeeef] border border-[#e5e7eb]/10">
       <form
         noValidate
         onSubmit={handleSubmit((data) => {
@@ -562,8 +556,8 @@ function ProductForm() {
           }
         />
       )}
-    </div>
+    </Card>
   );
 }
 
-export default ProductForm;
+export default AddNewProductForm;

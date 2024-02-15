@@ -93,7 +93,6 @@ const config = {
     require("tailwindcss-animate"),
     require("@tailwindcss/aspect-ratio"),
     require("@tailwindcss/forms"),
-    require("daisyui"),
   ],
 } satisfies Config;
 
