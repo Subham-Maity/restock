@@ -117,7 +117,7 @@ function ProductForm() {
           <div className="p-8">
             <div className="border-b dark:border-gray-400/25 border-gray-900/10 ">
               <h2 className="block leading-6 text-gray-700 dark:text-gray-400 text-2xl font-semibold ">
-                Product Update
+                {params.id ? "Update" : "Add"} Product
               </h2>
               <div className="border-t mt-4 mb-2 border-gray-800 py-2 dark:border-gray-200  "></div>
               <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -339,7 +339,6 @@ function ProductForm() {
                 </div>
 
                 <div className="sm:col-span-6">
-                  xa{" "}
                   <label
                     htmlFor="image2"
                     className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200"

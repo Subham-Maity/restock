@@ -37,10 +37,6 @@ import { useProductsByFilters } from "@/lib/features/product/product-react-query
 import { useBrands } from "@/lib/features/brand/brand-react-query";
 import { useCategory } from "@/lib/features/category/category-react-query";
 
-interface Filter {
-  [key: string]: string[];
-}
-
 interface SortOption {
   _sort: string;
   _order: string;
@@ -64,7 +60,6 @@ export const AdminPcComponentProductList = () => {
   const { data: brandsData, status: brandsStatus } = useBrands();
   const { data: categoryData, status: categoryStatus } = useCategory();
 
-  console.log("brands", brands);
   const filters: IFilter[] = [
     {
       id: "category",
