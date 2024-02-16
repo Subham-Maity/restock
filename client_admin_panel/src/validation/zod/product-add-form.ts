@@ -21,9 +21,7 @@ export const productValidationRules = z.object({
   images: z.array(
     z
       .string()
-      .url(
-        "These should be image URLs! Not a recipe for grandma's cookies! 🍪",
-      ),
+      .url("That doesn't look like a URL! It's like a fish on a bicycle! 🐠🚲"),
   ),
   price: z.coerce
     .number()
@@ -33,7 +31,7 @@ export const productValidationRules = z.object({
     .number()
     .min(0, "Negative stock? Did we enter the Twilight Zone? 🌀")
     .max(1000, "That's a lot of stock! Are we opening a mall? 🏬"),
-  discount: z.coerce
+  discountPercentage: z.coerce
     .number()
     .min(0, "Negative discount? That's a surcharge in disguise! 🎭")
     .max(100, "100% discount? Everything is free! 🎉"),
