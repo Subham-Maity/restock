@@ -5,7 +5,7 @@ import ThemeSwitcher from "@/theme/theme-switcher";
 import React, { useState } from "react";
 import { selectUserInfo } from "@/lib/features/own/own-details/own-details-slice";
 import { useAppSelector } from "@/store/redux/useSelector";
-import MobileSidebar from "@/components/common/home/home-side-nav/mobile-side-nav";
+import MobileSidebar from "@/components/nav/sidenav/mobile-side-nav";
 import { DropdownMenuCustom } from "@/components/ui/custom-dropdown/nav-custom-dropdown";
 import { motion } from "framer-motion";
 import { globalBgConfig } from "@/app/global-bg-config";

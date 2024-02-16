@@ -3,8 +3,16 @@
 // Components import
 import React, { useState } from "react"; // Libraries import
 import { motion } from "framer-motion";
-import SideNavbar from "@/components/common/home/home-side-nav/desktop-side-nav";
-import AdminHomeTopNav from "@/components/common/home/home-top-nav";
+import SideNavbar from "@/components/nav/sidenav/desktop-side-nav";
+import AdminHomeTopNav from "@/components/nav/top-nav";
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuShortcut,
+  ContextMenuTrigger,
+} from "@/components/ui/shadcn/context-menu";
+import RightClickNavMain from "@/components/nav/right-click-nav/right-click-nav-main";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
@@ -29,7 +37,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         <div className="w-full justify-center items-center">
           <AdminHomeTopNav isSidebarOpen={isSidebarOpen} />
         </div>
-        <div className={` w-full min-h-full px-6`}>{children}</div>
+        <div className={` w-full min-h-full px-6`}>
+          <RightClickNavMain>{children}</RightClickNavMain>
+        </div>
       </motion.div>
     </div>
   );

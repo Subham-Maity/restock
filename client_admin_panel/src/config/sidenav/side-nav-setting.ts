@@ -1,7 +1,7 @@
 import { AiOutlineHome } from "react-icons/ai";
 import { RiComputerLine } from "react-icons/ri";
 import { FaCaretRight } from "react-icons/fa";
-import { NavItem } from "@/components/common/home/home-side-nav/config/sidenav-interface";
+import { NavItem } from "@/components/nav/sidenav/config/sidenav-interface";
 import { MdDashboard } from "react-icons/md";
 import { LuCircle } from "react-icons/lu";
 
@@ -58,12 +58,12 @@ export const navConfig: NavItem[] = [
     subNav: [
       {
         title: "ALL in One",
-        href: "/",
+        href: "/product-t1-product-list",
         icon: FaCaretRight,
       },
       {
         title: "Add Product",
-        href: "/add-form",
+        href: "/product-t1-add-form",
         icon: FaCaretRight,
       },
       {

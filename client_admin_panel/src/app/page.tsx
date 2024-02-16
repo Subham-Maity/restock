@@ -8,7 +8,6 @@ import { TERipple } from "tw-elements-react";
 export default function Home() {
   return (
     <IfUserThenIfAdmin>
-      <TERipple>Button</TERipple>
       <AdminPcComponentProductList />
     </IfUserThenIfAdmin>
   );

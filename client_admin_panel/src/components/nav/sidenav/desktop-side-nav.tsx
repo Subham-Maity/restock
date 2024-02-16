@@ -1,12 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { SidebarProps } from "@/components/common/home/home-side-nav/config/sidenav-interface";
-import SidenavNavLinkControl from "@/components/common/home/home-side-nav/core/sidenav-nav-link-control";
-import SidenavOpenCloseDesk from "@/components/common/home/home-side-nav/core/sidenav-open-close";
+import { SidebarProps } from "@/components/nav/sidenav/config/sidenav-interface";
+import SidenavNavLinkControl from "@/components/nav/sidenav/core/sidenav-nav-link-control";
+import SidenavOpenCloseDesk from "@/components/nav/sidenav/core/sidenav-open-close";
 import {
   defaultTextClasses,
   sideNavBgColorDesktop,
-} from "@/components/common/home/home-side-nav/config/side-nav-style";
+} from "@/components/nav/sidenav/config/side-nav-style";
 
 const SideNavbar = ({ isSidebarOpen, toggleSidebar }: SidebarProps) => {
   const [isNavOpen, setIsNavOpen] = useState(isSidebarOpen);

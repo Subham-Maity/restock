@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { navConfig } from "@/components/common/home/home-side-nav/config/side-nav-setting";
+import { navConfig } from "@/config/sidenav/side-nav-setting";
 import Link from "next/link";
 import { TERipple } from "tw-elements-react";
 import { FiChevronDown, FiChevronRight } from "react-icons/fi";
 import { usePathname, useRouter } from "next/navigation";
-import { SidenavControlProps } from "@/components/common/home/home-side-nav/config/sidenav-interface";
+import { SidenavControlProps } from "@/components/nav/sidenav/config/sidenav-interface";
 import {
   activeNavItemClasses,
   activeSubNavItemClasses,
   subNavItemTitleFontClasses,
-} from "@/components/common/home/home-side-nav/config/side-nav-style";
+} from "@/components/nav/sidenav/config/side-nav-style";
 
 const SidenavNavLinkControl: React.FC<SidenavControlProps> = ({ open }) => {
   const [activeSubNav, setActiveSubNav] = useState<string | null>(null);

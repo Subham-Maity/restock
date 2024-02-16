@@ -339,7 +339,6 @@ function ProductForm() {
                 </div>
 
                 <div className="sm:col-span-6">
-                  xa{" "}
                   <label
                     htmlFor="image2"
                     className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200"
