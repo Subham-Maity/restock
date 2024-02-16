@@ -209,7 +209,7 @@ export const ProductMainPcGrid = ({
                 <BgAdminTailwindWrapper key={index}>
                   <div key={index}>
                     <Link
-                      href={`/admin-pc-components-details/${product.id}?showDialog=y`}
+                      href={`/product-t1-details/${product.id}?showDialog=y`}
                       key={product.id}
                     >
                       {product.deleted && (
@@ -249,7 +249,7 @@ export const ProductMainPcGrid = ({
                                         width={300}
                                         onClick={() => {
                                           router.push(
-                                            `/pc-components-details/${product.id}`,
+                                            `/product-t1-details/${product.id}`,
                                           );
                                         }}
                                       />
@@ -263,7 +263,7 @@ export const ProductMainPcGrid = ({
                                   className="w-full h-full object-fill object-center"
                                   fill
                                   onClick={() => {
-                                    window.location.href = `/pc-components-details/${product.id}`;
+                                    window.location.href = `/product-t1-details/${product.id}`;
                                   }}
                                 />
                               )}
@@ -323,7 +323,9 @@ export const ProductMainPcGrid = ({
                         type="submit"
                         className="inline-flex rounded-md bg-blue-800 hover:bg-blue-500 mt-2 ml-2 dark:bg-cyan-700/60 px-1 py-1 text-sm font-semibold text-white shadow-sm dark:hover:bg-cyan-500/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
                         onClick={() => {
-                          router.push(`edit-form/${product.id}?showDialog=y`);
+                          router.push(
+                            `product-t1-edit-form/${product.id}?showDialog=y`,
+                          );
                         }}
                       >
                         <TbEditOff className="mt-0.5 mr-1" />

@@ -7,6 +7,7 @@ import { FaSave } from "react-icons/fa";
 import { AiFillCloseSquare } from "react-icons/ai";
 import { AppDispatch } from "@/store/redux/store";
 import { createProductAsync } from "@/lib/features/product/product-pc-async-thunk";
+
 import {
   selectCategories,
   setCategories,
@@ -49,7 +50,7 @@ import { useCategory } from "@/lib/features/category/category-react-query";
 import { setLoading } from "@/lib/features/product/product-pc-slice";
 import ReactHotToast from "@/toast/react-hot-toast";
 import toast from "react-hot-toast";
-import Context from "@/store/context/context";
+import Context, { ProductDataInterface } from "@/store/context/context";
 
 const INITIAL_FORM_STATE_PRODUCT_ADD_FORM: {
   title: string;
@@ -104,9 +105,22 @@ function AddNewProductForm() {
   });
 
   const { reset } = form;
+  const { setProduct } = useContext(Context);
+  const handleOnChange =
+    <T extends HTMLInputElement | HTMLTextAreaElement>(field: any) =>
+    (e: React.ChangeEvent<T>) => {
+      // Call the original onChange handler from field
+      field.onChange(e);
+
+      // Then update the product data in your context
+      setProduct((prevProduct) => ({
+        ...prevProduct,
+        [e.target.name]: e.target.value,
+      }));
+    };
 
   const onSubmit = (form: z.infer<typeof productValidationRules>) => {
-    const product: { [p: string]: any } = {
+    const product: ProductDataInterface = {
       title: form.title,
       description: form.description,
       brand: form.brand,
@@ -147,7 +161,7 @@ function AddNewProductForm() {
   return (
     <>
       <ReactHotToast />
-      <Card className="dark:bg-[#232425] bg-[#dddfe1] border border-[#e5e7eb]/10">
+      <Card className="default-card">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="mx-auto px-4 sm:px-6 lg:px-4 ">
@@ -173,6 +187,7 @@ function AddNewProductForm() {
                                   {...field}
                                   placeholder="Product Name"
                                   className="default-input"
+                                  onChange={handleOnChange(field)}
                                 />
                               </FormControl>
                               <FormMessage className="ml-2 dark:text-[#ef5f1f] text-[#bc4a18]" />
@@ -196,6 +211,7 @@ function AddNewProductForm() {
                                 placeholder="Give a brief description of the product"
                                 className="default-input"
                                 {...field}
+                                onChange={handleOnChange(field)}
                               />
                             </FormControl>
                             <FormMessage className="ml-2 dark:text-[#ef5f1f] text-[#bc4a18]" />
@@ -248,7 +264,17 @@ function AddNewProductForm() {
                                           value={brand.label}
                                           key={brand.value}
                                           onSelect={() => {
-                                            form.setValue("brand", brand.value);
+                                            const selectedBrand = brand.value;
+                                            // Update form value
+                                            form.setValue(
+                                              "brand",
+                                              selectedBrand,
+                                            );
+                                            // Update product data in context
+                                            setProduct((prevProduct) => ({
+                                              ...prevProduct,
+                                              brand: selectedBrand,
+                                            }));
                                           }}
                                         >
                                           {brand.label}
@@ -317,10 +343,18 @@ function AddNewProductForm() {
                                           value={category.label}
                                           key={category.value}
                                           onSelect={() => {
+                                            const selectedCategory =
+                                              category.value;
+                                            // Update form value
                                             form.setValue(
                                               "category",
-                                              category.value,
+                                              selectedCategory,
                                             );
+                                            // Update product data in context
+                                            setProduct((prevProduct) => ({
+                                              ...prevProduct,
+                                              category: selectedCategory,
+                                            }));
                                           }}
                                         >
                                           {category.label}
@@ -360,6 +394,7 @@ function AddNewProductForm() {
                                 type="number"
                                 placeholder="Ex: 1000"
                                 className="default-input"
+                                onChange={handleOnChange(field)}
                               />
                             </FormControl>
                             <FormMessage className="ml-2 dark:text-[#ef5f1f] text-[#bc4a18]" />
@@ -375,7 +410,7 @@ function AddNewProductForm() {
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
-                              Discount
+                              Discount(%)
                             </FormLabel>
                             <FormControl>
                               <Input
@@ -383,6 +418,7 @@ function AddNewProductForm() {
                                 type="number"
                                 placeholder="Ex: 20"
                                 className="default-input"
+                                onChange={handleOnChange(field)}
                               />
                             </FormControl>
                             <FormMessage className="ml-2 dark:text-[#ef5f1f] text-[#bc4a18]" />
@@ -406,6 +442,7 @@ function AddNewProductForm() {
                                 type="number"
                                 placeholder="Ex: 5"
                                 className="default-input"
+                                onChange={handleOnChange(field)}
                               />
                             </FormControl>
                             <FormMessage className="ml-2 dark:text-[#ef5f1f] text-[#bc4a18]" />
@@ -429,6 +466,7 @@ function AddNewProductForm() {
                                 type="text"
                                 placeholder="Ex: https://example.com/thumbnail.jpg"
                                 className="default-input"
+                                onChange={handleOnChange(field)}
                               />
                             </FormControl>
                             <FormMessage className="ml-2 dark:text-[#ef5f1f] text-[#bc4a18]" />
@@ -452,6 +490,7 @@ function AddNewProductForm() {
                                 type="text"
                                 placeholder="Ex: https://example.com/image1.jpg"
                                 className="default-input"
+                                onChange={handleOnChange(field)}
                               />
                             </FormControl>
                             <FormMessage className="ml-2 dark:text-[#ef5f1f] text-[#bc4a18]" />
@@ -475,6 +514,7 @@ function AddNewProductForm() {
                                 type="text"
                                 placeholder="Ex: https://example.com/image2.jpg"
                                 className="default-input"
+                                onChange={handleOnChange(field)}
                               />
                             </FormControl>
                             <FormMessage className="ml-2 dark:text-[#ef5f1f] text-[#bc4a18]" />
@@ -498,6 +538,7 @@ function AddNewProductForm() {
                                 type="text"
                                 placeholder="Ex: https://example.com/image3.jpg"
                                 className="default-input"
+                                onChange={handleOnChange(field)}
                               />
                             </FormControl>
                             <FormMessage className="ml-2 dark:text-[#ef5f1f] text-[#bc4a18]" />

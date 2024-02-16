@@ -1,10 +1,11 @@
 import { z } from "zod";
+import { set_max_price, title_max_length } from "@/constant/constants";
 
 export const productValidationRules = z.object({
   title: z
     .string()
     .min(1, "A title-less product? That's like a pizza without cheese! 🍕")
-    .max(100, "Whoa, keep the title short! It's not a novel! 📚"),
+    .max(title_max_length, "Whoa, keep the title short! It's not a novel! 📚"),
   description: z
     .string()
     .min(
@@ -26,7 +27,7 @@ export const productValidationRules = z.object({
   price: z.coerce
     .number()
     .min(0, "Free stuff? Nice! But we need a price. 💰")
-    .max(10000, "Whoa, that's pricey! Is it made of gold? 🤑"),
+    .max(set_max_price, "Whoa, that's pricey! Is it made of gold? 🤑"),
   stock: z.coerce
     .number()
     .min(0, "Negative stock? Did we enter the Twilight Zone? 🌀")

@@ -133,7 +133,7 @@
 }
 
 .default-card {
-    @apply bg-white bg-opacity-40 dark:bg-black/30 shadow-2xl rounded-2xl;
+   @apply dark:bg-[#232425] bg-[#dddfe1] border border-[#e5e7eb]/10 shadow-2xl rounded-lg;;
 }
 
 .default-input {
