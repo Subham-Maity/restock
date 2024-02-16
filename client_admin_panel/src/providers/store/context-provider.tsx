@@ -9,6 +9,18 @@ export interface InfoData {
   softCap: number;
 }
 
+export interface ProductData {
+  title: string;
+  description: string;
+  brand: string;
+  category: string;
+  thumbnail: string;
+  images: string[];
+  price: number;
+  stock: number;
+  discountPercentage: number;
+}
+
 interface FormProviderProps {
   children: React.ReactNode;
 }
@@ -17,6 +29,18 @@ const ContextProvider: React.FC<FormProviderProps> = ({ children }) => {
   const [infoData, setInfoData] = useState<InfoData>({
     softCap: 0,
   });
+  const [product, setProduct] = useState<ProductData>({
+    // Use ProductDataInterface here
+    title: "",
+    description: "",
+    brand: "",
+    category: "",
+    thumbnail: "",
+    images: ["", "", ""],
+    price: 0,
+    stock: 0,
+    discountPercentage: 0,
+  }); // Add this line
 
   const [isDarkTheme, setIsDarkTheme] = useState<Boolean>(false);
 
@@ -27,6 +51,7 @@ const ContextProvider: React.FC<FormProviderProps> = ({ children }) => {
     isDarkTheme,
     isGrid,
     prevPath, // Add this line
+    product, // Add this line
   };
 
   const contextDispatch: ContextDispatch = {
@@ -34,6 +59,7 @@ const ContextProvider: React.FC<FormProviderProps> = ({ children }) => {
     setIsDarkTheme,
     setIsGrid,
     setPrevPath, // Add this line
+    setProduct, // Add this line
   };
 
   return (

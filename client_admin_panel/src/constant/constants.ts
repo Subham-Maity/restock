@@ -11,6 +11,10 @@ export function discountedPrice(item: Item): number {
   );
 }
 
+//User can't set price more than 1000000
+export const set_max_price = 1000000;
+export const title_max_length = 100;
+
 // export const BASE_URL = "https://webcrack.online:6060/api/v1";
 export const BASE_URL = "http://localhost:5050/api/v1";
 

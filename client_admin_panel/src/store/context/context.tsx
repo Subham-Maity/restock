@@ -1,7 +1,20 @@
+"use client";
 import React from "react";
 
 export interface InfoData {
   softCap: number;
+}
+
+export interface ProductDataInterface {
+  title: string;
+  description: string;
+  brand: string;
+  category: string;
+  thumbnail: string;
+  images: string[];
+  price: number;
+  stock: number;
+  discountPercentage: number;
 }
 
 export interface ContextState {
@@ -9,6 +22,7 @@ export interface ContextState {
   isDarkTheme: Boolean;
   isGrid: Boolean;
   prevPath: string;
+  product: ProductDataInterface;
 }
 
 export interface ContextDispatch {
@@ -16,6 +30,7 @@ export interface ContextDispatch {
   setIsDarkTheme: React.Dispatch<React.SetStateAction<Boolean>>;
   setIsGrid: React.Dispatch<React.SetStateAction<Boolean>>;
   setPrevPath: React.Dispatch<React.SetStateAction<string>>;
+  setProduct: React.Dispatch<React.SetStateAction<ProductDataInterface>>;
 }
 
 type ContextProps = ContextState & ContextDispatch;
@@ -23,12 +38,23 @@ type ContextProps = ContextState & ContextDispatch;
 const defaultInfoData: InfoData = {
   softCap: 0,
 };
-
+const defaultProductData: ProductDataInterface = {
+  title: "",
+  description: "",
+  brand: "",
+  category: "",
+  thumbnail: "",
+  images: ["", "", ""],
+  price: 0,
+  stock: 0,
+  discountPercentage: 0,
+};
 const defaultDispatch: ContextDispatch = {
   setInfoData: () => {},
   setIsDarkTheme: () => {},
   setIsGrid: () => {},
   setPrevPath: () => {},
+  setProduct: () => {},
 };
 
 const defaultFormContext: ContextProps = {
@@ -37,6 +63,7 @@ const defaultFormContext: ContextProps = {
   isDarkTheme: false,
   isGrid: true,
   prevPath: "",
+  product: defaultProductData,
 };
 
 const Context = React.createContext<ContextProps>(defaultFormContext);
