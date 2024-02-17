@@ -68,9 +68,7 @@ export function DropdownMenuCustom({ ...props }) {
           )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent
-        className={`dark:bg-[#111921] bg-stone-300 w-56 rounded-lg mr-6`}
-      >
+      <DropdownMenuContent className={`default-card w-56 rounded-lg mr-6`}>
         <DropdownMenuLabel className="text-gray-800 dark:text-gray-300">
           <div>
             <div className="text-sm ml-4 mb-2 mt-4 font-medium leading-none ">
@@ -104,7 +102,7 @@ export function DropdownMenuCustom({ ...props }) {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuSub>
-            <DropdownMenuSubTrigger className="hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+            <DropdownMenuSubTrigger className="default-card dark:hover:text-white">
               <UserPlus className="mr-2 h-4 w-4" />
               <span>Invite users</span>
             </DropdownMenuSubTrigger>
