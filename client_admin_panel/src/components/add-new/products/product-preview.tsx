@@ -23,6 +23,7 @@ const ProductPreview = () => {
     const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
     return urlPattern.test(url);
   }
+
   return (
     <div className="mt-12 sticky top-24 ">
       <Card className="default-card">
@@ -39,6 +40,8 @@ const ProductPreview = () => {
                 {/* Image gallery */}
                 <div className="w-fit flex flex-col-reverse lg:flex-row mx-auto py-4 sm:space-x-4 mb-10 justify-center lg:justify-start lg:border-r lg:border-gray-400 lg:pr-4 xl:pr-8">
                   <div className="flex flex-row lg:flex-col product-previews mt-3 lg:mt-0 space-x-2 lg:space-x-0 lg:space-y-2 p-2 border border-gray-400 rounded-xl h-fit w-fit mx-auto my-auto">
+                    {/*TODO: map product.images to divs*/}
+
                     {/*{product.images.map((image: string, index: number) => (*/}
                     {/*  <div*/}
                     {/*    key={index}*/}

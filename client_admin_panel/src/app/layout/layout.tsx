@@ -4,7 +4,7 @@
 import React, { useState } from "react"; // Libraries import
 import { motion } from "framer-motion";
 import SideNavbar from "@/components/nav/sidenav/desktop-side-nav";
-import AdminHomeTopNav from "@/components/nav/top-nav";
+import AdminHomeTopNav from "@/components/nav/top-nav/top-nav";
 import {
   ContextMenu,
   ContextMenuContent,

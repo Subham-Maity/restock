@@ -146,75 +146,10 @@
 }
 
 
-.stretch {
-    animation-name: stretch;
-    animation-duration: 1.5s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-play-state: running;
-}
 
-@keyframes stretch {
-    0% {
-        background-color: lightgray;
-    }
-    50% {
-        background-color: rgb(128, 128, 128);
-    }
-    100% {
-        background-color: lightgray;
-    }
-}
 
-.wrapper {
-    border: 0px !important;
-    background-color: rgba(21, 24, 35, 0.2);
-}
 
-.sc-dcJsrY div div input:focus {
-    outline: none;
-    border: 0px; /* Add a custom border */
-    --tw-ring-color: none;
-}
 
-/*.sc-gEvEr {*/
-/*    height: 50px !important;*/
-/*}*/
-/*.fyEHDT{*/
-/*    height: 50px !important;*/
-/*}*/
 
-.search .wrapper:first-child {
-    border: 4px solid orange !important;
-}
-
-.search .wrapper:first-child {
-    border: 4px solid orange;
-    width: 25%;
-    height: auto;
-}
-
-.wrapper {
-    border-top-left-radius: 0px !important;
-    border-bottom-left-radius: 0px !important;
-}
-
-@media (min-width: 768px) {
-    .search .wrapper:first-child {
-        width: 25% !important;
-    }
-}
-
-@media (min-width: 1024px) {
-    .search .wrapper:first-child {
-        width: 33.33% !important;
-    }
-}
-
-@media (min-width: 1440px) {
-    .search .wrapper:first-child {
-        width: 25%;
-    }
-}
 
 

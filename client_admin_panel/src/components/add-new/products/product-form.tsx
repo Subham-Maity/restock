@@ -126,7 +126,7 @@ function AddNewProductForm() {
       brand: form.brand,
       category: form.category,
       thumbnail: form.thumbnail,
-      images: form.images,
+      images: form.images, //TODO: Retrieve images from the database
       price: form.price,
       stock: form.stock,
       discountPercentage: form.discountPercentage,
