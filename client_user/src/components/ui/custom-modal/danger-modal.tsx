@@ -9,7 +9,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/shad-cn/alert-dialog";
-import { MouseEvent, ReactNode, useEffect, useState } from "react"; // Import ReactNode
+import { MouseEvent, ReactNode, useEffect, useState } from "react";
 
 interface ModalProps {
   title: string;

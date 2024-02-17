@@ -2,12 +2,9 @@
 import { useDispatch } from "react-redux";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaSave } from "react-icons/fa";
-import { AiFillCloseSquare } from "react-icons/ai";
 import { AppDispatch } from "@/store/redux/store";
-import { createProductAsync } from "@/lib/features/product/product-pc-async-thunk";
-
 import {
   selectCategories,
   setCategories,
@@ -48,9 +45,10 @@ import { ScrollArea } from "@/components/ui/shadcn/scroll-area";
 import { useBrands } from "@/lib/features/brand/brand-react-query";
 import { useCategory } from "@/lib/features/category/category-react-query";
 import { setLoading } from "@/lib/features/product/product-pc-slice";
-import ReactHotToast from "@/toast/react-hot-toast";
 import toast from "react-hot-toast";
 import Context, { ProductDataInterface } from "@/store/context/context";
+import { useCreateProduct } from "@/lib/features/product/product-react-query";
+import DangerModal from "@/components/ui/custom-modal/danger-modal";
 
 const INITIAL_FORM_STATE_PRODUCT_ADD_FORM: {
   title: string;
@@ -77,7 +75,12 @@ const INITIAL_FORM_STATE_PRODUCT_ADD_FORM: {
 function AddNewProductForm() {
   const { data: brandsData, status: brandsStatus } = useBrands();
   const { data: categoryData, status: categoryStatus } = useCategory();
+  const mutation = useCreateProduct();
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const { product, setProduct } = useContext(Context);
   const { isDarkTheme } = useContext(Context);
+  const [finalFormProduct, setFormProduct] =
+    useState<ProductDataInterface | null>(null);
   useEffect(() => {
     if (brandsStatus === "loading") {
       dispatch(setLoading());
@@ -105,7 +108,6 @@ function AddNewProductForm() {
   });
 
   const { reset } = form;
-  const { setProduct } = useContext(Context);
   const handleOnChange =
     <T extends HTMLInputElement | HTMLTextAreaElement>(field: any) =>
     (e: React.ChangeEvent<T>) => {
@@ -120,7 +122,7 @@ function AddNewProductForm() {
     };
 
   const onSubmit = (form: z.infer<typeof productValidationRules>) => {
-    const product: ProductDataInterface = {
+    const productData: ProductDataInterface = {
       title: form.title,
       description: form.description,
       brand: form.brand,
@@ -131,36 +133,53 @@ function AddNewProductForm() {
       stock: form.stock,
       discountPercentage: form.discountPercentage,
     };
-    // dispatch action to create product
-    dispatch(createProductAsync(product))
-      .then(() => {
-        toast.success(`${product.title}  is created successfully`, {
-          duration: 4000,
-          icon: "🚀",
-          style: {
-            background: isDarkTheme ? "#232c37" : "#fff",
-            color: isDarkTheme ? "#fff" : "#000",
-          },
-          position: "top-right",
-        });
-      })
-      .catch((error) => {
-        toast.error(error.message, {
-          duration: 4000,
-          icon: "❓",
-          style: {
-            background: isDarkTheme ? "#232c37" : "#fff",
-            color: isDarkTheme ? "#fff" : "#000",
-          },
-          position: "top-right",
-        });
+
+    // Set the product data and show the confirmation modal
+    setFormProduct(productData);
+    setShowConfirmModal(true);
+  };
+
+  const handleConfirm = () => {
+    if (finalFormProduct) {
+      mutation.mutate(finalFormProduct, {
+        onSuccess: () => {
+          toast.success(
+            `${finalFormProduct.title} is created successfully 🥳`,
+            {
+              duration: 4000,
+              icon: "🚀",
+              style: {
+                background: isDarkTheme ? "#232c37" : "#fff",
+                color: isDarkTheme ? "#fff" : "#000",
+              },
+              position: "top-right",
+            },
+          );
+          reset();
+          setProduct(INITIAL_FORM_STATE_PRODUCT_ADD_FORM);
+          setFormProduct(null);
+
+          // Show the modal
+          setShowConfirmModal(false);
+        },
+        onError: () => {
+          // Check if the error response exists and has a message
+          toast.error(`Sorry! Unique title prevented creation of product 😰`, {
+            duration: 4000,
+            icon: "❓",
+            style: {
+              background: isDarkTheme ? "#232c37" : "#fff",
+              color: isDarkTheme ? "#fff" : "#000",
+            },
+            position: "top-right",
+          });
+          setShowConfirmModal(false);
+        },
       });
-    // reset form
-    reset();
+    }
   };
   return (
     <>
-      <ReactHotToast />
       <Card className="default-card">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -551,26 +570,16 @@ function AddNewProductForm() {
               </div>
 
               <div className="flex items-center justify-end gap-x-6 pb-6">
-                <motion.button
-                  type="submit"
-                  className="inline-flex rounded-md px-3 border-2 py-2 text-md font-semibold text-grey text-teal-900 dark:text-teal-200 shadow-sm hover:bg-grey-500 border-teal-600/50"
-                  whileHover={{
-                    scale: 1.05,
-                    backgroundColor: "#37cfc2",
-                    color: "#FFFFFF",
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <motion.span
-                    initial={{ rotate: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className="inline-block"
-                  >
-                    <AiFillCloseSquare className="mt-0.5 mr-1" />
-                  </motion.span>
-                  Cancel
-                </motion.button>
+                <DangerModal
+                  title={`Add ${product?.title}`}
+                  message="Are you sure you want to add this product?"
+                  dangerOption="Add"
+                  cancelOption="Cancel"
+                  dangerAction={handleConfirm}
+                  cancelAction={() => setShowConfirmModal(false)}
+                  showModal={showConfirmModal}
+                  icon={<FaSave />}
+                />
                 <motion.button
                   type="submit"
                   className="rounded-md bg-indigo-600 px-3 py-2 mt-1 text-md font-semibold text-white shadow-sm hover:bg-indigo-500 "
