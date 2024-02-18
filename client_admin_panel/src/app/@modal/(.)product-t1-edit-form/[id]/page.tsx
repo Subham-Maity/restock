@@ -1,5 +1,5 @@
 import React from "react";
-import ProductForm from "@/components/update/products/update-pc-product-form";
+import ProductForm from "@/components/product-t1/update/update-product";
 
 const Page = () => {
   return <ProductForm />;

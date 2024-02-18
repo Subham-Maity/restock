@@ -1,11 +1,11 @@
 import React from "react";
+import UpdateBanner from "@/components/product-t1/update/update-banner";
 import IfUserThenIfAdmin from "@/providers/security/if-user-then-if-admin";
-import { AdminPcComponentProductList } from "@/components/product-t1/products/product-main";
 
 const Page = () => {
   return (
     <IfUserThenIfAdmin>
-      <AdminPcComponentProductList />
+      <UpdateBanner />
     </IfUserThenIfAdmin>
   );
 };

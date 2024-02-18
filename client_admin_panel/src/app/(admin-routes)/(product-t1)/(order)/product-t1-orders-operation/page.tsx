@@ -1,13 +1,14 @@
 import React from "react";
+import OrderTable from "@/components/product-t1/table/order-table";
+import dynamic from "next/dynamic";
 import IfUserThenIfAdmin from "@/providers/security/if-user-then-if-admin";
-import { AdminPcComponentProductList } from "@/components/product-t1/products/product-main";
 
 const Page = () => {
   return (
     <IfUserThenIfAdmin>
-      <AdminPcComponentProductList />
+      <OrderTable />
     </IfUserThenIfAdmin>
   );
 };
 
-export default Page;
+export default dynamic(() => Promise.resolve(Page), { ssr: false });

@@ -12,7 +12,8 @@ import {
   ContextMenuShortcut,
   ContextMenuTrigger,
 } from "@/components/ui/shadcn/context-menu";
-import RightClickNavMain from "@/components/nav/right-click-nav/right-click-nav-main";
+import RightClickMain from "@/components/control/right-click/right-click-main";
+import ReactHotToast from "@/toast/react-hot-toast/react-hot-toast";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
@@ -38,7 +39,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           <AdminHomeTopNav isSidebarOpen={isSidebarOpen} />
         </div>
         <div className={` w-full min-h-full px-6`}>
-          <RightClickNavMain>{children}</RightClickNavMain>
+          <ReactHotToast />
+          <RightClickMain>{children}</RightClickMain>
         </div>
       </motion.div>
     </div>

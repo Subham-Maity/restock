@@ -56,7 +56,7 @@ export default function DangerModal({
   return (
     <AlertDialog open={open}>
       <AlertDialogTrigger asChild>
-        <AlertDialogContent>
+        <AlertDialogContent className="dark:bg-[#232425] bg-[#fafcff]">
           <AlertDialogHeader>
             <div className="flex items-center text-3xl gap-2 dark:text-yellow-600 text-yellow-600">
               <p className="shadow-2xl shadow-amber-300">{icon}</p>
