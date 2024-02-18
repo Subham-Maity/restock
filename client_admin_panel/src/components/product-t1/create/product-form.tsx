@@ -25,7 +25,7 @@ import {
   FormMessage,
 } from "@/components/ui/shadcn/form";
 import { Input } from "@/components/ui/shadcn/input";
-import { productValidationRules } from "@/validation/zod/product-add-form";
+import { productValidationRules } from "@/validation/zod/product-t1/create";
 import { Textarea } from "@/components/ui/shadcn/textarea";
 import { cn } from "@/utils/tw-merge/tw";
 import { Button } from "@/components/ui/shadcn/button";
@@ -81,6 +81,7 @@ function AddNewProductForm() {
   const { isDarkTheme } = useContext(Context);
   const [finalFormProduct, setFormProduct] =
     useState<ProductDataInterface | null>(null);
+
   useEffect(() => {
     if (brandsStatus === "loading") {
       dispatch(setLoading());
@@ -98,8 +99,11 @@ function AddNewProductForm() {
       dispatch(setCategories(categoryData));
     }
   }, [categoryData, categoryStatus]);
+
   const brands = useAppSelector(selectBrands);
+
   const categories = useAppSelector(selectCategories);
+
   const dispatch: AppDispatch = useDispatch();
 
   const form = useForm({

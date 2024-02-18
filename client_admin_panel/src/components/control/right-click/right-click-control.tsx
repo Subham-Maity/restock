@@ -5,7 +5,7 @@ import {
   ContextMenuShortcut,
 } from "@/components/ui/shadcn/context-menu";
 
-const RightClickNavControl = () => {
+const RightClickControl = () => {
   return (
     <ContextMenuContent className="w-64">
       <ContextMenuItem inset>
@@ -16,4 +16,4 @@ const RightClickNavControl = () => {
   );
 };
 
-export default RightClickNavControl;
+export default RightClickControl;

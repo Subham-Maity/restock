@@ -22,9 +22,9 @@ import {
   fetchAllOrdersAsync,
   updateOrderAsync,
 } from "@/lib/features/order/order-async-thunk";
-import { Pagination } from "@/components/core/pagination/pagination";
 import { SortOption } from "@/types/utility/core/sort/sort.type";
 import { useAppSelector } from "@/store/redux/useSelector";
+import { Pagination } from "@/components/product-t1/core/pagination/pagination";
 
 function OrderTable() {
   const [page, setPage] = useState(1);

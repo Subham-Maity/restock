@@ -26,7 +26,7 @@ interface DataType {
   totalImage: number;
 }
 
-const ProductPcTable: React.FC = () => {
+const DataTable: React.FC = () => {
   const data = useAppSelector(selectAllProducts_);
   const { isDarkTheme, setIsDarkTheme } = useContext(Context);
   const columns: ColumnsType<DataType> = [
@@ -244,4 +244,4 @@ const ProductPcTable: React.FC = () => {
   );
 };
 
-export default ProductPcTable;
+export default DataTable;

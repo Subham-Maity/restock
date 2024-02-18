@@ -3,12 +3,11 @@ import React, { useContext, useState } from "react";
 import { Card } from "@/components/ui/shadcn/card";
 import Context from "@/store/context/context";
 import { ToastContainer } from "react-toastify";
-import Link from "next/link";
 import Image from "next/image";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import { AiOutlineZoomIn, AiOutlineZoomOut } from "react-icons/ai";
 import { IoClose } from "react-icons/io5";
-import { Badge, badgeVariants } from "@/components/ui/shadcn/badge";
+import { Badge } from "@/components/ui/shadcn/badge";
 import { set_max_price, title_max_length } from "@/constant/constants";
 import {
   HoverCard,

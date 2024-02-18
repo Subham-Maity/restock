@@ -8,13 +8,7 @@ import BgAdminTailwindWrapper from "@/wrapper/admin-bg-wrapper";
 import { TbEditOff } from "react-icons/tb";
 import { useRouter } from "next/navigation";
 
-export const ProductMainPcGrid = ({
-  products,
-  status,
-}: {
-  products: any;
-  status: any;
-}) => {
+export const Grid = ({ products, status }: { products: any; status: any }) => {
   const [hoveredProductIndex, setHoveredProductIndex] = useState<number | null>(
     null,
   );

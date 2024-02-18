@@ -19,23 +19,25 @@ import BgAdminTailwindWrapper from "@/wrapper/admin-bg-wrapper";
 import Context from "@/store/context/context";
 import { FaListUl } from "react-icons/fa";
 import { motion } from "framer-motion";
-import { Pagination } from "@/components/core/pagination/pagination";
+
 import { selectBrands, setBrands } from "@/lib/features/brand/brand-slice";
 import {
   selectCategories,
   setCategories,
 } from "@/lib/features/category/category-slice";
 import { fetchProductsByFiltersAsync } from "@/lib/features/product/product-pc-async-thunk";
-import ProductForm from "@/components/update/products/update-pc-product-form";
-import { DesktopFilter } from "../core/filter/product-filter/desktop/product-filter";
-import { MobileFilter } from "@/components/core/filter/product-filter/mobile/product-filter";
-import { ProductMainPcGrid } from "@/components/grid/products/product-main-pc-grid";
-import Sort from "@/components/core/sort/sort";
+import ProductForm from "@/components/product-t1/update/update-product";
+import { DesktopFilter } from "@/components/product-t1/core/filter/desktop/product-filter";
+import { MobileFilter } from "@/components/product-t1/core/filter/mobile/product-filter";
+import { Grid } from "@/components/product-t1/grid/grid";
+
 import { IFilter, KeyFilter } from "@/types/utility/core/filter/filter.type";
 import { useAppSelector } from "@/store/redux/useSelector";
 import { useProductsByFilters } from "@/lib/features/product/product-react-query";
 import { useBrands } from "@/lib/features/brand/brand-react-query";
 import { useCategory } from "@/lib/features/category/category-react-query";
+import Sort from "@/components/product-t1/core/sort/sort";
+import { Pagination } from "@/components/product-t1/core/pagination/pagination";
 
 interface SortOption {
   _sort: string;
@@ -247,7 +249,7 @@ export const AdminPcComponentProductList = () => {
             </BgAdminTailwindWrapper>
 
             <div className="lg:col-span-3">
-              <ProductMainPcGrid products={products} status={status} />
+              <Grid products={products} status={status} />
             </div>
           </div>
         </section>

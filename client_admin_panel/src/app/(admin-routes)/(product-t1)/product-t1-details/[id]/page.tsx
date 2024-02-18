@@ -1,7 +1,7 @@
 import React from "react";
 
 import MarginWrapper from "@/wrapper/margin-wrapper";
-import ProductMainPcDetails from "@/components/details/pc-product-details/product-main-pc-details";
+import Details from "@/components/product-t1/details/details";
 import IfUserThenIfAdmin from "@/providers/security/if-user-then-if-admin";
 import Dialog from "@/components/ui/custom-modal/route-modal";
 
@@ -20,7 +20,7 @@ const page = () => {
         closeButtonAlign="left"
       >
         <MarginWrapper>
-          <ProductMainPcDetails />
+          <Details />
         </MarginWrapper>
       </Dialog>
     </IfUserThenIfAdmin>

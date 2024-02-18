@@ -22,7 +22,7 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function ProductMainPcDetails() {
+export default function Details() {
   const dispatch: AppDispatch = useDispatch();
   const params: any = useParams();
 
