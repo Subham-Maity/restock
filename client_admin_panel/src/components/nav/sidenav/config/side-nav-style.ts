@@ -3,7 +3,7 @@ import { globalBgConfig } from "@/app/global-bg-config";
 
 export const sideNavBgColorDesktop =
   "bg-[url('/sidebar/sidebar-bg2.svg')] bg-no-repeat bg-cover bg-fixed border-r border border-[#e5e7eb]/10 ";
-export const sideNavBgColorMobile = `${globalBgConfig} bg-no-repeat bg-cover bg-fixed border-r border border-[#e5e7eb]/10 `;
+export const sideNavBgColorMobile = `dark:bg-stone-800 bg-no-repeat bg-cover bg-fixed border-r border border-[#e5e7eb]/10 `;
 //This is used for the nav item styling
 export const activeNavItemClasses =
   "dark:bg-[#18333d] bg-[#b3dafd] w-full rounded-md border-l-4 my-0 dark:border-[#7BFE88]  border-[#0ac31c] text-black dark:text-[#58afd6] text-black text-2xl font-bold";
