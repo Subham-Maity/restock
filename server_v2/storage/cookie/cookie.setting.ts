@@ -13,7 +13,7 @@ export const cookieOptions: CookieOptions = {
   secure: isProduction,
   sameSite: isProduction ? "none" : "lax",
   maxAge: 1000 * 60 * 60 * 24 * 3,
-  domain,
+  // domain,
 };
 
 export const COOKIE_NAME_SET = process.env.COOKIE_NAME || "jwt";
