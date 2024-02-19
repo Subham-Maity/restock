@@ -3,13 +3,14 @@ import React from "react";
 import DataTable from "@/components/product-t1/table/data-table";
 import dynamic from "next/dynamic";
 import IfUserThenIfAdmin from "@/providers/security/if-user-then-if-admin";
+import PageMergin from "@/wrapper/page-mergin";
 
 function Page() {
   return (
     <IfUserThenIfAdmin>
-      <div className="w-screen">
+      <PageMergin>
         <DataTable />
-      </div>
+      </PageMergin>
     </IfUserThenIfAdmin>
   );
 }

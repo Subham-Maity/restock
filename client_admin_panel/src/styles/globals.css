@@ -127,7 +127,15 @@
 ::-webkit-scrollbar-thumb {
     background-color: #3b3b3b;
 }
+.no-visible-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
+}
 
+.no-visible-scrollbar::-webkit-scrollbar {
+    display: none;
+}
 .product-card {
     @apply bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl rounded-lg ;
 }

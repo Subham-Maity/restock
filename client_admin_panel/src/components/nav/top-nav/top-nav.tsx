@@ -22,7 +22,7 @@ const AdminHomeTopNav = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
             ? { width: "97vw", transition: { duration: 0.3 } }
             : { width: "100vw", transition: { duration: 0.3 } }
       }
-      className={`fixed lg:top-0 top-0 z-40 w-full dark:shadow-sm shadow-lg h-16 bg-[url('/navbar/top-nav.svg')]  bg-no-repeat bg-cover bg-fixed border-b border-dotted border-[#0ac31c]/20 dark:border-[#7BFE88]/20`}
+      className={`fixed lg:top-0 top-0 z-40 w-full dark:shadow-sm shadow-lg h-16 backdrop-brightness-50 dark:bg-stone-700/40 bg-[#dddfe1] bg-no-repeat bg-cover bg-fixed border-b border border-[#e5e7eb]/10`}
     >
       <div className="flex h-12 items-end justify-between ">
         {/* SearchNav moved to the left */}

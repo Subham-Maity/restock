@@ -1,11 +1,14 @@
 import React from "react";
 import UpdateBanner from "@/components/product-t1/update/update-banner";
 import IfUserThenIfAdmin from "@/providers/security/if-user-then-if-admin";
+import PageMergin from "@/wrapper/page-mergin";
 
 const Page = () => {
   return (
     <IfUserThenIfAdmin>
-      <UpdateBanner />
+      <PageMergin>
+        <UpdateBanner />
+      </PageMergin>
     </IfUserThenIfAdmin>
   );
 };

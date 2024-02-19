@@ -2,11 +2,14 @@ import React from "react";
 import OrderTable from "@/components/product-t1/table/order-table";
 import dynamic from "next/dynamic";
 import IfUserThenIfAdmin from "@/providers/security/if-user-then-if-admin";
+import PageMergin from "@/wrapper/page-mergin";
 
 const Page = () => {
   return (
     <IfUserThenIfAdmin>
-      <OrderTable />
+      <PageMergin>
+        <OrderTable />
+      </PageMergin>
     </IfUserThenIfAdmin>
   );
 };

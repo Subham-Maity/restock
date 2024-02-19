@@ -4,6 +4,7 @@ import MarginWrapper from "@/wrapper/margin-wrapper";
 import Details from "@/components/product-t1/details/details";
 import IfUserThenIfAdmin from "@/providers/security/if-user-then-if-admin";
 import Dialog from "@/components/ui/custom-modal/route-modal";
+import PageMergin from "@/wrapper/page-mergin";
 
 const page = () => {
   async function onClose() {
@@ -19,9 +20,9 @@ const page = () => {
         bgClass="bg-white dark:bg-stone-800 rounded-2xl"
         closeButtonAlign="left"
       >
-        <MarginWrapper>
+        <PageMergin>
           <Details />
-        </MarginWrapper>
+        </PageMergin>
       </Dialog>
     </IfUserThenIfAdmin>
   );
