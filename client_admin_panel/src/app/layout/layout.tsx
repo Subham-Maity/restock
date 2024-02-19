@@ -15,6 +15,7 @@ import {
 import RightClickMain from "@/components/control/right-click/right-click-main";
 import ReactHotToast from "@/toast/react-hot-toast/react-hot-toast";
 import MemoryTab from "@/components/nav/memory-tab/memory-tab";
+import MemoryTabLayout from "@/components/nav/memory-tab/memory-tab-layout";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
@@ -37,13 +38,17 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         }
       >
         <div className="w-full justify-center items-center">
-          <AdminHomeTopNav isSidebarOpen={isSidebarOpen} />
+          <div className="">
+            <AdminHomeTopNav isSidebarOpen={isSidebarOpen} />
+            <div className="hidden lg:block">
+              <MemoryTabLayout isSidebarOpen={isSidebarOpen} />
+            </div>
+          </div>
         </div>
         <div className={` w-full min-h-full px-6`}>
           <ReactHotToast />
 
           <RightClickMain>{children}</RightClickMain>
-          <MemoryTab />
         </div>
       </motion.div>
     </div>

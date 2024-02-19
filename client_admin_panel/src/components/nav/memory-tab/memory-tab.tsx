@@ -8,7 +8,7 @@ type Tab = {
   path: string;
 };
 
-const MAX_TABS = 10;
+const MAX_TABS = 5;
 
 export default function MemoryTab() {
   const { prevPath } = useContext(Context);
@@ -40,16 +40,19 @@ export default function MemoryTab() {
     <div className="flex space-x-2">
       {tabs.map((tab) => (
         <div
-          className="flex items-center space-x-2 border rounded px-2"
+          className="flex items-center mt-0.5 ml-2 space-x-2 dark:bg-[#312f2d] bg-[#a9aaac] rounded px-2"
           key={tab.path}
         >
           <button
             onClick={() => navigateToTab(tab.path)}
-            className="text-blue-500 hover:text-blue-700"
+            className="dark:text-gray-400 text-gray-200 hover:text-gray-100"
           >
             {tab.path}
           </button>
-          <FaTimes onClick={(event: any) => closeTab(tab.path, event)} />
+          <FaTimes
+            className="dark:text-gray-400 text-gray-200 hover:text-gray-100"
+            onClick={(event: any) => closeTab(tab.path, event)}
+          />
         </div>
       ))}
     </div>
