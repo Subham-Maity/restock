@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/shadcn/context-menu";
 import RightClickMain from "@/components/control/right-click/right-click-main";
 import ReactHotToast from "@/toast/react-hot-toast/react-hot-toast";
+import MemoryTab from "@/components/nav/memory-tab/memory-tab";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
@@ -40,7 +41,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         </div>
         <div className={` w-full min-h-full px-6`}>
           <ReactHotToast />
+
           <RightClickMain>{children}</RightClickMain>
+          <MemoryTab />
         </div>
       </motion.div>
     </div>
