@@ -10,12 +10,6 @@ import {
 } from "./model-control/product.model.controller";
 import { QueryParams } from "../../types/products/QueryParam";
 import { IProduct } from "../../types/products/product";
-import {
-  generateUniqueKey,
-  getFromRedis,
-  setInRedis,
-} from "../../../storage/redis/useRedis";
-import { generateBaseKey } from "../../../storage/redis/key/product-key-redis";
 import { isValidObjectId } from "mongoose";
 import { paginateProducts } from "./product-control/paginate";
 import { searchProducts_Text_Regex } from "./product-control/search-text-regex";
@@ -57,7 +51,7 @@ export const fetchProduct = catchAsyncError(
   ) => {
     //filtering the products based on the query parameters
     let condition = buildCondition(req);
-
+    /* TODO: will add the redis feature here
     //Redis
     // Generate a unique key for this query based on the query parameters
     // in redis we will store the data based on this key, and when we will
@@ -74,7 +68,7 @@ export const fetchProduct = catchAsyncError(
     if (docs) {
       return res.status(200).json(docs);
     }
-
+   */
     // Initialize the query without executing it - Purpose: Deleted false products won't show up on the frontend
     // It will be used for pagination, filtering and sorting
     let query = Product.find(condition);
@@ -98,7 +92,12 @@ export const fetchProduct = catchAsyncError(
     query = searchProducts_Text_Regex(query, req);
 
     //executing the query and getting the products
+    /* TODO: will add the redis feature here
+    //Redis
     docs = await query.exec();
+    */
+    //if redis is used then comment the below line
+    const docs = await query.exec();
 
     //executing the query and getting the products - It will be used for pagination (X-Total-Count)
     const totalDocs = await totalProductsQuery.countDocuments().exec();
@@ -111,8 +110,11 @@ export const fetchProduct = catchAsyncError(
       return next(new ErrorHandler("No products found", 404));
     }
 
+    /* TODO: will add the redis feature here
     // Store the result in Redis for future queries
     await setInRedis(queryKey, docs, 3600); // 1 hour
+    
+    */
 
     //returning the products
     res.status(200).json(docs);
