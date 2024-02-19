@@ -5,16 +5,8 @@ import React, { useState } from "react"; // Libraries import
 import { motion } from "framer-motion";
 import SideNavbar from "@/components/nav/sidenav/desktop-side-nav";
 import AdminHomeTopNav from "@/components/nav/top-nav/top-nav";
-import {
-  ContextMenu,
-  ContextMenuContent,
-  ContextMenuItem,
-  ContextMenuShortcut,
-  ContextMenuTrigger,
-} from "@/components/ui/shadcn/context-menu";
 import RightClickMain from "@/components/control/right-click/right-click-main";
 import ReactHotToast from "@/toast/react-hot-toast/react-hot-toast";
-import MemoryTab from "@/components/nav/memory-tab/memory-tab";
 import MemoryTabLayout from "@/components/nav/memory-tab/memory-tab-layout";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
