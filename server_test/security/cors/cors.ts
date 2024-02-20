@@ -12,7 +12,7 @@ function configureCors(app: Application): void {
 
   if (process.env.NODE_ENV === "development") {
     corsSettings = {
-      origin: true,
+      origin: production_domain_whitelist,
       optionsSuccessStatus: optionsSuccessStatus,
       exposedHeaders: exposedHeaders,
       credentials: credentials,

@@ -9,7 +9,7 @@ function configureCors(app) {
     let corsSettings;
     if (process.env.NODE_ENV === "development") {
         corsSettings = {
-            origin: true,
+            origin: cors_setting_1.production_domain_whitelist,
             optionsSuccessStatus: cors_setting_1.optionsSuccessStatus,
             exposedHeaders: cors_setting_1.exposedHeaders,
             credentials: cors_setting_1.credentials,

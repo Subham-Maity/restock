@@ -7,10 +7,9 @@ export const optionsSuccessStatus = 200;
 
 //Production
 
-const CORS_ORIGIN_Domain_1: string =
-  process.env.CORS_URL_1 || "http://localhost:3000";
+const CORS_ORIGIN_Domain_1: string = "https://restock-admin.vercel.app";
 export const CORS_ORIGIN_Domain_2: string =
-  process.env.CORS_URL_2 || "http://localhost:3001";
+  "https://restock-commerce.vercel.app/";
 export const production_domain_whitelist: string[] = [
   CORS_ORIGIN_Domain_1,
   CORS_ORIGIN_Domain_2,
