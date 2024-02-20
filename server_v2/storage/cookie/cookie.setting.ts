@@ -11,7 +11,7 @@ export const cookieOptions: CookieOptions = {
   expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
   httpOnly: true,
   secure: isProduction,
-  sameSite: isProduction ? "none" : "lax",
+  sameSite: isProduction ? "none" : "none",
   maxAge: 1000 * 60 * 60 * 24 * 3,
   // domain,
 };
