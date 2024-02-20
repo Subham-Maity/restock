@@ -1,6 +1,7 @@
 import { Application } from "express";
 import cors from "cors";
 import {
+  production_domain_whitelist,
   credentials,
   exposedHeaders,
   optionsSuccessStatus,
@@ -18,7 +19,7 @@ function configureCors(app: Application): void {
     };
   } else {
     corsSettings = {
-      origin: true,
+      origin: production_domain_whitelist,
       optionsSuccessStatus: optionsSuccessStatus,
       exposedHeaders: exposedHeaders,
       credentials: credentials,
