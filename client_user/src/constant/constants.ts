@@ -12,7 +12,7 @@ export function discountedPrice(item: Item): number {
 }
 
 // export const BASE_URL = "https://webcrack.online:6060/api/v1";
-export const BASE_URL = "https://restock-test-server.onrender.com/api/v1";
+export const BASE_URL = "http://localhost:5050/api/v1";
 
 export const bannerImages =
   "https://github.com/Subham-Maity/restock/blob/main/client/public/BannerPoster/4.jpg?raw=true";

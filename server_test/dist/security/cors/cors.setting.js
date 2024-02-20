@@ -7,7 +7,7 @@ exports.credentials = true;
 exports.optionsSuccessStatus = 200;
 //Production
 const CORS_ORIGIN_Domain_1 = "https://restock-admin.vercel.app";
-exports.CORS_ORIGIN_Domain_2 = "https://restock-commerce.vercel.app/";
+exports.CORS_ORIGIN_Domain_2 = "https://restock-commerce.vercel.app";
 exports.production_domain_whitelist = [
     CORS_ORIGIN_Domain_1,
     exports.CORS_ORIGIN_Domain_2,
