@@ -1,0 +1,10 @@
+//Use: Flags for modals
+//PURPOSE: If you pass this flag modal will be open.
+export const OPEN_MODAL = "/?showDialog=y";
+
+// ()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()
+
+//Use: Product List Grid
+//PURPOSE: Use for redirect to the product details page when user clicks on the product card in the product list grid.
+//Example: /product-t1-details/1/?showDialog=y -> /product-t1-details/{productId}/?showDialog=y
+export const type1ProductDetails = "/product-t1-details/";

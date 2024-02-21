@@ -49,6 +49,7 @@ import toast from "react-hot-toast";
 import Context, { ProductDataInterface } from "@/store/context/context";
 import { useCreateProduct } from "@/lib/features/product/product-react-query";
 import DangerModal from "@/components/ui/custom-modal/danger-modal";
+import ProductCard from "@/components/ui/custom-card/custom-card-t1";
 
 const INITIAL_FORM_STATE_PRODUCT_ADD_FORM: {
   title: string;
