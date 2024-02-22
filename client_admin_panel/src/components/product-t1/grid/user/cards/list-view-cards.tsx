@@ -1,10 +1,9 @@
 import React from "react";
-import { CustomCardT2 } from "@/components/product-t1/grid/carousel/custom-card-t2";
-import ListViewCardsInfo from "@/components/product-t1/grid/card-info/list-view-cards-info";
-import CardAdminInfo from "@/components/product-t1/grid/admin-info/card-admin-info";
+import { CustomCardT2 } from "@/components/product-t1/grid/common/carousel/custom-card-t2";
+import ListViewCardsInfo from "@/components/product-t1/grid/common/card-info/list-view-cards-info";
 import { ListViewController } from "@/components/product-t1/grid/grid-control";
 import { Card } from "@/components/ui/shadcn/card";
-import { OPEN_MODAL, type1ProductDetails } from "@/links/product-details";
+import { OPEN_MODAL, type1ProductDetails } from "@/links/product-list";
 
 const ListViewCards = ({ products }: { products: any }) => {
   return (
@@ -12,7 +11,7 @@ const ListViewCards = ({ products }: { products: any }) => {
       {products.map((product: any, index: number) => (
         <Card
           key={index}
-          className={`default-card ${ListViewController} overflow-hidden `}
+          className={`default-card-2 ${ListViewController} overflow-hidden `}
         >
           <CustomCardT2
             product={product}
@@ -27,7 +26,6 @@ const ListViewCards = ({ products }: { products: any }) => {
             product={product}
             href={type1ProductDetails + product.id + OPEN_MODAL}
           />
-          <CardAdminInfo product={product} />
         </Card>
       ))}
     </>

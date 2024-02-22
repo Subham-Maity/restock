@@ -6,7 +6,7 @@ import SidenavOpenCloseDesk from "@/components/nav/sidenav/core/sidenav-open-clo
 import {
   defaultTextClasses,
   sideNavBgColorDesktop,
-} from "@/components/nav/sidenav/config/side-nav-style";
+} from "@/color/side-nav-style";
 
 const SideNavbar = ({ isSidebarOpen, toggleSidebar }: SidebarProps) => {
   const [isNavOpen, setIsNavOpen] = useState(isSidebarOpen);

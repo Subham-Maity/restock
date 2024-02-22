@@ -1,6 +1,4 @@
 // This is used for the side nav styling
-import { globalBgConfig } from "@/app/global-bg-config";
-
 export const sideNavBgColorDesktop =
   "bg-[url('/sidebar/sidebar-bg2.svg')] bg-no-repeat bg-cover bg-fixed border-r border border-[#e5e7eb]/10 ";
 export const sideNavBgColorMobile = `dark:bg-stone-800 bg-no-repeat bg-cover bg-fixed border-r border border-[#e5e7eb]/10 `;

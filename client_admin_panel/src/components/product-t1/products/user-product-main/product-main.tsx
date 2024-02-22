@@ -29,7 +29,7 @@ import { fetchProductsByFiltersAsync } from "@/lib/features/product/product-pc-a
 import ProductForm from "@/components/product-t1/update/update-product";
 import { DesktopFilter } from "@/components/product-t1/core/filter/desktop/product-filter";
 import { MobileFilter } from "@/components/product-t1/core/filter/mobile/product-filter";
-import { Grid } from "@/components/product-t1/grid/grid";
+import { Grid } from "@/components/product-t1/grid/user/grid";
 
 import { IFilter, KeyFilter } from "@/types/utility/core/filter/filter.type";
 import { useAppSelector } from "@/store/redux/useSelector";
@@ -46,7 +46,7 @@ interface SortOption {
   [key: string]: any;
 }
 
-export const AdminPcComponentProductList = () => {
+export const UserPcComponentProductList = () => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const dispatch: AppDispatch = useDispatch();
 
@@ -87,7 +87,7 @@ export const AdminPcComponentProductList = () => {
     data: productsData,
     status: productsStatus,
     isFetching,
-  } = useProductsByFilters({ filter, sort, pagination, admin: true });
+  } = useProductsByFilters({ filter, sort, pagination, admin: false });
   const handleFilter = (e: any, section: any, option: any) => {
     const newFilter = { ...filter };
     if (e.target.checked) {
@@ -117,7 +117,7 @@ export const AdminPcComponentProductList = () => {
   useEffect(() => {
     const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
     dispatch(
-      fetchProductsByFiltersAsync({ filter, sort, pagination, admin: true }),
+      fetchProductsByFiltersAsync({ filter, sort, pagination, admin: false }), //just change this flag to get user
     );
   }, [dispatch]);
 
@@ -168,7 +168,7 @@ export const AdminPcComponentProductList = () => {
         <BgAdminTailwindWrapper>
           <div className="flex items-baseline justify-between border-b border-gray-200 pt-2 lg:pt-0 pb-2">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
-              New Arrivals
+              User Product List
             </h1>
 
             <div className="flex items-center">
@@ -211,35 +211,6 @@ export const AdminPcComponentProductList = () => {
           <h2 id="products-heading" className="sr-only">
             Products
           </h2>
-          <BgAdminTailwindWrapper>
-            <div className="">
-              <div>
-                <button
-                  className="btn inline-flex rounded-md bg-green-600  dark:text-gray-200 hover:bg-green-500 dark:bg-green-700/60 px-4 py-1 text-lg font-semibold text-white shadow-sm dark:hover:bg-green-500/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-                  onClick={() =>
-                    (
-                      document.getElementById("my_modal_1") as HTMLDialogElement
-                    ).showModal()
-                  }
-                >
-                  Add New Product
-                </button>
-                <dialog id="my_modal_1" className="modal">
-                  <div className="modal-box max-w-fit bg-gray-200 dark:bg-gray-800">
-                    <ProductForm />
-                    <div className="modal-action">
-                      <form method="dialog">
-                        {/* if there is a button in form, it will close the modal */}
-                        <button className="btn btn-sm btn-circle btn-ghost absolute right-20 top-14 text-2xl font-extrabold">
-                          ✕
-                        </button>
-                      </form>
-                    </div>
-                  </div>
-                </dialog>
-              </div>
-            </div>
-          </BgAdminTailwindWrapper>
           <div className="grid grid-cols-1 gap-x-2 gap-y-2 lg:grid-cols-4 mt-2">
             <BgAdminTailwindWrapper>
               <DesktopFilter

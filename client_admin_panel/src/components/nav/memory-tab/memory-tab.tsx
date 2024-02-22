@@ -78,7 +78,7 @@ export default function MemoryTab() {
           <div
             className={`flex items-center mt-0.5 ml-2 space-x-2 rounded px-2 ${
               tab.path === pathname
-                ? " bg-[#d3d3d3] dark:bg-gray-800 dark:hover:bg-[#3d3d3d] hover:bg-[#d3d3d3] "
+                ? " bg-[#d3d3d3] dark:bg-[#232932] dark:hover:bg-[#3d3d3d] hover:bg-[#d3d3d3] "
                 : "dark:bg-[#312f2d] bg-gray-200 dark:hover:bg-[#3d3d3d] hover:bg-[#a9aaac]"
             }`}
             key={tab.path}

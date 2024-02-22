@@ -1,10 +1,7 @@
 import React from "react";
 import { AiOutlineMenuFold, AiOutlineMenuUnfold } from "react-icons/ai";
 import { SidenavOpeCloseProps } from "@/components/nav/sidenav/config/sidenav-interface";
-import {
-  headingClasses,
-  headingName,
-} from "@/components/nav/sidenav/config/side-nav-style";
+import { headingClasses, headingName } from "@/color/side-nav-style";
 
 export default function SidenavOpenClose({ open }: SidenavOpeCloseProps) {
   return (

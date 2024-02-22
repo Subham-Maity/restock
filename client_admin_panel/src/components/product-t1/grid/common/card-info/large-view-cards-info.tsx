@@ -1,6 +1,6 @@
 import React from "react";
-import { StarIcon } from "@heroicons/react/20/solid";
-
+import { Badge } from "@/components/ui/shadcn/badge";
+import { StarFilledIcon } from "@radix-ui/react-icons";
 const LargeViewCardsInfo = ({ product }: { product: any }) => {
   return (
     <div className="mt-4 flex justify-between">
@@ -11,22 +11,22 @@ const LargeViewCardsInfo = ({ product }: { product: any }) => {
           </div>
         </h3>
         <div className="mt-1 flex items-center px-2">
-          <div
-            className={`w-12 h-5 flex items-center justify-center rounded-sm text-sm gap-0.5 ${
+          <Badge
+            variant={
               product.rating >= 4.5
-                ? "bg-green-500 dark:bg-green-600 text-sm"
+                ? "rating45"
                 : product.rating >= 4
-                  ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
+                  ? "rating4"
                   : product.rating >= 3.5
-                    ? "bg-yellow-400 dark:bg-yellow-600 text-sm"
+                    ? "rating35"
                     : product.rating >= 2
-                      ? "bg-orange-400 dark:bg-orange-600 text-sm"
-                      : "bg-red-500 dark:bg-red-600 text-sm"
-            }`}
+                      ? "rating2"
+                      : "ratingLessThan2"
+            }
           >
-            <span className="text-white text-sm">{product.rating}</span>
-            <StarIcon className="w-3.5 text-sm text-gray-200" />
-          </div>
+            <span className="text-white">{product.rating}</span>
+            <StarFilledIcon className="ml-0.5 text-sm text-gray-200" />
+          </Badge>
         </div>
       </div>
       <div>

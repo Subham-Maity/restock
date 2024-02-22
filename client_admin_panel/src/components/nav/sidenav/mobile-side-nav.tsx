@@ -8,7 +8,7 @@ import {
   headingClasses,
   headingName,
   sideNavBgColorMobile,
-} from "@/components/nav/sidenav/config/side-nav-style";
+} from "@/color/side-nav-style";
 
 const MobileSidebar = (props: Props) => {
   const [open, setOpen] = useState(false);
