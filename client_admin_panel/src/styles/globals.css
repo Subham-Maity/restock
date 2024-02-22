@@ -117,7 +117,7 @@
 
 * {
     scrollbar-width: thin;
-    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+    scrollbar-color: rgb(30, 31, 34) transparent;
 }
 
 ::-webkit-scrollbar {
@@ -141,9 +141,12 @@
 }
 
 .default-card {
-   @apply dark:bg-[#232425] bg-[#dddfe1] border border-[#e5e7eb]/10 shadow-2xl rounded-lg;;
+   @apply dark:bg-[#28282b] bg-[#dddfe1] border border-[#e5e7eb]/10 shadow-2xl rounded-lg;;
 }
 
+.default-card-2 {
+    @apply dark:bg-[#28282b] bg-[#dddfe1] border border-[#e5e7eb]/10 shadow-2xl rounded-lg;;
+}
 .default-input {
     @apply block w-full rounded-md h-11 bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-800 sm:text-sm sm:leading-6;
 }

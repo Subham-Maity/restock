@@ -27,7 +27,7 @@ import {
 } from "@/components/ui/shadcn/dropdown-menu";
 import Image from "next/image";
 import React from "react";
-import { globalBgConfig } from "@/app/global-bg-config";
+import { globalBgConfig } from "@/color/global-bg-config";
 import Link from "next/link";
 
 export function DropdownMenuCustom({ ...props }) {

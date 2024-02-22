@@ -9,7 +9,7 @@ import {
   activeNavItemClasses,
   activeSubNavItemClasses,
   subNavItemTitleFontClasses,
-} from "@/components/nav/sidenav/config/side-nav-style";
+} from "@/color/side-nav-style";
 
 const SidenavNavLinkControl: React.FC<SidenavControlProps> = ({ open }) => {
   const [activeSubNav, setActiveSubNav] = useState<string | null>(null);

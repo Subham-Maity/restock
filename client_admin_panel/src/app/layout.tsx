@@ -14,7 +14,7 @@ import CheckUserProvider from "@/providers/security/check-user";
 import RouteTracker from "@/security/path-track/path-track";
 import Layout from "@/app/layout/layout";
 import "tw-elements-react/dist/css/tw-elements-react.min.css";
-import { globalBgConfig } from "@/app/global-bg-config";
+import { globalBgConfig } from "@/color/global-bg-config";
 
 const inter = Inter({ subsets: ["latin"] });
 
