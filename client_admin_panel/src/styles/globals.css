@@ -127,6 +127,7 @@
 ::-webkit-scrollbar-thumb {
     background-color: #3b3b3b;
 }
+
 .no-visible-scrollbar {
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -136,21 +137,26 @@
 .no-visible-scrollbar::-webkit-scrollbar {
     display: none;
 }
+
 .product-card {
     @apply bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl rounded-lg ;
 }
 
 .default-card {
-   @apply dark:bg-[#28282b] bg-[#dddfe1] border border-[#e5e7eb]/10 shadow-2xl rounded-lg;;
+    @apply dark:bg-[#28282b] bg-[#edeeef] border border-[#e5e7eb]/10 shadow-2xl rounded-lg;;
 }
 
 .default-card-2 {
-    @apply dark:bg-[#28282b] bg-[#dddfe1] border border-[#e5e7eb]/10 shadow-2xl rounded-lg;;
+    @apply dark:bg-[#28282b] bg-[#edeeef] border border-[#e5e7eb]/10 shadow-2xl rounded-lg;;
 }
+
 .default-input {
     @apply block w-full rounded-md h-11 bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-800 sm:text-sm sm:leading-6;
 }
 
+.filter-search-input {
+    @apply block w-full rounded-md h-11 bg-white bg-opacity-40 dark:bg-stone-950/20 shadow-2xl dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-indigo-500 focus:border-indigo-800 sm:text-sm sm:leading-6 mb-3 py-3 px-4 ps-11 border block w-full bg-gray-100 border-transparent rounded-lg text-sm focus:border-blue-500 ;
+}
 
 .animated-btn {
     @apply relative inline-flex items-center justify-center overflow-hidden bg-gray-400/5 dark:bg-zinc-500/5 text-indigo-500 transition duration-100 ease-out border-2 dark:border-indigo-500/30 rounded-xl shadow-xl;

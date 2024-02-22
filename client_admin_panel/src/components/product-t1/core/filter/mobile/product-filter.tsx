@@ -1,8 +1,11 @@
 import { Dialog, Disclosure, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { MinusIcon, PlusIcon } from "@heroicons/react/20/solid";
 import { IFilter } from "@/types/utility/core/filter/filter.type";
+import SearchInput from "@/components/product-t1/core/filter/common/search-input";
+import OptionsList from "@/components/product-t1/core/filter/common/option-list";
+import MoreOptions from "@/components/product-t1/core/filter/common/more-options";
 
 export const MobileFilter = ({
   mobileFiltersOpen,
@@ -15,6 +18,10 @@ export const MobileFilter = ({
   handleFilter: (e: any, section: any, option: any) => void;
   filters: IFilter[];
 }) => {
+  const [searchTerms, setSearchTerms] = useState<string[]>(
+    new Array(filters.length).fill(""),
+  );
+
   return (
     <>
       <Transition.Root show={mobileFiltersOpen} as={Fragment}>
@@ -45,8 +52,8 @@ export const MobileFilter = ({
               leaveFrom="translate-x-0"
               leaveTo="translate-x-full"
             >
-              <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white border-2 dark:bg-gradient-to-r dark:border-gray-800 dark:from-[#404043] dark:to-[#334053] rounded-lg">
-                <div className="mt-[4.5rem] flex items-center justify-between px-4">
+              <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto border-2 default-card-2 rounded-lg">
+                <div className="flex items-center justify-between px-4">
                   <h2 className="text-lg font-medium text-gray-900 dark:text-white">
                     Filters
                   </h2>
@@ -64,69 +71,70 @@ export const MobileFilter = ({
                 <form className="mt-4 border-t border-gray-200">
                   <h3 className="sr-only">Categories</h3>
 
-                  {filters.map((section: any) => (
-                    <Disclosure
-                      as="div"
-                      key={section.id}
-                      className="border-t border-gray-200 px-4 py-3 dark:dg-[#2f3349] dark:text-white "
-                    >
-                      {({ open }) => (
-                        <>
-                          <h3 className="-mx-2 -my-3 flow-root ">
-                            <Disclosure.Button className="flex w-full items-center justify-between px-2 py-3 hover:text-gray-500 dark:hover:bg-[#34384e] dark:hover:text-[#8669de]">
-                              {/*Mobile text*/}
-                              <span className="font-medium ">
-                                {section.name}
-                              </span>
-                              <span className="ml-6 flex items-center">
-                                {open ? (
-                                  <MinusIcon
-                                    className="h-5 w-5"
-                                    aria-hidden="true"
-                                  />
-                                ) : (
-                                  <PlusIcon
-                                    className="h-5 w-5"
-                                    aria-hidden="true"
+                  {filters.map((section, index: number) => {
+                    const filteredOptions = section.options.filter(
+                      (option: { label: string }) =>
+                        option.label
+                          .toLowerCase()
+                          .includes(searchTerms[index].toLowerCase()),
+                    );
+
+                    return (
+                      <Disclosure
+                        as="div"
+                        key={section.id}
+                        className="border-t border-gray-200 px-4 py-3 dark:dg-[#2f3349] dark:text-white "
+                        defaultOpen={true}
+                      >
+                        {({ open }) => (
+                          <>
+                            <h3 className="-mx-2 -my-3 flow-root">
+                              <Disclosure.Button className="flex w-full items-center justify-between px-2 py-3 hover:text-gray-500 dark:hover:bg-[#34384e] dark:hover:text-[#8669de]">
+                                <span className="font-medium">
+                                  {section.name}
+                                </span>
+                                <span className="ml-6 flex items-center">
+                                  {open ? (
+                                    <MinusIcon
+                                      className="h-5 w-5"
+                                      aria-hidden="true"
+                                    />
+                                  ) : (
+                                    <PlusIcon
+                                      className="h-5 w-5"
+                                      aria-hidden="true"
+                                    />
+                                  )}
+                                </span>
+                              </Disclosure.Button>
+                            </h3>
+                            <Disclosure.Panel className="pt-6">
+                              <SearchInput
+                                index={index}
+                                searchTerms={searchTerms}
+                                setSearchTerms={setSearchTerms}
+                                section={section}
+                              />
+                              <div className="space-y-6">
+                                <OptionsList
+                                  options={filteredOptions.slice(0, 10)}
+                                  section={section}
+                                  handleFilter={handleFilter}
+                                />
+                                {filteredOptions.length > 10 && (
+                                  <MoreOptions
+                                    options={filteredOptions.slice(10)}
+                                    section={section}
+                                    handleFilter={handleFilter}
                                   />
                                 )}
-                              </span>
-                            </Disclosure.Button>
-                          </h3>
-                          <Disclosure.Panel className="pt-6">
-                            <div className="space-y-6">
-                              {section.options.map(
-                                (option: any, optionIdx: any) => (
-                                  <div
-                                    key={option.value}
-                                    className="flex items-center"
-                                  >
-                                    <input
-                                      id={`filter-mobile-${section.id}-${optionIdx}`}
-                                      name={`${section.id}[]`}
-                                      defaultValue={option.value}
-                                      type="checkbox"
-                                      defaultChecked={option.checked}
-                                      onChange={(e) =>
-                                        handleFilter(e, section, option)
-                                      }
-                                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                    />
-                                    <label
-                                      htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
-                                      className="ml-3 min-w-0 flex-1 text-gray-500 dark:text-white dark:hover:text-[#8669de]"
-                                    >
-                                      {option.label}
-                                    </label>
-                                  </div>
-                                ),
-                              )}
-                            </div>
-                          </Disclosure.Panel>
-                        </>
-                      )}
-                    </Disclosure>
-                  ))}
+                              </div>
+                            </Disclosure.Panel>
+                          </>
+                        )}
+                      </Disclosure>
+                    );
+                  })}
                 </form>
               </Dialog.Panel>
             </Transition.Child>
