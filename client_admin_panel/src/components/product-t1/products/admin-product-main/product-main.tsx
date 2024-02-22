@@ -90,7 +90,9 @@ export const AdminPcComponentProductList = () => {
   } = useProductsByFilters({ filter, sort, pagination, admin: true });
   const handleFilter = (e: any, section: any, option: any) => {
     const newFilter = { ...filter };
-    if (e.target.checked) {
+    // If e is null, it means the function was called from onSelect
+    const isChecked = e ? e.target.checked : !option.checked;
+    if (isChecked) {
       if (newFilter[section.id]) {
         newFilter[section.id].push(option.value);
       } else {
