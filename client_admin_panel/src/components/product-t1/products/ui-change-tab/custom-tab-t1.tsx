@@ -11,7 +11,7 @@ import { UserPcComponentProductList } from "@/components/product-t1/products/use
 const CustomTabT1 = () => {
   return (
     <Tabs defaultValue="admin">
-      <TabsList>
+      <TabsList className="default-card">
         <TabsTrigger value="admin">Admin View</TabsTrigger>
         <TabsTrigger value="user">User View</TabsTrigger>
       </TabsList>
