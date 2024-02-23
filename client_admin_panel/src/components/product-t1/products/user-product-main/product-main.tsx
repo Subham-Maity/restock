@@ -26,7 +26,6 @@ import {
   setCategories,
 } from "@/lib/features/category/category-slice";
 import { fetchProductsByFiltersAsync } from "@/lib/features/product/product-pc-async-thunk";
-import ProductForm from "@/components/product-t1/update/update-product";
 import { DesktopFilter } from "@/components/product-t1/core/filter/desktop/product-filter";
 import { MobileFilter } from "@/components/product-t1/core/filter/mobile/product-filter";
 import { Grid } from "@/components/product-t1/grid/user/grid";
@@ -38,6 +37,7 @@ import { useBrands } from "@/lib/features/brand/brand-react-query";
 import { useCategory } from "@/lib/features/category/category-react-query";
 import Sort from "@/components/product-t1/core/sort/sort";
 import { Pagination } from "@/components/product-t1/core/pagination/pagination";
+import { ResponsiveHeading } from "@/components/ui/typography/typography";
 
 interface SortOption {
   _sort: string;
@@ -83,11 +83,12 @@ export const UserPcComponentProductList = () => {
   const [page, setPage] = useState(1);
   const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
 
-  const {
-    data: productsData,
-    status: productsStatus,
-    isFetching,
-  } = useProductsByFilters({ filter, sort, pagination, admin: false });
+  const { data: productsData, status: productsStatus } = useProductsByFilters({
+    filter,
+    sort,
+    pagination,
+    admin: false,
+  });
   const handleFilter = (e: any, section: any, option: any) => {
     const newFilter = { ...filter };
     if (e.target.checked) {
@@ -167,12 +168,12 @@ export const UserPcComponentProductList = () => {
       <main className=" max-w-8xl">
         <BgAdminTailwindWrapper>
           <div className="flex items-baseline justify-between border-b border-gray-200 pt-2 lg:pt-0 pb-2">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
-              User Product List
-            </h1>
+            <ResponsiveHeading className="dark:text-[#919eab] text-[#837c78]">
+              User
+            </ResponsiveHeading>
 
             <div className="flex items-center">
-              <Sort sort={sort} handleSort={handleSort} />
+              <Sort handleSort={handleSort} />
 
               <div>
                 <motion.button

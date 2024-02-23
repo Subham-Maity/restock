@@ -22,17 +22,17 @@ const MoreOptions = ({ options, section, handleFilter }: any) => (
         +{options.length - 10} more
       </SheetTrigger>
       <SheetContent side={chooseSideLeft} className="w-full">
-        <ScrollArea className="h-[600px] w-full rounded-md border p-4">
-          <Command>
-            <CommandInput
-              placeholder="Search for an option"
-              className="w-full dark:hover:bg-stone-800 shadow-2xl rounded-md h-9 mt-2 mb-2"
-            />
+        <Command>
+          <CommandInput
+            placeholder={`Search for ${section.name}`}
+            className="w-full dark:hover:bg-stone-800 shadow-2xl rounded-md h-9 mt-2 mb-2"
+          />
 
-            <CommandEmpty className="default-card-2">
-              No options found
-            </CommandEmpty>
-            <CommandGroup className="default-card-2">
+          <CommandEmpty className="default-card-2">
+            No options found
+          </CommandEmpty>
+          <CommandGroup className="default-card-2">
+            <ScrollArea className="h-[600px] w-full rounded-md border p-4">
               {options.map((option: any, optionIdx: any) => (
                 <CommandItem
                   value={option.label}
@@ -60,9 +60,9 @@ const MoreOptions = ({ options, section, handleFilter }: any) => (
                   </div>
                 </CommandItem>
               ))}
-            </CommandGroup>
-          </Command>
-        </ScrollArea>
+            </ScrollArea>
+          </CommandGroup>
+        </Command>
       </SheetContent>
     </Sheet>
   </div>
