@@ -15,6 +15,7 @@ import RouteTracker from "@/security/path-track/path-track";
 import Layout from "@/app/layout/layout";
 import "tw-elements-react/dist/css/tw-elements-react.min.css";
 import { globalBgConfig } from "@/color/global-bg-config";
+import { NextUiProviders } from "@/providers/theme/next-ui-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -55,7 +56,9 @@ export default function RootLayout({
                     <UserProvider>
                       <CartProvider>
                         <RouteTracker>
-                          <Layout>{children}</Layout>
+                          <NextUiProviders>
+                            <Layout>{children}</Layout>
+                          </NextUiProviders>
                           {modal}
                         </RouteTracker>
                         <Analytics />

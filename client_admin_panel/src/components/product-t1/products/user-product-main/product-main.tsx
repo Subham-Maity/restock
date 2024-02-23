@@ -36,7 +36,7 @@ import { useProductsByFilters } from "@/lib/features/product/product-react-query
 import { useBrands } from "@/lib/features/brand/brand-react-query";
 import { useCategory } from "@/lib/features/category/category-react-query";
 import Sort from "@/components/product-t1/core/sort/sort";
-import { Pagination } from "@/components/product-t1/core/pagination/pagination";
+import { PaginationPage } from "@/components/product-t1/core/pagination/pagination";
 import { ResponsiveHeading } from "@/components/ui/typography/typography";
 
 interface SortOption {
@@ -226,12 +226,11 @@ export const UserPcComponentProductList = () => {
           </div>
         </section>
         <BgAdminTailwindWrapper>
-          <Pagination
+          <PaginationPage
             page={page}
-            setPage={setPage}
             handlePage={handlePage}
             totalItems={totalItems}
-          ></Pagination>
+          ></PaginationPage>
         </BgAdminTailwindWrapper>
       </main>
     </div>

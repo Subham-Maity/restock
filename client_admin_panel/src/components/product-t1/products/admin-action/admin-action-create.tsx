@@ -31,7 +31,7 @@ const AdminActionCreate = () => {
     <Dialog>
       <DialogTrigger asChild>
         <motion.button
-          className="inline-flex h-12 animate-shimmer items-center justify-center rounded-md dark:bg-[linear-gradient(110deg,#222224,45%,#1e2631,55%,#2a2a2d)] dark:bg-[length:200%_100%] bg-[length:200%_100%] bg-[linear-gradient(110deg,#edeeef,45%,#a1a1a2,55%,#f9f9f9)]  dark:text-[#919eab] text-[#837c78] border border-gray-300/20 shadow-2xl rounded-lg px-6 font-medium text-slate-400 transition-colors focus:outline-none"
+          className="inline-flex h-12  items-center justify-center rounded-md dark:bg-[linear-gradient(110deg,#222224,45%,#1e2631,55%,#2a2a2d)] dark:bg-[length:200%_100%] bg-[length:200%_100%] bg-[linear-gradient(110deg,#edeeef,45%,#a1a1a2,55%,#f9f9f9)]  dark:text-[#919eab] text-[#837c78] border border-gray-300/20 shadow-2xl rounded-lg px-6 font-medium text-slate-400 transition-colors focus:outline-none"
           variants={buttonVariants}
           whileHover="hover"
           whileTap="tap"

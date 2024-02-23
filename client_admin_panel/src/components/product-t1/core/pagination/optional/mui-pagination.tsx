@@ -1,6 +1,6 @@
 import { ITEMS_PER_PAGE } from "@/constant/constants";
-import React from "react";
-import { Pagination, Button } from "@nextui-org/react";
+import { Pagination, Stack } from "@mui/material";
+
 export function PaginationPage({
   page,
   handlePage,
@@ -13,8 +13,13 @@ export function PaginationPage({
   const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
 
   return (
-    <div className="flex justify-between items-center">
-      <div className="hidden lg:block">
+    <Stack
+      spacing={2}
+      direction="row"
+      justifyContent="space-between"
+      alignItems="center"
+    >
+      <div>
         Showing {(page - 1) * ITEMS_PER_PAGE + 1} to{" "}
         {page * ITEMS_PER_PAGE > totalItems
           ? totalItems
@@ -22,16 +27,12 @@ export function PaginationPage({
         of {totalItems} results
       </div>
       <Pagination
-        loop
-        showControls
-        showShadow
-        boundaries={2}
-        total={totalPages}
+        count={totalPages}
         page={page}
-        onChange={(value) => handlePage(value)}
+        onChange={(event, value) => handlePage(value)}
+        variant="outlined"
         color="primary"
-        variant="bordered"
       />
-    </div>
+    </Stack>
   );
 }
