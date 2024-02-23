@@ -8,7 +8,7 @@ interface Props {
   className?: string; // Add a className prop
 }
 
-const AdminActionCard: React.FC<Props> = ({ href, className }) => {
+const AdminActionUpdate: React.FC<Props> = ({ href, className }) => {
   // Include className in props
   const route = useRouter();
   return (
@@ -24,4 +24,4 @@ const AdminActionCard: React.FC<Props> = ({ href, className }) => {
   );
 };
 
-export default AdminActionCard;
+export default AdminActionUpdate;

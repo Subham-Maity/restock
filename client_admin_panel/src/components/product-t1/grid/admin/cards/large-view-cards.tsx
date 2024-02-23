@@ -10,7 +10,7 @@ import {
   type1ProductDetails,
 } from "@/links/product-list";
 import CardAdminInfo from "@/components/product-t1/grid/admin/admin-info/card-admin-info";
-import AdminActionCard from "@/components/product-t1/grid/admin/admin-action/admin-action-card";
+import AdminActionUpdate from "@/components/product-t1/grid/admin/admin-action/admin-action-update";
 
 const LargeViewCards = ({ products }: { products: any }) => {
   return (
@@ -39,7 +39,7 @@ const LargeViewCards = ({ products }: { products: any }) => {
             </div>
           </Link>
           <CardAdminInfo product={product} />
-          <AdminActionCard
+          <AdminActionUpdate
             href={editProduct}
             className="absolute top-0 right-0 z-10 mt-2"
           />

@@ -49,7 +49,19 @@ import toast from "react-hot-toast";
 import Context, { ProductDataInterface } from "@/store/context/context";
 import { useCreateProduct } from "@/lib/features/product/product-react-query";
 import DangerModal from "@/components/ui/custom-modal/danger-modal";
-import ProductCard from "@/components/ui/custom-card/custom-card-t1";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "@/components/ui/shadcn/dialog";
+import { AlertDialog } from "@/components/ui/shadcn/alert-dialog";
+import { usePathname, useRouter } from "next/navigation";
+import { Save } from "lucide-react";
+import SubmitButtonT1 from "@/components/product-t1/create/submit-button-t1";
+import {
+  MODAL_AFTER_SAVE_REDIRECT,
+  PATH_CHECK_PRODUCT_FORM,
+} from "@/links/product-create";
 
 const INITIAL_FORM_STATE_PRODUCT_ADD_FORM: {
   title: string;
@@ -126,6 +138,8 @@ function AddNewProductForm() {
       }));
     };
 
+  const path = usePathname();
+  const router = useRouter();
   const onSubmit = (form: z.infer<typeof productValidationRules>) => {
     const productData: ProductDataInterface = {
       title: form.title,
@@ -166,6 +180,10 @@ function AddNewProductForm() {
 
           // Show the modal
           setShowConfirmModal(false);
+
+          if (path !== PATH_CHECK_PRODUCT_FORM) {
+            window.location.href = MODAL_AFTER_SAVE_REDIRECT;
+          }
         },
         onError: () => {
           // Check if the error response exists and has a message
@@ -244,7 +262,7 @@ function AddNewProductForm() {
                       />
                     </div>
 
-                    <div className="sm:col-span-2">
+                    <div className="col-span-full">
                       <FormField
                         control={form.control}
                         name="brand"
@@ -323,7 +341,7 @@ function AddNewProductForm() {
                       />
                     </div>
 
-                    <div className="sm:col-span-2">
+                    <div className="col-span-full">
                       <FormField
                         control={form.control}
                         name="category"
@@ -575,42 +593,85 @@ function AddNewProductForm() {
               </div>
 
               <div className="flex items-center justify-end gap-x-6 pb-6">
-                <DangerModal
-                  title={`Add ${product?.title}`}
-                  message="Are you sure you want to add this product?"
-                  dangerOption="Add"
-                  cancelOption="Cancel"
-                  dangerAction={handleConfirm}
-                  cancelAction={() => setShowConfirmModal(false)}
-                  showModal={showConfirmModal}
-                  icon={<FaSave />}
-                />
-                <motion.button
-                  type="submit"
-                  className="rounded-md bg-indigo-600 px-3 py-2 mt-1 text-md font-semibold text-white shadow-sm hover:bg-indigo-500 "
-                  whileHover={{
-                    scale: 1.05,
-                    backgroundColor: "#4A90E2",
-                    transition: {
-                      duration: 0.2,
-                    },
-                  }}
-                >
-                  <motion.span
-                    initial={{ rotate: 0 }}
-                    whileHover={{
-                      rotate: 360,
-                      transition: {
-                        duration: 0.5,
-                      },
-                    }}
-                    transition={{ duration: 0.5 }}
-                    className="inline-block mr-1 "
-                  >
-                    <FaSave />
-                  </motion.span>
-                  Save
-                </motion.button>
+                {path && path !== PATH_CHECK_PRODUCT_FORM ? (
+                  <>
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <motion.button
+                          type="submit"
+                          className="rounded-md bg-indigo-600 px-3 py-2 mt-1 text-md font-semibold text-white shadow-sm hover:bg-indigo-500 "
+                          whileHover={{
+                            scale: 1.05,
+                            backgroundColor: "#4A90E2",
+                            transition: {
+                              duration: 0.2,
+                            },
+                          }}
+                        >
+                          <motion.span
+                            initial={{ rotate: 0 }}
+                            whileHover={{
+                              rotate: 360,
+                              transition: {
+                                duration: 0.5,
+                              },
+                            }}
+                            transition={{ duration: 0.5 }}
+                            className="inline-block mr-1 "
+                          >
+                            <FaSave />
+                          </motion.span>
+                          Save
+                        </motion.button>
+                      </DialogTrigger>
+                      <DialogContent className="w-full p-0 m-0">
+                        <AlertDialog>
+                          <div className="p-4 mb-4 text-yellow-800 border dark:bg-[#1d1c1a] bg-[#fafcff] border-yellow-300 rounded-lg text-yellow-300 dark:text-yellow-600 dark:border-yellow-800">
+                            <div className="flex items-center text-md font bold">
+                              <Save />
+                              <span className="sr-only">Info</span>
+                              <h3 className=" font-medium">
+                                Add {product?.title} ?
+                              </h3>
+                            </div>
+                            <div className="mt-2 mb-4 text-sm dark:text-[#7b8696] text-black/25">
+                              Are you sure you want to add this product?.
+                            </div>
+                            <div className="flex">
+                              <Button
+                                variant="default"
+                                type="button"
+                                onClick={handleConfirm}
+                              >
+                                Save
+                              </Button>
+                            </div>
+                          </div>
+                        </AlertDialog>
+                      </DialogContent>
+                    </Dialog>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      type="submit"
+                      className="bg-gray-800 text-white text-lg"
+                    >
+                      Save
+                    </button>
+                    <SubmitButtonT1 />
+                    <DangerModal
+                      title={`Add ${product?.title}`}
+                      message="Are you sure you want to add this product?"
+                      dangerOption="Add"
+                      cancelOption="Cancel"
+                      dangerAction={handleConfirm}
+                      cancelAction={() => setShowConfirmModal(false)}
+                      showModal={showConfirmModal}
+                      icon={<FaSave />}
+                    />
+                  </>
+                )}
               </div>
             </div>
           </form>

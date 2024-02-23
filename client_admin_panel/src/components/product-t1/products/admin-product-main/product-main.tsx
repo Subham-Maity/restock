@@ -26,11 +26,9 @@ import {
   setCategories,
 } from "@/lib/features/category/category-slice";
 import { fetchProductsByFiltersAsync } from "@/lib/features/product/product-pc-async-thunk";
-import ProductForm from "@/components/product-t1/update/update-product";
 import { DesktopFilter } from "@/components/product-t1/core/filter/desktop/product-filter";
 import { MobileFilter } from "@/components/product-t1/core/filter/mobile/product-filter";
 import { Grid } from "@/components/product-t1/grid/admin/grid";
-
 import { IFilter, KeyFilter } from "@/types/utility/core/filter/filter.type";
 import { useAppSelector } from "@/store/redux/useSelector";
 import { useProductsByFilters } from "@/lib/features/product/product-react-query";
@@ -38,14 +36,9 @@ import { useBrands } from "@/lib/features/brand/brand-react-query";
 import { useCategory } from "@/lib/features/category/category-react-query";
 import Sort from "@/components/product-t1/core/sort/sort";
 import { Pagination } from "@/components/product-t1/core/pagination/pagination";
+import AdminActionCreate from "@/components/product-t1/products/admin-action/admin-action-create";
+import { SortOption } from "@/types/utility/core/sort/sort.type";
 import { ResponsiveHeading } from "@/components/ui/typography/typography";
-
-interface SortOption {
-  _sort: string;
-  _order: string;
-
-  [key: string]: any;
-}
 
 export const AdminPcComponentProductList = () => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
@@ -174,6 +167,7 @@ export const AdminPcComponentProductList = () => {
             <ResponsiveHeading className="dark:text-[#919eab] text-[#837c78]">
               Admin
             </ResponsiveHeading>
+
             <div className="flex items-center">
               <Sort handleSort={handleSort} />
 
@@ -214,35 +208,7 @@ export const AdminPcComponentProductList = () => {
           <h2 id="products-heading" className="sr-only">
             Products
           </h2>
-          <BgAdminTailwindWrapper>
-            <div className="">
-              <div>
-                <button
-                  className="btn inline-flex rounded-md bg-green-600  dark:text-gray-200 hover:bg-green-500 dark:bg-green-700/60 px-4 py-1 text-lg font-semibold text-white shadow-sm dark:hover:bg-green-500/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-                  onClick={() =>
-                    (
-                      document.getElementById("my_modal_1") as HTMLDialogElement
-                    ).showModal()
-                  }
-                >
-                  Add New Product
-                </button>
-                <dialog id="my_modal_1" className="modal">
-                  <div className="modal-box max-w-fit bg-gray-200 dark:bg-gray-800">
-                    <ProductForm />
-                    <div className="modal-action">
-                      <form method="dialog">
-                        {/* if there is a button in form, it will close the modal */}
-                        <button className="btn btn-sm btn-circle btn-ghost absolute right-20 top-14 text-2xl font-extrabold">
-                          ✕
-                        </button>
-                      </form>
-                    </div>
-                  </div>
-                </dialog>
-              </div>
-            </div>
-          </BgAdminTailwindWrapper>
+          <AdminActionCreate />
           <div className="grid grid-cols-1 gap-x-2 gap-y-2 lg:grid-cols-4 mt-2">
             <BgAdminTailwindWrapper>
               <DesktopFilter

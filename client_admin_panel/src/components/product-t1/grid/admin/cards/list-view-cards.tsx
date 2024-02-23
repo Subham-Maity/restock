@@ -9,7 +9,7 @@ import {
   OPEN_MODAL,
   type1ProductDetails,
 } from "@/links/product-list";
-import AdminActionCard from "@/components/product-t1/grid/admin/admin-action/admin-action-card";
+import AdminActionUpdate from "@/components/product-t1/grid/admin/admin-action/admin-action-update";
 
 const ListViewCards = ({ products }: { products: any }) => {
   return (
@@ -33,7 +33,7 @@ const ListViewCards = ({ products }: { products: any }) => {
             href={type1ProductDetails + product.id + OPEN_MODAL}
           />
           <CardAdminInfo product={product} />
-          <AdminActionCard
+          <AdminActionUpdate
             href={editProduct}
             className="absolute top-0 right-0 z-10 mt-2"
           />
