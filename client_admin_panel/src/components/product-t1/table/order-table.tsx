@@ -24,7 +24,7 @@ import {
 } from "@/lib/features/order/order-async-thunk";
 import { SortOption } from "@/types/utility/core/sort/sort.type";
 import { useAppSelector } from "@/store/redux/useSelector";
-import { Pagination } from "@/components/product-t1/core/pagination/pagination";
+import { PaginationPage } from "@/components/product-t1/core/pagination/pagination";
 
 function OrderTable() {
   const [page, setPage] = useState(1);
@@ -217,12 +217,11 @@ function OrderTable() {
           </div>
         </div>
       </div>
-      <Pagination
+      <PaginationPage
         page={page}
-        setPage={setPage}
         handlePage={handlePage}
         totalItems={totalOrders}
-      ></Pagination>
+      ></PaginationPage>
     </div>
   );
 }

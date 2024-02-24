@@ -1,6 +1,6 @@
 import { ITEMS_PER_PAGE } from "@/constant/constants";
 import React from "react";
-import { Pagination, Button } from "@nextui-org/react";
+import { Pagination } from "@nextui-org/react";
 export function PaginationPage({
   page,
   handlePage,
