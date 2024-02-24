@@ -5,7 +5,7 @@ import {
   DialogContent,
   DialogTrigger,
 } from "@/components/ui/shadcn/dialog";
-import AddNewProductForm from "@/components/product-t1/create/product-form";
+import AddNewProductForm from "@/components/product-t1/create/product/product-form";
 import { ScrollArea } from "@/components/ui/shadcn/scroll-area";
 
 export default function AdminActionCreate() {

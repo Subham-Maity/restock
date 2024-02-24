@@ -1,6 +1,6 @@
 import React from "react";
-import AddNewProductForm from "@/components/product-t1/create/product-form";
-import ProductPreview from "@/components/product-t1/create/product-preview";
+import AddNewProductForm from "@/components/product-t1/create/product/product-form";
+import ProductPreview from "@/components/product-t1/create/product/product-preview";
 
 const ProductAddLayout = () => {
   return (

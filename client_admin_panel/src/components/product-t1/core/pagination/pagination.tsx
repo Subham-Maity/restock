@@ -13,13 +13,21 @@ export function PaginationPage({
   const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
 
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex items-center justify-between border-t border-gray-200 px-4 py-3 sm:px-6">
       <div className="hidden lg:block">
-        Showing {(page - 1) * ITEMS_PER_PAGE + 1} to{" "}
-        {page * ITEMS_PER_PAGE > totalItems
-          ? totalItems
-          : page * ITEMS_PER_PAGE}{" "}
-        of {totalItems} results
+        <p className="text-sm text-gray-700 dark:text-gray-200">
+          Showing
+          <span className="font-medium">
+            {(page - 1) * ITEMS_PER_PAGE + 1}
+          </span>{" "}
+          to
+          <span className="font-medium">
+            {page * ITEMS_PER_PAGE > totalItems
+              ? totalItems
+              : page * ITEMS_PER_PAGE}
+          </span>
+          of <span className="font-medium">{totalItems}</span> results
+        </p>
       </div>
       <Pagination
         loop

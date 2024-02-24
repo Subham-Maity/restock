@@ -11,6 +11,7 @@ import {
   CommandInput,
   CommandItem,
 } from "@/components/ui/shadcn/command";
+import Checkbox from "@/components/product-t1/core/filter/common/checkbox";
 
 const SHEET_SIDES = ["top", "right", "bottom", "left"] as const;
 
@@ -42,21 +43,12 @@ const MoreOptions = ({ options, section, handleFilter }: any) => (
                   }}
                 >
                   <div key={option.value} className="flex items-center">
-                    <input
-                      id={`filter-${section.id}-${optionIdx + 10}`}
-                      name={`${section.id}[]`}
-                      defaultValue={option.value}
-                      type="checkbox"
-                      defaultChecked={option.checked}
-                      onChange={(e) => handleFilter(e, section, option)}
-                      className="h-4 w-4 rounded border-gray-300 text-[#2c515d]"
+                    <Checkbox
+                      option={option}
+                      section={section}
+                      handleFilter={handleFilter}
+                      optionIdx={optionIdx}
                     />
-                    <label
-                      htmlFor={`filter-${section.id}-${optionIdx + 10}`}
-                      className="ml-3 text-sm text-gray-600 dark:text-white dark:hover:text-[#5ccef8] "
-                    >
-                      {option.label}
-                    </label>
                   </div>
                 </CommandItem>
               ))}
