@@ -57,7 +57,7 @@ import {
 import { AlertDialog } from "@/components/ui/shadcn/alert-dialog";
 import { usePathname, useRouter } from "next/navigation";
 import { Save } from "lucide-react";
-import SubmitButtonT1 from "@/components/product-t1/create/submit-button-t1";
+import SubmitButtonT1 from "@/components/product-t1/create/product/submit-button-t1";
 import {
   MODAL_AFTER_SAVE_REDIRECT,
   PATH_CHECK_PRODUCT_FORM,
