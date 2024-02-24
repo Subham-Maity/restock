@@ -4,8 +4,6 @@ import {
   PaginationEllipsis,
   PaginationItem,
   PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
 } from "@/components/ui/shadcn/pagination";
 import { ITEMS_PER_PAGE } from "@/constant/constants";
 import { Button } from "@/components/ui/shadcn/button";
