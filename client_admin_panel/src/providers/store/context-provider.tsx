@@ -29,6 +29,7 @@ const ContextProvider: React.FC<FormProviderProps> = ({ children }) => {
   const [infoData, setInfoData] = useState<InfoData>({
     softCap: 0,
   });
+
   const [product, setProduct] = useState<ProductData>({
     // Use ProductDataInterface here
     title: "",
@@ -43,12 +44,13 @@ const ContextProvider: React.FC<FormProviderProps> = ({ children }) => {
   }); // Add this line
 
   const [isDarkTheme, setIsDarkTheme] = useState<Boolean>(false);
-
+  const [openModal, setOpenModal] = useState<any>(false);
   const [isGrid, setIsGrid] = useState<Boolean>(true);
   const [prevPath, setPrevPath] = useState<string>("");
   const contextState: ContextState = {
     infoData,
     isDarkTheme,
+    openModal,
     isGrid,
     prevPath, // Add this line
     product, // Add this line
@@ -57,6 +59,7 @@ const ContextProvider: React.FC<FormProviderProps> = ({ children }) => {
   const contextDispatch: ContextDispatch = {
     setInfoData,
     setIsDarkTheme,
+    setOpenModal,
     setIsGrid,
     setPrevPath, // Add this line
     setProduct, // Add this line

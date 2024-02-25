@@ -68,7 +68,7 @@ export const navConfig: NavItem[] = [
       },
       {
         title: "Update Product",
-        href: "/edit-form",
+        href: "/product-t1-update-form",
         icon: FaCaretRight,
       },
       {

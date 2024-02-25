@@ -1,7 +1,7 @@
 import React from "react";
 
 import MarginWrapper from "@/wrapper/margin-wrapper";
-import Details from "@/components/product-t1/details/details";
+import Details from "@/components/product-t1/products/details/details";
 import IfUserThenIfAdmin from "@/providers/security/if-user-then-if-admin";
 import Dialog from "@/components/ui/custom-modal/route-modal";
 import PageMergin from "@/wrapper/page-mergin";
