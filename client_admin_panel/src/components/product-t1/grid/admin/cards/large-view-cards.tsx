@@ -4,13 +4,10 @@ import { LargeGridController } from "@/components/product-t1/grid/grid-control";
 import LargeViewCardsInfo from "@/components/product-t1/grid/common/card-info/large-view-cards-info";
 import { Card } from "@/components/ui/shadcn/card";
 import Link from "next/link";
-import {
-  editProduct,
-  OPEN_MODAL,
-  type1ProductDetails,
-} from "@/links/product-list";
-import CardAdminInfo from "@/components/product-t1/grid/admin/admin-info/card-admin-info";
-import AdminActionUpdate from "@/components/product-t1/grid/admin/admin-action/admin-action-update";
+import { OPEN_MODAL, type1ProductDetails } from "@/links/product-list";
+import CardInfo from "@/components/product-t1/grid/admin/info/card-info";
+import ActionUpdate from "@/components/product-t1/grid/admin/action/action-update";
+import { editProduct } from "@/links/product-update";
 
 const LargeViewCards = ({ products }: { products: any }) => {
   return (
@@ -38,9 +35,9 @@ const LargeViewCards = ({ products }: { products: any }) => {
               <LargeViewCardsInfo product={product} />
             </div>
           </Link>
-          <CardAdminInfo product={product} />
-          <AdminActionUpdate
-            href={editProduct}
+          <CardInfo product={product} />
+          <ActionUpdate
+            href={editProduct + product.id}
             className="absolute top-0 right-0 z-10 mt-2"
           />
         </Card>

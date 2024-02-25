@@ -6,6 +6,7 @@ export interface InfoData {
 }
 
 export interface ProductDataInterface {
+  id?: string;
   title: string;
   description: string;
   brand: string;
@@ -20,6 +21,7 @@ export interface ProductDataInterface {
 export interface ContextState {
   infoData: InfoData;
   isDarkTheme: Boolean;
+  openModal: any;
   isGrid: Boolean;
   prevPath: string;
   product: ProductDataInterface;
@@ -28,6 +30,7 @@ export interface ContextState {
 export interface ContextDispatch {
   setInfoData: React.Dispatch<React.SetStateAction<InfoData>>;
   setIsDarkTheme: React.Dispatch<React.SetStateAction<Boolean>>;
+  setOpenModal: React.Dispatch<React.SetStateAction<Boolean>>;
   setIsGrid: React.Dispatch<React.SetStateAction<Boolean>>;
   setPrevPath: React.Dispatch<React.SetStateAction<string>>;
   setProduct: React.Dispatch<React.SetStateAction<ProductDataInterface>>;
@@ -52,6 +55,7 @@ const defaultProductData: ProductDataInterface = {
 const defaultDispatch: ContextDispatch = {
   setInfoData: () => {},
   setIsDarkTheme: () => {},
+  setOpenModal: () => {},
   setIsGrid: () => {},
   setPrevPath: () => {},
   setProduct: () => {},
@@ -61,6 +65,7 @@ const defaultFormContext: ContextProps = {
   ...defaultDispatch,
   infoData: defaultInfoData,
   isDarkTheme: false,
+  openModal: false,
   isGrid: true,
   prevPath: "",
   product: defaultProductData,
