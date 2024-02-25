@@ -25,7 +25,7 @@ import {
 import { selectCategories } from "@/lib/features/category/category-slice";
 import { selectBrands } from "@/lib/features/brand/brand-slice";
 import { useAppSelector } from "@/store/redux/useSelector";
-import DangerModal from "@/components/ui/custom-modal/danger-modal";
+import DangerModalT1 from "@/components/ui/custom-modal/danger-modal-t1";
 import { Card, CardHeader, CardTitle } from "@/components/ui/shadcn/card";
 
 function ProductForm() {
@@ -548,7 +548,7 @@ function ProductForm() {
         </div>
       </form>
       {selectedProduct && (
-        <DangerModal
+        <DangerModalT1
           title={`Delete ${selectedProduct?.title}`}
           message="Are you sure you want to delete this Product ?"
           dangerOption="Delete"

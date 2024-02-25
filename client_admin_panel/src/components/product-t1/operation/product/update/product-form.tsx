@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import React, { useContext, useEffect, useState } from "react";
-import { FaSave } from "react-icons/fa";
+import { FaSave, FaTrashAlt } from "react-icons/fa";
 import { AppDispatch } from "@/store/redux/store";
 import {
   selectCategories,
@@ -53,21 +53,16 @@ import {
 import toast from "react-hot-toast";
 import Context, { ProductDataInterface } from "@/store/context/context";
 import { useUpdateProduct } from "@/lib/features/product/product-react-query";
-import DangerModal from "@/components/ui/custom-modal/danger-modal";
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from "@/components/ui/shadcn/dialog";
-import { AlertDialog } from "@/components/ui/shadcn/alert-dialog";
 import { useParams, usePathname } from "next/navigation";
-import { Save } from "lucide-react";
-import SubmitButtonT1 from "@/components/product-t1/operation/product/create/submit-button-t1";
-import {
-  MODAL_AFTER_SAVE_REDIRECT,
-  PATH_CHECK_PRODUCT_FORM,
-} from "@/links/product-create";
+import { Save, Trash2, Undo2 } from "lucide-react";
+import { MODAL_AFTER_SAVE_REDIRECT } from "@/links/product-create";
 import { fetchAllProductByIdAsync } from "@/lib/features/product/product-pc-async-thunk";
+import DangerDialog from "@/components/ui/custom-modal/danger-modal-t2";
+import {
+  MODAL_AFTER_SAVE_REDIRECT_U,
+  PATH_CHECK_PRODUCT_FORM_U_1,
+} from "@/links/product-update";
+import { Restore } from "@mui/icons-material";
 
 const INITIAL_FORM_STATE_PRODUCT_ADD_FORM: {
   title: string;
@@ -96,6 +91,8 @@ function UpdateProductForm() {
   const { data: categoryData, status: categoryStatus } = useCategory();
   const dispatch: AppDispatch = useDispatch();
   const params = useParams();
+  const path = usePathname();
+
   useEffect(() => {
     if (params.id) {
       dispatch(fetchAllProductByIdAsync(params.id));
@@ -105,7 +102,6 @@ function UpdateProductForm() {
   }, [params.id, dispatch]);
 
   const mutation = useUpdateProduct();
-  const [showConfirmModal, setShowConfirmModal] = useState(false);
   const { product, setProduct } = useContext(Context);
   const selectedProduct = useAppSelector(selectProductById);
   const { isDarkTheme } = useContext(Context);
@@ -180,7 +176,6 @@ function UpdateProductForm() {
       }));
     };
 
-  const path = usePathname();
   const onSubmit = (form: z.infer<typeof productValidationRules>) => {
     const productData: ProductDataInterface = {
       title: form.title,
@@ -199,7 +194,6 @@ function UpdateProductForm() {
     }
     // Set the product data and show the confirmation modal
     setFormProduct(productData);
-    setShowConfirmModal(true);
   };
 
   const handleConfirm = () => {
@@ -222,16 +216,13 @@ function UpdateProductForm() {
           setProduct(INITIAL_FORM_STATE_PRODUCT_ADD_FORM);
           setFormProduct(null);
 
-          // Show the modal
-          setShowConfirmModal(false);
-
-          if (path !== PATH_CHECK_PRODUCT_FORM) {
-            window.location.href = MODAL_AFTER_SAVE_REDIRECT;
+          if (path !== PATH_CHECK_PRODUCT_FORM_U_1 + params.id) {
+            window.location.href = MODAL_AFTER_SAVE_REDIRECT_U;
           }
         },
         onError: () => {
           // Check if the error response exists and has a message
-          toast.error(`Sorry! Unique title prevented creation of product 😰`, {
+          toast.error(`Sorry! There is some error 😰`, {
             duration: 4000,
             icon: "❓",
             style: {
@@ -240,11 +231,86 @@ function UpdateProductForm() {
             },
             position: "top-right",
           });
-          setShowConfirmModal(false);
         },
       });
     }
   };
+  const handleDelete = () => {
+    if (selectedProduct) {
+      const product = { ...selectedProduct };
+      product.deleted = true;
+      mutation.mutate(product, {
+        onSuccess: () => {
+          toast.success(`${product.title} is deleted successfully 😔`, {
+            duration: 4000,
+            icon: "🚀",
+            style: {
+              background: isDarkTheme ? "#232c37" : "#fff",
+              color: isDarkTheme ? "#fff" : "#000",
+            },
+            position: "top-right",
+          });
+          reset();
+          setProduct(INITIAL_FORM_STATE_PRODUCT_ADD_FORM);
+          setFormProduct(null);
+          if (path !== PATH_CHECK_PRODUCT_FORM_U_1 + params.id) {
+            window.location.href = MODAL_AFTER_SAVE_REDIRECT;
+          }
+        },
+        onError: () => {
+          // Check if the error response exists and has a message
+          toast.error(`Sorry! There is some error 😰`, {
+            duration: 4000,
+            icon: "❓",
+            style: {
+              background: isDarkTheme ? "#232c37" : "#fff",
+              color: isDarkTheme ? "#fff" : "#000",
+            },
+            position: "top-right",
+          });
+        },
+      });
+    }
+  };
+
+  const handleRestore = () => {
+    if (selectedProduct) {
+      const product = { ...selectedProduct };
+      product.deleted = false;
+      mutation.mutate(product, {
+        onSuccess: () => {
+          toast.success(`${product.title} is restored successfully 🥳`, {
+            duration: 4000,
+            icon: "🚀",
+            style: {
+              background: isDarkTheme ? "#232c37" : "#fff",
+              color: isDarkTheme ? "#fff" : "#000",
+            },
+            position: "top-right",
+          });
+          reset();
+          setProduct(INITIAL_FORM_STATE_PRODUCT_ADD_FORM);
+          setFormProduct(null);
+          if (path !== PATH_CHECK_PRODUCT_FORM_U_1 + params.id) {
+            window.location.href = MODAL_AFTER_SAVE_REDIRECT;
+          }
+        },
+        onError: () => {
+          // Check if the error response exists and has a message
+          toast.error(`Sorry! There is some error 😰`, {
+            duration: 4000,
+            icon: "❓",
+            style: {
+              background: isDarkTheme ? "#232c37" : "#fff",
+              color: isDarkTheme ? "#fff" : "#000",
+            },
+            position: "top-right",
+          });
+        },
+      });
+    }
+  };
+
   return (
     <>
       <Card className="default-card">
@@ -254,7 +320,7 @@ function UpdateProductForm() {
               <div className="p-8">
                 <div className="border-b dark:border-gray-400/25 border-gray-900/10 ">
                   <h2 className="block leading-6 text-gray-700 dark:text-gray-400 text-2xl font-semibold ">
-                    Add Product
+                    Update Product
                   </h2>
                   <div className="border-t mt-4 mb-2 border-gray-800 py-2 dark:border-gray-200  "></div>
                   <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -584,7 +650,6 @@ function UpdateProductForm() {
                         )}
                       />
                     </div>
-
                     <div className="sm:col-span-6">
                       <FormField
                         control={form.control}
@@ -637,84 +702,127 @@ function UpdateProductForm() {
               </div>
 
               <div className="flex items-center justify-end gap-x-6 pb-6">
-                {path && path !== PATH_CHECK_PRODUCT_FORM ? (
+                {selectedProduct && !selectedProduct?.deleted && (
                   <>
-                    <Dialog>
-                      <DialogTrigger asChild>
+                    <DangerDialog
+                      trigger={
                         <motion.button
                           type="submit"
-                          className="rounded-md bg-indigo-600 px-3 py-2 mt-1 text-md font-semibold text-white shadow-sm hover:bg-indigo-500 "
+                          className="inline-flex rounded-md px-3 border-2 py-2 text-md font-semibold text-grey text-red-900 dark:text-red-200 shadow-sm hover:bg-grey-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-600 border-red-600/50"
                           whileHover={{
                             scale: 1.05,
-                            backgroundColor: "#4A90E2",
-                            transition: {
-                              duration: 0.2,
-                            },
+                            backgroundColor: "#FF0000",
+                            color: "#FFFFFF",
                           }}
+                          whileTap={{ scale: 0.95 }}
+                          transition={{ duration: 0.2 }}
                         >
                           <motion.span
                             initial={{ rotate: 0 }}
-                            whileHover={{
-                              rotate: 360,
-                              transition: {
-                                duration: 0.5,
-                              },
-                            }}
+                            whileHover={{ rotate: 90 }}
                             transition={{ duration: 0.5 }}
-                            className="inline-block mr-1 "
+                            className="inline-block"
                           >
-                            <FaSave />
+                            <FaTrashAlt className="mt-0.5 mr-1" />
                           </motion.span>
-                          Save
+                          Delete
                         </motion.button>
-                      </DialogTrigger>
-                      <DialogContent className="w-full p-0 m-0">
-                        <AlertDialog>
-                          <div className="p-4 mb-4 text-yellow-800 border dark:bg-[#1d1c1a] bg-[#fafcff] border-yellow-300 rounded-lg text-yellow-300 dark:text-yellow-600 dark:border-yellow-800">
-                            <div className="flex items-center text-md font bold">
-                              <Save />
-                              <span className="sr-only">Info</span>
-                              <h3 className=" font-medium">
-                                Add {product?.title} ?
-                              </h3>
-                            </div>
-                            <div className="mt-2 mb-4 text-sm dark:text-[#7b8696] text-black/25">
-                              Are you sure you want to add this product?.
-                            </div>
-                            <div className="flex">
-                              <Button
-                                variant="default"
-                                type="button"
-                                onClick={handleConfirm}
-                              >
-                                Save
-                              </Button>
-                            </div>
-                          </div>
-                        </AlertDialog>
-                      </DialogContent>
-                    </Dialog>
-                  </>
-                ) : (
-                  <>
-                    <button
-                      type="submit"
-                      className="bg-gray-800 text-white text-lg"
-                    >
-                      Save
-                    </button>
-                    <SubmitButtonT1 />
-                    <DangerModal
-                      title={`Add ${product?.title}`}
-                      message="Are you sure you want to add this product?"
-                      dangerOption="Add"
-                      cancelOption="Cancel"
-                      dangerAction={handleConfirm}
-                      cancelAction={() => setShowConfirmModal(false)}
-                      showModal={showConfirmModal}
-                      icon={<FaSave />}
+                      }
+                      Icon={
+                        <Trash2 className="mr-2 dark:text-red-600 text-red-500" />
+                      }
+                      buttonText="Delete"
+                      title={`Delete ${selectedProduct.title} ?`}
+                      description="Are you sure you want to delete this product?"
+                      onClick={handleDelete}
                     />
                   </>
+                )}
+                {selectedProduct && !selectedProduct?.deleted && (
+                  <DangerDialog
+                    trigger={
+                      <motion.button
+                        type="submit"
+                        className="rounded-md bg-indigo-600 px-3 py-2 mt-1 text-md font-semibold text-white shadow-sm hover:bg-indigo-500 "
+                        whileHover={{
+                          scale: 1.05,
+                          backgroundColor: "#4A90E2",
+                          transition: {
+                            duration: 0.2,
+                          },
+                        }}
+                      >
+                        <motion.span
+                          initial={{ rotate: 0 }}
+                          whileHover={{
+                            rotate: 360,
+                            transition: {
+                              duration: 0.5,
+                            },
+                          }}
+                          transition={{ duration: 0.5 }}
+                          className="inline-block mr-1 "
+                        >
+                          <FaSave />
+                        </motion.span>
+                        Save
+                      </motion.button>
+                    }
+                    Icon={
+                      <Save className="mr-2 text-yellow-800 dark:text-yellow-600" />
+                    }
+                    titleTextClass="text-yellow-800 dark:text-yellow-600"
+                    descriptionTextClass="mt-2 mb-4 text-sm dark:text-[#7b8696] text-black/25"
+                    title={`Add ${product?.title}?`}
+                    description="Are you sure you want to add this product?"
+                    buttonText="Save"
+                    buttonClass=""
+                    buttonType="button"
+                    onClick={handleConfirm}
+                  />
+                )}
+                {selectedProduct && selectedProduct?.deleted && (
+                  <DangerDialog
+                    trigger={
+                      <motion.button
+                        type="submit"
+                        className="rounded-md bg-indigo-600 px-3 py-2 mt-1 text-md font-semibold text-white shadow-sm hover:bg-indigo-500 "
+                        whileHover={{
+                          scale: 1.05,
+                          backgroundColor: "#4A90E2",
+                          transition: {
+                            duration: 0.2,
+                          },
+                        }}
+                      >
+                        <motion.span
+                          initial={{ rotate: 0 }}
+                          whileHover={{
+                            rotate: 360,
+                            transition: {
+                              duration: 0.5,
+                            },
+                          }}
+                          transition={{ duration: 0.5 }}
+                          className="inline-block mr-1 "
+                        >
+                          <Restore />
+                        </motion.span>
+                        Restore Again
+                      </motion.button>
+                    }
+                    Icon={
+                      <Undo2 className="mr-2 text-yellow-800 dark:text-yellow-600" />
+                    }
+                    titleTextClass="text-yellow-800 dark:text-yellow-600"
+                    descriptionTextClass="mt-2 mb-4 text-sm dark:text-[#7b8696] text-black/25"
+                    buttonText="Restore"
+                    title={`Restore ${product?.title}?`}
+                    description="Are you sure you want to restore this product?"
+                    buttonClass=""
+                    buttonType="button"
+                    onClick={handleRestore}
+                  />
                 )}
               </div>
             </div>
