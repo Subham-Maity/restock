@@ -26,7 +26,6 @@ import {
 } from "@/lib/features/category/category-slice";
 import { DesktopFilter } from "@/components/product-t1/core/filter/desktop/product-filter";
 import { MobileFilter } from "@/components/product-t1/core/filter/mobile/product-filter";
-import { Grid } from "@/components/product-t1/grid/admin/grid";
 import { IFilter, KeyFilter } from "@/types/utility/core/filter/filter.type";
 import { useAppSelector } from "@/store/redux/useSelector";
 import { useProductsByFilters } from "@/lib/features/product/product-react-query";
@@ -38,6 +37,7 @@ import { SortOption } from "@/types/utility/core/sort/sort.type";
 import { ResponsiveHeading } from "@/components/ui/typography/typography";
 import { PaginationPage } from "@/components/product-t1/core/pagination/pagination";
 import { useSearchParams } from "next/navigation";
+import ActionDeleteProductTab from "@/components/product-t1/products/list/admin/action/action-delete-product-tab";
 
 export const AdminPcComponentProductList = () => {
   /**���������Dispatch For Redux Store���������*/
@@ -48,6 +48,16 @@ export const AdminPcComponentProductList = () => {
   const categories = useAppSelector(selectCategories);
   const status = useAppSelector(selectProductListStatus);
   const products = useAppSelector(selectAllProducts);
+
+  /**���������(*!Admin ONlY:)Filtering the products���������*/
+  const allProducts = products;
+
+  const deletedProducts = products.filter(
+    (product: { deleted: boolean }) => product.deleted,
+  );
+  const normalProducts = products.filter(
+    (product: { deleted: boolean }) => !product.deleted,
+  );
 
   /**���������States for holding the current component state���������*/
   /*Filter State */
@@ -67,6 +77,7 @@ export const AdminPcComponentProductList = () => {
 
   /*for view state*/
   const { isGrid, setIsGrid } = useContext(Context);
+  const [selected, setSelected] = React.useState("all");
 
   /*filter state*/
   const [filter, setFilter] = useState<KeyFilter>({});
@@ -229,8 +240,14 @@ export const AdminPcComponentProductList = () => {
               filters={filters}
               status={status}
             />
+
             <div className="lg:col-span-3">
-              <Grid products={products} status={status} />
+              <ActionDeleteProductTab
+                status={status}
+                allProducts={allProducts}
+                deletedProducts={deletedProducts}
+                normalProducts={normalProducts}
+              />
             </div>
           </div>
         </section>
