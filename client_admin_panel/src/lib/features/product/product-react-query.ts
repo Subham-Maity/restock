@@ -24,11 +24,10 @@ export function useProductsByFilters({
 }) {
   return useQuery(
     ["products", filter, sort, pagination, admin],
-    () =>
-      fetchProductsByFiltersQuery({ filter, sort, pagination, admin: false }),
+    () => fetchProductsByFiltersQuery({ filter, sort, pagination, admin }),
     {
-      staleTime: 10000, // 10 seconds in milliseconds
-      cacheTime: 30000, // 30 seconds in milliseconds
+      staleTime: 120000,
+      cacheTime: 180000,
     },
   );
 }

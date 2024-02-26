@@ -9,9 +9,11 @@ import MoreOptions from "@/components/product-t1/core/filter/common/more-options
 export const DesktopFilter = ({
   handleFilter,
   filters,
+  status,
 }: {
   handleFilter: (e: any, section: any, option: any) => void;
   filters: IFilter[];
+  status: any;
 }) => {
   const [searchTerms, setSearchTerms] = useState<string[]>(
     new Array(filters.length).fill(""),
@@ -63,6 +65,7 @@ export const DesktopFilter = ({
                         options={filteredOptions.slice(0, 10)}
                         section={section}
                         handleFilter={handleFilter}
+                        status={status}
                       />
                       {filteredOptions.length > 10 && (
                         <MoreOptions

@@ -12,16 +12,13 @@ import { usePathname } from "next/navigation";
 // Import your loader components
 import AntdDefaultSpin from "@/loader/spin/antd-default-spin";
 
-import ProductDetailsSkeleton from "@/loader/skeleton/product-main-pc-details-skeleton";
-import ProductListSkeleton from "@/loader/skeleton/product-main-pc-skeleton";
 import { useAppSelector } from "@/store/redux/useSelector";
 import { useCheckAuth } from "@/lib/features/auth/auth-react-query";
+import GridLargeViewSkeleton from "@/loader/skeleton/product-t1/grid-large-view-skeleton";
 
 const routes = [
-  { path: "orders", Loader: ProductDetailsSkeleton },
-  { path: "profile", Loader: ProductDetailsSkeleton },
-  { path: "details", Loader: ProductDetailsSkeleton },
-  { path: "components", Loader: ProductListSkeleton },
+  { path: "profile", Loader: GridLargeViewSkeleton },
+  { path: "details", Loader: GridLargeViewSkeleton },
 ];
 
 const CheckUser = ({ children }: { children: React.ReactNode }) => {

@@ -14,7 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import { AiOutlineZoomIn, AiOutlineZoomOut } from "react-icons/ai";
 import { IoClose } from "react-icons/io5";
-import ProductDetailsSkeleton from "@/loader/skeleton/product-main-pc-details-skeleton";
+import DetailsSkeleton from "@/loader/skeleton/product-t1/details-skeleton";
 import { useProductById } from "@/lib/features/product/product-react-query";
 import { setLoading } from "@/lib/features/brand/brand-slice";
 
@@ -50,7 +50,7 @@ export default function Details() {
   }, [dispatch, productsStatus, params.id]);
 
   if (!product) {
-    return <ProductDetailsSkeleton />;
+    return <DetailsSkeleton />;
   }
 
   if (!product.images || product.images.length === 0) {
