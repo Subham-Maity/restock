@@ -22,8 +22,13 @@ export function useProductsByFilters({
   pagination: Pagination;
   admin: boolean;
 }) {
-  return useQuery(["products", filter, sort, pagination, admin], () =>
-    fetchProductsByFiltersQuery({ filter, sort, pagination, admin: false }),
+  return useQuery(
+    ["products", filter, sort, pagination, admin],
+    () => fetchProductsByFiltersQuery({ filter, sort, pagination, admin }),
+    {
+      staleTime: 120000,
+      cacheTime: 180000,
+    },
   );
 }
 

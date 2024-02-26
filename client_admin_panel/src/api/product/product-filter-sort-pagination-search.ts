@@ -84,9 +84,11 @@ export async function fetchProductsByFiltersQuery({
   const data = await response.json();
   const totalItems = response.headers.get("X-Total-Count");
 
-  // Wrap the return value in a Promise
+  // Return data in the same format as async thunk
   return Promise.resolve({
-    products: data,
-    totalItems: totalItems ? +totalItems : 0,
+    data: {
+      products: data,
+      totalItems: totalItems ? +totalItems : 0,
+    },
   });
 }

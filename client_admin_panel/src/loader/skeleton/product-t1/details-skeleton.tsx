@@ -1,4 +1,4 @@
-export default function ProductDetailsSkeleton() {
+export default function DetailsSkeleton() {
   return (
     <div className="mx-auto 2xl:mx-10 max-w-8xl px-5 sm:px-6 xl:px-8 py-2 sm:py-2 lg:py-2">
       <nav aria-label="Breadcrumb" className="animate-pulse">

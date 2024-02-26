@@ -1,10 +1,10 @@
 import React from "react";
-import ProductDetailsSkeleton from "@/loader/skeleton/product-main-pc-details-skeleton";
+import DetailsSkeleton from "@/loader/skeleton/product-t1/details-skeleton";
 
 const Loading = () => {
   return (
     <div>
-      <ProductDetailsSkeleton />
+      <DetailsSkeleton />
     </div>
   );
 };

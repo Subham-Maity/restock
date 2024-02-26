@@ -28,6 +28,9 @@ export const productSlice = createSlice({
       state.products = action.payload;
       state.status = "idle";
     },
+    setTotalItems: (state, action) => {
+      state.totalItems = action.payload;
+    },
     fetchAllStoreProducts: (state, action) => {
       state.allProducts = action.payload;
       state.status = "idle";
@@ -99,6 +102,7 @@ export const {
   clearSelectedProduct,
   fetchProductsByFilters,
   fetchAllStoreProducts,
+  setTotalItems,
   fetchAllProductById,
   createProduct,
   updateProduct,

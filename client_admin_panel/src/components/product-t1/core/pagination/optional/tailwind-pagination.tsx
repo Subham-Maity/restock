@@ -46,7 +46,7 @@ export function PaginationPage({
         <div>
           <nav
             className="isolate inline-flex -space-x-px rounded-md shadow-sm ring-1 ring-inset ring-gray-400"
-            aria-label="Pagination"
+            aria-label="PaginationSkeleton"
           >
             <div
               onClick={() => handlePage(page > 1 ? page - 1 : page)}

@@ -10,7 +10,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/shadcn/alert-dialog";
 
-import { MouseEvent, ReactNode, useEffect, useState } from "react"; // Import ReactNode
+import { MouseEvent, ReactNode, useEffect, useState } from "react";
 
 interface ModalProps {
   title: string;
@@ -20,10 +20,10 @@ interface ModalProps {
   dangerAction: (e: MouseEvent<HTMLButtonElement>) => void;
   cancelAction: () => void;
   showModal: boolean | null;
-  icon: ReactNode; // Add icon prop
+  icon: ReactNode;
 }
 
-export default function DangerModal({
+export default function DangerModalT1({
   title,
   message,
   dangerOption,
@@ -31,7 +31,7 @@ export default function DangerModal({
   dangerAction,
   cancelAction,
   showModal,
-  icon, // Destructure icon prop
+  icon,
 }: ModalProps) {
   const [open, setOpen] = useState(false);
 

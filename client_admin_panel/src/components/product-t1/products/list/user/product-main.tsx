@@ -9,8 +9,8 @@ import {
   fetchProductsByFilters,
   selectAllProducts,
   selectProductListStatus,
-  selectTotalItems,
   setLoading,
+  setTotalItems,
 } from "@/lib/features/product/product-pc-slice";
 import { AppDispatch } from "@/store/redux/store";
 import { ITEMS_PER_PAGE } from "@/constant/constants";
@@ -25,7 +25,6 @@ import {
   selectCategories,
   setCategories,
 } from "@/lib/features/category/category-slice";
-import { fetchProductsByFiltersAsync } from "@/lib/features/product/product-pc-async-thunk";
 import { DesktopFilter } from "@/components/product-t1/core/filter/desktop/product-filter";
 import { MobileFilter } from "@/components/product-t1/core/filter/mobile/product-filter";
 import { Grid } from "@/components/product-t1/grid/user/grid";
@@ -38,6 +37,7 @@ import { useCategory } from "@/lib/features/category/category-react-query";
 import Sort from "@/components/product-t1/core/sort/sort";
 import { PaginationPage } from "@/components/product-t1/core/pagination/pagination";
 import { ResponsiveHeading } from "@/components/ui/typography/typography";
+import { useSearchParams } from "next/navigation";
 
 interface SortOption {
   _sort: string;
@@ -47,21 +47,18 @@ interface SortOption {
 }
 
 export const UserPcComponentProductList = () => {
-  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  /**���������Dispatch For Redux Store���������*/
   const dispatch: AppDispatch = useDispatch();
 
-  //react query
+  /**���������Selector for Data from Redux Store���������*/
   const brands = useAppSelector(selectBrands);
-  const status = useAppSelector(selectProductListStatus);
-
-  //react query
   const categories = useAppSelector(selectCategories);
+  const status = useAppSelector(selectProductListStatus);
   const products = useAppSelector(selectAllProducts);
-  const { isGrid, setIsGrid } = useContext(Context);
-  const totalItems = useAppSelector(selectTotalItems);
-  const { data: brandsData, status: brandsStatus } = useBrands();
-  const { data: categoryData, status: categoryStatus } = useCategory();
 
+  /**���������States for holding the current component state���������*/
+  /*Filter State */
+  //option available for filter
   const filters: IFilter[] = [
     {
       id: "category",
@@ -74,24 +71,51 @@ export const UserPcComponentProductList = () => {
       options: brands,
     },
   ];
+
+  /*for view state*/
+  const { isGrid, setIsGrid } = useContext(Context);
+
+  /*filter state*/
   const [filter, setFilter] = useState<KeyFilter>({});
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+
+  /*Sort State*/
   const [sort, setSort] = useState<SortOption>({
     _sort: "rating",
     _order: "desc",
   } as SortOption);
 
-  const [page, setPage] = useState(1);
-  const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
+  /*pagination State*/
+  //use for search params to get the page number
+  const searchParams = useSearchParams();
+  const page = searchParams.get("_page");
 
-  const { data: productsData, status: productsStatus } = useProductsByFilters({
-    filter,
-    sort,
-    pagination,
-    admin: false,
-  });
-  const handleFilter = (e: any, section: any, option: any) => {
+  // set the page number if not then default is 1
+  const pagination = {
+    _page: page ? parseInt(page) : 1,
+    _limit: ITEMS_PER_PAGE,
+  };
+
+  /**���������Handle Operations for passing the value to fetch function���������*/
+  /*Sort Operation*/
+  //Purpose: To sort the products by price, rating, and date
+  const handleSort = (option: SortOption) => {
+    const sort = { _sort: option.sort, _order: option.order };
+    setSort(sort);
+  };
+
+  /*Filter Operation*/
+  //Purpose: To filter the products by category and brand
+  // and take the filter option and set the filter state
+  const handleFilter = (
+    e: { target: { checked: any } },
+    section: { id: string | number },
+    option: { checked: any; value: string },
+  ) => {
     const newFilter = { ...filter };
-    if (e.target.checked) {
+    // If e is null, it means the function was called from onSelect
+    const isChecked = e ? e.target.checked : !option.checked;
+    if (isChecked) {
       if (newFilter[section.id]) {
         newFilter[section.id].push(option.value);
       } else {
@@ -106,59 +130,53 @@ export const UserPcComponentProductList = () => {
     setFilter(newFilter);
   };
 
-  const handleSort = (option: any) => {
-    const sort = { _sort: option.sort, _order: option.order };
-    setSort(sort);
+  /*Gird change Operation*/
+  const handleButtonClick = () => {
+    setIsGrid(!isGrid);
   };
 
-  const handlePage = (page: number) => {
-    setPage(page);
-  };
+  /**���������Fetching Operations���������*/
+  /*Fetch all products by filters (filter, sort, pagination and admin) in redux using a React query*/
+  const { data: productData, status: productStatus } = useProductsByFilters({
+    filter,
+    sort,
+    pagination,
+    admin: false,
+  });
 
-  useEffect(() => {
-    const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
-    dispatch(
-      fetchProductsByFiltersAsync({ filter, sort, pagination, admin: false }), //just change this flag to get user
-    );
-  }, [dispatch]);
+  /*Fetch all brands using a React query*/
+  const { data: brandsData, status: brandsStatus } = useBrands();
 
-  useEffect(() => {
-    setPage(1);
-  }, [totalItems, sort]);
+  /*Fetch all categories using a React query*/
+  const { data: categoryData, status: categoryStatus } = useCategory();
 
-  //If we use a React query, then we will use this useEffect
+  /**���������Set data in redux using a React query���������*/
   useEffect(() => {
-    if (productsStatus === "loading") {
+    if (productStatus === "loading") {
       dispatch(setLoading());
     }
-    if (productsStatus === "success") {
-      dispatch(fetchProductsByFilters(productsData.products));
+    if (productStatus === "success") {
+      dispatch(fetchProductsByFilters(productData.data.products));
+      dispatch(setTotalItems(productData.data.totalItems));
     }
-  }, [dispatch, productsData, productsStatus, filter, sort, page]);
+  }, [dispatch, productData, productStatus, filter, sort, page]);
 
+  /**Brands and Categories set in redux using a React query*/
   useEffect(() => {
-    if (brandsStatus === "loading") {
+    if (brandsStatus === "loading" || categoryStatus === "loading") {
       dispatch(setLoading());
     }
     if (brandsStatus === "success") {
       dispatch(setBrands(brandsData));
     }
-  }, [dispatch, brandsData, brandsStatus]);
-
-  useEffect(() => {
-    if (categoryStatus === "loading") {
-      dispatch(setLoading());
-    }
     if (categoryStatus === "success") {
       dispatch(setCategories(categoryData));
     }
-  }, [dispatch, categoryData, categoryStatus]);
-  const handleButtonClick = () => {
-    setIsGrid(!isGrid);
-  };
+  }, [dispatch, brandsData, brandsStatus, categoryData, categoryStatus]);
   return (
     <div>
       <MobileFilter
+        status={status}
         handleFilter={handleFilter}
         mobileFiltersOpen={mobileFiltersOpen}
         setMobileFiltersOpen={setMobileFiltersOpen}
@@ -215,6 +233,7 @@ export const UserPcComponentProductList = () => {
           <div className="grid grid-cols-1 gap-x-2 gap-y-2 lg:grid-cols-4 mt-2">
             <BgAdminTailwindWrapper>
               <DesktopFilter
+                status={status}
                 handleFilter={handleFilter}
                 filters={filters}
               ></DesktopFilter>
@@ -226,11 +245,7 @@ export const UserPcComponentProductList = () => {
           </div>
         </section>
         <BgAdminTailwindWrapper>
-          <PaginationPage
-            page={page}
-            handlePage={handlePage}
-            totalItems={totalItems}
-          ></PaginationPage>
+          <PaginationPage />
         </BgAdminTailwindWrapper>
       </main>
     </div>

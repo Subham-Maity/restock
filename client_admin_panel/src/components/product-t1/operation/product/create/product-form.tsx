@@ -49,20 +49,15 @@ import { setLoading } from "@/lib/features/product/product-pc-slice";
 import toast from "react-hot-toast";
 import Context, { ProductDataInterface } from "@/store/context/context";
 import { useCreateProduct } from "@/lib/features/product/product-react-query";
-import DangerModal from "@/components/ui/custom-modal/danger-modal";
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from "@/components/ui/shadcn/dialog";
-import { AlertDialog } from "@/components/ui/shadcn/alert-dialog";
-import { usePathname, useRouter } from "next/navigation";
+import DangerModalT1 from "@/components/ui/custom-modal/danger-modal-t1";
+import { usePathname } from "next/navigation";
 import { Save } from "lucide-react";
 import SubmitButtonT1 from "@/components/product-t1/operation/product/create/submit-button-t1";
 import {
   MODAL_AFTER_SAVE_REDIRECT,
   PATH_CHECK_PRODUCT_FORM,
 } from "@/links/product-create";
+import DangerDialog from "@/components/ui/custom-modal/danger-modal-t2";
 
 const INITIAL_FORM_STATE_PRODUCT_ADD_FORM: {
   title: string;
@@ -595,8 +590,8 @@ function AddNewProductForm() {
               <div className="flex items-center justify-end gap-x-6 pb-6">
                 {path && path !== PATH_CHECK_PRODUCT_FORM ? (
                   <>
-                    <Dialog>
-                      <DialogTrigger asChild>
+                    <DangerDialog
+                      trigger={
                         <motion.button
                           type="submit"
                           className="rounded-md bg-indigo-600 px-3 py-2 mt-1 text-md font-semibold text-white shadow-sm hover:bg-indigo-500 "
@@ -623,38 +618,24 @@ function AddNewProductForm() {
                           </motion.span>
                           Save
                         </motion.button>
-                      </DialogTrigger>
-                      <DialogContent className="w-full p-0 m-0">
-                        <AlertDialog>
-                          <div className="p-4 mb-4 text-yellow-800 border dark:bg-[#1d1c1a] bg-[#fafcff] border-yellow-300 rounded-lg text-yellow-300 dark:text-yellow-600 dark:border-yellow-800">
-                            <div className="flex items-center text-md font bold">
-                              <Save />
-                              <span className="sr-only">Info</span>
-                              <h3 className=" font-medium">
-                                Add {product?.title} ?
-                              </h3>
-                            </div>
-                            <div className="mt-2 mb-4 text-sm dark:text-[#7b8696] text-black/25">
-                              Are you sure you want to add this product?.
-                            </div>
-                            <div className="flex">
-                              <Button
-                                variant="default"
-                                type="button"
-                                onClick={handleConfirm}
-                              >
-                                Save
-                              </Button>
-                            </div>
-                          </div>
-                        </AlertDialog>
-                      </DialogContent>
-                    </Dialog>
+                      }
+                      Icon={
+                        <Save className="mr-2 text-yellow-800 dark:text-yellow-600" />
+                      }
+                      titleTextClass="text-yellow-800 dark:text-yellow-600"
+                      descriptionTextClass="mt-2 mb-4 text-sm dark:text-[#7b8696] text-black/25"
+                      title={`Add ${product?.title}?`}
+                      buttonText="Save"
+                      description="Are you sure you want to add this product?"
+                      buttonClass=""
+                      buttonType="button"
+                      onClick={handleConfirm}
+                    />
                   </>
                 ) : (
                   <>
                     <SubmitButtonT1 />
-                    <DangerModal
+                    <DangerModalT1
                       title={`Add ${product?.title}`}
                       message="Are you sure you want to add this product?"
                       dangerOption="Add"

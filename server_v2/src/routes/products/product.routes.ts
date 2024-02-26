@@ -15,6 +15,6 @@ const Product: Router = express.Router();
 Product.post("/", isAdmin, validate(productValidationRules), createProduct)
   .get("/", fetchProduct)
   .get("/:id", fetchProductById)
-  .patch("/:id", isAdmin, updateProduct);
+  .patch("/:id", isAdmin, validate(productValidationRules), updateProduct);
 
 export default Product;
