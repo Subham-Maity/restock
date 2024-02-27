@@ -77,7 +77,6 @@ export const AdminPcComponentProductList = () => {
 
   /*for view state*/
   const { isGrid, setIsGrid } = useContext(Context);
-  const [selected, setSelected] = React.useState("all");
 
   /*filter state*/
   const [filter, setFilter] = useState<KeyFilter>({});
@@ -233,7 +232,9 @@ export const AdminPcComponentProductList = () => {
           <h2 id="products-heading" className="sr-only">
             Products
           </h2>
+
           <ActionCreate />
+
           <div className="grid grid-cols-1 gap-x-2 gap-y-2 lg:grid-cols-4 mt-2">
             <DesktopFilter
               handleFilter={handleFilter}

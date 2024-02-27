@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/shadcn/tabs";
 import { AdminPcComponentProductList } from "@/components/product-t1/products/list/admin/product-main";
 import { UserPcComponentProductList } from "@/components/product-t1/products/list/user/product-main";
+import DataTableMain from "@/components/product-t1/data-table/data-table-main";
 
 const UiTabChange = () => {
   return (
@@ -14,6 +15,7 @@ const UiTabChange = () => {
       <TabsList className="default-card">
         <TabsTrigger value="admin">Admin View</TabsTrigger>
         <TabsTrigger value="user">User View</TabsTrigger>
+        <TabsTrigger value="table">Table View</TabsTrigger>
       </TabsList>
       <TabsContent value="admin">
         <AdminPcComponentProductList />
@@ -21,6 +23,7 @@ const UiTabChange = () => {
       <TabsContent value="user">
         <UserPcComponentProductList />
       </TabsContent>
+      <TabsContent value="table">{/*<DataTableMain />*/}</TabsContent>
     </Tabs>
   );
 };
