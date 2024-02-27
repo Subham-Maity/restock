@@ -2,6 +2,7 @@ import React from "react";
 import { Tab, Tabs } from "@nextui-org/react";
 import { Grid } from "@/components/product-t1/grid/admin/grid";
 import { Flame, Trash, Trash2 } from "lucide-react";
+import useScreenSize from "@/hooks/sreensize/useScreenSize";
 
 export default function ActionDeleteProductTab({
   status,
@@ -15,12 +16,13 @@ export default function ActionDeleteProductTab({
   normalProducts: any;
 }) {
   const [selected, setSelected] = React.useState("all");
-
+  const [width] = useScreenSize();
+  const isLargeScreen = width >= 1024;
   return (
     <>
       <Tabs
         fullWidth
-        size="md"
+        size={isLargeScreen ? "lg" : "sm"}
         aria-label="Options"
         color="primary"
         variant="bordered"

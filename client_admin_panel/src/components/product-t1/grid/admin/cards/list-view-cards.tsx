@@ -18,7 +18,9 @@ const ListViewCards = ({ products }: { products: any }) => {
         >
           <CustomCardT2
             product={product}
-            className={"w-full h-full object-fill rounded-t-sm object-center"}
+            className={
+              "w-[300px] h-[198px] object-fill rounded-sm object-center"
+            }
             height={300}
             width={300}
             href={type1ProductDetails + product.id + OPEN_MODAL}
