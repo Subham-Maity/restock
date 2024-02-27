@@ -28,6 +28,7 @@ interface DataType {
 
 const DataTable: React.FC = () => {
   const data = useAppSelector(selectAllProducts_);
+
   const { isDarkTheme, setIsDarkTheme } = useContext(Context);
   const columns: ColumnsType<DataType> = [
     {

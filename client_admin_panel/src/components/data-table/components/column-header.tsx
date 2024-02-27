@@ -1,3 +1,5 @@
+//Purpose: Data Table Column Header
+
 import {
   ArrowDownIcon,
   ArrowUpIcon,
@@ -6,6 +8,8 @@ import {
 } from "@radix-ui/react-icons";
 import { type Column } from "@tanstack/react-table";
 
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/shadcn/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,8 +17,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/shadcn/dropdown-menu";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/shadcn/button";
 
 interface DataTableColumnHeaderProps<TData, TValue>
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -22,7 +24,7 @@ interface DataTableColumnHeaderProps<TData, TValue>
   title: string;
 }
 
-export function DataTableColumnHeader<TData, TValue>({
+export function ColumnHeader<TData, TValue>({
   column,
   title,
   className,
@@ -34,7 +36,7 @@ export function DataTableColumnHeader<TData, TValue>({
   return (
     <div className={cn("flex items-center space-x-2", className)}>
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
+        <DropdownMenuTrigger asChild className="default-card">
           <Button
             aria-label={
               column.getIsSorted() === "desc"
@@ -57,7 +59,7 @@ export function DataTableColumnHeader<TData, TValue>({
             )}
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="start">
+        <DropdownMenuContent align="start" className="default-card">
           <DropdownMenuItem
             aria-label="Sort ascending"
             onClick={() => column.toggleSorting(false)}
