@@ -9,12 +9,12 @@ import type { Table } from "@tanstack/react-table";
 import { cn } from "@/lib/utils";
 import { Button, buttonVariants } from "@/components/ui/shadcn/button";
 import { Input } from "@/components/ui/shadcn/input";
+import { DataTableViewOptions } from "@/components/data-table/view-options";
+import { DataTableFacetedFilter } from "@/components/data-table/faceted-filter";
 import {
   DataTableFilterableColumn,
   DataTableSearchableColumn,
 } from "@/types/ui/data-table";
-import { DataTableFacetedFilter } from "@/components/product-t1/data-table/data-table-faceted-filter";
-import { DataTableViewOptions } from "@/components/product-t1/data-table/data-table-view-options";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
