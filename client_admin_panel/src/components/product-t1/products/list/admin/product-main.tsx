@@ -40,6 +40,9 @@ import { useSearchParams } from "next/navigation";
 import ActionDeleteProductTab from "@/components/product-t1/products/list/admin/action/action-delete-product-tab";
 
 export const AdminPcComponentProductList = () => {
+  /**���������Next Exclusive���������*/
+  const searchParams = useSearchParams();
+
   /**���������Dispatch For Redux Store���������*/
   const dispatch: AppDispatch = useDispatch();
 
@@ -83,14 +86,17 @@ export const AdminPcComponentProductList = () => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   /*Sort State*/
+
+  const sortParam = searchParams.get("_sort");
+  const orderParam = searchParams.get("_order");
+
   const [sort, setSort] = useState<SortOption>({
-    _sort: "rating",
-    _order: "desc",
+    _sort: sortParam || "rating",
+    _order: orderParam || "desc",
   } as SortOption);
 
   /*pagination State*/
   //use for search params to get the page number
-  const searchParams = useSearchParams();
   const page = searchParams.get("_page");
 
   // set the page number if not then default is 1

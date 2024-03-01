@@ -1,6 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/shadcn/checkbox";
-import { ColumnHeader } from "@/components/data-table/components/column-header";
+import { ColumnHeader } from "@/components/data-table/column-header";
 import Image from "next/image";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import {
@@ -13,7 +13,7 @@ import {
 import { Button } from "@/components/ui/shadcn/button";
 import { MoreHorizontal } from "lucide-react";
 import * as React from "react";
-import { Product } from "@/components/data-table/main";
+import { Product } from "@/components/product-t1/products/table/main";
 
 export const columns: ColumnDef<Product>[] = [
   {

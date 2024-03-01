@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { ChangeEvent, SetStateAction, useEffect, useState } from "react";
 
 import { useDispatch } from "react-redux";
 
@@ -31,36 +31,34 @@ function OrderTable() {
   const dispatch: AppDispatch = useDispatch();
   const orders: Order[] = useAppSelector(selectOrders);
   const totalOrders = useAppSelector(selectTotalOrders);
+  console.log(orders + " totalOrders: " + totalOrders);
   const [editableOrderId, setEditableOrderId] = useState(-1);
   const [sort, setSort] = useState<SortOption>({
     _sort: "rating",
     _order: "desc",
   } as SortOption);
 
-  const handleEdit = (order: any) => {
+  const handleEdit = (order: Order) => {
     setEditableOrderId(order.id);
   };
-  const handleShow = (order: any) => {
-    console.log("handleShow");
-  };
+  const handleShow = () => {};
 
-  const handleUpdate = (e: any, order: any) => {
+  const handleUpdate = (e: ChangeEvent<HTMLSelectElement>, order: Order) => {
     const updatedOrder = { ...order, status: e.target.value };
     dispatch(updateOrderAsync(updatedOrder));
     setEditableOrderId(-1);
   };
 
-  const handlePage = (page: any) => {
+  const handlePage = (page: SetStateAction<number>) => {
     setPage(page);
   };
 
-  const handleSort = (sortOption: any) => {
+  const handleSort = (sortOption: { sort: any; order: any }) => {
     const sort = { _sort: sortOption.sort, _order: sortOption.order };
-    console.log({ sort });
     setSort(sort);
   };
 
-  const chooseColor = (status: any) => {
+  const chooseColor = (status: string) => {
     switch (status) {
       case "pending":
         return "bg-purple-200 text-purple-600";
@@ -97,7 +95,7 @@ function OrderTable() {
                       })
                     }
                   >
-                    Order#{" "}
+                    Order#
                     {sort._sort === "id" &&
                       (sort._order === "asc" ? (
                         <ArrowUpIcon className="w-4 h-4 inline"></ArrowUpIcon>
@@ -199,7 +197,7 @@ function OrderTable() {
                         <div className="w-6 mr-4 transform hover:text-purple-500 hover:scale-120">
                           <EyeIcon
                             className="w-8 h-8"
-                            onClick={(e) => handleShow(order)}
+                            onClick={(e) => handleShow()}
                           ></EyeIcon>
                         </div>
                         <div className="w-6 mr-2 transform hover:text-purple-500 hover:scale-120">

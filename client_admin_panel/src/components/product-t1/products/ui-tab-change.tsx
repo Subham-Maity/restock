@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/shadcn/tabs";
 import { AdminPcComponentProductList } from "@/components/product-t1/products/list/admin/product-main";
 import { UserPcComponentProductList } from "@/components/product-t1/products/list/user/product-main";
-import TableMain from "@/components/data-table/main";
+import TableMain from "@/components/product-t1/products/table/main";
 
 const UiTabChange = () => {
   return (

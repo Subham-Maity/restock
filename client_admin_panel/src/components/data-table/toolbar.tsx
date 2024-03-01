@@ -9,8 +9,8 @@ import type { Table } from "@tanstack/react-table";
 import { cn } from "@/lib/utils";
 import { Button, buttonVariants } from "@/components/ui/shadcn/button";
 import { Input } from "@/components/ui/shadcn/input";
-import { DataTableViewOptions } from "@/components/data-table/components/view-options";
-import { DataTableFacetedFilter } from "@/components/data-table/components/faceted-filter";
+import { DataTableViewOptions } from "@/components/data-table/view-options";
+import { DataTableFacetedFilter } from "@/components/data-table/faceted-filter";
 import {
   DataTableFilterableColumn,
   DataTableSearchableColumn,

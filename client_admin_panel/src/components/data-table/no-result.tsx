@@ -1,6 +1,6 @@
 import React from "react";
 import { TableCell, TableRow } from "@/components/ui/shadcn/table";
-import { columns } from "@/components/data-table/components/column defs/column-defs";
+import { columns } from "@/components/product-t1/products/table/column defs/column-defs";
 
 const NoResult = () => {
   return (

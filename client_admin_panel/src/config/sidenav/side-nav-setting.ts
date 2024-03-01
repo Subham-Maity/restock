@@ -13,6 +13,50 @@ export const navConfig: NavItem[] = [
     icon: AiOutlineHome,
   },
   {
+    title: "Products View",
+    href: "/",
+    icon: RiComputerLine,
+    subNav: [
+      {
+        title: "ALL in One",
+        href: "/product-t1-product-list",
+        icon: FaCaretRight,
+      },
+      {
+        title: "Add Product",
+        href: "/product-t1-add-form",
+        icon: FaCaretRight,
+      },
+      {
+        title: "Update Product",
+        href: "/product-t1-update-form",
+        icon: FaCaretRight,
+      },
+    ],
+  },
+  {
+    title: "Order Operations",
+    href: "#",
+    icon: FaCaretRight,
+    subNav: [
+      {
+        title: "Dispatch Orders",
+        href: "/product-t1-order-update-form",
+        icon: FaCaretRight,
+      },
+    ],
+  },
+];
+
+// Demo - Not Used
+
+export const demoNavItem: NavItem[] = [
+  {
+    title: "Home",
+    href: "#",
+    icon: AiOutlineHome,
+  },
+  {
     title: "Dashboard",
     href: "/table",
     icon: MdDashboard,
