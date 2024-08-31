@@ -1,4 +1,5 @@
 # RESTOCK 🛒
+![thumb](https://github.com/user-attachments/assets/b7241787-4004-456d-a48f-5c1dafce3e00)
 
 > ## _Microservice architecture_
 > This is the main repository for the RESTOCK project. It contains the main web app, the admin panel, the chat service,
